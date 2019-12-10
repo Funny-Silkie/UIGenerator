@@ -21,7 +21,7 @@ namespace UIGenerator
             InitializeComponent();
             ComboBox_Type.DataSource = DataBase.Types;
             NumericUpDown_Mode.Minimum = DataBase.MinMode;
-            NumericUpDown_Mode.Maximum = DataBase.MaxMode;
+            NumericUpDown_Mode.Maximum = int.MaxValue;
         }
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -31,7 +31,7 @@ namespace UIGenerator
         {
             var mode = (int)NumericUpDown_Mode.Value;
             var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Type.Text);
-            if (mode > DataBase.MaxMode) DataBase.MaxMode = mode;
+            if (mode > DataBase.MaxMode) DataBase.SetMaxMode(mode, mainEdittor);
             DataBase.AddObject(UIInfoBase.GetInstance(type, mode, TextBox_Name.Text));
             var item = mainEdittor.ListView_Main.Items.Add(ComboBox_Type.Text);
             item.SubItems.Add(TextBox_Name.Text);

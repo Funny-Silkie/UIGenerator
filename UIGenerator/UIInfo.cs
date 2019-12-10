@@ -13,7 +13,7 @@ namespace UIGenerator
     {
         public abstract string Name { get; set; }
         public abstract int Mode { get; set; }
-        public abstract IUIElements UIObj { get; }
+        internal abstract Object2D UIObj { get; }
         protected private UIInfoBase()
         {
 
@@ -27,7 +27,7 @@ namespace UIGenerator
             }
         }
     }
-    public abstract class UIInfo<T> : UIInfoBase where T : IUIElements
+    public abstract class UIInfo<T> : UIInfoBase where T : Object2D, IUIElements
     {
         public override string Name
         {
@@ -40,8 +40,7 @@ namespace UIGenerator
             set => UIObject.Mode = value;
         }
         public T UIObject { get; }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public sealed override IUIElements UIObj => UIObject;
+        internal sealed override Object2D UIObj => UIObject;
         protected UIInfo(UITypes type, int mode, string name) : base()
         {
             UIObject = (T)GetUIElement(type, mode, name);
@@ -53,6 +52,8 @@ namespace UIGenerator
             switch (type)
             {
                 case UITypes.Window: return new UIWindow(mode, name);
+                case UITypes.Text: throw new NotImplementedException();
+                case UITypes.Texture: throw new NotImplementedException();
                 default: throw new ArgumentException();
             }
         }

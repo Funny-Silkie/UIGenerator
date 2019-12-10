@@ -35,7 +35,7 @@ namespace UIGenerator
         /// <summary>
         /// モードの最大値
         /// </summary>
-        public static int MaxMode { get; set; } = 0;
+        public static int MaxMode { get; private set; } = 0;
         public static int ShowMode { get; set; } = 0;
         internal static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
         /// <summary>
@@ -54,6 +54,12 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             UIInfos.Remove(info);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
+        }
+        public static void SetMaxMode(in int value, MainEdittor edittor)
+        {
+            MaxMode = value;
+            edittor.NumericUpDown_ShowMode.Maximum = value;
+            edittor.ComboBox_Filter_Mode.DataSource = Enumerable.Range(0, value + 1).ToArray();
         }
     }
 }

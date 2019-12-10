@@ -10,7 +10,11 @@ namespace UIGenerator
 {
     public class MainScene : Scene
     {
-        public Layer2DPlus MainLayer { get; } = new Layer2DPlus();
+        public Layer2DPlus MainLayer { get; }
+        public MainScene()
+        {
+            MainLayer = new Layer2DPlus() { Name = "Main" };
+        }
         protected override void OnRegistered()
         {
             AddLayer(MainLayer);
@@ -22,17 +26,18 @@ namespace UIGenerator
                 if (o.Mode == DataBase.ShowMode) RemoveObject(o);
                 if (o.Mode == mode) AddObject(o);
             }
+            DataBase.ShowMode = mode;
         }
         public void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            if (info.UIObj is Object2D obj && obj.Layer == null) MainLayer.AddObject(obj);
+            if (info.UIObj.Layer == null) MainLayer.AddObject(info.UIObj);
             else throw new ArgumentException();
         }
         public void RemoveObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            if (info.UIObj is Object2D obj && obj.Layer != null) MainLayer.RemoveObject(obj);
+            if (info.UIObj.Layer != null) MainLayer.RemoveObject(info.UIObj);
             else throw new ArgumentException();
         }
     }

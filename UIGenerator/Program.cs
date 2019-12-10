@@ -17,21 +17,21 @@ namespace UIGenerator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new StartForm());
-            UpdateAsync();
+            Engine.ChangeScene(new MainScene());
+            Run();
             while (Engine.DoEvents() && !b)
             {
                 Engine.Update();
             }
             Engine.Terminate();
         }
-        private static async void UpdateAsync()
+        private static async void Run()
         {
-            await Task.Run(() => Update());
-        }
-        private static void Update()
-        {
-            Application.Run(new MainEdittor());
-            b = true;
+            await Task.Run(() => 
+            {
+                Application.Run(new MainEdittor());
+                b = true;
+            });
         }
     }
 }

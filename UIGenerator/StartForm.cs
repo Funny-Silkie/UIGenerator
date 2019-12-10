@@ -18,13 +18,9 @@ namespace UIGenerator
         }
         private void Button_init_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(TextBox_length.Text, out int length) && int.TryParse(TextBox_wide.Text, out int wide))
+            if (int.TryParse(TextBox_length.Text, out int length) && int.TryParse(TextBox_wide.Text, out int wide) && length > 0 && wide > 0)
             {
-                if (length > 0 && wide > 0)
-                {
-                    asd.Engine.Initialize(TextBox_Name.Text, wide, length, new asd.EngineOption());
-                    asd.Engine.ChangeScene(new MainScene());
-                }
+                asd.Engine.Initialize(TextBox_Name.Text, wide, length, new asd.EngineOption());
                 Close();
             }
             TextBox_length.Text = "";

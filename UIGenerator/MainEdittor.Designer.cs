@@ -173,14 +173,14 @@
         private System.Windows.Forms.ToolStripMenuItem 名前を付けて保存ToolStripMenuItem;
         private System.Windows.Forms.ComboBox ComboBox_Filter_Type;
         private System.Windows.Forms.Label Label_Filter;
-        private System.Windows.Forms.ComboBox ComboBox_Filter_Mode;
         private System.Windows.Forms.ColumnHeader Type;
         private System.Windows.Forms.ColumnHeader Mode;
         private System.Windows.Forms.ColumnHeader ObjectName;
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 要素を追加するToolStripMenuItem;
         private System.Windows.Forms.Label Label_ShowMode;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
         public System.Windows.Forms.ListView ListView_Main;
+        public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
+        public System.Windows.Forms.ComboBox ComboBox_Filter_Mode;
     }
 }

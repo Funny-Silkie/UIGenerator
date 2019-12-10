@@ -94,9 +94,10 @@
             // 
             // Button_Add
             // 
+            this.Button_Add.AutoSize = true;
             this.Button_Add.Location = new System.Drawing.Point(192, 119);
             this.Button_Add.Name = "Button_Add";
-            this.Button_Add.Size = new System.Drawing.Size(75, 23);
+            this.Button_Add.Size = new System.Drawing.Size(75, 25);
             this.Button_Add.TabIndex = 4;
             this.Button_Add.Text = "Add";
             this.Button_Add.UseVisualStyleBackColor = true;

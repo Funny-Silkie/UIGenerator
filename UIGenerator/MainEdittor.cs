@@ -26,7 +26,7 @@ namespace UIGenerator
         }
         private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e)
         {
-
+            DataBase.MainScene.ChangeMode((int)NumericUpDown_ShowMode.Value);
         }
         private void 要素を追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
