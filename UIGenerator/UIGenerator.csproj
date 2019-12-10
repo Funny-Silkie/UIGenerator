@@ -60,6 +60,7 @@
     <Compile Include="AddWindow.Designer.cs">
       <DependentUpon>AddWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClickArg.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="MainEdittor.cs">
       <SubType>Form</SubType>
@@ -76,6 +77,9 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IUIElements.cs" />
+    <Compile Include="UIInfo.cs" />
+    <Compile Include="UIWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

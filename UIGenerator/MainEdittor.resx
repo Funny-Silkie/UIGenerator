@@ -235,7 +235,7 @@
     <value>5</value>
   </data>
   <data name="ComboBox_Filter_Type.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 100</value>
+    <value>121, 100</value>
   </data>
   <data name="ComboBox_Filter_Type.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -283,7 +283,7 @@
     <value>2</value>
   </data>
   <data name="ComboBox_Filter_Mode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 100</value>
+    <value>324, 100</value>
   </data>
   <data name="ComboBox_Filter_Mode.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
@@ -331,7 +331,7 @@
     <value>1</value>
   </data>
   <data name="NumericUpDown_ShowMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 54</value>
+    <value>122, 54</value>
   </data>
   <data name="NumericUpDown_ShowMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 22</value>

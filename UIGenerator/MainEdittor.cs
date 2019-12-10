@@ -13,8 +13,6 @@ namespace UIGenerator
 {
     public partial class MainEdittor : Form
     {
-        public const int MinMode = 0;
-        public int MaxMode { get; set; } = 0;
         public MainEdittor()
         {
             InitializeComponent();
@@ -23,8 +21,8 @@ namespace UIGenerator
             types.AddRange(DataBase.Types);
             ComboBox_Filter_Type.DataSource = types.ToArray();
             ComboBox_Filter_Type.SelectedIndex = 0;
-            NumericUpDown_ShowMode.Minimum = MinMode;
-            NumericUpDown_ShowMode.Maximum= MaxMode;
+            NumericUpDown_ShowMode.Minimum = DataBase.MinMode;
+            NumericUpDown_ShowMode.Maximum= DataBase.MaxMode;
         }
         private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e)
         {
@@ -32,7 +30,7 @@ namespace UIGenerator
         }
         private void 要素を追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!AddWindow.IsShown) new AddWindow().Show();
+            if (!AddWindow.IsShown) new AddWindow(this).Show();
         }
     }
 }

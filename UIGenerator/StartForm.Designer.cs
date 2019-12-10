@@ -57,7 +57,7 @@
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.開くToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(65, 26);
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.ファイルToolStripMenuItem.Text = "ファイル";
             // 
             // 開くToolStripMenuItem

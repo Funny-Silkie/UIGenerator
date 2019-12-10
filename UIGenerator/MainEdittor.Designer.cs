@@ -171,7 +171,6 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 上書き保存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 名前を付けて保存ToolStripMenuItem;
-        private System.Windows.Forms.ListView ListView_Main;
         private System.Windows.Forms.ComboBox ComboBox_Filter_Type;
         private System.Windows.Forms.Label Label_Filter;
         private System.Windows.Forms.ComboBox ComboBox_Filter_Mode;
@@ -182,5 +181,6 @@
         private System.Windows.Forms.ToolStripMenuItem 要素を追加するToolStripMenuItem;
         private System.Windows.Forms.Label Label_ShowMode;
         private System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
+        public System.Windows.Forms.ListView ListView_Main;
     }
 }

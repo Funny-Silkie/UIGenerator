@@ -12,18 +12,36 @@ namespace UIGenerator
 {
     public partial class AddWindow : Form
     {
+        private readonly MainEdittor mainEdittor;
         public static bool IsShown { get; set; } = false;
-        public AddWindow()
+        public AddWindow(MainEdittor main)
         {
+            mainEdittor = main ?? throw new ArgumentNullException();
             IsShown = true;
             InitializeComponent();
-            var types = new List<string>() { "All" };
-            types.AddRange(DataBase.Types);
-            ComboBox_Type.DataSource = types.ToArray();
+            ComboBox_Type.DataSource = DataBase.Types;
+            NumericUpDown_Mode.Minimum = DataBase.MinMode;
+            NumericUpDown_Mode.Maximum = DataBase.MaxMode;
         }
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             IsShown = false;
+        }
+        private void Button_Add_Click(object sender, EventArgs e)
+        {
+            var mode = (int)NumericUpDown_Mode.Value;
+            var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Type.Text);
+            if (mode > DataBase.MaxMode) DataBase.MaxMode = mode;
+            DataBase.AddObject(UIInfoBase.GetInstance(type, mode, TextBox_Name.Text));
+            var item = mainEdittor.ListView_Main.Items.Add(ComboBox_Type.Text);
+            item.SubItems.Add(TextBox_Name.Text);
+            item.SubItems.Add(mode.ToString());
+            Reset();
+        }
+        private void Reset()
+        {
+            TextBox_Name.Text = "";
+            NumericUpDown_Mode.Value = DataBase.MinMode;
         }
     }
 }
