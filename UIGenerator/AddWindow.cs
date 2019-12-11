@@ -36,7 +36,7 @@ namespace UIGenerator
             {
                 if (mode > DataBase.MaxMode) DataBase.SetMaxMode(mode, mainEdittor);
                 DataBase.AddObject(UIInfoBase.GetInstance(type, mode, name));
-                var item = mainEdittor.ListView_Main.Items.Add(name);
+                var item = mainEdittor.ListView_Main.Items.Add(type.ToString());
                 item.SubItems.Add(name);
                 item.SubItems.Add(mode.ToString());
                 Reset();

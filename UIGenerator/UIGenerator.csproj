@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -78,18 +79,37 @@
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IUIElements.cs" />
+    <Compile Include="TextEdittor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextEdittor.Designer.cs">
+      <DependentUpon>TextEdittor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIInfo.cs" />
     <Compile Include="UIText.cs" />
+    <Compile Include="UITexture.cs" />
     <Compile Include="UIWindow.cs" />
+    <Compile Include="WindowEditter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WindowEditter.Designer.cs">
+      <DependentUpon>WindowEditter.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="NotoSerifCJKjp-Medium.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Altseed.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Altseed_core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DefaultPicture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="fslib.dll">
@@ -108,6 +128,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextEdittor.resx">
+      <DependentUpon>TextEdittor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WindowEditter.resx">
+      <DependentUpon>WindowEditter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

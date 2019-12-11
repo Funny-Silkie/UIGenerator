@@ -100,11 +100,6 @@ namespace UIGenerator
             get => UIObject.Position;
             set => UIObject.Position = value;
         }
-        public Vector2DF CenterPosition
-        {
-            get => UIObject.CenterPosition;
-            set => UIObject.CenterPosition = value;
-        }
         public Vector2DF Size
         {
             get => UIObject.Size;

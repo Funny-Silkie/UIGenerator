@@ -31,13 +31,7 @@ namespace UIGenerator
         public void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            if (info.UIObj.Layer == null)
-                switch (info)
-                {
-                    case WindowInfo win: MainLayer.AddObject(win.UIObject); return;
-                    case TextInfo tt: MainLayer.AddObject(tt.UIObject); return;
-                    case TextureInfo te: MainLayer.AddObject(te.UIObject); return;
-                }
+            if (info.UIObj.Layer == null) Engine.AddObject2D(info.UIObj);
             else throw new ArgumentException();
         }
         public void RemoveObject(UIInfoBase info)

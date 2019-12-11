@@ -14,7 +14,7 @@ namespace UIGenerator
         public int Mode { get; set; }
         public string Name { get; set; }
         public UITypes Type => UITypes.Texture;
-        public event EventHandler MouseClicked;
+        public event EventHandler<ClickArg> MouseClicked;
         public event EventHandler MouseEnter;
         public event EventHandler MouseExit;
         public UITexture(int mode, string name) : base(DataBase.DefaultTexture)
@@ -29,22 +29,22 @@ namespace UIGenerator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public sealed override void OnCursorEnter()
         {
-            MouseEnter.Invoke(this, EventArgs.Empty);
+            MouseEnter?.Invoke(this, EventArgs.Empty);
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public sealed override void OnCursorExit()
         {
-            MouseExit.Invoke(this, EventArgs.Empty);
+            MouseExit?.Invoke(this, EventArgs.Empty);
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public sealed override void OnLeftPushed()
         {
-            MouseClicked.Invoke(this, new ClickArg(MouseButtons.ButtonLeft));
+            MouseClicked?.Invoke(this, new ClickArg(MouseButtons.ButtonLeft));
         }
         [EditorBrowsable(EditorBrowsableState.Never)]
         public sealed override void OnRightPushed()
         {
-            MouseClicked.Invoke(this, new ClickArg(MouseButtons.ButtonRight));
+            MouseClicked?.Invoke(this, new ClickArg(MouseButtons.ButtonRight));
         }
     }
 }

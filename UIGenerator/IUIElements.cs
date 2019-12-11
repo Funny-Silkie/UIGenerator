@@ -28,7 +28,7 @@ namespace UIGenerator
         /// <summary>
         /// マウスでクリックされたときのイベント
         /// </summary>
-        event EventHandler MouseClicked;
+        event EventHandler<ClickArg> MouseClicked;
         /// <summary>
         /// マウスカーソルと重なったときのイベント
         /// </summary>
