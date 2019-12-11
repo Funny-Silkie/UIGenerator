@@ -33,23 +33,34 @@ namespace UIGenerator
     }
     public abstract class UIInfo<T> : UIInfoBase where T : Object2D, IUIElements
     {
-        public override string Name
+        public sealed override string Name
         {
             get => UIObject.Name;
-            set => UIObject.Name = value;
+            set
+            {
+                var oldName = UIObject.Name;
+                if (value != oldName)
+                {
+                    DataBase.UIInfos.Remove(UIObject.Mode, oldName);
+                    DataBase.UIInfos.Add(UIObject.Mode, value, this);
+                    UIObject.Name = value;
+                }
+            }
         }
-        public override int Mode
+        public sealed override int Mode
         {
             get => UIObject.Mode;
             set
             {
-                if (value != UIObject.Mode)
+                var oldMode = UIObject.Mode;
+                if (value != oldMode)
                 {
-                    var oldMode = UIObject.Mode;
                     if (oldMode == DataBase.ShowMode && UIObject.Layer != null) DataBase.MainScene.MainLayer.RemoveObject(UIObject);
                     if (value == DataBase.ShowMode) DataBase.MainScene.MainLayer.AddObject(UIObject);
+                    DataBase.UIInfos.Remove(oldMode, UIObject.Name);
+                    DataBase.UIInfos.Add(value, UIObject.Name, this);
+                    UIObject.Mode = value;
                 }
-                UIObject.Mode = value;
             }
         }
         public T UIObject { get; }
@@ -180,48 +191,32 @@ namespace UIGenerator
                 {
                     //ToDo:ここでフォーム内容変更
                     UIObject.Font = DataBase.DefaultFont;
-                    _fontColor = new ColorDefault(ColorSet.White);
+                    FontColor = new ColorDefault(ColorSet.White);
                     FontPath = "NotoSerifCJKjp-Medium.otf";
-                    _fontSize = 30;
-                    _outLineColor = new ColorDefault(ColorSet.Black);
-                    _outLineSize = 1;
+                    FontSize = 30;
+                    OutLineColor = new ColorDefault(ColorSet.Black);
+                    OutLineSize = 1;
                 }
                 else UIObject.Font = value;
             }
         }
-        public int FontSize
-        {
-            get => _fontSize;
-            set
-            {
-                _fontSize = value;
-                Font = Engine.Graphics.CreateDynamicFont(FontPath, _fontSize, _fontColor, _outLineSize, _outLineColor);
-            }
-        }
-        private int _fontSize = 30;
-        public Color FontColor;
-        private Color _fontColor = new ColorDefault(ColorSet.White);
+        public int FontSize { get; set; } = 30;
+        public Color FontColor { get; set; } = new ColorDefault(ColorSet.White);
         public string FontPath { get; set; } = "NotoSerifCJKjp-Medium.otf";
-        public int OutLineSize
+        public int OutLineSize { get; set; } = 1;
+        public Color OutLineColor { get; set; } = new ColorDefault(ColorSet.Black);
+        internal void SetFont()
         {
-            get => _outLineSize;
-            set
+            var extension = System.IO.Path.GetExtension(FontPath);
+            switch (extension)
             {
-                _outLineSize = value;
-                Font = Engine.Graphics.CreateDynamicFont(FontPath, _fontSize, _fontColor, _outLineSize, _outLineColor);
+                case ".aff": Font = Engine.Graphics.CreateFont(FontPath); break;
+                case ".otf":
+                case ".ttf":
+                case ".ttc": Font = Engine.Graphics.CreateDynamicFont(FontPath, FontSize, FontColor, OutLineSize, OutLineColor); break;
+                default: Font = null; break;
             }
         }
-        private int _outLineSize = 1;
-        public Color OutLineColor
-        {
-            get => _outLineColor;
-            set
-            {
-                _outLineColor = value;
-                Font = Engine.Graphics.CreateDynamicFont(FontPath, _fontSize, _fontColor, _outLineSize, _outLineColor);
-            }
-        }
-        private Color _outLineColor = new ColorDefault(ColorSet.Black);
         public TextInfo(int mode, string name) : base(UITypes.Text, mode, name)
         {
 
@@ -229,6 +224,7 @@ namespace UIGenerator
     }
     public class TextureInfo : UIInfo<UITexture>
     {
+        internal WindowEditter Editter => (WindowEditter)HandleForm;
         public override UITypes Type => UITypes.Texture;
         public bool IsClickable
         {
@@ -266,7 +262,7 @@ namespace UIGenerator
                     TexturePath = "DefaultPicture.png";
                 }
                 else UIObject.Texture = value;
-                //TDo:Sizeの変更
+                //TDo:フォームのSizeの変更
             }
         }
         public string TexturePath { get; set; } = "DefaultPicture.png";
