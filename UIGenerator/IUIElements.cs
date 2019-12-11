@@ -22,6 +22,10 @@ namespace UIGenerator
         /// </summary>
         string Name { get; set; }
         /// <summary>
+        /// 自身のタイプを取得する
+        /// </summary>
+        UITypes Type { get; }
+        /// <summary>
         /// マウスでクリックされたときのイベント
         /// </summary>
         event EventHandler MouseClicked;

@@ -192,27 +192,6 @@
   <data name="要素を追加するToolStripMenuItem.Text" xml:space="preserve">
     <value>要素を追加する</value>
   </data>
-  <data name="ListView_Main.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 138</value>
-  </data>
-  <data name="ListView_Main.Size" type="System.Drawing.Size, System.Drawing">
-    <value>776, 357</value>
-  </data>
-  <data name="ListView_Main.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Name" xml:space="preserve">
-    <value>ListView_Main</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="Type.Text" xml:space="preserve">
     <value>Type</value>
   </data>
@@ -233,6 +212,27 @@
   </data>
   <data name="Mode.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
+  </data>
+  <data name="ListView_Main.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 138</value>
+  </data>
+  <data name="ListView_Main.Size" type="System.Drawing.Size, System.Drawing">
+    <value>776, 357</value>
+  </data>
+  <data name="ListView_Main.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Name" xml:space="preserve">
+    <value>ListView_Main</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="ComboBox_Filter_Type.Location" type="System.Drawing.Point, System.Drawing">
     <value>121, 100</value>

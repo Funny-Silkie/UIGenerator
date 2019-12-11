@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="IUIElements.cs" />
     <Compile Include="UIInfo.cs" />
+    <Compile Include="UIText.cs" />
     <Compile Include="UIWindow.cs" />
   </ItemGroup>
   <ItemGroup>

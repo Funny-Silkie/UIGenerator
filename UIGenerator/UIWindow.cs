@@ -13,6 +13,7 @@ namespace UIGenerator
     {
         public int Mode { get; set; }
         public string Name { get; set; }
+        public UITypes Type => UITypes.Window;
         public UIWindow(int mode, string name) : base(default, -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
         {
             Mode = mode;

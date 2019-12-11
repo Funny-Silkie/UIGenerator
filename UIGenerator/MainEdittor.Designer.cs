@@ -101,6 +101,7 @@
             this.ListView_Main.Name = "ListView_Main";
             this.ListView_Main.UseCompatibleStateImageBehavior = false;
             this.ListView_Main.View = System.Windows.Forms.View.Details;
+            this.ListView_Main.ItemActivate += new System.EventHandler(this.ListView_Main_ItemActivate);
             // 
             // Type
             // 

@@ -13,7 +13,7 @@ namespace UIGenerator
         public Layer2DPlus MainLayer { get; }
         public MainScene()
         {
-            MainLayer = new Layer2DPlus() { Name = "Main" };
+            MainLayer = new Layer2DPlus();
         }
         protected override void OnRegistered()
         {
@@ -23,15 +23,21 @@ namespace UIGenerator
         {
             foreach (var o in DataBase.UIInfos)
             {
-                if (o.Mode == DataBase.ShowMode) RemoveObject(o);
-                if (o.Mode == mode) AddObject(o);
+                if (o.Value.Mode == DataBase.ShowMode) RemoveObject(o.Value);
+                if (o.Value.Mode == mode) AddObject(o.Value);
             }
             DataBase.ShowMode = mode;
         }
         public void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            if (info.UIObj.Layer == null) MainLayer.AddObject(info.UIObj);
+            if (info.UIObj.Layer == null)
+                switch (info)
+                {
+                    case WindowInfo win: MainLayer.AddObject(win.UIObject); return;
+                    case TextInfo tt: MainLayer.AddObject(tt.UIObject); return;
+                    case TextureInfo te: MainLayer.AddObject(te.UIObject); return;
+                }
             else throw new ArgumentException();
         }
         public void RemoveObject(UIInfoBase info)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using asd;
 using fslib;
+using fslib.Collections;
 
 namespace UIGenerator
 {
@@ -42,17 +43,21 @@ namespace UIGenerator
         /// メインのシーン
         /// </summary>
         public static MainScene MainScene { get; } = new MainScene();
-        public static List<UIInfoBase> UIInfos { get; } = new List<UIInfoBase>();
+        public static DoubleKeyDictionary<int, string, UIInfoBase> UIInfos { get; } = new DoubleKeyDictionary<int, string, UIInfoBase>();
+        public static Font DefaultFont => _defaultFont ?? (_defaultFont = Engine.Graphics.CreateDynamicFont("NotoSerifCJKjp-Medium.otf", 30, new ColorDefault(ColorSet.White), 1, new ColorDefault(ColorSet.Black)));
+        private static Font _defaultFont;
+        public static Texture2D DefaultTexture => _defaultTexture ?? (_defaultTexture = Engine.Graphics.CreateTexture2D("DefaultPicture.png"));
+        private static Texture2D _defaultTexture;
         public static void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            UIInfos.Add(info);
+            UIInfos.Add(info.Mode, info.Name, info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
         public static void RemoveObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            UIInfos.Remove(info);
+            UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
         }
         public static void SetMaxMode(in int value, MainEdittor edittor)

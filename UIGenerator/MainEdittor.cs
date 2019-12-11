@@ -32,5 +32,24 @@ namespace UIGenerator
         {
             if (!AddWindow.IsShown) new AddWindow(this).Show();
         }
+        private void ListView_Main_ItemActivate(object sender, EventArgs e)
+        {
+            var selected = ListView_Main.SelectedItems;
+            if (selected.Count > 0)
+            {
+                var first = selected[0];
+                var name = first.SubItems[0].Text;
+                var mode = int.Parse(first.SubItems[1].Text);
+                var element = DataBase.UIInfos[mode, name];
+                if (element.HandleForm == null)
+                    switch (element.Type)
+                    {
+                        case UITypes.Text: throw new NotImplementedException();
+                        case UITypes.Texture: throw new NotImplementedException();
+                        case UITypes.Window: new WindowEditter((WindowInfo)element).Show(); return;
+                        default: throw new InvalidOperationException();
+                    }
+            }
+        }
     }
 }

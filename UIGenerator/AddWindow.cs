@@ -31,12 +31,16 @@ namespace UIGenerator
         {
             var mode = (int)NumericUpDown_Mode.Value;
             var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Type.Text);
-            if (mode > DataBase.MaxMode) DataBase.SetMaxMode(mode, mainEdittor);
-            DataBase.AddObject(UIInfoBase.GetInstance(type, mode, TextBox_Name.Text));
-            var item = mainEdittor.ListView_Main.Items.Add(ComboBox_Type.Text);
-            item.SubItems.Add(TextBox_Name.Text);
-            item.SubItems.Add(mode.ToString());
-            Reset();
+            var name = TextBox_Name.Text;
+            if (!DataBase.UIInfos.ContainsKeyPair(mode, name))
+            {
+                if (mode > DataBase.MaxMode) DataBase.SetMaxMode(mode, mainEdittor);
+                DataBase.AddObject(UIInfoBase.GetInstance(type, mode, name));
+                var item = mainEdittor.ListView_Main.Items.Add(name);
+                item.SubItems.Add(name);
+                item.SubItems.Add(mode.ToString());
+                Reset();
+            }
         }
         private void Reset()
         {
