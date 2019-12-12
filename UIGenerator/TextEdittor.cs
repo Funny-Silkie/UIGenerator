@@ -40,6 +40,8 @@ namespace UIGenerator
             TextBox_Name.Text = info.Name;
             CheckBox_IsClickable.Checked = info.IsClickable;
             RichTextBox_Text.Text = info.UIObject.Text;
+            ComboBox_Direction.DataSource = Enum.GetValues(typeof(WritingDirection));
+            ComboBox_Direction.SelectedIndex = (int)info.UIObject.WritingDirection;
         }
         private void TextEdittor_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -96,6 +98,15 @@ namespace UIGenerator
         private void RichTextBox_Text_TextChanged(object sender, EventArgs e)
         {
             info.UIObject.Text = RichTextBox_Text.Text;
+            ReSize();
+        }
+        private void ComboBox_Direction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            info.WritingDirection = (WritingDirection)Enum.Parse(typeof(WritingDirection), ComboBox_Direction.Text);
+            ReSize();
+        }
+        private void ReSize()
+        {
             var s = info.Font.CalcTextureSize(RichTextBox_Text.Text, info.WritingDirection);
             var scale = info.UIObject.Scale;
             var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);

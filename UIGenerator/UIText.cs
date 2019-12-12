@@ -14,7 +14,7 @@ namespace UIGenerator
         public int Mode { get; set; }
         public string Name { get; set; }
         public UITypes Type => UITypes.Text;
-        public UIText(int mode, string name) : base(DataBase.DefaultFont, "Text")
+        public UIText(int mode, string name) : base(DataBase.DefaultFont.Font, "Text")
         {
             Mode = mode;
             Name = name;

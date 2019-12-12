@@ -64,6 +64,10 @@
             this.Label_Mode = new System.Windows.Forms.Label();
             this.Label_Text = new System.Windows.Forms.Label();
             this.RichTextBox_Text = new System.Windows.Forms.RichTextBox();
+            this.ComboBox_Font = new System.Windows.Forms.ComboBox();
+            this.Label_Font = new System.Windows.Forms.Label();
+            this.Label_Direction = new System.Windows.Forms.Label();
+            this.ComboBox_Direction = new System.Windows.Forms.ComboBox();
             this.Panel_Positions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CenterPos_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_Y)).BeginInit();
@@ -109,9 +113,9 @@
             this.Panel_Positions.Controls.Add(this.Label_Size);
             this.Panel_Positions.Controls.Add(this.Label_Pos_X);
             this.Panel_Positions.Controls.Add(this.Label_Position);
-            this.Panel_Positions.Location = new System.Drawing.Point(33, 381);
+            this.Panel_Positions.Location = new System.Drawing.Point(36, 488);
             this.Panel_Positions.Name = "Panel_Positions";
-            this.Panel_Positions.Size = new System.Drawing.Size(563, 166);
+            this.Panel_Positions.Size = new System.Drawing.Size(566, 166);
             this.Panel_Positions.TabIndex = 19;
             // 
             // NumericUpDown_CenterPos_Y
@@ -342,7 +346,7 @@
             this.Panel_Color.Controls.Add(this.Label_Color_B);
             this.Panel_Color.Controls.Add(this.Label_Color);
             this.Panel_Color.Controls.Add(this.Label_Color_R);
-            this.Panel_Color.Location = new System.Drawing.Point(30, 262);
+            this.Panel_Color.Location = new System.Drawing.Point(36, 369);
             this.Panel_Color.Name = "Panel_Color";
             this.Panel_Color.Size = new System.Drawing.Size(566, 88);
             this.Panel_Color.TabIndex = 17;
@@ -523,17 +527,59 @@
             this.RichTextBox_Text.DetectUrls = false;
             this.RichTextBox_Text.Location = new System.Drawing.Point(36, 145);
             this.RichTextBox_Text.Name = "RichTextBox_Text";
-            this.RichTextBox_Text.Size = new System.Drawing.Size(560, 96);
+            this.RichTextBox_Text.Size = new System.Drawing.Size(566, 96);
             this.RichTextBox_Text.TabIndex = 21;
             this.RichTextBox_Text.Text = "";
             this.RichTextBox_Text.WordWrap = false;
             this.RichTextBox_Text.TextChanged += new System.EventHandler(this.RichTextBox_Text_TextChanged);
             // 
+            // ComboBox_Font
+            // 
+            this.ComboBox_Font.BackColor = System.Drawing.SystemColors.Window;
+            this.ComboBox_Font.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Font.FormattingEnabled = true;
+            this.ComboBox_Font.Location = new System.Drawing.Point(124, 277);
+            this.ComboBox_Font.Name = "ComboBox_Font";
+            this.ComboBox_Font.Size = new System.Drawing.Size(478, 23);
+            this.ComboBox_Font.TabIndex = 22;
+            // 
+            // Label_Font
+            // 
+            this.Label_Font.AutoSize = true;
+            this.Label_Font.Location = new System.Drawing.Point(33, 280);
+            this.Label_Font.Name = "Label_Font";
+            this.Label_Font.Size = new System.Drawing.Size(36, 15);
+            this.Label_Font.TabIndex = 23;
+            this.Label_Font.Text = "Font";
+            // 
+            // Label_Direction
+            // 
+            this.Label_Direction.AutoSize = true;
+            this.Label_Direction.Location = new System.Drawing.Point(33, 321);
+            this.Label_Direction.Name = "Label_Direction";
+            this.Label_Direction.Size = new System.Drawing.Size(107, 15);
+            this.Label_Direction.TabIndex = 23;
+            this.Label_Direction.Text = "WritingDirection";
+            // 
+            // ComboBox_Direction
+            // 
+            this.ComboBox_Direction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Direction.FormattingEnabled = true;
+            this.ComboBox_Direction.Location = new System.Drawing.Point(185, 318);
+            this.ComboBox_Direction.Name = "ComboBox_Direction";
+            this.ComboBox_Direction.Size = new System.Drawing.Size(169, 23);
+            this.ComboBox_Direction.TabIndex = 24;
+            this.ComboBox_Direction.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Direction_SelectedIndexChanged);
+            // 
             // TextEdittor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 621);
+            this.ClientSize = new System.Drawing.Size(652, 691);
+            this.Controls.Add(this.ComboBox_Direction);
+            this.Controls.Add(this.Label_Direction);
+            this.Controls.Add(this.Label_Font);
+            this.Controls.Add(this.ComboBox_Font);
             this.Controls.Add(this.RichTextBox_Text);
             this.Controls.Add(this.Label_Text);
             this.Controls.Add(this.Button_NameSet);
@@ -608,5 +654,9 @@
         private System.Windows.Forms.Label Label_Mode;
         private System.Windows.Forms.Label Label_Text;
         private System.Windows.Forms.RichTextBox RichTextBox_Text;
+        private System.Windows.Forms.Label Label_Font;
+        private System.Windows.Forms.Label Label_Direction;
+        private System.Windows.Forms.ComboBox ComboBox_Direction;
+        public System.Windows.Forms.ComboBox ComboBox_Font;
     }
 }

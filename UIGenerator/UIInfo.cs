@@ -180,37 +180,7 @@ namespace UIGenerator
         public Font Font
         {
             get => UIObject.Font;
-            set
-            {
-                if (value == null)
-                {
-                    //ToDo:ここでフォーム内容変更
-                    UIObject.Font = DataBase.DefaultFont;
-                    FontColor = new ColorDefault(ColorSet.White);
-                    FontPath = "NotoSerifCJKjp-Medium.otf";
-                    FontSize = 30;
-                    OutLineColor = new ColorDefault(ColorSet.Black);
-                    OutLineSize = 1;
-                }
-                else UIObject.Font = value;
-            }
-        }
-        public int FontSize { get; set; } = 30;
-        public Color FontColor { get; set; } = new ColorDefault(ColorSet.White);
-        public string FontPath { get; set; } = "NotoSerifCJKjp-Medium.otf";
-        public int OutLineSize { get; set; } = 1;
-        public Color OutLineColor { get; set; } = new ColorDefault(ColorSet.Black);
-        internal void SetFont()
-        {
-            var extension = System.IO.Path.GetExtension(FontPath);
-            switch (extension)
-            {
-                case ".aff": Font = Engine.Graphics.CreateFont(FontPath); break;
-                case ".otf":
-                case ".ttf":
-                case ".ttc": Font = Engine.Graphics.CreateDynamicFont(FontPath, FontSize, FontColor, OutLineSize, OutLineColor); break;
-                default: Font = null; break;
-            }
+            set => UIObject.Font = value ?? DataBase.DefaultFont.Font;
         }
         public TextInfo(int mode, string name) : base(UITypes.Text, mode, name)
         {

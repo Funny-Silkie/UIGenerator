@@ -63,6 +63,8 @@
     </Compile>
     <Compile Include="ClickArg.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="FontCollection.cs" />
+    <Compile Include="FontInfo.cs" />
     <Compile Include="MainEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
