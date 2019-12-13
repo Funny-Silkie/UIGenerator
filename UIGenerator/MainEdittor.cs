@@ -53,6 +53,10 @@ namespace UIGenerator
         }
         private void フォントを追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!FontAddForm.Instanced) new FontAddForm().Show();
+        }
+        private void テクスチャを追加するToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -159,6 +159,7 @@
             // 
             this.テクスチャを追加するToolStripMenuItem.Name = "テクスチャを追加するToolStripMenuItem";
             resources.ApplyResources(this.テクスチャを追加するToolStripMenuItem, "テクスチャを追加するToolStripMenuItem");
+            this.テクスチャを追加するToolStripMenuItem.Click += new System.EventHandler(this.テクスチャを追加するToolStripMenuItem_Click);
             // 
             // MainEdittor
             // 

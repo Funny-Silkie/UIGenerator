@@ -12,6 +12,7 @@ namespace UIGenerator
     public class Program
     {
         static bool b = false;
+        [STAThread]
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();

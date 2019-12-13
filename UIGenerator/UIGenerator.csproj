@@ -63,6 +63,12 @@
     </Compile>
     <Compile Include="ClickArg.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="FontAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FontAddForm.Designer.cs">
+      <DependentUpon>FontAddForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontCollection.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="MainEdittor.cs">
@@ -129,6 +135,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddWindow.resx">
       <DependentUpon>AddWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FontAddForm.resx">
+      <DependentUpon>FontAddForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainEdittor.is.resx">
       <DependentUpon>MainEdittor.cs</DependentUpon>

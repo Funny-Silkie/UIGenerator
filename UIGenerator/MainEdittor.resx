@@ -156,7 +156,7 @@
     <value>Alt+E</value>
   </data>
   <data name="編集ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 24</value>
+    <value>53, 26</value>
   </data>
   <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
     <value>編集</value>
@@ -165,7 +165,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 28</value>
+    <value>800, 30</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
