@@ -1,6 +1,6 @@
 ﻿namespace UIGenerator
 {
-    partial class TextEdittor
+    partial class TextureEdittor
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.Button_NameSet = new System.Windows.Forms.Button();
+            this.NumericUpDown_Priority = new System.Windows.Forms.NumericUpDown();
+            this.Label_Priority = new System.Windows.Forms.Label();
+            this.CheckBox_IsClickable = new System.Windows.Forms.CheckBox();
+            this.NumericUpDown_Mode = new System.Windows.Forms.NumericUpDown();
+            this.TextBox_Name = new System.Windows.Forms.TextBox();
+            this.Label_Name = new System.Windows.Forms.Label();
+            this.Label_Mode = new System.Windows.Forms.Label();
             this.Panel_Positions = new System.Windows.Forms.Panel();
             this.NumericUpDown_CenterPos_Y = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_Size_Y = new System.Windows.Forms.NumericUpDown();
@@ -45,8 +52,6 @@
             this.Label_Size = new System.Windows.Forms.Label();
             this.Label_Pos_X = new System.Windows.Forms.Label();
             this.Label_Position = new System.Windows.Forms.Label();
-            this.NumericUpDown_Priority = new System.Windows.Forms.NumericUpDown();
-            this.Label_Priority = new System.Windows.Forms.Label();
             this.Panel_Color = new System.Windows.Forms.Panel();
             this.NumericUpDown_A = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_B = new System.Windows.Forms.NumericUpDown();
@@ -57,17 +62,10 @@
             this.Label_Color_B = new System.Windows.Forms.Label();
             this.Label_Color = new System.Windows.Forms.Label();
             this.Label_Color_R = new System.Windows.Forms.Label();
-            this.CheckBox_IsClickable = new System.Windows.Forms.CheckBox();
-            this.NumericUpDown_Mode = new System.Windows.Forms.NumericUpDown();
-            this.TextBox_Name = new System.Windows.Forms.TextBox();
-            this.Label_Name = new System.Windows.Forms.Label();
-            this.Label_Mode = new System.Windows.Forms.Label();
-            this.Label_Text = new System.Windows.Forms.Label();
-            this.RichTextBox_Text = new System.Windows.Forms.RichTextBox();
-            this.ComboBox_Font = new System.Windows.Forms.ComboBox();
-            this.Label_Font = new System.Windows.Forms.Label();
-            this.Label_Direction = new System.Windows.Forms.Label();
-            this.ComboBox_Direction = new System.Windows.Forms.ComboBox();
+            this.Label_Texture = new System.Windows.Forms.Label();
+            this.ComboBox_Texture = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Priority)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).BeginInit();
             this.Panel_Positions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CenterPos_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_Y)).BeginInit();
@@ -75,25 +73,95 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CenterPos_X)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_X)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_X)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Priority)).BeginInit();
             this.Panel_Color.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_B)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_G)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_R)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).BeginInit();
             this.SuspendLayout();
             // 
             // Button_NameSet
             // 
             this.Button_NameSet.AutoSize = true;
-            this.Button_NameSet.Location = new System.Drawing.Point(495, 23);
+            this.Button_NameSet.Location = new System.Drawing.Point(493, 22);
             this.Button_NameSet.Name = "Button_NameSet";
             this.Button_NameSet.Size = new System.Drawing.Size(75, 25);
-            this.Button_NameSet.TabIndex = 13;
+            this.Button_NameSet.TabIndex = 23;
             this.Button_NameSet.Text = "Set";
             this.Button_NameSet.UseVisualStyleBackColor = true;
             this.Button_NameSet.Click += new System.EventHandler(this.Button_NameSet_Click);
+            // 
+            // NumericUpDown_Priority
+            // 
+            this.NumericUpDown_Priority.Location = new System.Drawing.Point(326, 73);
+            this.NumericUpDown_Priority.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.NumericUpDown_Priority.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_Priority.Name = "NumericUpDown_Priority";
+            this.NumericUpDown_Priority.Size = new System.Drawing.Size(68, 22);
+            this.NumericUpDown_Priority.TabIndex = 25;
+            this.NumericUpDown_Priority.ValueChanged += new System.EventHandler(this.NumericUpDown_Priority_ValueChanged);
+            // 
+            // Label_Priority
+            // 
+            this.Label_Priority.AutoSize = true;
+            this.Label_Priority.Location = new System.Drawing.Point(167, 75);
+            this.Label_Priority.Name = "Label_Priority";
+            this.Label_Priority.Size = new System.Drawing.Size(102, 15);
+            this.Label_Priority.TabIndex = 26;
+            this.Label_Priority.Text = "DrawingPriority";
+            // 
+            // CheckBox_IsClickable
+            // 
+            this.CheckBox_IsClickable.AutoSize = true;
+            this.CheckBox_IsClickable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CheckBox_IsClickable.Location = new System.Drawing.Point(31, 74);
+            this.CheckBox_IsClickable.Name = "CheckBox_IsClickable";
+            this.CheckBox_IsClickable.Size = new System.Drawing.Size(96, 19);
+            this.CheckBox_IsClickable.TabIndex = 24;
+            this.CheckBox_IsClickable.Text = "IsClickable";
+            this.CheckBox_IsClickable.UseVisualStyleBackColor = true;
+            this.CheckBox_IsClickable.CheckedChanged += new System.EventHandler(this.CheckBox_IsClickable_CheckedChanged);
+            // 
+            // NumericUpDown_Mode
+            // 
+            this.NumericUpDown_Mode.Location = new System.Drawing.Point(95, 24);
+            this.NumericUpDown_Mode.Name = "NumericUpDown_Mode";
+            this.NumericUpDown_Mode.Size = new System.Drawing.Size(72, 22);
+            this.NumericUpDown_Mode.TabIndex = 19;
+            this.NumericUpDown_Mode.ValueChanged += new System.EventHandler(this.NumericUpDown_Mode_ValueChanged);
+            // 
+            // TextBox_Name
+            // 
+            this.TextBox_Name.Location = new System.Drawing.Point(285, 23);
+            this.TextBox_Name.Name = "TextBox_Name";
+            this.TextBox_Name.Size = new System.Drawing.Size(175, 22);
+            this.TextBox_Name.TabIndex = 22;
+            // 
+            // Label_Name
+            // 
+            this.Label_Name.AutoSize = true;
+            this.Label_Name.Location = new System.Drawing.Point(215, 26);
+            this.Label_Name.Name = "Label_Name";
+            this.Label_Name.Size = new System.Drawing.Size(43, 15);
+            this.Label_Name.TabIndex = 20;
+            this.Label_Name.Text = "Name";
+            // 
+            // Label_Mode
+            // 
+            this.Label_Mode.AutoSize = true;
+            this.Label_Mode.Location = new System.Drawing.Point(31, 26);
+            this.Label_Mode.Name = "Label_Mode";
+            this.Label_Mode.Size = new System.Drawing.Size(41, 15);
+            this.Label_Mode.TabIndex = 21;
+            this.Label_Mode.Text = "Mode";
             // 
             // Panel_Positions
             // 
@@ -113,10 +181,10 @@
             this.Panel_Positions.Controls.Add(this.Label_Size);
             this.Panel_Positions.Controls.Add(this.Label_Pos_X);
             this.Panel_Positions.Controls.Add(this.Label_Position);
-            this.Panel_Positions.Location = new System.Drawing.Point(36, 532);
+            this.Panel_Positions.Location = new System.Drawing.Point(34, 335);
             this.Panel_Positions.Name = "Panel_Positions";
             this.Panel_Positions.Size = new System.Drawing.Size(566, 166);
-            this.Panel_Positions.TabIndex = 19;
+            this.Panel_Positions.TabIndex = 28;
             // 
             // NumericUpDown_CenterPos_Y
             // 
@@ -307,33 +375,6 @@
             this.Label_Position.TabIndex = 0;
             this.Label_Position.Text = "Position";
             // 
-            // NumericUpDown_Priority
-            // 
-            this.NumericUpDown_Priority.Location = new System.Drawing.Point(328, 74);
-            this.NumericUpDown_Priority.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.NumericUpDown_Priority.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.NumericUpDown_Priority.Name = "NumericUpDown_Priority";
-            this.NumericUpDown_Priority.Size = new System.Drawing.Size(68, 22);
-            this.NumericUpDown_Priority.TabIndex = 15;
-            this.NumericUpDown_Priority.ValueChanged += new System.EventHandler(this.NumericUpDown_Priority_ValueChanged);
-            // 
-            // Label_Priority
-            // 
-            this.Label_Priority.AutoSize = true;
-            this.Label_Priority.Location = new System.Drawing.Point(169, 76);
-            this.Label_Priority.Name = "Label_Priority";
-            this.Label_Priority.Size = new System.Drawing.Size(102, 15);
-            this.Label_Priority.TabIndex = 18;
-            this.Label_Priority.Text = "DrawingPriority";
-            // 
             // Panel_Color
             // 
             this.Panel_Color.BackColor = System.Drawing.Color.White;
@@ -346,10 +387,10 @@
             this.Panel_Color.Controls.Add(this.Label_Color_B);
             this.Panel_Color.Controls.Add(this.Label_Color);
             this.Panel_Color.Controls.Add(this.Label_Color_R);
-            this.Panel_Color.Location = new System.Drawing.Point(36, 413);
+            this.Panel_Color.Location = new System.Drawing.Point(34, 216);
             this.Panel_Color.Name = "Panel_Color";
             this.Panel_Color.Size = new System.Drawing.Size(566, 88);
-            this.Panel_Color.TabIndex = 17;
+            this.Panel_Color.TabIndex = 27;
             // 
             // NumericUpDown_A
             // 
@@ -468,133 +509,46 @@
             this.Label_Color_R.TabIndex = 0;
             this.Label_Color_R.Text = "R";
             // 
-            // CheckBox_IsClickable
+            // Label_Texture
             // 
-            this.CheckBox_IsClickable.AutoSize = true;
-            this.CheckBox_IsClickable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CheckBox_IsClickable.Location = new System.Drawing.Point(33, 75);
-            this.CheckBox_IsClickable.Name = "CheckBox_IsClickable";
-            this.CheckBox_IsClickable.Size = new System.Drawing.Size(96, 19);
-            this.CheckBox_IsClickable.TabIndex = 14;
-            this.CheckBox_IsClickable.Text = "IsClickable";
-            this.CheckBox_IsClickable.UseVisualStyleBackColor = true;
-            this.CheckBox_IsClickable.CheckedChanged += new System.EventHandler(this.CheckBox_IsClickable_CheckedChanged);
+            this.Label_Texture.AutoSize = true;
+            this.Label_Texture.Location = new System.Drawing.Point(31, 119);
+            this.Label_Texture.Name = "Label_Texture";
+            this.Label_Texture.Size = new System.Drawing.Size(57, 15);
+            this.Label_Texture.TabIndex = 29;
+            this.Label_Texture.Text = "Texture";
             // 
-            // NumericUpDown_Mode
+            // ComboBox_Texture
             // 
-            this.NumericUpDown_Mode.Location = new System.Drawing.Point(97, 25);
-            this.NumericUpDown_Mode.Name = "NumericUpDown_Mode";
-            this.NumericUpDown_Mode.Size = new System.Drawing.Size(72, 22);
-            this.NumericUpDown_Mode.TabIndex = 9;
-            this.NumericUpDown_Mode.ValueChanged += new System.EventHandler(this.NumericUpDown_Mode_ValueChanged);
+            this.ComboBox_Texture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Texture.FormattingEnabled = true;
+            this.ComboBox_Texture.Location = new System.Drawing.Point(34, 153);
+            this.ComboBox_Texture.Name = "ComboBox_Texture";
+            this.ComboBox_Texture.Size = new System.Drawing.Size(566, 23);
+            this.ComboBox_Texture.TabIndex = 30;
             // 
-            // TextBox_Name
-            // 
-            this.TextBox_Name.Location = new System.Drawing.Point(287, 24);
-            this.TextBox_Name.Name = "TextBox_Name";
-            this.TextBox_Name.Size = new System.Drawing.Size(175, 22);
-            this.TextBox_Name.TabIndex = 12;
-            // 
-            // Label_Name
-            // 
-            this.Label_Name.AutoSize = true;
-            this.Label_Name.Location = new System.Drawing.Point(217, 27);
-            this.Label_Name.Name = "Label_Name";
-            this.Label_Name.Size = new System.Drawing.Size(43, 15);
-            this.Label_Name.TabIndex = 10;
-            this.Label_Name.Text = "Name";
-            // 
-            // Label_Mode
-            // 
-            this.Label_Mode.AutoSize = true;
-            this.Label_Mode.Location = new System.Drawing.Point(33, 27);
-            this.Label_Mode.Name = "Label_Mode";
-            this.Label_Mode.Size = new System.Drawing.Size(41, 15);
-            this.Label_Mode.TabIndex = 11;
-            this.Label_Mode.Text = "Mode";
-            // 
-            // Label_Text
-            // 
-            this.Label_Text.AutoSize = true;
-            this.Label_Text.Location = new System.Drawing.Point(33, 118);
-            this.Label_Text.Name = "Label_Text";
-            this.Label_Text.Size = new System.Drawing.Size(36, 15);
-            this.Label_Text.TabIndex = 20;
-            this.Label_Text.Text = "Text";
-            // 
-            // RichTextBox_Text
-            // 
-            this.RichTextBox_Text.DetectUrls = false;
-            this.RichTextBox_Text.Location = new System.Drawing.Point(36, 145);
-            this.RichTextBox_Text.Name = "RichTextBox_Text";
-            this.RichTextBox_Text.Size = new System.Drawing.Size(566, 96);
-            this.RichTextBox_Text.TabIndex = 21;
-            this.RichTextBox_Text.Text = "";
-            this.RichTextBox_Text.WordWrap = false;
-            this.RichTextBox_Text.TextChanged += new System.EventHandler(this.RichTextBox_Text_TextChanged);
-            // 
-            // ComboBox_Font
-            // 
-            this.ComboBox_Font.BackColor = System.Drawing.SystemColors.Window;
-            this.ComboBox_Font.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_Font.FormattingEnabled = true;
-            this.ComboBox_Font.Location = new System.Drawing.Point(36, 319);
-            this.ComboBox_Font.Name = "ComboBox_Font";
-            this.ComboBox_Font.Size = new System.Drawing.Size(566, 23);
-            this.ComboBox_Font.TabIndex = 22;
-            // 
-            // Label_Font
-            // 
-            this.Label_Font.AutoSize = true;
-            this.Label_Font.Location = new System.Drawing.Point(33, 280);
-            this.Label_Font.Name = "Label_Font";
-            this.Label_Font.Size = new System.Drawing.Size(36, 15);
-            this.Label_Font.TabIndex = 23;
-            this.Label_Font.Text = "Font";
-            // 
-            // Label_Direction
-            // 
-            this.Label_Direction.AutoSize = true;
-            this.Label_Direction.Location = new System.Drawing.Point(33, 365);
-            this.Label_Direction.Name = "Label_Direction";
-            this.Label_Direction.Size = new System.Drawing.Size(107, 15);
-            this.Label_Direction.TabIndex = 23;
-            this.Label_Direction.Text = "WritingDirection";
-            // 
-            // ComboBox_Direction
-            // 
-            this.ComboBox_Direction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_Direction.FormattingEnabled = true;
-            this.ComboBox_Direction.Location = new System.Drawing.Point(185, 362);
-            this.ComboBox_Direction.Name = "ComboBox_Direction";
-            this.ComboBox_Direction.Size = new System.Drawing.Size(169, 23);
-            this.ComboBox_Direction.TabIndex = 24;
-            this.ComboBox_Direction.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Direction_SelectedIndexChanged);
-            // 
-            // TextEdittor
+            // TextureEdittor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 741);
-            this.Controls.Add(this.ComboBox_Direction);
-            this.Controls.Add(this.Label_Direction);
-            this.Controls.Add(this.Label_Font);
-            this.Controls.Add(this.ComboBox_Font);
-            this.Controls.Add(this.RichTextBox_Text);
-            this.Controls.Add(this.Label_Text);
-            this.Controls.Add(this.Button_NameSet);
+            this.ClientSize = new System.Drawing.Size(633, 538);
+            this.Controls.Add(this.ComboBox_Texture);
+            this.Controls.Add(this.Label_Texture);
             this.Controls.Add(this.Panel_Positions);
+            this.Controls.Add(this.Panel_Color);
+            this.Controls.Add(this.Button_NameSet);
             this.Controls.Add(this.NumericUpDown_Priority);
             this.Controls.Add(this.Label_Priority);
-            this.Controls.Add(this.Panel_Color);
             this.Controls.Add(this.CheckBox_IsClickable);
             this.Controls.Add(this.NumericUpDown_Mode);
             this.Controls.Add(this.TextBox_Name);
             this.Controls.Add(this.Label_Name);
             this.Controls.Add(this.Label_Mode);
-            this.Name = "TextEdittor";
-            this.Text = "TextEdittor";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TextEdittor_FormClosed);
+            this.Name = "TextureEdittor";
+            this.Text = "TextureEdittor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TextureEdittor_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Priority)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).EndInit();
             this.Panel_Positions.ResumeLayout(false);
             this.Panel_Positions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CenterPos_Y)).EndInit();
@@ -603,14 +557,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CenterPos_X)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_X)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_X)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Priority)).EndInit();
             this.Panel_Color.ResumeLayout(false);
             this.Panel_Color.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_A)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_B)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_G)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_R)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -619,6 +571,13 @@
         #endregion
 
         private System.Windows.Forms.Button Button_NameSet;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Priority;
+        private System.Windows.Forms.Label Label_Priority;
+        private System.Windows.Forms.CheckBox CheckBox_IsClickable;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Mode;
+        private System.Windows.Forms.TextBox TextBox_Name;
+        private System.Windows.Forms.Label Label_Name;
+        private System.Windows.Forms.Label Label_Mode;
         private System.Windows.Forms.Panel Panel_Positions;
         private System.Windows.Forms.NumericUpDown NumericUpDown_CenterPos_Y;
         private System.Windows.Forms.NumericUpDown NumericUpDown_Size_Y;
@@ -635,8 +594,6 @@
         private System.Windows.Forms.Label Label_Size;
         private System.Windows.Forms.Label Label_Pos_X;
         private System.Windows.Forms.Label Label_Position;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Priority;
-        private System.Windows.Forms.Label Label_Priority;
         private System.Windows.Forms.Panel Panel_Color;
         private System.Windows.Forms.NumericUpDown NumericUpDown_A;
         private System.Windows.Forms.NumericUpDown NumericUpDown_B;
@@ -647,16 +604,7 @@
         private System.Windows.Forms.Label Label_Color_B;
         private System.Windows.Forms.Label Label_Color;
         private System.Windows.Forms.Label Label_Color_R;
-        private System.Windows.Forms.CheckBox CheckBox_IsClickable;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Mode;
-        private System.Windows.Forms.TextBox TextBox_Name;
-        private System.Windows.Forms.Label Label_Name;
-        private System.Windows.Forms.Label Label_Mode;
-        private System.Windows.Forms.Label Label_Text;
-        private System.Windows.Forms.RichTextBox RichTextBox_Text;
-        private System.Windows.Forms.Label Label_Font;
-        private System.Windows.Forms.Label Label_Direction;
-        private System.Windows.Forms.ComboBox ComboBox_Direction;
-        public System.Windows.Forms.ComboBox ComboBox_Font;
+        private System.Windows.Forms.Label Label_Texture;
+        public System.Windows.Forms.ComboBox ComboBox_Texture;
     }
 }

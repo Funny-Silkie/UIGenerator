@@ -45,7 +45,7 @@ namespace UIGenerator
                     switch (element.Type)
                     {
                         case UITypes.Text: new TextEdittor((TextInfo)element).Show(); return;
-                        case UITypes.Texture: throw new NotImplementedException();
+                        case UITypes.Texture: new TextureEdittor((TextureObjInfo)element).Show(); return;
                         case UITypes.Window: new WindowEditter((WindowInfo)element).Show(); return;
                         default: throw new InvalidOperationException();
                     }

@@ -29,7 +29,7 @@ namespace UIGenerator
         {
             get
             {
-                Interlocked.CompareExchange(ref _syncRoot, null, new object());
+                if (_syncRoot == null) Interlocked.CompareExchange(ref _syncRoot, new object(), null);
                 return _syncRoot;
             }
         }
@@ -79,11 +79,11 @@ namespace UIGenerator
                 version++;
             }
         }
-        internal FontInfoBase this[string name]
+        internal FontInfoBase this[string tostring]
         {
             get
             {
-                var index = IndexOf(name);
+                var index = IndexOf(tostring);
                 if (index == -1) throw new KeyNotFoundException();
                 return _array[index];
             }
@@ -97,7 +97,7 @@ namespace UIGenerator
         public void Add(FontInfoBase item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            if (IndexOf(item.Name) != -1) throw new ArgumentException("name duplicated");
+            if (Contains(item)) throw new ArgumentException("Status duplicated");
             if (_array.Length < Count + 1) ReSize();
             _array[Count++] = item;
             version++;
@@ -110,12 +110,7 @@ namespace UIGenerator
                 {
                     var form = (TextEdittor)((TextInfo)u.Value).HandleForm;
                     if (form == null) continue;
-                    else
-                    {
-                        var names = new LinkedList<string>(GetNames());
-                        names.AddFirst(DataBase.DefaultFont.ToString());
-                        form.ComboBox_Font.DataSource = names.ToArray();
-                    }
+                    else form.ComboBox_Font.DataSource = GetNames(true);
                 }
         }
         /// <summary>
@@ -133,18 +128,11 @@ namespace UIGenerator
         /// </summary>
         /// <param name="item">検索する要素</param>
         /// <returns>含まれていたらtrue，それ以外でfalse</returns>
-        public bool Contains(FontInfoBase item)
-        {
-            if (item == null) return false;
-            for (int i = 0; i < Count; i++)
-                if (_array[i].Equals(item))
-                    return true;
-            return false;
-        }
-        internal int IndexOf(string name)
+        public bool Contains(FontInfoBase item) => IndexOf(item) != -1;
+        internal int IndexOf(string tostring)
         {
             for (int i = 0; i < Count; i++)
-                if (name == _array[i].Name)
+                if (tostring == _array[i].ToString())
                     return i;
             return -1;
         }
@@ -174,10 +162,10 @@ namespace UIGenerator
             RemoveAt(index);
             return true;
         }
-        internal bool Remove(string name)
+        internal bool Remove(string tostring)
         {
-            if (name == null) return false;
-            var index = IndexOf(name);
+            if (tostring == null) return false;
+            var index = IndexOf(tostring);
             if (index == -1) return false;
             RemoveAt(index);
             return true;
@@ -186,7 +174,8 @@ namespace UIGenerator
         {
             if (index < 0 || Count <= index) throw new ArgumentOutOfRangeException();
             if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index);
-            _array[Count--] = default;
+            _array[Count - 1] = default;
+            Count--;
             version++;
             ChangeFontComboBox();
         }
@@ -205,10 +194,16 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
-        internal string[] GetNames()
+        internal string[] GetNames(bool containdefault)
         {
             var names = new string[Count];
             for (int i = 0; i < Count; i++) names[i] = _array[i].Name;
+            if (containdefault)
+            {
+                var list = new LinkedList<string>(names);
+                list.AddFirst(DataBase.DefaultFont.ToString());
+                names = list.ToArray();
+            }
             return names;
         }
         private void ReSize()

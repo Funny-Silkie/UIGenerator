@@ -59,7 +59,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="other">比較する<see cref="FontInfoBase"/>のインスタンス</param>
         /// <returns>同値かどうか</returns>
-        public bool Equals(FontInfoBase other) => Name == other.Name;
+        public bool Equals(FontInfoBase other) => ToString() == other.ToString();
     }
     /// <summary>
     /// 動的なフォントの情報を格納するクラス

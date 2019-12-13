@@ -46,10 +46,12 @@ namespace UIGenerator
         public static DoubleKeyDictionary<int, string, UIInfoBase> UIInfos { get; } = new DoubleKeyDictionary<int, string, UIInfoBase>();
         public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("NotoSerifCJKjp-Medium.otf", 30, new ColorDefault(ColorSet.White), 1, new ColorDefault(ColorSet.Black)));
         private static DynamicFontInfo _defaultFont;
-        public static Texture2D DefaultTexture => _defaultTexture ?? (_defaultTexture = Engine.Graphics.CreateTexture2D("DefaultPicture.png"));
-        private static Texture2D _defaultTexture;
+        public static TextureInfo DefaultTexture => _defaultTexture ?? (_defaultTexture = TextureInfo.GetInstance("DefaultPicture.png"));
+        private static TextureInfo _defaultTexture;
         internal static FontCollection Fonts => _fonts ?? (_fonts = new FontCollection());
         private static FontCollection _fonts;
+        internal static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
+        internal static TextureCollection _textures;
         public static void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);

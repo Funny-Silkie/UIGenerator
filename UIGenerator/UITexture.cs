@@ -17,7 +17,7 @@ namespace UIGenerator
         public event EventHandler<ClickArg> MouseClicked;
         public event EventHandler MouseEnter;
         public event EventHandler MouseExit;
-        public UITexture(int mode, string name) : base(DataBase.DefaultTexture)
+        public UITexture(int mode, string name) : base(DataBase.DefaultTexture.Texture)
         {
             Mode = mode;
             Name = name;

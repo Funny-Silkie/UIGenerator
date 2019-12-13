@@ -12,10 +12,10 @@ using fslib;
 
 namespace UIGenerator
 {
-    public partial class TextEdittor : Form
+    public partial class TextureEdittor : Form
     {
-        private readonly TextInfo info;
-        public TextEdittor(TextInfo info)
+        private readonly TextureObjInfo info;
+        public TextureEdittor(TextureObjInfo info)
         {
             info.HandleForm = this;
             this.info = info;
@@ -39,13 +39,20 @@ namespace UIGenerator
             NumericUpDown_Size_Y.Value = (decimal)info.Size.Y;
             TextBox_Name.Text = info.Name;
             CheckBox_IsClickable.Checked = info.IsClickable;
-            RichTextBox_Text.Text = info.UIObject.Text;
-            ComboBox_Direction.DataSource = Enum.GetValues(typeof(WritingDirection));
-            ComboBox_Direction.SelectedText = info.UIObject.WritingDirection.ToString();
-            ComboBox_Font.DataSource = DataBase.Fonts.GetNames(true);
-            ComboBox_Font.SelectedText = info.UIObject.Name;
+            ComboBox_Texture.DataSource = DataBase.Textures.GetNames(true);
+            ComboBox_Texture.SelectedText = info.UIObject.Name;
         }
-        private void TextEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
+        private void TextureEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
+        private void NumericUpDown_Mode_ValueChanged(object sender, EventArgs e)
+        {
+            var oldMode = info.Mode;
+            var newMode = (int)NumericUpDown_Mode.Value;
+            if (newMode != oldMode)
+            {
+                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name)) info.Mode = newMode;
+                else NumericUpDown_Mode.Value = oldMode;
+            }
+        }
         private void CheckBox_IsClickable_CheckedChanged(object sender, EventArgs e) => info.UIObject.IsClickable = CheckBox_IsClickable.Checked;
         private void NumericUpDown_Priority_ValueChanged(object sender, EventArgs e) => info.DrawingPriority = (int)NumericUpDown_Priority.Value;
         private void Button_NameSet_Click(object sender, EventArgs e)
@@ -78,40 +85,11 @@ namespace UIGenerator
             var c = info.Color;
             info.Color = new asd.Color(c.R, c.G, c.B, (int)NumericUpDown_A.Value);
         }
-        private void NumericUpDown_Mode_ValueChanged(object sender, EventArgs e)
-        {
-            var oldMode = info.Mode;
-            var newMode = (int)NumericUpDown_Mode.Value;
-            if (newMode != oldMode)
-            {
-                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name)) info.Mode = newMode;
-                else NumericUpDown_Mode.Value = oldMode;
-            }
-        }
         private void NumericUpDown_Pos_X_ValueChanged(object sender, EventArgs e) => info.Position = new Vector2DF((float)NumericUpDown_Pos_X.Value, info.Position.Y);
         private void NumericUpDown_Pos_Y_ValueChanged(object sender, EventArgs e) => info.Position = new Vector2DF(info.Position.X, (float)NumericUpDown_Pos_Y.Value);
         private void NumericUpDown_CenterPos_X_ValueChanged(object sender, EventArgs e) => info.CenterPosition = new Vector2DF((float)NumericUpDown_CenterPos_X.Value, info.CenterPosition.Y);
         private void NumericUpDown_CenterPos_Y_ValueChanged(object sender, EventArgs e) => info.CenterPosition = new Vector2DF(info.CenterPosition.X, (float)NumericUpDown_CenterPos_Y.Value);
         private void NumericUpDown_Size_X_ValueChanged(object sender, EventArgs e) => info.Size = new Vector2DF((float)NumericUpDown_Size_X.Value, info.Size.Y);
         private void NumericUpDown_Size_Y_ValueChanged(object sender, EventArgs e) => info.Size = new Vector2DF(info.Size.X, (float)NumericUpDown_Size_Y.Value);
-        private void RichTextBox_Text_TextChanged(object sender, EventArgs e)
-        {
-            info.UIObject.Text = RichTextBox_Text.Text;
-            ReSize();
-        }
-        private void ComboBox_Direction_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            info.WritingDirection = (WritingDirection)Enum.Parse(typeof(WritingDirection), ComboBox_Direction.Text);
-            ReSize();
-        }
-        private void ReSize()
-        {
-            var s = info.Font.CalcTextureSize(RichTextBox_Text.Text, info.WritingDirection);
-            var scale = info.UIObject.Scale;
-            var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);
-            NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;
-            NumericUpDown_Size_Y.Value = float.IsNaN(size.Y) ? 0 : (decimal)size.Y;
-            info.UIObject.Scale = scale;
-        }
     }
 }

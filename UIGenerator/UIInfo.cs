@@ -25,7 +25,7 @@ namespace UIGenerator
             switch (type)
             {
                 case UITypes.Text: return new TextInfo(mode, name);
-                case UITypes.Texture: return new TextureInfo(mode, name);
+                case UITypes.Texture: return new TextureObjInfo(mode, name);
                 case UITypes.Window: return new WindowInfo(mode, name);
                 default: throw new InvalidEnumArgumentException();
             }
@@ -180,14 +180,25 @@ namespace UIGenerator
         public Font Font
         {
             get => UIObject.Font;
-            set => UIObject.Font = value ?? DataBase.DefaultFont.Font;
+            set => UIObject.Font = value;
         }
+        internal FontInfoBase FontInfo
+        {
+            get => _fontInfo;
+            set
+            {
+                if (value == null) value = DataBase.DefaultFont;
+                _fontInfo = value;
+                Font = value.Font;
+            }
+        }
+        private FontInfoBase _fontInfo;
         public TextInfo(int mode, string name) : base(UITypes.Text, mode, name)
         {
 
         }
     }
-    public class TextureInfo : UIInfo<UITexture>
+    public class TextureObjInfo : UIInfo<UITexture>
     {
         internal WindowEditter Editter => (WindowEditter)HandleForm;
         public override UITypes Type => UITypes.Texture;
@@ -219,24 +230,25 @@ namespace UIGenerator
         public Texture2D Texture
         {
             get => UIObject.Texture;
+            set => UIObject.Texture = value;
+        }
+        internal TextureInfo TextureInfo
+        {
+            get => _textureInfo;
             set
             {
-                if (value == null)
-                {
-                    //ToDo:フォームの内容変更
-                    TexturePath = "DefaultPicture.png";
-                }
-                else UIObject.Texture = value;
-                //TDo:フォームのSizeの変更
+                if (value == null) value = DataBase.DefaultTexture;
+                _textureInfo = value;
+                Texture = value.Texture;
             }
         }
-        public string TexturePath { get; set; } = "DefaultPicture.png";
+        private TextureInfo _textureInfo;
         public int DrawingPriority
         {
             get => UIObject.DrawingPriority;
             set => UIObject.DrawingPriority = value;
         }
-        public TextureInfo(int mode, string name) : base(UITypes.Texture, mode, name)
+        public TextureObjInfo(int mode, string name) : base(UITypes.Texture, mode, name)
         {
 
         }
