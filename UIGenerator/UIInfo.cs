@@ -24,7 +24,7 @@ namespace UIGenerator
         {
             switch (type)
             {
-                case UITypes.Text: return new TextInfo(mode, name);
+                case UITypes.Text: return new TextObjInfo(mode, name);
                 case UITypes.Texture: return new TextureObjInfo(mode, name);
                 case UITypes.Window: return new WindowInfo(mode, name);
                 default: throw new InvalidEnumArgumentException();
@@ -130,7 +130,7 @@ namespace UIGenerator
 
         }
     }
-    public class TextInfo : UIInfo<UIText>
+    public class TextObjInfo : UIInfo<UIText>
     {
         public override UITypes Type => UITypes.Text;
         public bool IsClickable
@@ -193,7 +193,7 @@ namespace UIGenerator
             }
         }
         private FontInfoBase _fontInfo;
-        public TextInfo(int mode, string name) : base(UITypes.Text, mode, name)
+        public TextObjInfo(int mode, string name) : base(UITypes.Text, mode, name)
         {
 
         }

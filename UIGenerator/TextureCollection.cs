@@ -47,6 +47,7 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
             _array = capacity == 0 ? emptyArray : new TextureInfo[capacity];
+            Add(DataBase.DefaultTexture);
         }
         /// <summary>
         /// 指定したコレクション内の要素のコピーを持つ<see cref="TextureCollection"/>のインスタンスを生成する
@@ -56,9 +57,31 @@ namespace UIGenerator
         public TextureCollection(IEnumerable<TextureInfo> collection)
         {
             Central.ThrowHelper.ThrowArgumentNullException(collection, null);
+            _array = new TextureInfo[collection.Count()];
+            Add(DataBase.DefaultTexture);
             using (var e = collection.GetEnumerator())
                 while (e.MoveNext())
                     Add(e.Current);
+        }
+        /// <summary>
+        /// 指定したインデックスに対応した要素を取得または設定する
+        /// </summary>
+        /// <param name="index">検索するインデックス</param>
+        /// <exception cref="ArgumentNullException">設定しようとした値がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        /// <returns>インデックスに対応する要素</returns>
+        public TextureInfo this[int index]
+        {
+            get
+            {
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+                return _array[index];
+            }
+            set
+            {
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+                _array[index] = value ?? throw new ArgumentNullException();
+            }
         }
         /// <summary>
         /// 末尾に指定した要素を追加する
@@ -84,7 +107,13 @@ namespace UIGenerator
         }
         private void ChangeComboBox()
         {
-
+            foreach (var u in DataBase.UIInfos)
+                if (u.Value.Type == UITypes.Texture)
+                {
+                    var form = (TextureEdittor)((TextureObjInfo)u.Value).HandleForm;
+                    if (form == null) continue;
+                    else form.ComboBox_Texture.DataSource = GetNames();
+                }
         }
         /// <summary>
         /// コレクション内の要素をすべて削除する
@@ -95,6 +124,7 @@ namespace UIGenerator
             version++;
             Count = 0;
             ChangeComboBox();
+            Add(DataBase.DefaultTexture);
         }
         /// <summary>
         /// 指定した要素が格納されているかどうかを返す
@@ -172,16 +202,10 @@ namespace UIGenerator
             version++;
             ChangeComboBox();
         }
-        internal string[] GetNames(bool containdefault)
+        internal string[] GetNames()
         {
             var names = new string[Count];
-            for (int i = 0; i < Count; i++) names[i] = _array[i].Name;
-            if (containdefault)
-            {
-                var list = new LinkedList<string>(names);
-                list.AddFirst(DataBase.DefaultTexture.Name);
-                names = list.ToArray();
-            }
+            for (int i = 0; i < Count; i++) names[i] = _array[i].ToString();
             return names;
         }
         /// <summary>

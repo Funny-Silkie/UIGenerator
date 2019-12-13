@@ -14,8 +14,8 @@ namespace UIGenerator
 {
     public partial class TextEdittor : Form
     {
-        private readonly TextInfo info;
-        public TextEdittor(TextInfo info)
+        private readonly TextObjInfo info;
+        public TextEdittor(TextObjInfo info)
         {
             info.HandleForm = this;
             this.info = info;
@@ -42,8 +42,8 @@ namespace UIGenerator
             RichTextBox_Text.Text = info.UIObject.Text;
             ComboBox_Direction.DataSource = Enum.GetValues(typeof(WritingDirection));
             ComboBox_Direction.SelectedText = info.UIObject.WritingDirection.ToString();
-            ComboBox_Font.DataSource = DataBase.Fonts.GetNames(true);
-            ComboBox_Font.SelectedText = info.UIObject.Name;
+            ComboBox_Font.DataSource = DataBase.Fonts.GetNames();
+            ComboBox_Font.SelectedText = info.UIObject.ToString();
         }
         private void TextEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
         private void CheckBox_IsClickable_CheckedChanged(object sender, EventArgs e) => info.UIObject.IsClickable = CheckBox_IsClickable.Checked;
@@ -112,6 +112,11 @@ namespace UIGenerator
             NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;
             NumericUpDown_Size_Y.Value = float.IsNaN(size.Y) ? 0 : (decimal)size.Y;
             info.UIObject.Scale = scale;
+        }
+        private void ComboBox_Font_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            info.FontInfo = DataBase.Fonts[ComboBox_Font.SelectedIndex];
+            ReSize();
         }
     }
 }

@@ -39,8 +39,8 @@ namespace UIGenerator
             NumericUpDown_Size_Y.Value = (decimal)info.Size.Y;
             TextBox_Name.Text = info.Name;
             CheckBox_IsClickable.Checked = info.IsClickable;
-            ComboBox_Texture.DataSource = DataBase.Textures.GetNames(true);
-            ComboBox_Texture.SelectedText = info.UIObject.Name;
+            ComboBox_Texture.DataSource = DataBase.Textures.GetNames();
+            ComboBox_Texture.SelectedText = info.UIObject.ToString();
         }
         private void TextureEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
         private void NumericUpDown_Mode_ValueChanged(object sender, EventArgs e)
@@ -91,5 +91,19 @@ namespace UIGenerator
         private void NumericUpDown_CenterPos_Y_ValueChanged(object sender, EventArgs e) => info.CenterPosition = new Vector2DF(info.CenterPosition.X, (float)NumericUpDown_CenterPos_Y.Value);
         private void NumericUpDown_Size_X_ValueChanged(object sender, EventArgs e) => info.Size = new Vector2DF((float)NumericUpDown_Size_X.Value, info.Size.Y);
         private void NumericUpDown_Size_Y_ValueChanged(object sender, EventArgs e) => info.Size = new Vector2DF(info.Size.X, (float)NumericUpDown_Size_Y.Value);
+        private void ComboBox_Texture_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            info.TextureInfo = DataBase.Textures[ComboBox_Texture.SelectedIndex];
+            ReSize();
+        }
+        private void ReSize()
+        {
+            var s = info.Texture.Size;
+            var scale = info.UIObject.Scale;
+            var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);
+            NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;
+            NumericUpDown_Size_Y.Value = float.IsNaN(size.Y) ? 0 : (decimal)size.Y;
+            info.UIObject.Scale = scale;
+        }
     }
 }

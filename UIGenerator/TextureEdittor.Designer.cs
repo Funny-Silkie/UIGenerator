@@ -526,6 +526,7 @@
             this.ComboBox_Texture.Name = "ComboBox_Texture";
             this.ComboBox_Texture.Size = new System.Drawing.Size(566, 23);
             this.ComboBox_Texture.TabIndex = 30;
+            this.ComboBox_Texture.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Texture_SelectedIndexChanged);
             // 
             // TextureEdittor
             // 

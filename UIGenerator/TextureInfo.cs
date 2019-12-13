@@ -52,5 +52,10 @@ namespace UIGenerator
         /// <param name="other">確認するもう一つの<see cref="TextureInfo"/></param>
         /// <returns>同値だったらtrue，それ以外でfalse</returns>
         public bool Equals(TextureInfo other) => path == other.path;
+        /// <summary>
+        /// 現在のオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>現在のオブジェクトを表す文字列</returns>
+        public override string ToString() => $"{Name} ({path})";
     }
 }

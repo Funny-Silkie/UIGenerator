@@ -542,6 +542,7 @@
             this.ComboBox_Font.Name = "ComboBox_Font";
             this.ComboBox_Font.Size = new System.Drawing.Size(566, 23);
             this.ComboBox_Font.TabIndex = 22;
+            this.ComboBox_Font.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Font_SelectedIndexChanged);
             // 
             // Label_Font
             // 

@@ -37,33 +37,66 @@ namespace UIGenerator
         /// モードの最大値
         /// </summary>
         public static int MaxMode { get; private set; } = 0;
+        /// <summary>
+        /// 現在表示しているオブジェクトのモード
+        /// </summary>
         public static int ShowMode { get; set; } = 0;
         internal static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
         /// <summary>
         /// メインのシーン
         /// </summary>
         public static MainScene MainScene { get; } = new MainScene();
+        /// <summary>
+        /// <see cref="UIInfo{T}"/>の情報を取得する
+        /// </summary>
         public static DoubleKeyDictionary<int, string, UIInfoBase> UIInfos { get; } = new DoubleKeyDictionary<int, string, UIInfoBase>();
+        /// <summary>
+        /// 既定のフォントを取得する
+        /// </summary>
         public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("NotoSerifCJKjp-Medium.otf", 30, new ColorDefault(ColorSet.White), 1, new ColorDefault(ColorSet.Black)));
         private static DynamicFontInfo _defaultFont;
+        /// <summary>
+        /// 既定の画像を取得する
+        /// </summary>
         public static TextureInfo DefaultTexture => _defaultTexture ?? (_defaultTexture = TextureInfo.GetInstance("DefaultPicture.png"));
         private static TextureInfo _defaultTexture;
+        /// <summary>
+        /// 管理されているフォントを取得する
+        /// </summary>
         internal static FontCollection Fonts => _fonts ?? (_fonts = new FontCollection());
         private static FontCollection _fonts;
+        /// <summary>
+        /// 管理されているテクスチャを取得する
+        /// </summary>
         internal static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
         internal static TextureCollection _textures;
+        /// <summary>
+        /// オブジェクトを追加する
+        /// </summary>
+        /// <param name="info">追加されるオブジェクト</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             UIInfos.Add(info.Mode, info.Name, info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
+        /// <summary>
+        /// オブジェクトを削除する
+        /// </summary>
+        /// <param name="info">削除するオブジェクト</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void RemoveObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
         }
+        /// <summary>
+        /// <see cref="MaxMode"/>を変更する
+        /// </summary>
+        /// <param name="value">設定される値</param>
+        /// <param name="edittor">メインのフォームへの参照</param>
         public static void SetMaxMode(in int value, MainEdittor edittor)
         {
             MaxMode = value;

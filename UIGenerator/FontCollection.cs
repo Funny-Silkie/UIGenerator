@@ -47,6 +47,7 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(0, capacity, int.MaxValue, null);
             _array = capacity == 0 ? emptyArray : new FontInfoBase[capacity];
+            Add(DataBase.DefaultFont);
         }
         /// <summary>
         /// 指定したコレクションのコピーを持った<see cref="FontCollection"/>のインスタンスを生成する
@@ -56,6 +57,8 @@ namespace UIGenerator
         public FontCollection(IEnumerable<FontInfoBase> collection)
         {
             Central.ThrowHelper.ThrowArgumentNullException(collection, null);
+            _array = new FontInfoBase[collection.Count()];
+            Add(DataBase.DefaultFont);
             using (var e = collection.GetEnumerator())
                 while (e.MoveNext())
                     Add(e.Current);
@@ -108,9 +111,9 @@ namespace UIGenerator
             foreach (var u in DataBase.UIInfos)
                 if (u.Value.Type == UITypes.Text)
                 {
-                    var form = (TextEdittor)((TextInfo)u.Value).HandleForm;
+                    var form = (TextEdittor)((TextObjInfo)u.Value).HandleForm;
                     if (form == null) continue;
-                    else form.ComboBox_Font.DataSource = GetNames(true);
+                    else form.ComboBox_Font.DataSource = GetNames();
                 }
         }
         /// <summary>
@@ -122,6 +125,7 @@ namespace UIGenerator
             Count = 0;
             version++;
             ChangeFontComboBox();
+            Add(DataBase.DefaultFont);
         }
         /// <summary>
         /// 指定した要素が含まれているかどうかを返す
@@ -194,16 +198,10 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
-        internal string[] GetNames(bool containdefault)
+        internal string[] GetNames()
         {
             var names = new string[Count];
-            for (int i = 0; i < Count; i++) names[i] = _array[i].Name;
-            if (containdefault)
-            {
-                var list = new LinkedList<string>(names);
-                list.AddFirst(DataBase.DefaultFont.ToString());
-                names = list.ToArray();
-            }
+            for (int i = 0; i < Count; i++) names[i] = _array[i].ToString();
             return names;
         }
         private void ReSize()

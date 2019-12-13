@@ -44,6 +44,8 @@
             this.ComboBox_Filter_Mode = new System.Windows.Forms.ComboBox();
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
+            this.フォントを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.テクスチャを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +80,9 @@
             // 編集ToolStripMenuItem
             // 
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.要素を追加するToolStripMenuItem});
+            this.要素を追加するToolStripMenuItem,
+            this.フォントを追加するToolStripMenuItem,
+            this.テクスチャを追加するToolStripMenuItem});
             this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
             resources.ApplyResources(this.編集ToolStripMenuItem, "編集ToolStripMenuItem");
             // 
@@ -145,6 +149,17 @@
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 
+            // フォントを追加するToolStripMenuItem
+            // 
+            this.フォントを追加するToolStripMenuItem.Name = "フォントを追加するToolStripMenuItem";
+            resources.ApplyResources(this.フォントを追加するToolStripMenuItem, "フォントを追加するToolStripMenuItem");
+            this.フォントを追加するToolStripMenuItem.Click += new System.EventHandler(this.フォントを追加するToolStripMenuItem_Click);
+            // 
+            // テクスチャを追加するToolStripMenuItem
+            // 
+            this.テクスチャを追加するToolStripMenuItem.Name = "テクスチャを追加するToolStripMenuItem";
+            resources.ApplyResources(this.テクスチャを追加するToolStripMenuItem, "テクスチャを追加するToolStripMenuItem");
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
@@ -183,5 +198,7 @@
         public System.Windows.Forms.ListView ListView_Main;
         public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
         public System.Windows.Forms.ComboBox ComboBox_Filter_Mode;
+        private System.Windows.Forms.ToolStripMenuItem フォントを追加するToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem テクスチャを追加するToolStripMenuItem;
     }
 }
