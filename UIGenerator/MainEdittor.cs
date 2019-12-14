@@ -57,7 +57,7 @@ namespace UIGenerator
         }
         private void テクスチャを追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!TextureAddForm.Instanced) new TextureAddForm().Show();
         }
     }
 }

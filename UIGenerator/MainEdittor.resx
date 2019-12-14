@@ -120,14 +120,32 @@
   <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="上書き保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+V</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="上書き保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 26</value>
+  </data>
+  <data name="上書き保存ToolStripMenuItem.Text" xml:space="preserve">
+    <value>上書き保存</value>
+  </data>
+  <data name="名前を付けて保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+V</value>
+  </data>
+  <data name="名前を付けて保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 26</value>
+  </data>
+  <data name="名前を付けて保存ToolStripMenuItem.Text" xml:space="preserve">
+    <value>名前を付けて保存</value>
+  </data>
   <data name="ファイルToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ファイルToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+F</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 24</value>
   </data>
@@ -135,19 +153,19 @@
     <value>ファイル</value>
   </data>
   <data name="要素を追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>210, 26</value>
   </data>
   <data name="要素を追加するToolStripMenuItem.Text" xml:space="preserve">
     <value>要素を追加する</value>
   </data>
   <data name="フォントを追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>210, 26</value>
   </data>
   <data name="フォントを追加するToolStripMenuItem.Text" xml:space="preserve">
     <value>フォントを追加する</value>
   </data>
   <data name="テクスチャを追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>210, 26</value>
   </data>
   <data name="テクスチャを追加するToolStripMenuItem.Text" xml:space="preserve">
     <value>テクスチャを追加する</value>
@@ -156,7 +174,7 @@
     <value>Alt+E</value>
   </data>
   <data name="編集ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 26</value>
+    <value>53, 24</value>
   </data>
   <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
     <value>編集</value>
@@ -165,7 +183,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 30</value>
+    <value>800, 28</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
@@ -185,45 +203,6 @@
   </data>
   <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="上書き保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+V</value>
-  </data>
-  <data name="上書き保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 26</value>
-  </data>
-  <data name="上書き保存ToolStripMenuItem.Text" xml:space="preserve">
-    <value>上書き保存</value>
-  </data>
-  <data name="名前を付けて保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+V</value>
-  </data>
-  <data name="名前を付けて保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 26</value>
-  </data>
-  <data name="名前を付けて保存ToolStripMenuItem.Text" xml:space="preserve">
-    <value>名前を付けて保存</value>
-  </data>
-  <data name="ListView_Main.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 138</value>
-  </data>
-  <data name="ListView_Main.Size" type="System.Drawing.Size, System.Drawing">
-    <value>776, 357</value>
-  </data>
-  <data name="ListView_Main.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Name" xml:space="preserve">
-    <value>ListView_Main</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="Type.Text" xml:space="preserve">
     <value>Type</value>
@@ -245,6 +224,27 @@
   </data>
   <data name="Mode.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
+  </data>
+  <data name="ListView_Main.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 138</value>
+  </data>
+  <data name="ListView_Main.Size" type="System.Drawing.Size, System.Drawing">
+    <value>776, 357</value>
+  </data>
+  <data name="ListView_Main.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Name" xml:space="preserve">
+    <value>ListView_Main</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ListView_Main.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="ComboBox_Filter_Type.Location" type="System.Drawing.Point, System.Drawing">
     <value>121, 100</value>
@@ -405,6 +405,18 @@
   <data name="&gt;&gt;要素を追加するToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;フォントを追加するToolStripMenuItem.Name" xml:space="preserve">
+    <value>フォントを追加するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;フォントを追加するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;テクスチャを追加するToolStripMenuItem.Name" xml:space="preserve">
+    <value>テクスチャを追加するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;テクスチャを追加するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;Type.Name" xml:space="preserve">
     <value>Type</value>
   </data>
@@ -422,18 +434,6 @@
   </data>
   <data name="&gt;&gt;Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;フォントを追加するToolStripMenuItem.Name" xml:space="preserve">
-    <value>フォントを追加するToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;フォントを追加するToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;テクスチャを追加するToolStripMenuItem.Name" xml:space="preserve">
-    <value>テクスチャを追加するToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;テクスチャを追加するToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>

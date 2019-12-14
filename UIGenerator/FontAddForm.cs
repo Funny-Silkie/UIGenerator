@@ -21,6 +21,7 @@ namespace UIGenerator
         {
             Instanced = true;
             InitializeComponent();
+            ResetListView(false);
         }
         private void FontAddForm_FormClosed(object sender, FormClosedEventArgs e) => Instanced = false;
         private void Button_FileSearch_Click(object sender, EventArgs e)
@@ -97,6 +98,7 @@ namespace UIGenerator
             DataBase.Fonts.Add(fontinfo);
             Label_D_Succeed.Text = "Succeeded to create font";
             FormReset_D();
+            ResetListView(true);
         }
         private void FormReset_D()
         {
@@ -115,6 +117,15 @@ namespace UIGenerator
         private void FormReset_S()
         {
             TextBox_S_Path.Text = "";
+        }
+        private void ResetListView(bool clear)
+        {
+            if (clear) ListView_AllFonts.Items.Clear();
+            foreach (var f in DataBase.Fonts)
+            {
+                Console.WriteLine(f.ToString());
+                ListView_AllFonts.Items.Add(f.ToString());
+            }
         }
         private void Button_S_Register_Click(object sender, EventArgs e)
         {
@@ -142,6 +153,7 @@ namespace UIGenerator
             DataBase.Fonts.Add(fontinfo);
             Label_S_Succeed.Text = "Succeeded to create font";
             FormReset_S();
+            ResetListView(true);
         }
     }
 }

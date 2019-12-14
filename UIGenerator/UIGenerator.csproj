@@ -93,6 +93,12 @@
     <Compile Include="TextEdittor.Designer.cs">
       <DependentUpon>TextEdittor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextureAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextureAddForm.Designer.cs">
+      <DependentUpon>TextureAddForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TextureCollection.cs" />
     <Compile Include="TextureEdittor.cs">
       <SubType>Form</SubType>
@@ -150,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TextEdittor.resx">
       <DependentUpon>TextEdittor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextureAddForm.resx">
+      <DependentUpon>TextureAddForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureEdittor.resx">
       <DependentUpon>TextureEdittor.cs</DependentUpon>

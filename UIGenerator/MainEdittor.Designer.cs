@@ -35,6 +35,8 @@
             this.名前を付けて保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.要素を追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.フォントを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.テクスチャを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListView_Main = new System.Windows.Forms.ListView();
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ObjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,8 +46,6 @@
             this.ComboBox_Filter_Mode = new System.Windows.Forms.ComboBox();
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
-            this.フォントを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.テクスチャを追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -92,6 +92,18 @@
             resources.ApplyResources(this.要素を追加するToolStripMenuItem, "要素を追加するToolStripMenuItem");
             this.要素を追加するToolStripMenuItem.Click += new System.EventHandler(this.要素を追加するToolStripMenuItem_Click);
             // 
+            // フォントを追加するToolStripMenuItem
+            // 
+            this.フォントを追加するToolStripMenuItem.Name = "フォントを追加するToolStripMenuItem";
+            resources.ApplyResources(this.フォントを追加するToolStripMenuItem, "フォントを追加するToolStripMenuItem");
+            this.フォントを追加するToolStripMenuItem.Click += new System.EventHandler(this.フォントを追加するToolStripMenuItem_Click);
+            // 
+            // テクスチャを追加するToolStripMenuItem
+            // 
+            this.テクスチャを追加するToolStripMenuItem.Name = "テクスチャを追加するToolStripMenuItem";
+            resources.ApplyResources(this.テクスチャを追加するToolStripMenuItem, "テクスチャを追加するToolStripMenuItem");
+            this.テクスチャを追加するToolStripMenuItem.Click += new System.EventHandler(this.テクスチャを追加するToolStripMenuItem_Click);
+            // 
             // ListView_Main
             // 
             this.ListView_Main.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -102,6 +114,7 @@
             this.ListView_Main.GridLines = true;
             this.ListView_Main.HideSelection = false;
             resources.ApplyResources(this.ListView_Main, "ListView_Main");
+            this.ListView_Main.MultiSelect = false;
             this.ListView_Main.Name = "ListView_Main";
             this.ListView_Main.UseCompatibleStateImageBehavior = false;
             this.ListView_Main.View = System.Windows.Forms.View.Details;
@@ -148,18 +161,6 @@
             resources.ApplyResources(this.NumericUpDown_ShowMode, "NumericUpDown_ShowMode");
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
-            // 
-            // フォントを追加するToolStripMenuItem
-            // 
-            this.フォントを追加するToolStripMenuItem.Name = "フォントを追加するToolStripMenuItem";
-            resources.ApplyResources(this.フォントを追加するToolStripMenuItem, "フォントを追加するToolStripMenuItem");
-            this.フォントを追加するToolStripMenuItem.Click += new System.EventHandler(this.フォントを追加するToolStripMenuItem_Click);
-            // 
-            // テクスチャを追加するToolStripMenuItem
-            // 
-            this.テクスチャを追加するToolStripMenuItem.Name = "テクスチャを追加するToolStripMenuItem";
-            resources.ApplyResources(this.テクスチャを追加するToolStripMenuItem, "テクスチャを追加するToolStripMenuItem");
-            this.テクスチャを追加するToolStripMenuItem.Click += new System.EventHandler(this.テクスチャを追加するToolStripMenuItem_Click);
             // 
             // MainEdittor
             // 
