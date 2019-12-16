@@ -196,7 +196,7 @@ namespace UIGenerator
         private void RemoveAt(int index)
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
-            if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index);
+            if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
             _array[Count - 1] = default;
             Count--;
             version++;
