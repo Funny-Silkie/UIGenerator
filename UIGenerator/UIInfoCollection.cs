@@ -13,11 +13,12 @@ namespace UIGenerator
     /// <summary>
     /// UIに関する情報を格納するコレクションのクラス
     /// </summary>
-    public class UIInfoCollection : IList<UIInfoBase>, IReadOnlyList<UIInfoBase>, IList
+    [Serializable]
+    public class UIInfoCollection : IList<DoubleKeyValuePair<int, string, UIInfoBase>>, IReadOnlyList<DoubleKeyValuePair<int, string, UIInfoBase>>, IDoubleKeyDictionary<int, string, UIInfoBase>, IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>, IList, IDictionary
     {
         private int version = 0;
-        private UIInfoBase[] _array;
-        private readonly static UIInfoBase[] emptyArray = new UIInfoBase[0];
+        private DoubleKeyValuePair<int, string, UIInfoBase>[] _array;
+        private readonly static DoubleKeyValuePair<int, string, UIInfoBase>[] emptyArray = new DoubleKeyValuePair<int, string, UIInfoBase>[0];
         /// <summary>
         /// 格納されている要素数を取得する
         /// </summary>
@@ -33,7 +34,9 @@ namespace UIGenerator
             }
         }
         private object _syncRoot;
-        bool ICollection<UIInfoBase>.IsReadOnly => false;
+        bool IDictionary.IsFixedSize => false;
+        bool IDictionary.IsReadOnly => false;
+        bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.IsReadOnly => false;
         bool IList.IsFixedSize => false;
         bool IList.IsReadOnly => false;
         /// <summary>
@@ -48,48 +51,61 @@ namespace UIGenerator
         public UIInfoCollection(int capacity)
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
-            _array = capacity == 0 ? emptyArray : new UIInfoBase[capacity];
+            _array = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, UIInfoBase>[capacity];
         }
         /// <summary>
-        /// 指定した要素を末尾に加える
+        /// 指定した要素を末尾に追加する
         /// </summary>
-        /// <param name="mode"><paramref name="info"/>の描画モード</param>
-        /// <param name="name"><paramref name="info"/>の名前</param>
-        /// <param name="info">追加する<see cref="UIInfoBase"/>のアイテム</param>
+        /// <param name="mode">追加する要素の表示モード</param>
+        /// <param name="name">追加する要素の名前</param>
+        /// <param name="info">追加する要素</param>
+        /// <exception cref="ArgumentException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>又は<paramref name="info"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        /// <returns>追加出来たらtrue，それ以外でfalse</returns>
-        public bool Add(int mode, string name, UIInfoBase info)
+        public void Add(int mode, string name, UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(name, null);
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
-            if (ContainsModeNamePair(mode, name)) return false;
-            if (Capacity < Count + 1) ReSize();
-            _array[Count - 1] = info;
-            version++;
+            if (Capacity > Count + 1) ReSize();
+            _array[Count - 1] = new DoubleKeyValuePair<int, string, UIInfoBase>(mode, name, info);
             Count++;
-            return true;
+            version++;
         }
+        void ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Add(DoubleKeyValuePair<int, string, UIInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
         int IList.Add(object value)
         {
-            if (value is UIInfoBase ui)
+            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            switch (value)
             {
-                Central.ThrowHelper.ThrowArgumentNullException(ui, null);
-                Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), ContainsModeNamePair(ui.Mode, ui.Name), null);
-                Add(ui.Mode, ui.Name, ui);
-                return Count - 1;
+                case DoubleKeyValuePair<int, string, UIInfoBase> p: Add(p.Key1, p.Key2, p.Value); break;
+                case ValueTuple<int, string, UIInfoBase> v: Add(v.Item1, v.Item2, v.Item3); break;
+                case ValueTuple<string, int, UIInfoBase> v: Add(v.Item2, v.Item1, v.Item3); break;
+                case KeyValuePair<DoubleKey<int, string>, UIInfoBase> d: Add(d.Key.Key1, d.Key.Key2, d.Value); break;
+                case KeyValuePair<DoubleKey<string, int>, UIInfoBase> d: Add(d.Key.Key2, d.Key.Key1, d.Value); break;
+                default: return -1;
+            }
+            return Count - 1;
+        }
+        void IDictionary.Add(object key, object value)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(key, null);
+            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            if (value is UIInfoBase u)
+            {
+                switch (key)
+                {
+                    case ValueTuple<int, string> v: Add(v.Item1, v.Item2, u); return;
+                    case ValueTuple<string, int> v: Add(v.Item2, v.Item1, u); return;
+                    case DoubleKey<int, string> p: Add(p.Key1, p.Key2, u); return;
+                    case DoubleKey<string, int> p: Add(p.Key2, p.Key1, u); return;
+                    default: throw new ArgumentException();
+                }
             }
             else throw new ArgumentException();
         }
-        void ICollection<UIInfoBase>.Add(UIInfoBase item)
-        {
-            Central.ThrowHelper.ThrowArgumentNullException(item, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), ContainsModeNamePair(item.Mode, item.Name), null);
-            Add(item.Mode, item.Name, item);
-        }
         /// <summary>
-        /// コレクションの要素をすべて削除する
+        /// 格納されている要素をすべて削除する
         /// </summary>
         public void Clear()
         {
@@ -98,158 +114,174 @@ namespace UIGenerator
             version++;
         }
         /// <summary>
-        /// 指定した要素が含まれているかどうかを返す
+        /// 指定した<see cref="UIInfoBase"/>が値として格納されているかどうかを返す
         /// </summary>
-        /// <param name="item">検索する要素</param>
+        /// <param name="info">検索する要素</param>
         /// <returns>含まれていたらtrue，それ以外でfalse</returns>
-        public bool Contains(UIInfoBase item) => IndexOf(item) != -1;
-        bool IList.Contains(object value)
-        {
-            if (value == null) return false;
-            if (value is UIInfoBase ui) return Contains(ui);
-            return false;
-        }
+        public bool Contains(UIInfoBase info) => IndexOf(info) != -1;
         /// <summary>
-        /// 指定された表示モードと名前のペアが存在するかどうかを返す
+        /// 指定された表示モードと名前の組み合わせが存在するかどうかを返す
         /// </summary>
         /// <param name="mode">検索する表示モード</param>
         /// <param name="name">検索する名前</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        /// <returns>存在したらtrue，それ以外でfalse</returns>
-        public bool ContainsModeNamePair(int mode, string name) => IndexOf(mode, name) != -1;
-        /// <summary>
-        /// 指定した配列に要素をコピーする
-        /// </summary>
-        /// <param name="array">コピー先の配列</param>
-        /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
-        /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
-        public void CopyTo(UIInfoBase[] array, int arrayIndex)
+        /// <returns>含まれていたらtrue，それ以外でfalse</returns>
+        public bool Contains(int mode, string name) => IndexOf(mode, name) != -1;
+        private bool ContainsMode(int mode)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
-            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
+            if (mode < 0) return false;
+            for (int i = 0; i < Count; i++)
+                if (mode == _array[i].Key1)
+                    return true;
+            return false;
         }
-        void ICollection.CopyTo(Array array, int index)
+        private bool ContainsName(string name)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < index + Count || array.GetLowerBound(0) != 0, null);
-            if (array is UIInfoBase[] uis)
+            if (name == null) return false;
+            for (int i = 0; i < Count; i++)
+                if (name == _array[i].Key2)
+                    return true;
+            return false;
+        }
+        bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Contains(DoubleKeyValuePair<int, string, UIInfoBase> item) => IndexOf(item) != -1;
+        bool IDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
+        bool IDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
+        bool IDictionary.Contains(object key)
+        {
+            if (key == null) return false;
+            switch (key)
             {
-                CopyTo(uis, index);
-                return;
-            }
-            else if (array is object[] o)
-            {
-                try
-                {
-                    for (int i = 0; i < Count; i++) o[index++] = _array[i];
-                }
-                catch (ArrayTypeMismatchException)
-                {
-                    throw new ArgumentException();
-                }
+                case ValueTuple<int, string> t: return Contains(t.Item1, t.Item2);
+                case ValueTuple<string, int> t: return Contains(t.Item2, t.Item1);
+                case DoubleKey<int, string> p: return Contains(p.Key1, p.Key2);
+                case DoubleKey<string, int> p: return Contains(p.Key2, p.Key1);
+                default: return false;
             }
         }
+        bool IList.Contains(object value)
+        {
+            if (value == null) return false;
+            switch (value)
+            {
+                case DoubleKeyValuePair<int, string, UIInfoBase> p: return IndexOf(p) != -1;
+                case UIInfoBase ui: return Contains(ui);
+                case ValueTuple<int, string> t: return Contains(t.Item1, t.Item2);
+                case ValueTuple<string, int> t: return Contains(t.Item2, t.Item1);
+                case DoubleKey<int, string> p: return Contains(p.Key1, p.Key2);
+                case DoubleKey<string, int> p: return Contains(p.Key2, p.Key1);
+                default: return false;
+            }
+        }
+        bool IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
+        bool IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
         /// <summary>
-        /// 指定した要素のインデックスを検索する
+        /// 指定された要素と一致する物のインデックスを検索する
         /// </summary>
-        /// <param name="info">検索する要素</param>
-        /// <returns>インデックスが見つかったらその値，見つからなかったら-1</returns>
+        /// <param name="info">検索する<see cref="UIInfoBase"/>のインスタンス</param>
+        /// <returns>そのインデックス 無かったら-1</returns>
         public int IndexOf(UIInfoBase info)
         {
             if (info == null) return -1;
             for (int i = 0; i < Count; i++)
-                if (_array[i] == info)
+                if (_array[i].Value == info)
                     return i;
             return -1;
         }
         /// <summary>
-        /// 指定した表示モードと名前に一致する要素のインデックスを取得する
+        /// 指定された表示モードと名前を持つ要素のインデックスを検索する
         /// </summary>
-        /// <param name="mode"></param>
-        /// <param name="name"></param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        /// <returns>見つかったらそのインデックス，見つからなかったら-1</returns>
+        /// <param name="mode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <returns>そのインデックス 無かったら-1</returns>
         public int IndexOf(int mode, string name)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name, null);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            if (mode < 0 || name == null) return -1;
             for (int i = 0; i < Count; i++)
-                if ((_array[i].Mode == mode) && (_array[i].Name == name))
+                if ((_array[i].Key1 == mode) && (_array[i].Key2 == name))
+                    return i;
+            return -1;
+        }
+        private int IndexOf(DoubleKeyValuePair<int, string, UIInfoBase> item)
+        {
+            if (item.Key1 < 0 || item.Key2 == null || item.Value == null) return -1;
+            for (int i = 0; i < Count; i++)
+                if ((_array[i].Key1 == item.Key1) && (_array[i].Key2 == item.Key2) && (_array[i].Value == item.Value))
                     return i;
             return -1;
         }
         int IList.IndexOf(object value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            if (value == null) return -1;
             switch (value)
             {
+                case DoubleKeyValuePair<int, string, UIInfoBase> pair: return IndexOf(pair);
                 case UIInfoBase ui: return IndexOf(ui);
                 case ValueTuple<int, string> t: return IndexOf(t.Item1, t.Item2);
                 case ValueTuple<string, int> t: return IndexOf(t.Item2, t.Item1);
+                case DoubleKey<int, string> p: return IndexOf(p.Key1, p.Key2);
                 default: return -1;
             }
         }
-        /// <summary>
-        /// 指定した要素を削除する
-        /// </summary>
-        /// <param name="info">削除する要素</param>
-        /// <returns>含まれていたらtrue，それ以外でfalse</returns>
-        public bool Remove(UIInfoBase info)
-        {
-            if (info == null) return false;
-
-        }
-        /// <summary>
-        /// 指定インデックスの要素を削除する
-        /// </summary>
-        /// <param name="index">削除する要素のインデックス</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満<see cref="Count"/>以上</exception>
-        public void RemoveAt(int index)
-        {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-            if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
-        }
+        int IList<DoubleKeyValuePair<int, string, UIInfoBase>>.IndexOf(DoubleKeyValuePair<int, string, UIInfoBase> item) => IndexOf(item);
+        void IList.Insert(int index, object value) => throw new NotSupportedException();
+        void IList<DoubleKeyValuePair<int, string, UIInfoBase>>.Insert(int index, DoubleKeyValuePair<int, string, UIInfoBase> item) => throw new NotSupportedException();
         private void ReSize()
         {
-            var length = Capacity == 0 ? 4 : Capacity * 2;
-            var array = new UIInfoBase[length];
+            var size = Capacity == 0 ? 4 : Capacity * 2;
+            var array = new DoubleKeyValuePair<int, string, UIInfoBase>[size];
             Array.Copy(_array, array, Count);
             _array = array;
         }
         /// <summary>
-        /// 列挙をサポートする構造体を取得する
+        /// 列挙をサポートする構造体を返す
         /// </summary>
-        /// <returns><see cref="Enumerator"/>の新しいインスタンス</returns>
+        /// <returns>新しい<see cref="Enumerator"/>のインスタンス</returns>
         public Enumerator GetEnumerator() => new Enumerator(this);
-        IEnumerator<UIInfoBase> IEnumerable<UIInfoBase>.GetEnumerator() => GetEnumerator();
+        IEnumerator<DoubleKeyValuePair<int, string, UIInfoBase>> IEnumerable<DoubleKeyValuePair<int, string, UIInfoBase>>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IDictionaryEnumerator IDictionary.GetEnumerator() => GetEnumerator();
         /// <summary>
         /// 列挙をサポートする構造体
         /// </summary>
         [Serializable]
-        public struct Enumerator : IEnumerator<UIInfoBase>
+        public struct Enumerator : IEnumerator<DoubleKeyValuePair<int, string, UIInfoBase>>, IDictionaryEnumerator
         {
             private int index;
             private readonly int version;
             private readonly UIInfoCollection collection;
             /// <summary>
-            /// 現在列挙されている要素を崇徳する
+            /// 現在列挙されている要素を取得する
             /// </summary>
-            public UIInfoBase Current { get; private set; }
+            public DoubleKeyValuePair<int, string, UIInfoBase> Current { get; private set; }
             object IEnumerator.Current
             {
                 get
                 {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || index > collection.Count, null);
+                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
                     return Current;
+                }
+            }
+            object IDictionaryEnumerator.Key
+            {
+                get
+                {
+                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
+                    return Current.GetKeyValuePair().Key;
+                }
+            }
+            object IDictionaryEnumerator.Value
+            {
+                get
+                {
+                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
+                    return Current.Value;
+                }
+            }
+            DictionaryEntry IDictionaryEnumerator.Entry
+            {
+                get
+                {
+                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
+                    return new DictionaryEntry(Current.GetKeyValuePair().Key, Current.Value);
                 }
             }
             internal Enumerator(UIInfoCollection collection)
@@ -264,16 +296,16 @@ namespace UIGenerator
             /// </summary>
             public void Dispose() { }
             /// <summary>
-            /// 列挙を次の要素に移す
+            /// 列挙を次に進める
             /// </summary>
-            /// <exception cref="InvalidOperationException">コレクションが列挙中に変更された</exception>
-            /// <returns>次の要素を列挙出来たらtrue，それ以外でfalse</returns>
+            /// <exception cref="InvalidOperationException">列挙中にコレクションが変更された</exception>
+            /// <returns>次に進められたらtrue，それ以外でfalse</returns>
             public bool MoveNext()
             {
                 Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
-                if ((uint)index < (uint)collection.Count)
+                if (index < collection.Count)
                 {
-                    Current =
+                    Current = collection._array[index++];
                     return true;
                 }
                 index = collection.Count + 1;
@@ -282,7 +314,6 @@ namespace UIGenerator
             }
             void IEnumerator.Reset()
             {
-                Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
                 index = 0;
                 Current = default;
             }

@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="TextureInfo.cs" />
     <Compile Include="UIInfo.cs" />
+    <Compile Include="UIInfoCollection.cs" />
     <Compile Include="UIText.cs" />
     <Compile Include="UITexture.cs" />
     <Compile Include="UIWindow.cs" />
