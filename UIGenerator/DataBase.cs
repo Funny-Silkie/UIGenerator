@@ -30,14 +30,6 @@ namespace UIGenerator
     public class DataBase
     {
         /// <summary>
-        /// モードの最小値
-        /// </summary>
-        public const int MinMode = 0;
-        /// <summary>
-        /// モードの最大値
-        /// </summary>
-        public static int MaxMode { get; private set; } = 0;
-        /// <summary>
         /// 現在表示しているオブジェクトのモード
         /// </summary>
         public static int ShowMode { get; set; } = 0;
@@ -91,17 +83,6 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
-        }
-        /// <summary>
-        /// <see cref="MaxMode"/>を変更する
-        /// </summary>
-        /// <param name="value">設定される値</param>
-        /// <param name="edittor">メインのフォームへの参照</param>
-        public static void SetMaxMode(in int value, MainEdittor edittor)
-        {
-            MaxMode = value;
-            edittor.NumericUpDown_ShowMode.Maximum = value;
-            edittor.ComboBox_Filter_Mode.DataSource = Enumerable.Range(0, value + 1).ToArray();
         }
     }
 }

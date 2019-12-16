@@ -63,6 +63,11 @@
             // NumericUpDown_Mode
             // 
             this.NumericUpDown_Mode.Location = new System.Drawing.Point(345, 21);
+            this.NumericUpDown_Mode.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.NumericUpDown_Mode.Name = "NumericUpDown_Mode";
             this.NumericUpDown_Mode.Size = new System.Drawing.Size(120, 22);
             this.NumericUpDown_Mode.TabIndex = 2;

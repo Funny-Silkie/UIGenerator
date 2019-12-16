@@ -15,8 +15,10 @@ namespace UIGenerator
     public partial class TextEdittor : Form
     {
         private readonly TextObjInfo info;
-        public TextEdittor(TextObjInfo info)
+        private readonly MainEdittor main;
+        public TextEdittor(MainEdittor main, TextObjInfo info)
         {
+            this.main = main;
             info.HandleForm = this;
             this.info = info;
             InitializeComponent();
@@ -84,7 +86,13 @@ namespace UIGenerator
             var newMode = (int)NumericUpDown_Mode.Value;
             if (newMode != oldMode)
             {
-                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name)) info.Mode = newMode;
+                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name))
+                {
+                    info.Mode = newMode;
+                    if (oldMode == DataBase.ShowMode && info.UIObject.Layer != null) DataBase.RemoveObject(info);
+                    if (newMode == DataBase.ShowMode && info.UIObject.Layer == null) DataBase.AddObject(info);
+                    main.ListView_Main.Items[]
+                }
                 else NumericUpDown_Mode.Value = oldMode;
             }
         }

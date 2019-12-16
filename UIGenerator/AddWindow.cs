@@ -20,8 +20,6 @@ namespace UIGenerator
             IsShown = true;
             InitializeComponent();
             ComboBox_Type.DataSource = DataBase.Types;
-            NumericUpDown_Mode.Minimum = DataBase.MinMode;
-            NumericUpDown_Mode.Maximum = int.MaxValue;
         }
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -34,7 +32,6 @@ namespace UIGenerator
             var name = TextBox_Name.Text;
             if (!DataBase.UIInfos.ContainsKeyPair(mode, name))
             {
-                if (mode > DataBase.MaxMode) DataBase.SetMaxMode(mode, mainEdittor);
                 DataBase.AddObject(UIInfoBase.GetInstance(type, mode, name));
                 var item = mainEdittor.ListView_Main.Items.Add(type.ToString());
                 item.SubItems.Add(name);
@@ -45,7 +42,7 @@ namespace UIGenerator
         private void Reset()
         {
             TextBox_Name.Text = "";
-            NumericUpDown_Mode.Value = DataBase.MinMode;
+            NumericUpDown_Mode.Value = 0;
         }
     }
 }

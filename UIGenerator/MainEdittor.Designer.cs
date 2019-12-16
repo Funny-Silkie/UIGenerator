@@ -159,6 +159,11 @@
             // NumericUpDown_ShowMode
             // 
             resources.ApplyResources(this.NumericUpDown_ShowMode, "NumericUpDown_ShowMode");
+            this.NumericUpDown_ShowMode.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 

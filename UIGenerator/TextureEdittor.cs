@@ -15,8 +15,10 @@ namespace UIGenerator
     public partial class TextureEdittor : Form
     {
         private readonly TextureObjInfo info;
-        public TextureEdittor(TextureObjInfo info)
+        private readonly MainEdittor main;
+        public TextureEdittor(MainEdittor main, TextureObjInfo info)
         {
+            this.main = main;
             info.HandleForm = this;
             this.info = info;
             InitializeComponent();

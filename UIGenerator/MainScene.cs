@@ -37,7 +37,7 @@ namespace UIGenerator
         public void RemoveObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
-            if (info.UIObj.Layer != null) MainLayer.RemoveObject(info.UIObj);
+            if (info.UIObj.Layer != null) Engine.RemoveObject2D(info.UIObj);
             else throw new ArgumentException();
         }
     }

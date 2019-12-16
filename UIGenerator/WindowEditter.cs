@@ -15,8 +15,10 @@ namespace UIGenerator
     public partial class WindowEditter : Form
     {
         private readonly WindowInfo info;
-        public WindowEditter(WindowInfo info)
+        private readonly MainEdittor main;
+        public WindowEditter(MainEdittor main, WindowInfo info)
         {
+            this.main = main;
             info.HandleForm = this;
             this.info = info;
             InitializeComponent();

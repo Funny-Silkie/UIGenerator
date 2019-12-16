@@ -21,8 +21,6 @@ namespace UIGenerator
             types.AddRange(DataBase.Types);
             ComboBox_Filter_Type.DataSource = types.ToArray();
             ComboBox_Filter_Type.SelectedIndex = 0;
-            NumericUpDown_ShowMode.Minimum = DataBase.MinMode;
-            NumericUpDown_ShowMode.Maximum= DataBase.MaxMode;
         }
         private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e)
         {
@@ -44,9 +42,9 @@ namespace UIGenerator
                 if (element.HandleForm == null)
                     switch (element.Type)
                     {
-                        case UITypes.Text: new TextEdittor((TextObjInfo)element).Show(); return;
-                        case UITypes.Texture: new TextureEdittor((TextureObjInfo)element).Show(); return;
-                        case UITypes.Window: new WindowEditter((WindowInfo)element).Show(); return;
+                        case UITypes.Text: new TextEdittor(this, (TextObjInfo)element).Show(); return;
+                        case UITypes.Texture: new TextureEdittor(this, (TextureObjInfo)element).Show(); return;
+                        case UITypes.Window: new WindowEditter(this, (WindowInfo)element).Show(); return;
                         default: throw new InvalidOperationException();
                     }
             }
