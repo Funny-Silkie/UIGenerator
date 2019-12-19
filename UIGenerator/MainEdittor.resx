@@ -292,27 +292,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label_Filter.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ComboBox_Filter_Mode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>324, 100</value>
-  </data>
-  <data name="ComboBox_Filter_Mode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="ComboBox_Filter_Mode.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ComboBox_Filter_Mode.Name" xml:space="preserve">
-    <value>ComboBox_Filter_Mode</value>
-  </data>
-  <data name="&gt;&gt;ComboBox_Filter_Mode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ComboBox_Filter_Mode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ComboBox_Filter_Mode.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="Label_ShowMode.AutoSize" type="System.Boolean, mscorlib">
@@ -340,7 +319,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label_ShowMode.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="NumericUpDown_ShowMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 54</value>
@@ -361,6 +340,27 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NumericUpDown_ShowMode.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="NumericUpDown_Filter_Mode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>335, 103</value>
+  </data>
+  <data name="NumericUpDown_Filter_Mode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 22</value>
+  </data>
+  <data name="NumericUpDown_Filter_Mode.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;NumericUpDown_Filter_Mode.Name" xml:space="preserve">
+    <value>NumericUpDown_Filter_Mode</value>
+  </data>
+  <data name="&gt;&gt;NumericUpDown_Filter_Mode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NumericUpDown_Filter_Mode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NumericUpDown_Filter_Mode.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

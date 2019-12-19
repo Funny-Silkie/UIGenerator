@@ -43,11 +43,12 @@
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ComboBox_Filter_Type = new System.Windows.Forms.ComboBox();
             this.Label_Filter = new System.Windows.Forms.Label();
-            this.ComboBox_Filter_Mode = new System.Windows.Forms.ComboBox();
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Filter_Mode = new System.Windows.Forms.NumericUpDown();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Filter_Mode)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -144,13 +145,6 @@
             resources.ApplyResources(this.Label_Filter, "Label_Filter");
             this.Label_Filter.Name = "Label_Filter";
             // 
-            // ComboBox_Filter_Mode
-            // 
-            this.ComboBox_Filter_Mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_Filter_Mode.FormattingEnabled = true;
-            resources.ApplyResources(this.ComboBox_Filter_Mode, "ComboBox_Filter_Mode");
-            this.ComboBox_Filter_Mode.Name = "ComboBox_Filter_Mode";
-            // 
             // Label_ShowMode
             // 
             resources.ApplyResources(this.Label_ShowMode, "Label_ShowMode");
@@ -167,14 +161,24 @@
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 
+            // NumericUpDown_Filter_Mode
+            // 
+            resources.ApplyResources(this.NumericUpDown_Filter_Mode, "NumericUpDown_Filter_Mode");
+            this.NumericUpDown_Filter_Mode.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.NumericUpDown_Filter_Mode.Name = "NumericUpDown_Filter_Mode";
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.NumericUpDown_Filter_Mode);
             this.Controls.Add(this.NumericUpDown_ShowMode);
             this.Controls.Add(this.Label_ShowMode);
             this.Controls.Add(this.Label_Filter);
-            this.Controls.Add(this.ComboBox_Filter_Mode);
             this.Controls.Add(this.ComboBox_Filter_Type);
             this.Controls.Add(this.ListView_Main);
             this.Controls.Add(this.MainMenu);
@@ -183,6 +187,7 @@
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Filter_Mode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,8 +209,8 @@
         private System.Windows.Forms.Label Label_ShowMode;
         public System.Windows.Forms.ListView ListView_Main;
         public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
-        public System.Windows.Forms.ComboBox ComboBox_Filter_Mode;
         private System.Windows.Forms.ToolStripMenuItem フォントを追加するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem テクスチャを追加するToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Filter_Mode;
     }
 }

@@ -7,6 +7,7 @@ using System.Threading;
 using asd;
 using fslib;
 using fslib.Collections;
+using fslib.Exception;
 
 namespace UIGenerator
 {
@@ -51,6 +52,14 @@ namespace UIGenerator
                 return list;
             }
         }
+        /// <summary>
+        /// <see cref="UIInfoBase"/>を格納しているコレクションを取得する
+        /// </summary>
+        public InfoCollection Infos => _infos ?? (_infos = new InfoCollection(this));
+        private InfoCollection _infos;
+        ICollection IDictionary.Values => Infos;
+        ICollection<UIInfoBase> IDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
+        IEnumerable<UIInfoBase> IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
         bool ICollection.IsSynchronized => false;
         object ICollection.SyncRoot
         {
@@ -79,6 +88,32 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
             _array = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, UIInfoBase>[capacity];
+        }
+        /// <summary>
+        /// 指定したコレクションの要素のコピーを持った<see cref="UIInfoCollection"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
+        /// <param name="collection">要素をコピーする<see cref="IEnumerable{T}"/>のインスタンス</param>
+        public UIInfoCollection(IEnumerable<UIInfoBase> collection)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(collection, null);
+            _array = new DoubleKeyValuePair<int, string, UIInfoBase>[collection.Count()];
+            using (var e = collection.GetEnumerator())
+                while (e.MoveNext())
+                    Add(e.Current.Mode, e.Current.Name, e.Current);
+        }
+        /// <summary>
+        /// 指定したコレクションの要素のコピーを持った<see cref="UIInfoCollection"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="ddictionary"/>がnull</exception>
+        /// <param name="ddictionary">要素をコピーする<see cref="IDoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</param>
+        public UIInfoCollection(IEnumerable<DoubleKeyValuePair<int, string, UIInfoBase>> ddictionary)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(ddictionary, null);
+            _array = new DoubleKeyValuePair<int, string, UIInfoBase>[ddictionary.Count()];
+            using (var e = ddictionary.GetEnumerator())
+                while (e.MoveNext())
+                    Add(e.Current.Key1, e.Current.Key2, e.Current.Value);
         }
         /// <summary>
         /// 指定したインデックスに対応する要素を取得する
@@ -235,17 +270,17 @@ namespace UIGenerator
         /// <param name="mode">追加する要素の表示モード</param>
         /// <param name="name">追加する要素の名前</param>
         /// <param name="info">追加する要素</param>
-        /// <exception cref="ArgumentException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>又は<paramref name="info"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         public void Add(int mode, string name, UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(name, null);
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
-            if (Capacity > Count + 1) ReSize();
-            _array[Count - 1] = new DoubleKeyValuePair<int, string, UIInfoBase>(mode, name, info);
-            Count++;
+            Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
+            if (Capacity < Count + 1) ReSize();
+            _array[Count++] = new DoubleKeyValuePair<int, string, UIInfoBase>(mode, name, info);
             version++;
         }
         void ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Add(DoubleKeyValuePair<int, string, UIInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
@@ -279,6 +314,56 @@ namespace UIGenerator
                 }
             }
             else throw new ArgumentException();
+        }
+        /// <summary>
+        /// 要素の名前を変更する
+        /// </summary>
+        /// <param name="mode">変更する要素の表示モード</param>
+        /// <param name="oldname">変更前の名前</param>
+        /// <param name="newname">変更後の名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="oldname"/>又は<paramref name="newname"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="newname"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="mode"/>と<paramref name="oldname"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeName(int mode, string oldname, string newname)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(oldname, null);
+            Central.ThrowHelper.ThrowArgumentNullException(newname, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            var index = IndexOf(mode, oldname);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(mode, newname);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Name = newname;
+            _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(pair.Key1, newname, pair.Value);
+            return index;
+        }
+        /// <summary>
+        /// 要素の表示モードを変更する
+        /// </summary>
+        /// <param name="oldmode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <param name="newmode">変更後の表示モード</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="oldmode"/>または<paramref name="newmode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="newmode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="oldmode"/>と<paramref name="name"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeMode(int oldmode, string name, int newmode)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(name, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(oldmode, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(newmode, 0, int.MaxValue, null);
+            var index = IndexOf(oldmode, name);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(newmode, name);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Mode = newmode;
+            _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(newmode, pair.Key2, pair.Value);
+            return index;
         }
         /// <summary>
         /// 格納されている要素をすべて削除する
@@ -457,8 +542,42 @@ namespace UIGenerator
             }
         }
         int IList<DoubleKeyValuePair<int, string, UIInfoBase>>.IndexOf(DoubleKeyValuePair<int, string, UIInfoBase> item) => IndexOf(item);
-        void IList.Insert(int index, object value) => throw new NotSupportedException();
-        void IList<DoubleKeyValuePair<int, string, UIInfoBase>>.Insert(int index, DoubleKeyValuePair<int, string, UIInfoBase> item) => throw new NotSupportedException();
+        /// <summary>
+        /// 指定したインデックスに要素を挿入する
+        /// </summary>
+        /// <param name="index">挿入するインデックス</param>
+        /// <param name="mode">挿入する値の表示モード</param>
+        /// <param name="name">挿入する値の名前</param>
+        /// <param name="info">挿入する<see cref="UIInfoBase"/>のインスタンス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>又は<paramref name="info"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>よりも大きい，もしくは<paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        public void Insert(int index, int mode, string name, UIInfoBase info)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(name, null);
+            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, Count, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
+            if (Capacity < Count + 1) ReSize();
+            if (index < Count) Array.Copy(_array, index, _array, index + 1, Count - index);
+            _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(mode, name, info);
+            Count++;
+            version++;
+        }
+        void IList.Insert(int index, object value)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+            switch (value)
+            {
+                case DoubleKeyValuePair<int, string, UIInfoBase> p: Insert(index, p.Key1, p.Key2, p.Value); return;
+                case KeyValuePair<DoubleKey<int, string>, UIInfoBase> p: Insert(index, p.Key.Key1, p.Key.Key2, p.Value); return;
+                case ValueTuple<int, string, UIInfoBase> t: Insert(index, t.Item1, t.Item2, t.Item3); return;
+                default: throw new ArgumentException();
+            }
+        }
+        void IList<DoubleKeyValuePair<int, string, UIInfoBase>>.Insert(int index, DoubleKeyValuePair<int, string, UIInfoBase> item) => Insert(index, item.Key1, item.Key2, item.Value);
         /// <summary>
         /// 指定した表示モードと名前を持つ要素を削除する
         /// </summary>
@@ -526,8 +645,18 @@ namespace UIGenerator
         {
             var size = Capacity == 0 ? 4 : Capacity * 2;
             var array = new DoubleKeyValuePair<int, string, UIInfoBase>[size];
-            Array.Copy(_array, array, Count);
+            for (int i = 0; i < Count; i++) array[i] = _array[i];
             _array = array;
+        }
+        /// <summary>
+        /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
+        /// </summary>
+        /// <returns>要素がコピーされた<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</returns>
+        public DoubleKeyDictionary<int, string, UIInfoBase> ToDoubleKeyDictionary()
+        {
+            var dic = new DoubleKeyDictionary<int, string, UIInfoBase>(Count);
+            for (int i = 0; i < Count; i++) dic.Add(_array[i].Key1, _array[i].Key2, _array[i].Value);
+            return dic;
         }
         /// <summary>
         /// 指定した表示モードと名前を持つ要素を検索する
@@ -731,6 +860,22 @@ namespace UIGenerator
                     default: throw new ArgumentException();
                 }
             }
+            private int IndexOf(string name)
+            {
+                if (name == null) return -1;
+                for (int i = 0; i < Count; i++)
+                    if (collection._array[i].Key2 == name)
+                        return i;
+                return -1;
+            }
+            int IList.IndexOf(object value) => value is string s ? IndexOf(s) : -1;
+            int IList<string>.IndexOf(string item) => IndexOf(item);
+            void IList.Insert(int index, object value) => throw new NotSupportedException();
+            void IList<string>.Insert(int index, string item) => throw new NotSupportedException();
+            bool ICollection<string>.Remove(string item) => throw new NotSupportedException();
+            void IList.Remove(object value) => throw new NotSupportedException();
+            void IList.RemoveAt(int index) => throw new NotSupportedException();
+            void IList<string>.RemoveAt(int index) => throw new NotSupportedException();
             /// <summary>
             /// 列挙をサポートする構造体を返す
             /// </summary>
@@ -800,7 +945,180 @@ namespace UIGenerator
         [Serializable]
         public sealed class InfoCollection : IList<UIInfoBase>, IReadOnlyList<UIInfoBase>, IList
         {
-
+            /// <summary>
+            /// 格納されている要素数を取得する
+            /// </summary>
+            public int Count => collection.Count;
+            bool ICollection.IsSynchronized => false;
+            object ICollection.SyncRoot => ((ICollection)collection).SyncRoot;
+            bool IList.IsFixedSize => false;
+            bool IList.IsReadOnly => true;
+            bool ICollection<UIInfoBase>.IsReadOnly => true;
+            private readonly UIInfoCollection collection;
+            internal InfoCollection(UIInfoCollection collection)
+            {
+                this.collection = collection ?? throw new ArgumentNullException();
+            }
+            /// <summary>
+            /// 指定したインデックスの要素を取得する
+            /// </summary>
+            /// <param name="index">取得する要素のインデックス</param>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+            /// <returns>指定したインデックスに対応する要素</returns>
+            public UIInfoBase this[int index]
+            {
+                get
+                {
+                    Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
+                    return collection._array[index].Value;
+                }
+            }
+            object IList.this[int index]
+            {
+                get => this[index];
+                set => throw new NotSupportedException();
+            }
+            UIInfoBase IList<UIInfoBase>.this[int index]
+            {
+                get => this[index];
+                set => throw new NotSupportedException();
+            }
+            void ICollection<UIInfoBase>.Add(UIInfoBase item) => throw new NotSupportedException();
+            int IList.Add(object value) => throw new NotSupportedException();
+            void ICollection<UIInfoBase>.Clear() => throw new NotSupportedException();
+            void IList.Clear() => throw new NotSupportedException();
+            /// <summary>
+            /// 指定した要素が含まれているかどうかを返す
+            /// </summary>
+            /// <param name="name">検索する要素</param>
+            /// <returns>格納されていたらtrue，それ以外でfalse</returns>
+            public bool Contains(UIInfoBase info) => collection.Contains(info);
+            bool IList.Contains(object value) => value is UIInfoBase s ? Contains(s) : false;
+            /// <summary>
+            /// 指定した配列に要素をコピーする
+            /// </summary>
+            /// <param name="array">コピー先の配列</param>
+            /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+            public void CopyTo(UIInfoBase[] array, int arrayIndex)
+            {
+                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
+                Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + arrayIndex, null);
+                for (int i = 0; i < Count; i++) array[arrayIndex++] = collection._array[i].Value;
+            }
+            void ICollection.CopyTo(Array array, int index)
+            {
+                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
+                Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
+                Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);
+                switch (array)
+                {
+                    case UIInfoBase[] s: CopyTo(s, index); return;
+                    case object[] o:
+                        try
+                        {
+                            for (int i = 0; i < Count; i++) o[index++] = collection._array[i].Value;
+                        }
+                        catch (ArrayTypeMismatchException)
+                        {
+                            throw new ArgumentException();
+                        }
+                        return;
+                    default: throw new ArgumentException();
+                }
+            }
+            private int IndexOf(UIInfoBase info)
+            {
+                if (info == null) return -1;
+                for (int i = 0; i < Count; i++)
+                    if (collection._array[i].Value == info)
+                        return i;
+                return -1;
+            }
+            int IList.IndexOf(object value) => value is UIInfoBase s ? IndexOf(s) : -1;
+            int IList<UIInfoBase>.IndexOf(UIInfoBase item) => IndexOf(item);
+            void IList.Insert(int index, object value) => throw new NotSupportedException();
+            void IList<UIInfoBase>.Insert(int index, UIInfoBase item) => throw new NotSupportedException();
+            bool ICollection<UIInfoBase>.Remove(UIInfoBase item) => throw new NotSupportedException();
+            void IList.Remove(object value) => throw new NotSupportedException();
+            void IList.RemoveAt(int index) => throw new NotSupportedException();
+            void IList<UIInfoBase>.RemoveAt(int index) => throw new NotSupportedException();
+            /// <summary>
+            /// このインスタンスのコピーを持つ配列を返す
+            /// </summary>
+            /// <returns>コピーされた要素を持つ配列のインスタンス</returns>
+            public UIInfoBase[] ToArray()
+            {
+                var array = new UIInfoBase[Count];
+                for (int i = 0; i < Count; i++) array[i] = collection._array[i].Value;
+                return array;
+            }
+            /// <summary>
+            /// 列挙をサポートする構造体を返す
+            /// </summary>
+            /// <returns><see cref="Enumerator"/>のインスタンス</returns>
+            public Enumerator GetEnumerator() => new Enumerator(collection);
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            IEnumerator<UIInfoBase> IEnumerable<UIInfoBase>.GetEnumerator() => GetEnumerator();
+            /// <summary>
+            /// 列挙をサポートする構造体
+            /// </summary>
+            [Serializable]
+            public struct Enumerator : IEnumerator<UIInfoBase>
+            {
+                private readonly UIInfoCollection collection;
+                private int index;
+                private readonly int version;
+                /// <summary>
+                /// 現在列挙されている要素を取得する
+                /// </summary>
+                public UIInfoBase Current { get; private set; }
+                object IEnumerator.Current
+                {
+                    get
+                    {
+                        Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
+                        return Current;
+                    }
+                }
+                internal Enumerator(UIInfoCollection collection)
+                {
+                    this.collection = collection ?? throw new ArgumentNullException();
+                    index = 0;
+                    Current = default;
+                    version = collection.version;
+                }
+                /// <summary>
+                /// このインスタンスを破棄する
+                /// </summary>
+                public void Dispose() { }
+                /// <summary>
+                /// 列挙を次に進める
+                /// </summary>
+                /// <exception cref="InvalidOperationException">列挙中にコレクションが変更された</exception>
+                /// <returns>次の要素に進められたらtrue，それ以外でfalse</returns>
+                public bool MoveNext()
+                {
+                    Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
+                    if (index < collection.Count)
+                    {
+                        Current = collection._array[index++].Value;
+                        return true;
+                    }
+                    Current = default;
+                    index = collection.Count + 1;
+                    return false;
+                }
+                void IEnumerator.Reset()
+                {
+                    index = 0;
+                    Current = default;
+                }
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ namespace UIGenerator
         public MainEdittor()
         {
             InitializeComponent();
-            ComboBox_Filter_Mode.DataSource = new int[] { 0 };
             var types = new List<string>() { "All" };
             types.AddRange(DataBase.Types);
             ComboBox_Filter_Type.DataSource = types.ToArray();
@@ -28,7 +27,12 @@ namespace UIGenerator
         }
         private void 要素を追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!AddWindow.IsShown) new AddWindow(this).Show();
+            if (!AddWindow.IsShown)
+            {
+                var a = new AddWindow(this);
+                DataBase.Forms.Add(a);
+                a.Show();
+            }
         }
         private void ListView_Main_ItemActivate(object sender, EventArgs e)
         {
@@ -42,9 +46,21 @@ namespace UIGenerator
                 if (element.HandleForm == null)
                     switch (element.Type)
                     {
-                        case UITypes.Text: new TextEdittor(this, (TextObjInfo)element).Show(); return;
-                        case UITypes.Texture: new TextureEdittor(this, (TextureObjInfo)element).Show(); return;
-                        case UITypes.Window: new WindowEditter(this, (WindowInfo)element).Show(); return;
+                        case UITypes.Text:
+                            var textEdittor = new TextEdittor(this, (TextObjInfo)element);
+                            DataBase.Forms.Add(textEdittor);
+                            textEdittor.Show();
+                            return;
+                        case UITypes.Texture:
+                            var textureEdittor = new TextureEdittor(this, (TextureObjInfo)element);
+                            DataBase.Forms.Add(textureEdittor);
+                            textureEdittor.Show();
+                            return;
+                        case UITypes.Window:
+                            var windowEdditor = new WindowEditter(this, (WindowInfo)element);
+                            DataBase.Forms.Add(windowEdditor);
+                            windowEdditor.Show();
+                            return;
                         default: throw new InvalidOperationException();
                     }
             }

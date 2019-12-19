@@ -41,7 +41,7 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="UIInfo{T}"/>の情報を取得する
         /// </summary>
-        public static DoubleKeyDictionary<int, string, UIInfoBase> UIInfos { get; } = new DoubleKeyDictionary<int, string, UIInfoBase>();
+        public static UIInfoCollection UIInfos { get; } = new UIInfoCollection();
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>
@@ -62,6 +62,7 @@ namespace UIGenerator
         /// </summary>
         internal static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
         internal static TextureCollection _textures;
+        public static HashSet<System.Windows.Forms.Form> Forms { get; } = new HashSet<System.Windows.Forms.Form>();
         /// <summary>
         /// オブジェクトを追加する
         /// </summary>
@@ -83,6 +84,14 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
+        }
+        /// <summary>
+        /// 全ての<see cref="AddWindow"/>，<see cref="TextEdittor"/>，<see cref="TextureAddForm"/>，<see cref="TextureEdittor"/>，<see cref="FontAddForm"/>を閉じる
+        /// </summary>
+        public static void CloseAllWindow()
+        {
+            foreach (var f in Forms) f.Close();
+            Forms.Clear();
         }
     }
 }

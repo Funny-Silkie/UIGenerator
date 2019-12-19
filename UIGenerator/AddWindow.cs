@@ -24,13 +24,14 @@ namespace UIGenerator
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             IsShown = false;
+            DataBase.Forms.Remove(this);
         }
         private void Button_Add_Click(object sender, EventArgs e)
         {
             var mode = (int)NumericUpDown_Mode.Value;
             var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Type.Text);
             var name = TextBox_Name.Text;
-            if (!DataBase.UIInfos.ContainsKeyPair(mode, name))
+            if (!DataBase.UIInfos.Contains(mode, name))
             {
                 DataBase.AddObject(UIInfoBase.GetInstance(type, mode, name));
                 var item = mainEdittor.ListView_Main.Items.Add(type.ToString());

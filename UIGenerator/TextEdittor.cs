@@ -16,6 +16,7 @@ namespace UIGenerator
     {
         private readonly TextObjInfo info;
         private readonly MainEdittor main;
+        private readonly bool inited = false;
         public TextEdittor(MainEdittor main, TextObjInfo info)
         {
             this.main = main;
@@ -23,6 +24,7 @@ namespace UIGenerator
             this.info = info;
             InitializeComponent();
             Init();
+            inited = true;
         }
         private void Init()
         {
@@ -47,16 +49,25 @@ namespace UIGenerator
             ComboBox_Font.DataSource = DataBase.Fonts.GetNames();
             ComboBox_Font.SelectedText = info.UIObject.ToString();
         }
-        private void TextEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
+        private void TextEdittor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            info.HandleForm = null;
+            DataBase.Forms.Remove(this);
+        }
+
         private void CheckBox_IsClickable_CheckedChanged(object sender, EventArgs e) => info.UIObject.IsClickable = CheckBox_IsClickable.Checked;
         private void NumericUpDown_Priority_ValueChanged(object sender, EventArgs e) => info.DrawingPriority = (int)NumericUpDown_Priority.Value;
         private void Button_NameSet_Click(object sender, EventArgs e)
         {
             var oldName = info.Name;
             var newName = TextBox_Name.Text;
-            if (oldName != newName)
+            if (newName != oldName && inited)
             {
-                if (!DataBase.UIInfos.ContainsKeyPair(info.Mode, newName)) info.Name = newName;
+                if (!DataBase.UIInfos.Contains(info.Mode, newName))
+                {
+                    var index = DataBase.UIInfos.ChangeName(info.Mode, oldName, newName);
+                    main.ListView_Main.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newName.ToString());
+                }
                 else TextBox_Name.Text = oldName;
             }
         }
@@ -84,14 +95,14 @@ namespace UIGenerator
         {
             var oldMode = info.Mode;
             var newMode = (int)NumericUpDown_Mode.Value;
-            if (newMode != oldMode)
+            if (newMode != oldMode && inited)
             {
-                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name))
+                if (!DataBase.UIInfos.Contains(newMode, info.Name))
                 {
-                    info.Mode = newMode;
+                    var index = DataBase.UIInfos.ChangeMode(oldMode, info.Name, newMode);
                     if (oldMode == DataBase.ShowMode && info.UIObject.Layer != null) DataBase.RemoveObject(info);
                     if (newMode == DataBase.ShowMode && info.UIObject.Layer == null) DataBase.AddObject(info);
-                    main.ListView_Main.Items[]
+                    main.ListView_Main.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newMode.ToString());
                 }
                 else NumericUpDown_Mode.Value = oldMode;
             }

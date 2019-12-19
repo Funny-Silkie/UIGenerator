@@ -16,6 +16,7 @@ namespace UIGenerator
     {
         private readonly TextureObjInfo info;
         private readonly MainEdittor main;
+        private readonly bool inited = false;
         public TextureEdittor(MainEdittor main, TextureObjInfo info)
         {
             this.main = main;
@@ -23,6 +24,7 @@ namespace UIGenerator
             this.info = info;
             InitializeComponent();
             Init();
+            inited = true;
         }
         private void Init()
         {
@@ -44,14 +46,25 @@ namespace UIGenerator
             ComboBox_Texture.DataSource = DataBase.Textures.GetNames();
             ComboBox_Texture.SelectedText = info.UIObject.ToString();
         }
-        private void TextureEdittor_FormClosed(object sender, FormClosedEventArgs e) => info.HandleForm = null;
+        private void TextureEdittor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataBase.Forms.Remove(this);
+            info.HandleForm = null;
+        }
+
         private void NumericUpDown_Mode_ValueChanged(object sender, EventArgs e)
         {
             var oldMode = info.Mode;
             var newMode = (int)NumericUpDown_Mode.Value;
-            if (newMode != oldMode)
+            if (newMode != oldMode && inited)
             {
-                if (!DataBase.UIInfos.ContainsKeyPair(newMode, info.Name)) info.Mode = newMode;
+                if (!DataBase.UIInfos.Contains(newMode, info.Name))
+                {
+                    var index = DataBase.UIInfos.ChangeMode(oldMode, info.Name, newMode);
+                    if (oldMode == DataBase.ShowMode && info.UIObject.Layer != null) DataBase.RemoveObject(info);
+                    if (newMode == DataBase.ShowMode && info.UIObject.Layer == null) DataBase.AddObject(info);
+                    main.ListView_Main.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newMode.ToString());
+                }
                 else NumericUpDown_Mode.Value = oldMode;
             }
         }
@@ -61,9 +74,13 @@ namespace UIGenerator
         {
             var oldName = info.Name;
             var newName = TextBox_Name.Text;
-            if (oldName != newName)
+            if (newName != oldName && inited)
             {
-                if (!DataBase.UIInfos.ContainsKeyPair(info.Mode, newName)) info.Name = newName;
+                if (!DataBase.UIInfos.Contains(info.Mode, newName))
+                {
+                    var index = DataBase.UIInfos.ChangeName(info.Mode, oldName, newName);
+                    main.ListView_Main.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newName.ToString());
+                }
                 else TextBox_Name.Text = oldName;
             }
         }
