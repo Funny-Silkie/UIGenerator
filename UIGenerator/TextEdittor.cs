@@ -54,7 +54,6 @@ namespace UIGenerator
             info.HandleForm = null;
             DataBase.Forms.Remove(this);
         }
-
         private void CheckBox_IsClickable_CheckedChanged(object sender, EventArgs e) => info.UIObject.IsClickable = CheckBox_IsClickable.Checked;
         private void NumericUpDown_Priority_ValueChanged(object sender, EventArgs e) => info.DrawingPriority = (int)NumericUpDown_Priority.Value;
         private void Button_NameSet_Click(object sender, EventArgs e)
@@ -100,8 +99,8 @@ namespace UIGenerator
                 if (!DataBase.UIInfos.Contains(newMode, info.Name))
                 {
                     var index = DataBase.UIInfos.ChangeMode(oldMode, info.Name, newMode);
-                    if (oldMode == DataBase.ShowMode && info.UIObject.Layer != null) DataBase.RemoveObject(info);
-                    if (newMode == DataBase.ShowMode && info.UIObject.Layer == null) DataBase.AddObject(info);
+                    if (oldMode == DataBase.ShowMode && info.UIObj.Layer != null) DataBase.MainScene.RemoveObject(info);
+                    if (newMode == DataBase.ShowMode && info.UIObj.Layer == null) DataBase.MainScene.AddObject(info);
                     main.ListView_Main.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newMode.ToString());
                 }
                 else NumericUpDown_Mode.Value = oldMode;

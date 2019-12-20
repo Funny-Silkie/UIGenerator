@@ -9,15 +9,35 @@ using fslib;
 
 namespace UIGenerator
 {
-    public class UIWindow : Window, IUIElements
+    /// <summary>
+    /// ウィンドウを表すクラス
+    /// 継承不可
+    /// </summary>
+    public sealed class UIWindow : Window, IUIElements
     {
+        /// <summary>
+        /// 表示モードを取得または設定する
+        /// </summary>
         public int Mode { get; set; }
+        /// <summary>
+        /// 名前を取得または設定する
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// オブジェクトのタイプを取得または設定する
+        /// </summary>
         public UITypes Type => UITypes.Window;
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="mode">表示モード</param>
+        /// <param name="name">名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
         public UIWindow(int mode, string name) : base(default, -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
         {
-            Mode = mode;
-            Name = name;
+            Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
+            Name = name ?? throw new ArgumentNullException();
         }
         public event EventHandler<ClickArg> MouseClicked;
         public event EventHandler MouseEnter;

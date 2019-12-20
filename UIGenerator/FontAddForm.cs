@@ -23,7 +23,12 @@ namespace UIGenerator
             InitializeComponent();
             ResetListView(false);
         }
-        private void FontAddForm_FormClosed(object sender, FormClosedEventArgs e) => Instanced = false;
+        private void FontAddForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataBase.Forms.Remove(this);
+            Instanced = false;
+        }
+
         private void Button_FileSearch_Click(object sender, EventArgs e)
         {
             var name = "";

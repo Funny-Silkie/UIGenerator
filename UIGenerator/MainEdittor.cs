@@ -16,10 +16,6 @@ namespace UIGenerator
         public MainEdittor()
         {
             InitializeComponent();
-            var types = new List<string>() { "All" };
-            types.AddRange(DataBase.Types);
-            ComboBox_Filter_Type.DataSource = types.ToArray();
-            ComboBox_Filter_Type.SelectedIndex = 0;
         }
         private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e)
         {
@@ -65,13 +61,23 @@ namespace UIGenerator
                     }
             }
         }
-        private void フォントを追加するToolStripMenuItem_Click(object sender, EventArgs e)
+        private void フォントを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!FontAddForm.Instanced) new FontAddForm().Show();
+            if (!FontAddForm.Instanced)
+            {
+                var fontform = new FontAddForm();
+                DataBase.Forms.Add(fontform);
+                fontform.Show();
+            }
         }
-        private void テクスチャを追加するToolStripMenuItem_Click(object sender, EventArgs e)
+        private void テクスチャを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!TextureAddForm.Instanced) new TextureAddForm().Show();
+            if (!TextureAddForm.Instanced)
+            {
+                var textureform = new TextureAddForm();
+                DataBase.Forms.Add(textureform);
+                textureform.Show();
+            }
         }
     }
 }

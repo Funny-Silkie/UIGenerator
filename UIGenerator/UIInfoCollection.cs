@@ -25,6 +25,34 @@ namespace UIGenerator
         /// </summary>
         public int Count { get; private set; }
         internal int Capacity => _array.Length;
+        /// <summary>
+        /// 登録されている要素の表示モードの最大値を取得する
+        /// </summary>
+        public int MaxMode
+        {
+            get
+            {
+                var max = -1;
+                for (int i = 0; i < Count; i++)
+                    if (_array[i].Key1 > max)
+                        max = _array[i].Key1;
+                return max;
+            }
+        }
+        /// <summary>
+        /// 登録されている要素の表示モードの最小値を取得する
+        /// </summary>
+        public int MinMode
+        {
+            get
+            {
+                var min = int.MaxValue;
+                for (int i = 0; i < Count; i++)
+                    if (min > _array[i].Key1)
+                        min = _array[i].Key1;
+                return Count == 0 ? -1 : min;
+            }
+        }
         private IList<int> Modes
         {
             get

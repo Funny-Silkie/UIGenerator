@@ -12,6 +12,9 @@ namespace UIGenerator
 {
     public partial class TextureAddForm : Form
     {
+        /// <summary>
+        /// インスタンス化されているかどうかを取得する
+        /// </summary>
         public static bool Instanced { get; private set; }
         public TextureAddForm()
         {
@@ -19,7 +22,12 @@ namespace UIGenerator
             InitializeComponent();
             ResetListView(false);
         }
-        private void TextureAddForm_FormClosed(object sender, FormClosedEventArgs e) => Instanced = false;
+        private void TextureAddForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataBase.Forms.Remove(this);
+            Instanced = false;
+        }
+
         private void ResetListView(bool clear)
         {
             if (clear) ListView_AllTextures.Items.Clear();

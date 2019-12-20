@@ -61,7 +61,7 @@ namespace UIGenerator
         /// 管理されているテクスチャを取得する
         /// </summary>
         internal static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
-        internal static TextureCollection _textures;
+        private static TextureCollection _textures;
         public static HashSet<System.Windows.Forms.Form> Forms { get; } = new HashSet<System.Windows.Forms.Form>();
         /// <summary>
         /// オブジェクトを追加する
@@ -90,7 +90,9 @@ namespace UIGenerator
         /// </summary>
         public static void CloseAllWindow()
         {
-            foreach (var f in Forms) f.Close();
+            foreach (var f in Forms)
+                if (f != null && !f.IsDisposed)
+                    f.Close();
             Forms.Clear();
         }
     }
