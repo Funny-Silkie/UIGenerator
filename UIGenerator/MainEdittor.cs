@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using asd;
 
@@ -13,6 +14,7 @@ namespace UIGenerator
 {
     public partial class MainEdittor : Form
     {
+        private string usePath = "";
         public MainEdittor()
         {
             InitializeComponent();
@@ -78,6 +80,32 @@ namespace UIGenerator
                 DataBase.Forms.Add(textureform);
                 textureform.Show();
             }
+        }
+        private void 名前を付けて保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog()
+            {
+                Title = "名前を付けて保存",
+                FileName = ".ugpf",
+                AddExtension = true,
+                Filter = "UIGenerator's project Files (*.ugpf)|*.ugpf"
+            };
+            var thread = new Thread(new ParameterizedThreadStart(x =>
+            {
+                var state = dialog.ShowDialog();
+                if (state != DialogResult.OK) return;
+                usePath = dialog.FileName;
+            }));
+            dialog.Dispose();
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+            DataBase.Save(usePath);
+        }
+        private void 上書き保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!System.IO.File.Exists(usePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
+            else DataBase.Save(usePath);
         }
     }
 }

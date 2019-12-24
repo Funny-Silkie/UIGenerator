@@ -12,15 +12,18 @@ namespace UIGenerator
     /// <summary>
     /// UIとして操作するオブジェクトの基底クラス
     /// </summary>
+    [Serializable]
     public abstract class UIInfoBase
     {
+        [NonSerialized]
+        private System.Windows.Forms.Form handleForm = null;
         /// <summary>
         /// このインスタンスを管理するフォームを取得または設定する
         /// </summary>
-        public System.Windows.Forms.Form HandleForm { get; set; } = null;
+        public System.Windows.Forms.Form HandleForm { get => handleForm; set => handleForm = value; }
         /// <summary>
-        /// このインスタンスの管理するオブジェクトのタイプを取得する
-        /// </summary>
+                                                                                                              /// このインスタンスの管理するオブジェクトのタイプを取得する
+                                                                                                              /// </summary>
         public abstract UITypes Type { get; }
         /// <summary>
         /// 名前を取得または設定する
@@ -37,10 +40,7 @@ namespace UIGenerator
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        protected private UIInfoBase()
-        {
-
-        }
+        protected private UIInfoBase() { }
         /// <summary>
         /// インスタンスを取得する
         /// </summary>
@@ -64,6 +64,7 @@ namespace UIGenerator
     /// UIオブジェクトを管理する基底クラス
     /// </summary>
     /// <typeparam name="T">UIオブジェクトの型</typeparam>
+    [Serializable]
     public abstract class UIInfo<T> : UIInfoBase where T : Object2D, IUIElements
     {
         /// <summary>
@@ -123,6 +124,7 @@ namespace UIGenerator
     /// <see cref="UIWindow"/>を参照に持つ<see cref="UIInfo{T}"/>の実装
     /// 継承不可
     /// </summary>
+    [Serializable]
     public sealed class WindowInfo : UIInfo<UIWindow>
     {
         /// <summary>
@@ -209,6 +211,7 @@ namespace UIGenerator
     /// <see cref="UIText"/>を参照に持つ<see cref="UIInfo{T}"/>の実装
     /// 継承不可
     /// </summary>
+    [Serializable]
     public sealed class TextObjInfo : UIInfo<UIText>
     {
         /// <summary>
@@ -321,6 +324,7 @@ namespace UIGenerator
     /// <see cref="UITexture"/>を参照に持つ<see cref="UIInfo{T}"/>の実装
     /// 継承不可
     /// </summary>
+    [Serializable]
     public sealed class TextureObjInfo : UIInfo<UITexture>
     {
         /// <summary>

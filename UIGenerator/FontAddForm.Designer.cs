@@ -311,6 +311,11 @@
             0,
             0,
             0});
+            this.NumericUpDown_D_OutLineSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.NumericUpDown_D_OutLineSize.Name = "NumericUpDown_D_OutLineSize";
             this.NumericUpDown_D_OutLineSize.Size = new System.Drawing.Size(68, 22);
             this.NumericUpDown_D_OutLineSize.TabIndex = 4;

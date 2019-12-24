@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using asd;
 using fslib;
-using fslib.Collections;
+using fslib.IO;
 
 namespace UIGenerator
 {
@@ -41,7 +41,7 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="UIInfo{T}"/>の情報を取得する
         /// </summary>
-        public static UIInfoCollection UIInfos { get; } = new UIInfoCollection();
+        public static UIInfoCollection UIInfos { get; private set; } = new UIInfoCollection();
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>
@@ -94,6 +94,54 @@ namespace UIGenerator
                 if (f != null && !f.IsDisposed)
                     f.Close();
             Forms.Clear();
+        }
+        /// <summary>
+        /// データをバイナリ形式でセーブする
+        /// </summary>
+        /// <param name="path">セーブするファイルのパス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
+        public static void Save(string path)
+        {
+            IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier(UIInfos, Fonts, Textures));
+        }
+        /// <summary>
+        /// バイナリ形式のデータをロードする
+        /// </summary>
+        /// <param name="path">読み込むデータのパス</param>
+        public static void Load(string path)
+        {
+            var c = IOHandler.ReadBinary<DataCarrier>(path);
+            UIInfos = c.UIInfoCollection;
+            _fonts = c.FontCollection;
+            _textures = c.TextureCollection;
+        }
+    }
+    /// <summary>
+    /// データをバイナリで保存するためにデータをまとめるクラス
+    /// </summary>
+    [Serializable]
+    public class DataCarrier
+    {
+        /// <summary>
+        /// <see cref="DataBase.UIInfos"/>のインスタンス
+        /// </summary>
+        public UIInfoCollection UIInfoCollection { get; }
+        /// <summary>
+        /// <see cref="DataBase.Fonts"/>のインスタンス
+        /// </summary>
+        public FontCollection FontCollection { get; }
+        /// <summary>
+        /// <see cref="DataBase.Textures"/>のインスタンス
+        /// </summary>
+        public TextureCollection TextureCollection { get; }
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public DataCarrier(UIInfoCollection ui, FontCollection fonts, TextureCollection textures)
+        {
+            UIInfoCollection = ui ?? throw new ArgumentNullException();
+            FontCollection = fonts ?? throw new ArgumentNullException();
+            TextureCollection = textures ?? throw new ArgumentNullException();
         }
     }
 }

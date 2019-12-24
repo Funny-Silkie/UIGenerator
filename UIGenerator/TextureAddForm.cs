@@ -39,7 +39,7 @@ namespace UIGenerator
         }
         private void Button_FileSearch_Click(object sender, EventArgs e)
         {
-            var name = "";
+            var name = TextBox_Path.Text;
             var o = new OpenFileDialog()
             {
                 Title = "Open the Texture File",

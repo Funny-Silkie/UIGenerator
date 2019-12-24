@@ -87,6 +87,7 @@
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IUIElements.cs" />
+    <Compile Include="S_Color.cs" />
     <Compile Include="TextEdittor.cs">
       <SubType>Form</SubType>
     </Compile>

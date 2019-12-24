@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using asd;
@@ -15,11 +16,14 @@ namespace UIGenerator
     /// UIに関する情報を格納するコレクションのクラス
     /// </summary>
     [Serializable]
-    public class UIInfoCollection : IList<DoubleKeyValuePair<int, string, UIInfoBase>>, IDoubleKeyDictionary<int, string, UIInfoBase>, IReadOnlyList<DoubleKeyValuePair<int, string, UIInfoBase>>, IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>, IList, IDictionary
+    public sealed class UIInfoCollection : IList<DoubleKeyValuePair<int, string, UIInfoBase>>, IDoubleKeyDictionary<int, string, UIInfoBase>, IReadOnlyList<DoubleKeyValuePair<int, string, UIInfoBase>>, IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>, IList, IDictionary, ISerializable
     {
         private int version = 0;
         private DoubleKeyValuePair<int, string, UIInfoBase>[] _array;
         private readonly static DoubleKeyValuePair<int, string, UIInfoBase>[] emptyArray = new DoubleKeyValuePair<int, string, UIInfoBase>[0];
+        private const string Name_Array = "S_Array";
+        private const string Name_Version = "S_Version";
+        private const string Name_Count = "S_Count";
         /// <summary>
         /// 格納されている要素数を取得する
         /// </summary>
@@ -143,6 +147,12 @@ namespace UIGenerator
                 while (e.MoveNext())
                     Add(e.Current.Key1, e.Current.Key2, e.Current.Value);
         }
+        private UIInfoCollection(SerializationInfo info, StreamingContext context)
+        {
+            _array = (DoubleKeyValuePair<int, string, UIInfoBase>[])info.GetValue(Name_Array, typeof(DoubleKeyValuePair<int, string, UIInfoBase>[]));
+            Count = info.GetInt32(Name_Count);
+            version = info.GetInt32(Name_Version);
+        }
         /// <summary>
         /// 指定したインデックスに対応する要素を取得する
         /// </summary>
@@ -170,7 +180,7 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name, null);
+                Central.ThrowHelper.ThrowArgumentNullException(name);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new KeyNotFoundException(), index == -1, null);
@@ -233,14 +243,14 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name, null);
+                Central.ThrowHelper.ThrowArgumentNullException(name);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
                 return index != -1 ? _array[index].Value : throw new KeyNotFoundException();
             }
             set
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name, null);
+                Central.ThrowHelper.ThrowArgumentNullException(name);
                 Central.ThrowHelper.ThrowArgumentNullException(value, null);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
@@ -277,7 +287,7 @@ namespace UIGenerator
             {
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(value.Key1, 0, int.MaxValue, null);
-                Central.ThrowHelper.ThrowArgumentNullException(value.Key2, null);
+                Central.ThrowHelper.ThrowArgumentNullException(value.Key2);
                 Central.ThrowHelper.ThrowArgumentNullException(value.Value, null);
                 var i = IndexOf(value.Key1, value.Key2);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), i != -1 && i != index, null);
@@ -303,7 +313,7 @@ namespace UIGenerator
         /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         public void Add(int mode, string name, UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name, null);
+            Central.ThrowHelper.ThrowArgumentNullException(name);
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
@@ -356,8 +366,8 @@ namespace UIGenerator
         /// <returns>変更した要素のインデックス</returns>
         public int ChangeName(int mode, string oldname, string newname)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(oldname, null);
-            Central.ThrowHelper.ThrowArgumentNullException(newname, null);
+            Central.ThrowHelper.ThrowArgumentNullException(oldname);
+            Central.ThrowHelper.ThrowArgumentNullException(newname);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
             var index = IndexOf(mode, oldname);
             if (index == -1) throw new KeyNotFoundException();
@@ -381,7 +391,7 @@ namespace UIGenerator
         /// <returns>変更した要素のインデックス</returns>
         public int ChangeMode(int oldmode, string name, int newmode)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name, null);
+            Central.ThrowHelper.ThrowArgumentNullException(name);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(oldmode, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(newmode, 0, int.MaxValue, null);
             var index = IndexOf(oldmode, name);
@@ -478,6 +488,14 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i].Value;
         }
+        /// <summary>
+        /// 指定した配列に要素をコピーする
+        /// </summary>
+        /// <param name="array">コピー先の配列</param>
+        /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+        /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         internal void CopyTo(DoubleKeyValuePair<int, string, UIInfoBase>[] array, int arrayIndex)
         {
             Central.ThrowHelper.ThrowArgumentNullException(array, null);
@@ -521,6 +539,19 @@ namespace UIGenerator
             }
         }
         void ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.CopyTo(DoubleKeyValuePair<int, string, UIInfoBase>[] array, int arrayIndex) => CopyTo(array, arrayIndex);
+        /// <summary>
+        /// シリアル化するデータを保存する
+        /// </summary>
+        /// <param name="info">シリアル化するデータを設定する<see cref="SerializationInfo"/>のインスタンス</param>
+        /// <param name="context">出力先の情報を持つ<see cref="StreamingContext"/>のインスタンス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(info);
+            info.AddValue(Name_Array, _array);
+            info.AddValue(Name_Count, Count);
+            info.AddValue(Name_Version, version);
+        }
         /// <summary>
         /// 指定された要素と一致する物のインデックスを検索する
         /// </summary>
@@ -582,7 +613,7 @@ namespace UIGenerator
         /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         public void Insert(int index, int mode, string name, UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name, null);
+            Central.ThrowHelper.ThrowArgumentNullException(name);
             Central.ThrowHelper.ThrowArgumentNullException(info, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, Count, int.MaxValue, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
