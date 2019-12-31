@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using asd;
 using fslib;
-using fslib.Collections;
 
 namespace UIGenerator
 {
@@ -56,8 +53,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
         public TextureCollection(IEnumerable<TextureInfo> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(collection, null);
-            _array = new TextureInfo[collection.Count()];
+            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            _array = new TextureInfo[collection.Count() + 1];
             Add(DataBase.DefaultTexture);
             using (var e = collection.GetEnumerator())
                 while (e.MoveNext())
@@ -91,7 +88,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="item"/>がnull</exception>
         public void Add(TextureInfo item)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(item, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, item);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), Contains(item), null);
             if (_array.Length < Count + 1) ReSize();
             _array[Count++] = item;
@@ -142,14 +139,14 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         public void CopyTo(TextureInfo[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);

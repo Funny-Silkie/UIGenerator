@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using asd;
-using fslib;
+using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -13,7 +9,7 @@ namespace UIGenerator
     /// テキストを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIText : ClickableText, IUIElements
+    public sealed class UIText : SerializableClickableText, IUIElements
     {
         /// <summary>
         /// 表示モードを取得または設定する

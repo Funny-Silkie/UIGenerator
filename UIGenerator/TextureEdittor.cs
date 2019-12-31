@@ -117,7 +117,7 @@ namespace UIGenerator
         }
         private void ReSize()
         {
-            var s = info.Texture.Size;
+            var s = ((Texture2D)info.Texture).Size;
             var scale = info.UIObject.Scale;
             var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);
             NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;

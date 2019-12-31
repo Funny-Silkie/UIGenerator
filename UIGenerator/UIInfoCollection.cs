@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading;
-using asd;
 using fslib;
 using fslib.Collections;
 using fslib.Exception;
@@ -128,7 +126,7 @@ namespace UIGenerator
         /// <param name="collection">要素をコピーする<see cref="IEnumerable{T}"/>のインスタンス</param>
         public UIInfoCollection(IEnumerable<UIInfoBase> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(collection, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
             _array = new DoubleKeyValuePair<int, string, UIInfoBase>[collection.Count()];
             using (var e = collection.GetEnumerator())
                 while (e.MoveNext())
@@ -141,7 +139,7 @@ namespace UIGenerator
         /// <param name="ddictionary">要素をコピーする<see cref="IDoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</param>
         public UIInfoCollection(IEnumerable<DoubleKeyValuePair<int, string, UIInfoBase>> ddictionary)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(ddictionary, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, ddictionary);
             _array = new DoubleKeyValuePair<int, string, UIInfoBase>[ddictionary.Count()];
             using (var e = ddictionary.GetEnumerator())
                 while (e.MoveNext())
@@ -180,7 +178,7 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name);
+                Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new KeyNotFoundException(), index == -1, null);
@@ -243,15 +241,15 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name);
+                Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
                 return index != -1 ? _array[index].Value : throw new KeyNotFoundException();
             }
             set
             {
-                Central.ThrowHelper.ThrowArgumentNullException(name);
-                Central.ThrowHelper.ThrowArgumentNullException(value, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
+                Central.ThrowHelper.ThrowArgumentNullException(null, value);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
                 var index = IndexOf(mode, name);
                 if (index == -1) throw new KeyNotFoundException();
@@ -287,8 +285,8 @@ namespace UIGenerator
             {
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(value.Key1, 0, int.MaxValue, null);
-                Central.ThrowHelper.ThrowArgumentNullException(value.Key2);
-                Central.ThrowHelper.ThrowArgumentNullException(value.Value, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, values: value.Key2);
+                Central.ThrowHelper.ThrowArgumentNullException(null, value.Value);
                 var i = IndexOf(value.Key1, value.Key2);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), i != -1 && i != index, null);
                 _array[index] = value;
@@ -313,8 +311,8 @@ namespace UIGenerator
         /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         public void Add(int mode, string name, UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name);
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
             if (Capacity < Count + 1) ReSize();
@@ -324,7 +322,7 @@ namespace UIGenerator
         void ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Add(DoubleKeyValuePair<int, string, UIInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
         int IList.Add(object value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, value);
             switch (value)
             {
                 case DoubleKeyValuePair<int, string, UIInfoBase> p: Add(p.Key1, p.Key2, p.Value); break;
@@ -338,8 +336,8 @@ namespace UIGenerator
         }
         void IDictionary.Add(object key, object value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(key, null);
-            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, key);
+            Central.ThrowHelper.ThrowArgumentNullException(null, value);
             if (value is UIInfoBase u)
             {
                 switch (key)
@@ -366,8 +364,8 @@ namespace UIGenerator
         /// <returns>変更した要素のインデックス</returns>
         public int ChangeName(int mode, string oldname, string newname)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(oldname);
-            Central.ThrowHelper.ThrowArgumentNullException(newname);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: oldname);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: newname);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
             var index = IndexOf(mode, oldname);
             if (index == -1) throw new KeyNotFoundException();
@@ -391,7 +389,7 @@ namespace UIGenerator
         /// <returns>変更した要素のインデックス</returns>
         public int ChangeMode(int oldmode, string name, int newmode)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(oldmode, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(newmode, 0, int.MaxValue, null);
             var index = IndexOf(oldmode, name);
@@ -483,7 +481,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         public void CopyTo(UIInfoBase[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i].Value;
@@ -498,14 +496,14 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         internal void CopyTo(DoubleKeyValuePair<int, string, UIInfoBase>[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);
@@ -547,7 +545,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(info);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             info.AddValue(Name_Array, _array);
             info.AddValue(Name_Count, Count);
             info.AddValue(Name_Version, version);
@@ -613,8 +611,8 @@ namespace UIGenerator
         /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
         public void Insert(int index, int mode, string name, UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(name);
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, Count, int.MaxValue, null);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
@@ -626,7 +624,7 @@ namespace UIGenerator
         }
         void IList.Insert(int index, object value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, value);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
             switch (value)
             {
@@ -662,7 +660,7 @@ namespace UIGenerator
         bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Remove(DoubleKeyValuePair<int, string, UIInfoBase> item) => Remove(item);
         void IDictionary.Remove(object key)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(key, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, key);
             switch (key)
             {
                 case DoubleKey<int, string> p: Remove(p.Key1, p.Key2); return;
@@ -673,7 +671,7 @@ namespace UIGenerator
         }
         void IList.Remove(object value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(value, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, value);
             switch (value)
             {
                 case DoubleKeyValuePair<int, string, UIInfoBase> p: Remove(p); return;
@@ -892,14 +890,14 @@ namespace UIGenerator
             /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
             public void CopyTo(string[] array, int arrayIndex)
             {
-                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + arrayIndex, null);
                 for (int i = 0; i < Count; i++) array[arrayIndex++] = collection._array[i].Key2;
             }
             void ICollection.CopyTo(Array array, int index)
             {
-                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);
@@ -1063,14 +1061,14 @@ namespace UIGenerator
             /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
             public void CopyTo(UIInfoBase[] array, int arrayIndex)
             {
-                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + arrayIndex, null);
                 for (int i = 0; i < Count; i++) array[arrayIndex++] = collection._array[i].Value;
             }
             void ICollection.CopyTo(Array array, int index)
             {
-                Central.ThrowHelper.ThrowArgumentNullException(array, null);
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);

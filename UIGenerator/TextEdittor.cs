@@ -124,7 +124,7 @@ namespace UIGenerator
         }
         private void ReSize()
         {
-            var s = info.Font.CalcTextureSize(RichTextBox_Text.Text, info.WritingDirection);
+            var s = info.Font.Font.CalcTextureSize(RichTextBox_Text.Text, info.WritingDirection);
             var scale = info.UIObject.Scale;
             var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);
             NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;

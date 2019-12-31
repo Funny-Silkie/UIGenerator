@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using asd;
 using fslib;
+using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -142,7 +139,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public Color Color
+        public ColorPlus Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -150,7 +147,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public Vector2DF Position
+        public SerializableVector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -158,7 +155,7 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public Vector2DF Size
+        public SerializableVector2DF Size
         {
             get => UIObject.Size;
             set => UIObject.Size = value;
@@ -174,7 +171,7 @@ namespace UIGenerator
         /// <summary>
         /// 枠線の色を取得または設定する
         /// </summary>
-        public Color LineColor
+        public ColorPlus LineColor
         {
             get => UIObject.LineColor;
             set => UIObject.LineColor = value;
@@ -229,7 +226,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public Color Color
+        public ColorPlus Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -237,7 +234,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public Vector2DF Position
+        public SerializableVector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -245,7 +242,7 @@ namespace UIGenerator
         /// <summary>
         /// 中心座標を取得または設定する
         /// </summary>
-        public Vector2DF CenterPosition
+        public SerializableVector2DF CenterPosition
         {
             get => UIObject.CenterPosition;
             set => UIObject.CenterPosition = value;
@@ -253,12 +250,12 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public Vector2DF Size
+        public SerializableVector2DF Size
         {
             get => UIObject.Size;
             set
             {
-                var size = UIObject.Font.CalcTextureSize(UIObject.Text, UIObject.WritingDirection).To2DF();
+                var size = UIObject.Font.Font.CalcTextureSize(UIObject.Text, UIObject.WritingDirection).To2DF();
                 UIObject.Scale = new Vector2DF(value.X / size.X, value.Y / size.Y);
             }
         }
@@ -289,7 +286,7 @@ namespace UIGenerator
         /// <summary>
         /// 使用するフォントを取得または設定する
         /// </summary>
-        public Font Font
+        public SerializableFont Font
         {
             get => UIObject.Font;
             set => UIObject.Font = value;
@@ -342,7 +339,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public Color Color
+        public ColorPlus Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -350,7 +347,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public Vector2DF Position
+        public SerializableVector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -358,7 +355,7 @@ namespace UIGenerator
         /// <summary>
         /// 中心座標を取得または設定する
         /// </summary>
-        public Vector2DF CenterPosition
+        public SerializableVector2DF CenterPosition
         {
             get => UIObject.CenterPosition;
             set => UIObject.CenterPosition = value;
@@ -366,7 +363,7 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public Vector2DF Size
+        public SerializableVector2DF Size
         {
             get => UIObject.Size;
             set => UIObject.Size = value;
@@ -374,7 +371,7 @@ namespace UIGenerator
         /// <summary>
         /// 使用するテクスチャを取得または設定する
         /// </summary>
-        public Texture2D Texture
+        public SerializableTexture Texture
         {
             get => UIObject.Texture;
             set => UIObject.Texture = value;

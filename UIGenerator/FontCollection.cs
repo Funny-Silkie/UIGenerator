@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using asd;
 using fslib;
-using fslib.Collections;
 
 namespace UIGenerator
 {
@@ -56,8 +53,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
         public FontCollection(IEnumerable<FontInfoBase> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(collection, null);
-            _array = new FontInfoBase[collection.Count()];
+            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            _array = new FontInfoBase[collection.Count() + 1];
             Add(DataBase.DefaultFont);
             using (var e = collection.GetEnumerator())
                 while (e.MoveNext())
@@ -193,7 +190,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         public void CopyTo(FontInfoBase[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
@@ -214,7 +211,7 @@ namespace UIGenerator
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(array, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < index + Count, null);
             Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using asd;
 using fslib;
 
@@ -48,7 +44,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public void AddObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             if (info.UIObj.Layer == null) Engine.AddObject2D(info.UIObj);
         }
         /// <summary>
@@ -58,7 +54,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public void RemoveObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             if (info.UIObj.Layer != null) Engine.RemoveObject2D(info.UIObj);
         }
     }

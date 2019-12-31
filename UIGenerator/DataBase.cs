@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using asd;
 using fslib;
 using fslib.IO;
 
@@ -70,7 +66,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void AddObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             UIInfos.Add(info.Mode, info.Name, info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
@@ -81,7 +77,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void RemoveObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(info, null);
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
             UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
         }
