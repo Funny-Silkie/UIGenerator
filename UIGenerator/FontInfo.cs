@@ -30,7 +30,7 @@ namespace UIGenerator
         /// <summary>
         /// 内部に格納されている<see cref="SerializableFont"/>を取得する
         /// </summary>
-        public SerializableFont Font { get; protected set; }
+        public SerializableFont Font { get; }
         /// <summary>
         /// フォントの名前を取得する
         /// </summary>

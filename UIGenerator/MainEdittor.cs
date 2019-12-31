@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using asd;
 
 namespace UIGenerator
 {
@@ -87,6 +79,7 @@ namespace UIGenerator
             {
                 Title = "名前を付けて保存",
                 FileName = ".ugpf",
+                DefaultExt = ".ugpf",
                 AddExtension = true,
                 Filter = "UIGenerator's project Files (*.ugpf)|*.ugpf"
             };

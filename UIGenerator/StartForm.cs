@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UIGenerator
@@ -21,6 +14,8 @@ namespace UIGenerator
             if (int.TryParse(TextBox_length.Text, out int length) && int.TryParse(TextBox_wide.Text, out int wide) && length > 0 && wide > 0)
             {
                 asd.Engine.Initialize(TextBox_Name.Text, wide, length, new asd.EngineOption());
+                DataBase.ProjectName = TextBox_Name.Text;
+                DataBase.WindowSize = new fslib.Serialization.SerializableVector2DI(wide, length);
                 Close();
             }
             TextBox_length.Text = "";

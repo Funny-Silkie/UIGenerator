@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using asd;
 using fslib;
 using fslib.IO;
+using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -29,6 +31,14 @@ namespace UIGenerator
         /// 現在表示しているオブジェクトのモード
         /// </summary>
         public static int ShowMode { get; set; } = 0;
+        /// <summary>
+        /// プロジェクト名を取得または設定する
+        /// </summary>
+        public static string ProjectName { get; set; } = "";
+        /// <summary>
+        /// ウィンドウの大きさを取得または設定する
+        /// </summary>
+        public static SerializableVector2DI WindowSize { get; set; }
         internal static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
         /// <summary>
         /// メインのシーン
@@ -98,7 +108,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
         public static void Save(string path)
         {
-            IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier(UIInfos, Fonts, Textures));
+            IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier());
         }
         /// <summary>
         /// バイナリ形式のデータをロードする
@@ -110,6 +120,18 @@ namespace UIGenerator
             UIInfos = c.UIInfoCollection;
             _fonts = c.FontCollection;
             _textures = c.TextureCollection;
+        }
+        /// <summary>
+        /// ウィンドウのサイズを変更する
+        /// </summary>
+        /// <param name="size">変更後のウィンドウサイズ</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>のXまたはYの値が0以下</exception>
+        public static void SetWindowSize(SerializableVector2DI size)
+        {
+            if (size == WindowSize) return;
+            if (size.X <= 0 || size.Y <= 0) throw new ArgumentOutOfRangeException();
+            WindowSize = size;
+            Engine.WindowSize = size;
         }
     }
     /// <summary>
@@ -131,13 +153,23 @@ namespace UIGenerator
         /// </summary>
         public TextureCollection TextureCollection { get; }
         /// <summary>
+        /// プロジェクト名を取得または設定する
+        /// </summary>
+        public string ProjectName { get; set; }
+        /// <summary>
+        /// ウィンドウの大きさを取得または設定する
+        /// </summary>
+        public SerializableVector2DI WindowSize { get; set; }
+        /// <summary>
         /// コンストラクタ
         /// </summary>
-        public DataCarrier(UIInfoCollection ui, FontCollection fonts, TextureCollection textures)
+        public DataCarrier()
         {
-            UIInfoCollection = ui ?? throw new ArgumentNullException();
-            FontCollection = fonts ?? throw new ArgumentNullException();
-            TextureCollection = textures ?? throw new ArgumentNullException();
+            UIInfoCollection = DataBase.UIInfos;
+            FontCollection = DataBase.Fonts;
+            TextureCollection = DataBase.Textures;
+            ProjectName = DataBase.ProjectName;
+            WindowSize = DataBase.WindowSize;
         }
     }
 }
