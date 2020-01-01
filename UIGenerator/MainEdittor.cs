@@ -100,5 +100,13 @@ namespace UIGenerator
             if (!System.IO.File.Exists(usePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
             else DataBase.Save(usePath);
         }
+        private void ファイルパッケージを管理するToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!FilePackageLoader.Instanced)
+            {
+                var form = new FilePackageLoader();
+                DataBase.Forms.Add(form);
+            }
+        }
     }
 }

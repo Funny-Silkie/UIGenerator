@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using asd;
 using fslib;
+using fslib.Collections;
 using fslib.IO;
 using fslib.Serialization;
 
@@ -25,10 +26,13 @@ namespace UIGenerator
         /// </summary>
         Window
     }
-    public class DataBase
+    /// <summary>
+    /// 処理に必要なデータを格納しておくクラス
+    /// </summary>
+    public static class DataBase
     {
         /// <summary>
-        /// 現在表示しているオブジェクトのモード
+        /// 現在表示しているオブジェクトのモードを取得または設定する
         /// </summary>
         public static int ShowMode { get; set; } = 0;
         /// <summary>
@@ -39,9 +43,12 @@ namespace UIGenerator
         /// ウィンドウの大きさを取得または設定する
         /// </summary>
         public static SerializableVector2DI WindowSize { get; set; }
-        internal static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
         /// <summary>
-        /// メインのシーン
+        /// 文字列のタイプを取得する
+        /// </summary>
+        public static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
+        /// <summary>
+        /// メインのシーンを取得する
         /// </summary>
         public static MainScene MainScene { get; } = new MainScene();
         /// <summary>
@@ -61,14 +68,21 @@ namespace UIGenerator
         /// <summary>
         /// 管理されているフォントを取得する
         /// </summary>
-        internal static FontCollection Fonts => _fonts ?? (_fonts = new FontCollection());
+        public static FontCollection Fonts => _fonts ?? (_fonts = new FontCollection());
         private static FontCollection _fonts;
         /// <summary>
         /// 管理されているテクスチャを取得する
         /// </summary>
-        internal static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
+        public static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
         private static TextureCollection _textures;
-        public static HashSet<System.Windows.Forms.Form> Forms { get; } = new HashSet<System.Windows.Forms.Form>();
+        /// <summary>
+        /// サブフォームを格納しておくコレクションを取得する
+        /// </summary>
+        public static BasicCollection<System.Windows.Forms.Form> Forms { get; } = new BasicCollection<System.Windows.Forms.Form>();
+        /// <summary>
+        /// 使用されるファイルパッケージのコレクションを取得する
+        /// </summary>
+        public static List<string> FllePackages { get; } = new List<string>();
         /// <summary>
         /// オブジェクトを追加する
         /// </summary>
@@ -135,7 +149,7 @@ namespace UIGenerator
         }
     }
     /// <summary>
-    /// データをバイナリで保存するためにデータをまとめるクラス
+    /// バイナリでデータを保存するためにまとめるクラス
     /// </summary>
     [Serializable]
     public class DataCarrier

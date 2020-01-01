@@ -43,6 +43,7 @@
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
+            this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +82,8 @@
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.要素を追加するToolStripMenuItem,
             this.フォントを編集するToolStripMenuItem,
-            this.テクスチャを編集するToolStripMenuItem});
+            this.テクスチャを編集するToolStripMenuItem,
+            this.ファイルパッケージを管理するToolStripMenuItem});
             this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
             resources.ApplyResources(this.編集ToolStripMenuItem, "編集ToolStripMenuItem");
             // 
@@ -147,6 +149,12 @@
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 
+            // ファイルパッケージを管理するToolStripMenuItem
+            // 
+            this.ファイルパッケージを管理するToolStripMenuItem.Name = "ファイルパッケージを管理するToolStripMenuItem";
+            resources.ApplyResources(this.ファイルパッケージを管理するToolStripMenuItem, "ファイルパッケージを管理するToolStripMenuItem");
+            this.ファイルパッケージを管理するToolStripMenuItem.Click += new System.EventHandler(this.ファイルパッケージを管理するToolStripMenuItem_Click);
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
@@ -181,5 +189,6 @@
         public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
         private System.Windows.Forms.ToolStripMenuItem フォントを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem テクスチャを編集するToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ファイルパッケージを管理するToolStripMenuItem;
     }
 }

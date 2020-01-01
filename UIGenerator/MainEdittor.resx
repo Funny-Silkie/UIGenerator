@@ -153,22 +153,28 @@
     <value>ファイル</value>
   </data>
   <data name="要素を追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 26</value>
+    <value>253, 26</value>
   </data>
   <data name="要素を追加するToolStripMenuItem.Text" xml:space="preserve">
     <value>要素を追加する</value>
   </data>
   <data name="フォントを編集するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 26</value>
+    <value>253, 26</value>
   </data>
   <data name="フォントを編集するToolStripMenuItem.Text" xml:space="preserve">
     <value>フォントを編集する</value>
   </data>
   <data name="テクスチャを編集するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 26</value>
+    <value>253, 26</value>
   </data>
   <data name="テクスチャを編集するToolStripMenuItem.Text" xml:space="preserve">
     <value>テクスチャを編集する</value>
+  </data>
+  <data name="ファイルパッケージを管理するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 26</value>
+  </data>
+  <data name="ファイルパッケージを管理するToolStripMenuItem.Text" xml:space="preserve">
+    <value>ファイルパッケージを管理する</value>
   </data>
   <data name="編集ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+E</value>
@@ -365,6 +371,12 @@
   </data>
   <data name="&gt;&gt;Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Name" xml:space="preserve">
+    <value>ファイルパッケージを管理するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>
