@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using fslib.IO;
 
 namespace UIGenerator
 {
@@ -35,7 +29,7 @@ namespace UIGenerator
             var o = new OpenFileDialog()
             {
                 Title = "Open the Font File",
-                Filter = "Font Files (*.otf,*.ttf,*.ttc)|*.otf;*.ttf;*.ttc"
+                Filter = FilePathHelper.GetFilter("Font Files", ".otf", ".ttf", ".ttc")
             };
             var thread = new Thread(new ParameterizedThreadStart(x => 
             {
@@ -57,7 +51,7 @@ namespace UIGenerator
             var o = new OpenFileDialog()
             {
                 Title = "Open the Font File",
-                Filter = "Font Files (*.aff)|*.aff"
+                Filter = FilePathHelper.GetFilter("Font Files", ".aff")
             };
             var thread = new Thread(new ParameterizedThreadStart(x =>
             {

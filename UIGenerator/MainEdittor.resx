@@ -122,20 +122,20 @@
   </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="上書き保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+V</value>
+    <value>Ctrl+S</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="上書き保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 26</value>
+    <value>291, 26</value>
   </data>
   <data name="上書き保存ToolStripMenuItem.Text" xml:space="preserve">
     <value>上書き保存</value>
   </data>
   <data name="名前を付けて保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+V</value>
+    <value>Ctrl+Shift+S</value>
   </data>
   <data name="名前を付けて保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 26</value>
+    <value>291, 26</value>
   </data>
   <data name="名前を付けて保存ToolStripMenuItem.Text" xml:space="preserve">
     <value>名前を付けて保存</value>
@@ -354,6 +354,12 @@
   <data name="&gt;&gt;テクスチャを編集するToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Name" xml:space="preserve">
+    <value>ファイルパッケージを管理するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;Type.Name" xml:space="preserve">
     <value>Type</value>
   </data>
@@ -371,12 +377,6 @@
   </data>
   <data name="&gt;&gt;Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Name" xml:space="preserve">
-    <value>ファイルパッケージを管理するToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>

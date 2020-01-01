@@ -106,6 +106,7 @@
             this.Button_Remove.TabIndex = 6;
             this.Button_Remove.Text = "Remove";
             this.Button_Remove.UseVisualStyleBackColor = true;
+            this.Button_Remove.Click += new System.EventHandler(this.Button_Remove_Click);
             // 
             // ListView_Packages
             // 

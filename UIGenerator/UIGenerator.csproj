@@ -63,13 +63,19 @@
     </Compile>
     <Compile Include="ClickArg.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="FilePackageLoader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilePackageLoader.Designer.cs">
+      <DependentUpon>FilePackageLoader.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FontAddForm.Designer.cs">
       <DependentUpon>FontAddForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FontCollection.cs" />
+    <Compile Include="Collections\FontCollection.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="MainEdittor.cs">
       <SubType>Form</SubType>
@@ -78,6 +84,7 @@
       <DependentUpon>MainEdittor.cs</DependentUpon>
     </Compile>
     <Compile Include="MainScene.cs" />
+    <Compile Include="Collections\FilePackageCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartForm.cs">
@@ -86,7 +93,7 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IUIElements.cs" />
+    <Compile Include="UIObjects\IUIElements.cs" />
     <Compile Include="TextEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,7 +106,7 @@
     <Compile Include="TextureAddForm.Designer.cs">
       <DependentUpon>TextureAddForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextureCollection.cs" />
+    <Compile Include="Collections\TextureCollection.cs" />
     <Compile Include="TextureEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,10 +115,10 @@
     </Compile>
     <Compile Include="TextureInfo.cs" />
     <Compile Include="UIInfo.cs" />
-    <Compile Include="UIInfoCollection.cs" />
-    <Compile Include="UIText.cs" />
-    <Compile Include="UITexture.cs" />
-    <Compile Include="UIWindow.cs" />
+    <Compile Include="Collections\UIInfoCollection.cs" />
+    <Compile Include="UIObjects\UIText.cs" />
+    <Compile Include="UIObjects\UITexture.cs" />
+    <Compile Include="UIObjects\UIWindow.cs" />
     <Compile Include="WindowEditter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +150,9 @@
     <EmbeddedResource Include="AddWindow.resx">
       <DependentUpon>AddWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FilePackageLoader.resx">
+      <DependentUpon>FilePackageLoader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FontAddForm.resx">
       <DependentUpon>FontAddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,5 +178,6 @@
       <DependentUpon>WindowEditter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

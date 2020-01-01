@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using asd;
-using fslib;
+using fslib.Serialization;
 
 namespace UIGenerator
 {
     /// <summary>
-    /// ウィンドウを表すクラス
+    /// テクスチャを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIWindow : Window, IUIElements
+    [Serializable]
+    public class UITexture : SerializableClickableTexture, IUIElements
     {
         /// <summary>
         /// 表示モードを取得または設定する
@@ -22,7 +23,10 @@ namespace UIGenerator
         /// <summary>
         /// オブジェクトのタイプを取得または設定する
         /// </summary>
-        public UITypes Type => UITypes.Window;
+        public UITypes Type => UITypes.Texture;
+        public event EventHandler<ClickArg> MouseClicked;
+        public event EventHandler MouseEnter;
+        public event EventHandler MouseExit;
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -30,14 +34,11 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIWindow(int mode, string name) : base(default, -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
+        public UITexture(int mode, string name) : base(DataBase.DefaultTexture.Texture)
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
         }
-        public event EventHandler<ClickArg> MouseClicked;
-        public event EventHandler MouseEnter;
-        public event EventHandler MouseExit;
         protected override void OnUpdate()
         {
             base.OnUpdate();

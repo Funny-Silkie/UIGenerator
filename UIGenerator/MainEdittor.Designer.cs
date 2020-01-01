@@ -37,13 +37,13 @@
             this.要素を追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.フォントを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.テクスチャを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListView_Main = new System.Windows.Forms.ListView();
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ObjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
-            this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +105,12 @@
             resources.ApplyResources(this.テクスチャを編集するToolStripMenuItem, "テクスチャを編集するToolStripMenuItem");
             this.テクスチャを編集するToolStripMenuItem.Click += new System.EventHandler(this.テクスチャを編集するToolStripMenuItem_Click);
             // 
+            // ファイルパッケージを管理するToolStripMenuItem
+            // 
+            this.ファイルパッケージを管理するToolStripMenuItem.Name = "ファイルパッケージを管理するToolStripMenuItem";
+            resources.ApplyResources(this.ファイルパッケージを管理するToolStripMenuItem, "ファイルパッケージを管理するToolStripMenuItem");
+            this.ファイルパッケージを管理するToolStripMenuItem.Click += new System.EventHandler(this.ファイルパッケージを管理するToolStripMenuItem_Click);
+            // 
             // ListView_Main
             // 
             this.ListView_Main.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -148,12 +154,6 @@
             0});
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
-            // 
-            // ファイルパッケージを管理するToolStripMenuItem
-            // 
-            this.ファイルパッケージを管理するToolStripMenuItem.Name = "ファイルパッケージを管理するToolStripMenuItem";
-            resources.ApplyResources(this.ファイルパッケージを管理するToolStripMenuItem, "ファイルパッケージを管理するToolStripMenuItem");
-            this.ファイルパッケージを管理するToolStripMenuItem.Click += new System.EventHandler(this.ファイルパッケージを管理するToolStripMenuItem_Click);
             // 
             // MainEdittor
             // 

@@ -51,16 +51,34 @@ namespace UIGenerator
                     name = o.FileName;
                 }
             }));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
             o.Dispose();
             TextBox_Path.Text = name;
         }
         private void CheckBox_PassWord_CheckedChanged(object sender, EventArgs e) => TextBox_PassWord.Enabled = CheckBox_PassWord.Checked;
         private void Button_Register_Click(object sender, EventArgs e)
         {
-            if (!Engine.File.Exists(TextBox_Path.Text)) return;
-            if (CheckBox_PassWord.Checked) Engine.File.AddRootPackageWithPassword(TextBox_Path.Text, TextBox_PassWord.Text);
-            else Engine.File.AddRootPackage(TextBox_Path.Text);
-            DataBase.FllePackages.Add(TextBox_Path.Text);
+            var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Add(TextBox_Path.Text) : DataBase.FllePackages.Add(TextBox_Path.Text, TextBox_PassWord.Text);
+            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+            if (!s) return;
+            ListView_Packages.Items.Add(TextBox_Path.Text + (s ? $"PassWord({TextBox_PassWord.Text})" : ""));
+            ClearForm();
+        }
+        private void Button_Remove_Click(object sender, EventArgs e)
+        {
+            var index = CheckBox_PassWord.Checked ? DataBase.FllePackages.IndexOf(TextBox_Path.Text, TextBox_PassWord.Text) : DataBase.FllePackages.IndexOf(TextBox_Path.Text);
+            var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Remove(TextBox_Path.Text) : DataBase.FllePackages.Remove(TextBox_Path.Text, TextBox_PassWord.Text);
+            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+            if (!s) return;
+            ListView_Packages.Items.RemoveAt(index);
+            ClearForm();
+        }
+        private void ClearForm()
+        {
+            TextBox_Path.Text = "";
+            TextBox_PassWord.Text = "";
         }
     }
 }

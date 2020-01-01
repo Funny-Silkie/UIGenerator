@@ -203,6 +203,27 @@ namespace UIGenerator
         {
 
         }
+        /// <summary>
+        /// 最初のフィールド宣言を行う
+        /// </summary>
+        /// <returns>C#による最初のフィールド宣言</returns>
+        public string ToCSharp_Define() => $"private UIWindow window_{Mode}_{Name};";
+        /// <summary>
+        /// 各要素の設定を行う
+        /// </summary>
+        /// <returns>C#による各要素の設定</returns>
+        public string ToCSharp_Set() =>
+            $"window_{Mode}_{Name} = new UIWindow({Mode}, {Name})\n" +
+             "{\n" +
+            $"    Position = new Vector2DF{Position},\n" +
+            $"    Color = new Color({Color.R}, {Color.G}, {Color.B}, {Color.A}),\n" +
+            $"    IsClickable = {IsClickable},\n" +
+            $"    Size = new Vector2DF{Size},\n" +
+            $"    DrawingPriority = {DrawingPriority},\n" +
+            $"    LineColor = new Color({LineColor.R}, {LineColor.G}, {LineColor.B}, {LineColor.A}),\n" +
+            $"    Thickness = {LineThickness},\n" +
+            $"    GeneratingFlame = {GeneratingFlame}\n" +
+             "}";
     }
     /// <summary>
     /// <see cref="UIText"/>を参照に持つ<see cref="UIInfo{T}"/>の実装
@@ -316,6 +337,27 @@ namespace UIGenerator
         {
 
         }
+        /// <summary>
+        /// 最初のフィールド宣言を行う
+        /// </summary>
+        /// <returns>C#による最初のフィールド宣言</returns>
+        public string ToCSharp_Define() => $"private UIText text_{Mode}_{Name};";
+        /// <summary>
+        /// 各要素の設定を行う
+        /// </summary>
+        /// <returns>C#による各要素の設定</returns>
+        public string ToCSharp_Set() =>
+            $"text_{Mode}_{Name} = new UIText({Mode}, {Name})\n" +
+             "{\n" +
+            $"    Position = new Vector2DF{Position},\n" +
+            $"    CenterPosition = new Vector2DF{CenterPosition},\n" +
+            $"    Color = new Color({Color.R}, {Color.G}, {Color.B}, {Color.A}),\n" +
+            $"    WritingDirection = {WritingDirection},\n" +
+            $"    Text = {Text},\n" +
+            $"    IsClickable = {IsClickable},\n" +
+            $"    Size = new Vector2DF{Size},\n" +
+            $"    DrawingPriority = {DrawingPriority}\n" +
+             "}";
     }
     /// <summary>
     /// <see cref="UITexture"/>を参照に持つ<see cref="UIInfo{T}"/>の実装

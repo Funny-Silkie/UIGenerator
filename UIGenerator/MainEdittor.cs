@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using fslib.IO;
 
 namespace UIGenerator
 {
@@ -78,10 +79,10 @@ namespace UIGenerator
             var dialog = new SaveFileDialog()
             {
                 Title = "名前を付けて保存",
-                FileName = ".ugpf",
+                FileName = DataBase.ProjectName,
                 DefaultExt = ".ugpf",
                 AddExtension = true,
-                Filter = "UIGenerator's project Files (*.ugpf)|*.ugpf"
+                Filter = FilePathHelper.GetFilter("UIGenerator's project Files", ".ugpf")
             };
             var thread = new Thread(new ParameterizedThreadStart(x =>
             {
@@ -93,6 +94,7 @@ namespace UIGenerator
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
+            if (string.IsNullOrWhiteSpace(usePath)) return;
             DataBase.Save(usePath);
         }
         private void 上書き保存ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +108,7 @@ namespace UIGenerator
             {
                 var form = new FilePackageLoader();
                 DataBase.Forms.Add(form);
+                form.Show();
             }
         }
     }

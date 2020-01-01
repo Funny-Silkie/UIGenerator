@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using asd;
-using fslib.Serialization;
+using fslib;
 
 namespace UIGenerator
 {
     /// <summary>
-    /// テキストを表すクラス
+    /// ウィンドウを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIText : SerializableClickableText, IUIElements
+    [Serializable]
+    public sealed class UIWindow : Window, IUIElements
     {
         /// <summary>
         /// 表示モードを取得または設定する
@@ -22,7 +23,7 @@ namespace UIGenerator
         /// <summary>
         /// オブジェクトのタイプを取得または設定する
         /// </summary>
-        public UITypes Type => UITypes.Text;
+        public UITypes Type => UITypes.Window;
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -30,7 +31,7 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIText(int mode, string name) : base(DataBase.DefaultFont.Font, "Text")
+        public UIWindow(int mode, string name) : base(default, -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();

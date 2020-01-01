@@ -6,10 +6,11 @@ using fslib.Serialization;
 namespace UIGenerator
 {
     /// <summary>
-    /// テクスチャを表すクラス
+    /// テキストを表すクラス
     /// 継承不可
     /// </summary>
-    public class UITexture : SerializableClickableTexture, IUIElements
+    [Serializable]
+    public sealed class UIText : SerializableClickableText, IUIElements
     {
         /// <summary>
         /// 表示モードを取得または設定する
@@ -22,10 +23,7 @@ namespace UIGenerator
         /// <summary>
         /// オブジェクトのタイプを取得または設定する
         /// </summary>
-        public UITypes Type => UITypes.Texture;
-        public event EventHandler<ClickArg> MouseClicked;
-        public event EventHandler MouseEnter;
-        public event EventHandler MouseExit;
+        public UITypes Type => UITypes.Text;
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -33,11 +31,14 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UITexture(int mode, string name) : base(DataBase.DefaultTexture.Texture)
+        public UIText(int mode, string name) : base(DataBase.DefaultFont.Font, "Text")
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
         }
+        public event EventHandler<ClickArg> MouseClicked;
+        public event EventHandler MouseEnter;
+        public event EventHandler MouseExit;
         protected override void OnUpdate()
         {
             base.OnUpdate();

@@ -11,6 +11,7 @@ namespace UIGenerator
     /// <summary>
     /// UIのタイプを表す
     /// </summary>
+    [Serializable]
     public enum UITypes
     {
         /// <summary>
@@ -82,7 +83,7 @@ namespace UIGenerator
         /// <summary>
         /// 使用されるファイルパッケージのコレクションを取得する
         /// </summary>
-        public static List<string> FllePackages { get; } = new List<string>();
+        public static FilePackageCollection FllePackages { get; } = new FilePackageCollection();
         /// <summary>
         /// オブジェクトを追加する
         /// </summary>
