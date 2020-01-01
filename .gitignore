@@ -354,6 +354,7 @@ MigrationBackup /
 .vs
 UIGenerator/bin/*
 UIGenerator/obj/*
+UIGenerator/Resource/*
 *.dll
 *.dylib
 *.xml

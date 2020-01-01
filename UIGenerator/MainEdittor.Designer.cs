@@ -44,6 +44,7 @@
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.要素を追加するToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.フォントを編集するToolStripMenuItem,
             this.テクスチャを編集するToolStripMenuItem,
             this.ファイルパッケージを管理するToolStripMenuItem});
@@ -155,6 +157,11 @@
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
@@ -190,5 +197,6 @@
         private System.Windows.Forms.ToolStripMenuItem フォントを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem テクスチャを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ファイルパッケージを管理するToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
