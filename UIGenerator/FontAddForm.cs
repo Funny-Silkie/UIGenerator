@@ -34,10 +34,7 @@ namespace UIGenerator
             var thread = new Thread(new ParameterizedThreadStart(x => 
             {
                 var state = o.ShowDialog(); 
-                if (state == DialogResult.OK)
-                {
-                    name = o.FileName;
-                }
+                if (state == DialogResult.OK) name = o.FileName;
             }));
             o.Dispose();
             thread.SetApartmentState(ApartmentState.STA);
@@ -56,10 +53,7 @@ namespace UIGenerator
             var thread = new Thread(new ParameterizedThreadStart(x =>
             {
                 var state = o.ShowDialog();
-                if (state == DialogResult.OK)
-                {
-                    name = o.FileName;
-                }
+                if (state == DialogResult.OK) name = o.FileName;
             }));
             o.Dispose();
             thread.SetApartmentState(ApartmentState.STA);
@@ -77,7 +71,7 @@ namespace UIGenerator
             DynamicFontInfo fontinfo;
             if (!asd.Engine.File.Exists(path))
             {
-                Label_D_Succeed.Text = "FilePath Is Wrong";
+                Console.WriteLine("FilePath Is Wrong");
                 return;
             }
             try
@@ -86,16 +80,16 @@ namespace UIGenerator
             }
             catch (System.IO.IOException)
             {
-                Label_D_Succeed.Text = "Failed to create font";
+                Console.WriteLine("Failed to create font");
                 return;
             }
             if (DataBase.Fonts.Contains(fontinfo))
             {
-                Label_D_Succeed.Text = "Font is duplicated";
+                Console.WriteLine("Font is duplicated");
                 return;
             }
             DataBase.Fonts.Add(fontinfo);
-            Label_D_Succeed.Text = "Succeeded to create font";
+            Console.WriteLine("Succeeded to create font");
             FormReset_D();
             ResetListView(true);
         }
@@ -132,7 +126,7 @@ namespace UIGenerator
             StaticFontInfo fontinfo;
             if (!asd.Engine.File.Exists(path))
             {
-                Label_S_Succeed.Text = "FilePath Is Wrong";
+                Console.WriteLine("FilePath Is Wrong");
                 return;
             }
             try
@@ -141,16 +135,16 @@ namespace UIGenerator
             }
             catch (System.IO.IOException)
             {
-                Label_S_Succeed.Text = "Failed to create font";
+                Console.WriteLine("Failed to create font");
                 return;
             }
             if (DataBase.Fonts.Contains(fontinfo))
             {
-                Label_S_Succeed.Text = "Font is duplicated";
+                Console.WriteLine("Font is duplicated");
                 return;
             }
             DataBase.Fonts.Add(fontinfo);
-            Label_S_Succeed.Text = "Succeeded to create font";
+            Console.WriteLine("Succeeded to create font");
             FormReset_S();
             ResetListView(true);
         }

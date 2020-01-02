@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             this.TabPage_S = new System.Windows.Forms.TabPage();
-            this.Label_S_Succeed = new System.Windows.Forms.Label();
             this.Button_S_Register = new System.Windows.Forms.Button();
             this.Button_S_FileSearch = new System.Windows.Forms.Button();
             this.Label_S_Path = new System.Windows.Forms.Label();
             this.TextBox_S_Path = new System.Windows.Forms.TextBox();
             this.TabPage_D = new System.Windows.Forms.TabPage();
-            this.Label_D_Succeed = new System.Windows.Forms.Label();
             this.NumericUpDown_D_OA = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_D_FA = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_D_OG = new System.Windows.Forms.NumericUpDown();
@@ -80,7 +78,6 @@
             // 
             // TabPage_S
             // 
-            this.TabPage_S.Controls.Add(this.Label_S_Succeed);
             this.TabPage_S.Controls.Add(this.Button_S_Register);
             this.TabPage_S.Controls.Add(this.Button_S_FileSearch);
             this.TabPage_S.Controls.Add(this.Label_S_Path);
@@ -92,14 +89,6 @@
             this.TabPage_S.TabIndex = 1;
             this.TabPage_S.Text = "Static Font";
             this.TabPage_S.UseVisualStyleBackColor = true;
-            // 
-            // Label_S_Succeed
-            // 
-            this.Label_S_Succeed.AutoSize = true;
-            this.Label_S_Succeed.Location = new System.Drawing.Point(413, 152);
-            this.Label_S_Succeed.Name = "Label_S_Succeed";
-            this.Label_S_Succeed.Size = new System.Drawing.Size(0, 15);
-            this.Label_S_Succeed.TabIndex = 7;
             // 
             // Button_S_Register
             // 
@@ -141,7 +130,6 @@
             // 
             // TabPage_D
             // 
-            this.TabPage_D.Controls.Add(this.Label_D_Succeed);
             this.TabPage_D.Controls.Add(this.NumericUpDown_D_OA);
             this.TabPage_D.Controls.Add(this.NumericUpDown_D_FA);
             this.TabPage_D.Controls.Add(this.NumericUpDown_D_OG);
@@ -173,14 +161,6 @@
             this.TabPage_D.TabIndex = 0;
             this.TabPage_D.Text = "Dynamic Font";
             this.TabPage_D.UseVisualStyleBackColor = true;
-            // 
-            // Label_D_Succeed
-            // 
-            this.Label_D_Succeed.AutoSize = true;
-            this.Label_D_Succeed.Location = new System.Drawing.Point(459, 309);
-            this.Label_D_Succeed.Name = "Label_D_Succeed";
-            this.Label_D_Succeed.Size = new System.Drawing.Size(0, 15);
-            this.Label_D_Succeed.TabIndex = 6;
             // 
             // NumericUpDown_D_OA
             // 
@@ -536,13 +516,11 @@
         #endregion
 
         private System.Windows.Forms.TabPage TabPage_S;
-        private System.Windows.Forms.Label Label_S_Succeed;
         private System.Windows.Forms.Button Button_S_Register;
         private System.Windows.Forms.Button Button_S_FileSearch;
         private System.Windows.Forms.Label Label_S_Path;
         private System.Windows.Forms.TextBox TextBox_S_Path;
         private System.Windows.Forms.TabPage TabPage_D;
-        private System.Windows.Forms.Label Label_D_Succeed;
         private System.Windows.Forms.NumericUpDown NumericUpDown_D_OA;
         private System.Windows.Forms.NumericUpDown NumericUpDown_D_FA;
         private System.Windows.Forms.NumericUpDown NumericUpDown_D_OG;

@@ -57,7 +57,7 @@ namespace UIGenerator
             TextureInfo textureinfo;
             if (!asd.Engine.File.Exists(path))
             {
-                Label_Succeed.Text = "FilePath Is Wrong";
+                Console.WriteLine("FilePath Is Wrong");
                 return;
             }
             try
@@ -66,16 +66,16 @@ namespace UIGenerator
             }
             catch (System.IO.IOException)
             {
-                Label_Succeed.Text = "Failed to create texture";
+                Console.WriteLine("Failed to create texture");
                 return;
             }
             if (DataBase.Textures.Contains(textureinfo))
             {
-                Label_Succeed.Text = "Texture is duplicated";
+                Console.WriteLine("Texture is duplicated");
                 return;
             }
             DataBase.Textures.Add(textureinfo);
-            Label_Succeed.Text = "Succeeded to create texture";
+            Console.WriteLine("Succeeded to create texture");
             TextBox_Path.Text = "";
             ResetListView(true);
         }

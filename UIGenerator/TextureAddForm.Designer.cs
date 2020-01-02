@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Label_Succeed = new System.Windows.Forms.Label();
             this.Button_Register = new System.Windows.Forms.Button();
             this.Button_FileSearch = new System.Windows.Forms.Button();
             this.Label_Path = new System.Windows.Forms.Label();
@@ -36,14 +35,6 @@
             this.ListView_AllTextures = new System.Windows.Forms.ListView();
             this.ColumnHeader_Texture = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
-            // 
-            // Label_Succeed
-            // 
-            this.Label_Succeed.AutoSize = true;
-            this.Label_Succeed.Location = new System.Drawing.Point(432, 166);
-            this.Label_Succeed.Name = "Label_Succeed";
-            this.Label_Succeed.Size = new System.Drawing.Size(0, 15);
-            this.Label_Succeed.TabIndex = 12;
             // 
             // Button_Register
             // 
@@ -108,7 +99,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 450);
             this.Controls.Add(this.ListView_AllTextures);
-            this.Controls.Add(this.Label_Succeed);
             this.Controls.Add(this.Button_Register);
             this.Controls.Add(this.Button_FileSearch);
             this.Controls.Add(this.Label_Path);
@@ -122,8 +112,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label Label_Succeed;
         private System.Windows.Forms.Button Button_Register;
         private System.Windows.Forms.Button Button_FileSearch;
         private System.Windows.Forms.Label Label_Path;
