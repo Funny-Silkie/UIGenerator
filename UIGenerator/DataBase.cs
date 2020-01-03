@@ -58,7 +58,7 @@ namespace UIGenerator
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>
-        public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("Resource/NotoSerifCJKjp-Medium.otf", 30, new ColorDefault(ColorSet.White), 1, new ColorDefault(ColorSet.Black)));
+        public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("Resource/NotoSerifCJKjp-Medium.otf", 30, new ColorPlus(ColorSet.White), 1, new ColorPlus(ColorSet.Black)));
         private static DynamicFontInfo _defaultFont;
         /// <summary>
         /// 既定の画像を取得する
@@ -134,6 +134,8 @@ namespace UIGenerator
             UIInfos = c.UIInfoCollection;
             _fonts = c.FontCollection;
             _textures = c.TextureCollection;
+            ProjectName = c.ProjectName;
+            WindowSize = c.WindowSize;
         }
         /// <summary>
         /// ウィンドウのサイズを変更する

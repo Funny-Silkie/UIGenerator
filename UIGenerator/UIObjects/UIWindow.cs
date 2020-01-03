@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using asd;
 using fslib;
+using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -10,7 +11,7 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public sealed class UIWindow : Window, IUIElements
+    public sealed class UIWindow : SerializableWindow, IUIElements
     {
         /// <summary>
         /// 表示モードを取得または設定する
@@ -31,10 +32,12 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIWindow(int mode, string name) : base(default, -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
+        public UIWindow(int mode, string name) : base(default, new Vector2DI(100, 100))
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
+            DrawingPriority = -1;
+            SetColor(ColorSet.WindowDefault);
         }
         public event EventHandler<ClickArg> MouseClicked;
         public event EventHandler MouseEnter;

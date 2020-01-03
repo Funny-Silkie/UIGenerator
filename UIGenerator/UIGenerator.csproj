@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesibilityInfo.cs" />
+    <Compile Include="AccesibilityType.cs" />
     <Compile Include="AddWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +63,7 @@
       <DependentUpon>AddWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ClickArg.cs" />
+    <Compile Include="CSharpCodeProvider.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>

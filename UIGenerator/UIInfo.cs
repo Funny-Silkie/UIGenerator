@@ -12,6 +12,10 @@ namespace UIGenerator
     [Serializable]
     public abstract class UIInfoBase
     {
+        /// <summary>
+        /// 使用するアクセシビリティを取得または設定する
+        /// </summary>
+        public AccesibilityType Accesibility { get; set; }
         [NonSerialized]
         private System.Windows.Forms.Form handleForm = null;
         /// <summary>
@@ -56,6 +60,16 @@ namespace UIGenerator
                 default: throw new InvalidEnumArgumentException();
             }
         }
+        /// <summary>
+        /// 最初のフィールド宣言を行う
+        /// </summary>
+        /// <returns>C#による最初のフィールド宣言</returns>
+        public abstract string ToCSharp_Define();
+        /// <summary>
+        /// 各要素の設定を行う
+        /// </summary>
+        /// <returns>C#による各要素の設定</returns>
+        public abstract string ToCSharp_Set();
     }
     /// <summary>
     /// UIオブジェクトを管理する基底クラス
@@ -207,12 +221,12 @@ namespace UIGenerator
         /// 最初のフィールド宣言を行う
         /// </summary>
         /// <returns>C#による最初のフィールド宣言</returns>
-        public string ToCSharp_Define() => $"private UIWindow window_{Mode}_{Name};";
+        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIWindow window_{Mode}_{Name};";
         /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public string ToCSharp_Set() =>
+        public override string ToCSharp_Set() =>
             $"window_{Mode}_{Name} = new UIWindow({Mode}, {Name})\n" +
              "{\n" +
             $"    Position = new Vector2DF{Position},\n" +
@@ -341,12 +355,12 @@ namespace UIGenerator
         /// 最初のフィールド宣言を行う
         /// </summary>
         /// <returns>C#による最初のフィールド宣言</returns>
-        public string ToCSharp_Define() => $"private UIText text_{Mode}_{Name};";
+        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIText text_{Mode}_{Name};";
         /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public string ToCSharp_Set() =>
+        public override string ToCSharp_Set() =>
             $"text_{Mode}_{Name} = new UIText({Mode}, {Name})\n" +
              "{\n" +
             $"    Position = new Vector2DF{Position},\n" +
@@ -451,5 +465,15 @@ namespace UIGenerator
         {
 
         }
+        /// <summary>
+        /// 最初のフィールド宣言を行う
+        /// </summary>
+        /// <returns>C#による最初のフィールド宣言</returns>
+        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UITexture texture_{Mode}_{Name};";
+        /// <summary>
+        /// 各要素の設定を行う
+        /// </summary>
+        /// <returns>C#による各要素の設定</returns>
+        public override string ToCSharp_Set() => throw new NotImplementedException();
     }
 }
