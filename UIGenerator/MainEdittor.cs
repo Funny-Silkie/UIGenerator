@@ -58,18 +58,18 @@ namespace UIGenerator
         }
         private void フォントを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!FontAddForm.Instanced)
+            if (!FontIOForm.Instanced)
             {
-                var fontform = new FontAddForm();
+                var fontform = new FontIOForm();
                 DataBase.Forms.Add(fontform);
                 fontform.Show();
             }
         }
         private void テクスチャを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!TextureAddForm.Instanced)
+            if (!TextureIOForm.Instanced)
             {
-                var textureform = new TextureAddForm();
+                var textureform = new TextureIOForm();
                 DataBase.Forms.Add(textureform);
                 textureform.Show();
             }

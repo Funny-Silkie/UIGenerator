@@ -71,11 +71,11 @@
     <Compile Include="FilePackageLoader.Designer.cs">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>
     </Compile>
-    <Compile Include="FontAddForm.cs">
+    <Compile Include="FontIOForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FontAddForm.Designer.cs">
-      <DependentUpon>FontAddForm.cs</DependentUpon>
+    <Compile Include="FontIOForm.Designer.cs">
+      <DependentUpon>FontIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
     <Compile Include="FontInfo.cs" />
@@ -102,11 +102,11 @@
     <Compile Include="TextEdittor.Designer.cs">
       <DependentUpon>TextEdittor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextureAddForm.cs">
+    <Compile Include="TextureIOForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TextureAddForm.Designer.cs">
-      <DependentUpon>TextureAddForm.cs</DependentUpon>
+    <Compile Include="TextureIOForm.Designer.cs">
+      <DependentUpon>TextureIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\TextureCollection.cs" />
     <Compile Include="TextureEdittor.cs">
@@ -155,8 +155,8 @@
     <EmbeddedResource Include="FilePackageLoader.resx">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FontAddForm.resx">
-      <DependentUpon>FontAddForm.cs</DependentUpon>
+    <EmbeddedResource Include="FontIOForm.resx">
+      <DependentUpon>FontIOForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainEdittor.is.resx">
       <DependentUpon>MainEdittor.cs</DependentUpon>
@@ -170,8 +170,8 @@
     <EmbeddedResource Include="TextEdittor.resx">
       <DependentUpon>TextEdittor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextureAddForm.resx">
-      <DependentUpon>TextureAddForm.cs</DependentUpon>
+    <EmbeddedResource Include="TextureIOForm.resx">
+      <DependentUpon>TextureIOForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureEdittor.resx">
       <DependentUpon>TextureEdittor.cs</DependentUpon>

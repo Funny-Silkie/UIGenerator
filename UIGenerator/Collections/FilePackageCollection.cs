@@ -97,7 +97,7 @@ namespace UIGenerator
         {
             get
             {
-                Interlocked.CompareExchange(ref _syncRoot, new object(), null);
+                if (_syncRoot == null) Interlocked.CompareExchange(ref _syncRoot, new object(), null);
                 return _syncRoot;
             }
         }

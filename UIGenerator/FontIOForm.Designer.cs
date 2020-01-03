@@ -1,6 +1,6 @@
 ﻿namespace UIGenerator
 {
-    partial class FontAddForm
+    partial class FontIOForm
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.Button_D_Register = new System.Windows.Forms.Button();
             this.Label_D_FA = new System.Windows.Forms.Label();
             this.Label_D_OG = new System.Windows.Forms.Label();
-            this.Button_FileSearch = new System.Windows.Forms.Button();
+            this.Button_D_FileSearch = new System.Windows.Forms.Button();
             this.Label_D_OB = new System.Windows.Forms.Label();
             this.Label_D_FG = new System.Windows.Forms.Label();
             this.Label_D_FB = new System.Windows.Forms.Label();
@@ -59,6 +59,9 @@
             this.Label_Path_D = new System.Windows.Forms.Label();
             this.TextBox_Path_D = new System.Windows.Forms.TextBox();
             this.TabControl_Font = new System.Windows.Forms.TabControl();
+            this.TabPage_Remove = new System.Windows.Forms.TabPage();
+            this.Button_Remove = new System.Windows.Forms.Button();
+            this.ComboBox_RemoveRange = new System.Windows.Forms.ComboBox();
             this.ListView_AllFonts = new System.Windows.Forms.ListView();
             this.ColumnHeader_Font = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabPage_S.SuspendLayout();
@@ -74,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_D_OutLineSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_D_Size)).BeginInit();
             this.TabControl_Font.SuspendLayout();
+            this.TabPage_Remove.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabPage_S
@@ -144,7 +148,7 @@
             this.TabPage_D.Controls.Add(this.Button_D_Register);
             this.TabPage_D.Controls.Add(this.Label_D_FA);
             this.TabPage_D.Controls.Add(this.Label_D_OG);
-            this.TabPage_D.Controls.Add(this.Button_FileSearch);
+            this.TabPage_D.Controls.Add(this.Button_D_FileSearch);
             this.TabPage_D.Controls.Add(this.Label_D_OB);
             this.TabPage_D.Controls.Add(this.Label_D_FG);
             this.TabPage_D.Controls.Add(this.Label_D_FB);
@@ -365,16 +369,16 @@
             this.Label_D_OG.TabIndex = 1;
             this.Label_D_OG.Text = "G";
             // 
-            // Button_FileSearch
+            // Button_D_FileSearch
             // 
-            this.Button_FileSearch.AutoSize = true;
-            this.Button_FileSearch.Location = new System.Drawing.Point(598, 61);
-            this.Button_FileSearch.Name = "Button_FileSearch";
-            this.Button_FileSearch.Size = new System.Drawing.Size(75, 25);
-            this.Button_FileSearch.TabIndex = 2;
-            this.Button_FileSearch.Text = "Ref";
-            this.Button_FileSearch.UseVisualStyleBackColor = true;
-            this.Button_FileSearch.Click += new System.EventHandler(this.Button_FileSearch_Click);
+            this.Button_D_FileSearch.AutoSize = true;
+            this.Button_D_FileSearch.Location = new System.Drawing.Point(598, 61);
+            this.Button_D_FileSearch.Name = "Button_D_FileSearch";
+            this.Button_D_FileSearch.Size = new System.Drawing.Size(75, 25);
+            this.Button_D_FileSearch.TabIndex = 2;
+            this.Button_D_FileSearch.Text = "Ref";
+            this.Button_D_FileSearch.UseVisualStyleBackColor = true;
+            this.Button_D_FileSearch.Click += new System.EventHandler(this.Button_D_FileSearch_Click);
             // 
             // Label_D_OB
             // 
@@ -459,11 +463,44 @@
             // 
             this.TabControl_Font.Controls.Add(this.TabPage_D);
             this.TabControl_Font.Controls.Add(this.TabPage_S);
+            this.TabControl_Font.Controls.Add(this.TabPage_Remove);
             this.TabControl_Font.Location = new System.Drawing.Point(33, 25);
             this.TabControl_Font.Name = "TabControl_Font";
             this.TabControl_Font.SelectedIndex = 0;
             this.TabControl_Font.Size = new System.Drawing.Size(725, 378);
             this.TabControl_Font.TabIndex = 0;
+            // 
+            // TabPage_Remove
+            // 
+            this.TabPage_Remove.Controls.Add(this.Button_Remove);
+            this.TabPage_Remove.Controls.Add(this.ComboBox_RemoveRange);
+            this.TabPage_Remove.Location = new System.Drawing.Point(4, 25);
+            this.TabPage_Remove.Name = "TabPage_Remove";
+            this.TabPage_Remove.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage_Remove.Size = new System.Drawing.Size(717, 349);
+            this.TabPage_Remove.TabIndex = 2;
+            this.TabPage_Remove.Text = "Remove";
+            this.TabPage_Remove.UseVisualStyleBackColor = true;
+            // 
+            // Button_Remove
+            // 
+            this.Button_Remove.AutoSize = true;
+            this.Button_Remove.Location = new System.Drawing.Point(305, 182);
+            this.Button_Remove.Name = "Button_Remove";
+            this.Button_Remove.Size = new System.Drawing.Size(75, 25);
+            this.Button_Remove.TabIndex = 1;
+            this.Button_Remove.Text = "Remove";
+            this.Button_Remove.UseVisualStyleBackColor = true;
+            this.Button_Remove.Click += new System.EventHandler(this.Button_Remove_Click);
+            // 
+            // ComboBox_RemoveRange
+            // 
+            this.ComboBox_RemoveRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_RemoveRange.FormattingEnabled = true;
+            this.ComboBox_RemoveRange.Location = new System.Drawing.Point(49, 106);
+            this.ComboBox_RemoveRange.Name = "ComboBox_RemoveRange";
+            this.ComboBox_RemoveRange.Size = new System.Drawing.Size(623, 23);
+            this.ComboBox_RemoveRange.TabIndex = 0;
             // 
             // ListView_AllFonts
             // 
@@ -484,15 +521,15 @@
             this.ColumnHeader_Font.Text = "Font";
             this.ColumnHeader_Font.Width = 480;
             // 
-            // FontAddForm
+            // FontIOForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 634);
             this.Controls.Add(this.ListView_AllFonts);
             this.Controls.Add(this.TabControl_Font);
-            this.Name = "FontAddForm";
-            this.Text = "FontAddForm";
+            this.Name = "FontIOForm";
+            this.Text = "FontIOForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FontAddForm_FormClosed);
             this.TabPage_S.ResumeLayout(false);
             this.TabPage_S.PerformLayout();
@@ -509,6 +546,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_D_OutLineSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_D_Size)).EndInit();
             this.TabControl_Font.ResumeLayout(false);
+            this.TabPage_Remove.ResumeLayout(false);
+            this.TabPage_Remove.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -535,7 +574,7 @@
         private System.Windows.Forms.Button Button_D_Register;
         private System.Windows.Forms.Label Label_D_FA;
         private System.Windows.Forms.Label Label_D_OG;
-        private System.Windows.Forms.Button Button_FileSearch;
+        private System.Windows.Forms.Button Button_D_FileSearch;
         private System.Windows.Forms.Label Label_D_OB;
         private System.Windows.Forms.Label Label_D_FG;
         private System.Windows.Forms.Label Label_D_FB;
@@ -548,5 +587,8 @@
         private System.Windows.Forms.TabControl TabControl_Font;
         private System.Windows.Forms.ListView ListView_AllFonts;
         private System.Windows.Forms.ColumnHeader ColumnHeader_Font;
+        private System.Windows.Forms.TabPage TabPage_Remove;
+        private System.Windows.Forms.ComboBox ComboBox_RemoveRange;
+        private System.Windows.Forms.Button Button_Remove;
     }
 }

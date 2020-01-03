@@ -5,25 +5,37 @@ using fslib.IO;
 
 namespace UIGenerator
 {
-    public partial class FontAddForm : Form
+    /// <summary>
+    /// フォントの追加・削除を行うフォームのクラス
+    /// </summary>
+    public partial class FontIOForm : Form
     {
         /// <summary>
         /// インスタンスが生成されているかどうかを取得する
         /// </summary>
         public static bool Instanced { get; private set; } = false;
-        public FontAddForm()
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public FontIOForm()
         {
             Instanced = true;
             InitializeComponent();
             ResetListView(false);
+            ResetComboBox();
         }
+        /// <summary>
+        /// フォームが閉じられたときの挙動
+        /// </summary>
         private void FontAddForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DataBase.Forms.Remove(this);
             Instanced = false;
         }
-
-        private void Button_FileSearch_Click(object sender, EventArgs e)
+        /// <summary>
+        /// <see cref="Button_D_FileSearch"/>クリック時の挙動
+        /// </summary>
+        private void Button_D_FileSearch_Click(object sender, EventArgs e)
         {
             var name = TextBox_Path_D.Text;
             var o = new OpenFileDialog()
@@ -42,6 +54,9 @@ namespace UIGenerator
             thread.Join();
             TextBox_Path_D.Text = name;
         }
+        /// <summary>
+        /// <see cref="Button_S_FileSearch"/>クリック時の挙動
+        /// </summary>
         private void Button_S_FileSearch_Click(object sender, EventArgs e)
         {
             var name = TextBox_S_Path.Text;
@@ -61,6 +76,9 @@ namespace UIGenerator
             thread.Join();
             TextBox_S_Path.Text = name;
         }
+        /// <summary>
+        /// <see cref="Button_D_Register"/>クリック時の挙動
+        /// </summary>
         private void Button_D_Register_Click(object sender, EventArgs e)
         {
             var fontsize = (int)NumericUpDown_D_Size.Value;
@@ -92,7 +110,11 @@ namespace UIGenerator
             Console.WriteLine("Succeeded to create font");
             FormReset_D();
             ResetListView(true);
+            ResetComboBox();
         }
+        /// <summary>
+        /// Dynamicのフォーム内容を初期化する
+        /// </summary>
         private void FormReset_D()
         {
             NumericUpDown_D_Size.Value = 30;
@@ -107,19 +129,33 @@ namespace UIGenerator
             NumericUpDown_D_OA.Value = 255;
             TextBox_Path_D.Text = "";
         }
+        /// <summary>
+        /// Staticのフォーム内容を初期化する
+        /// </summary>
         private void FormReset_S()
         {
             TextBox_S_Path.Text = "";
         }
+        /// <summary>
+        /// <see cref="ListView_AllFonts"/>を更新する
+        /// </summary>
+        /// <param name="clear">今までの要素を削除するかどうか</param>
         private void ResetListView(bool clear)
         {
             if (clear) ListView_AllFonts.Items.Clear();
-            foreach (var f in DataBase.Fonts)
-            {
-                Console.WriteLine(f.ToString());
-                ListView_AllFonts.Items.Add(f.ToString());
-            }
+            foreach (var f in DataBase.Fonts) ListView_AllFonts.Items.Add(f.ToString());
         }
+        /// <summary>
+        /// <see cref="ComboBox_RemoveRange"/>の要素を更新する
+        /// </summary>
+        private void ResetComboBox()
+        {
+            ComboBox_RemoveRange.DataSource = DataBase.Fonts.GetNames();
+            ComboBox_RemoveRange.SelectedIndex = 0;
+        }
+        /// <summary>
+        /// <see cref="Button_S_Register"/>クリック時の挙動
+        /// </summary>
         private void Button_S_Register_Click(object sender, EventArgs e)
         {
             var path = TextBox_S_Path.Text;
@@ -147,6 +183,28 @@ namespace UIGenerator
             Console.WriteLine("Succeeded to create font");
             FormReset_S();
             ResetListView(true);
+            ResetComboBox();
+        }
+        /// <summary>
+        /// <see cref="Button_Remove"/>クリック時の挙動
+        /// </summary>
+        private void Button_Remove_Click(object sender, EventArgs e)
+        {
+            var index = ComboBox_RemoveRange.SelectedIndex;
+            if (index < 0 || DataBase.Fonts.Count <= index)
+            {
+                Console.WriteLine("選択されている要素は管理されていません");
+                return;
+            }
+            if (index == 0)
+            {
+                Console.WriteLine("デフォルトのフォントは削除できません");
+                return;
+            }
+            DataBase.Fonts.RemoveAt(index);
+            Console.WriteLine("フォントの削除に成功しました");
+            ResetListView(true);
+            ResetComboBox();
         }
     }
 }

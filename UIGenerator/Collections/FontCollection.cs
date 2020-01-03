@@ -103,6 +103,9 @@ namespace UIGenerator
             version++;
             ChangeFontComboBox();
         }
+        /// <summary>
+        /// 現在開かれている<see cref="TextEdittor"/>の，<see cref="TextEdittor.ComboBox_Font"/>の内容を更新する
+        /// </summary>
         private void ChangeFontComboBox()
         {
             foreach (var u in DataBase.UIInfos)
@@ -130,7 +133,12 @@ namespace UIGenerator
         /// <param name="item">検索する要素</param>
         /// <returns>含まれていたらtrue，それ以外でfalse</returns>
         public bool Contains(FontInfoBase item) => IndexOf(item) != -1;
-        internal int IndexOf(string tostring)
+        /// <summary>
+        /// 文字列情報に一致する要素のうち先頭の物のインデックスを返す
+        /// </summary>
+        /// <param name="tostring">検索する要素の文字列情報</param>
+        /// <returns>見つかったらそのインデックス，見つからなかったら-1</returns>
+        public int IndexOf(string tostring)
         {
             for (int i = 0; i < Count; i++)
                 if (tostring == _array[i].ToString())
@@ -163,7 +171,12 @@ namespace UIGenerator
             RemoveAt(index);
             return true;
         }
-        internal bool Remove(string tostring)
+        /// <summary>
+        /// 文字列情報に一致する要素のうち先頭の物を削除する
+        /// </summary>
+        /// <param name="tostring">削除される要素の文字列情報</param>
+        /// <returns>削除出来たらtrue，それ以外でfalse</returns>
+        public bool Remove(string tostring)
         {
             if (tostring == null) return false;
             var index = IndexOf(tostring);
@@ -171,7 +184,12 @@ namespace UIGenerator
             RemoveAt(index);
             return true;
         }
-        private void RemoveAt(int index)
+        /// <summary>
+        /// 指定したインデックスにある要素を削除する
+        /// </summary>
+        /// <param name="index">削除する要素のインデックス</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        public void RemoveAt(int index)
         {
             if (index < 0 || Count <= index) throw new ArgumentOutOfRangeException();
             if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
@@ -195,12 +213,19 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
-        internal string[] GetNames()
+        /// <summary>
+        /// このコレクションを文字列化した情報が格納された配列を返す
+        /// </summary>
+        /// <returns>このコレクションを文字列化した情報が格納された配列</returns>
+        public string[] GetNames()
         {
             var names = new string[Count];
             for (int i = 0; i < Count; i++) names[i] = _array[i].ToString();
             return names;
         }
+        /// <summary>
+        /// <see cref="_array"/>のサイズを拡張する
+        /// </summary>
         private void ReSize()
         {
             var newSize = _array.Length == 0 ? 4 : _array.Length * 2;

@@ -190,7 +190,12 @@ namespace UIGenerator
             RemoveAt(index);
             return true;
         }
-        private void RemoveAt(int index)
+        /// <summary>
+        /// 指定したインデックスの要素を削除する
+        /// </summary>
+        /// <param name="index">削除する要素のインデックス</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        public void RemoveAt(int index)
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
             if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
@@ -199,7 +204,11 @@ namespace UIGenerator
             version++;
             ChangeComboBox();
         }
-        internal string[] GetNames()
+        /// <summary>
+        /// 文字列情報を格納した配列を取得する
+        /// </summary>
+        /// <returns>文字列情報を格納した配列</returns>
+        public string[] GetNames()
         {
             var names = new string[Count];
             for (int i = 0; i < Count; i++) names[i] = _array[i].ToString();
