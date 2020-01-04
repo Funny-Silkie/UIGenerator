@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows.Forms;
 using fslib.IO;
 
@@ -52,15 +51,9 @@ namespace UIGenerator
                 Title = "Open the Texture File",
                 Filter = FilePathHelper.GetFilter("Texture Files", ".png", ".jpg", ".jpeg",".gif",".tif",".tiff",".bmp")
             };
-            var thread = new Thread(new ParameterizedThreadStart(x =>
-            {
-                var state = o.ShowDialog();
-                if (state == DialogResult.OK) name = o.FileName;
-            }));
+            var state = o.ShowDialog();
+            if (state == DialogResult.OK) name = o.FileName;
             o.Dispose();
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
             TextBox_Path.Text = name;
         }
         /// <summary>

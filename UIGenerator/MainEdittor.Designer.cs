@@ -35,6 +35,7 @@
             this.名前を付けて保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.要素を追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.フォントを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.テクスチャを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +45,6 @@
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -94,6 +94,11 @@
             this.要素を追加するToolStripMenuItem.Name = "要素を追加するToolStripMenuItem";
             resources.ApplyResources(this.要素を追加するToolStripMenuItem, "要素を追加するToolStripMenuItem");
             this.要素を追加するToolStripMenuItem.Click += new System.EventHandler(this.要素を追加するToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // フォントを編集するToolStripMenuItem
             // 
@@ -156,11 +161,6 @@
             0});
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // MainEdittor
             // 

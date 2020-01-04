@@ -332,6 +332,16 @@ namespace UIGenerator
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         IEnumerator<FilePackageEntry> IEnumerable<FilePackageEntry>.GetEnumerator() => GetEnumerator();
         /// <summary>
+        /// コレクションの要素の文字列情報を返す
+        /// </summary>
+        /// <returns>コレクションの要素の文字列情報</returns>
+        public string[] GetNames()
+        {
+            var array = new string[Count];
+            for (int i = 0; i < Count; i++) array[i] = _array[i].FilePath + (_array[i].IsLocked ? "(Locked)" : "");
+            return array;
+        }
+        /// <summary>
         /// 指定したファイルパスをもつパスワード無し要素のインデックスを返す
         /// </summary>
         /// <param name="path">検索するパスワード無し要素のファイルパス</param>

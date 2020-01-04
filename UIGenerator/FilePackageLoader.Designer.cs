@@ -111,12 +111,13 @@
             // ListView_Packages
             // 
             this.ListView_Packages.AutoArrange = false;
-            this.ListView_Packages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ListView_Packages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader_Name});
             this.ListView_Packages.FullRowSelect = true;
             this.ListView_Packages.GridLines = true;
+            this.ListView_Packages.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ListView_Packages.HideSelection = false;
+            this.ListView_Packages.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.ListView_Packages.Location = new System.Drawing.Point(37, 258);
             this.ListView_Packages.MultiSelect = false;
             this.ListView_Packages.Name = "ListView_Packages";
@@ -129,6 +130,7 @@
             // ColumnHeader_Name
             // 
             this.ColumnHeader_Name.Text = "Package";
+            this.ColumnHeader_Name.Width = 567;
             // 
             // FilePackageLoader
             // 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows.Forms;
 using fslib.IO;
 
@@ -43,15 +42,9 @@ namespace UIGenerator
                 Title = "Open the Font File",
                 Filter = FilePathHelper.GetFilter("Font Files", ".otf", ".ttf", ".ttc")
             };
-            var thread = new Thread(new ParameterizedThreadStart(x => 
-            {
-                var state = o.ShowDialog(); 
-                if (state == DialogResult.OK) name = o.FileName;
-            }));
+            var state = o.ShowDialog();
+            if (state == DialogResult.OK) name = o.FileName;
             o.Dispose();
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
             TextBox_Path_D.Text = name;
         }
         /// <summary>
@@ -65,15 +58,9 @@ namespace UIGenerator
                 Title = "Open the Font File",
                 Filter = FilePathHelper.GetFilter("Font Files", ".aff")
             };
-            var thread = new Thread(new ParameterizedThreadStart(x =>
-            {
-                var state = o.ShowDialog();
-                if (state == DialogResult.OK) name = o.FileName;
-            }));
+            var state = o.ShowDialog();
+            if (state == DialogResult.OK) name = o.FileName;
             o.Dispose();
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
             TextBox_S_Path.Text = name;
         }
         /// <summary>

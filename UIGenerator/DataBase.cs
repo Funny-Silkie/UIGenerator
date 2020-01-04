@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using asd;
 using fslib;
 using fslib.Collections;
@@ -100,13 +99,6 @@ namespace UIGenerator
             UIInfos.Add(info.Mode, info.Name, info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
-        /// <summary>
-        /// <see cref="SynchronizationContext"/>に処理を委譲する
-        /// </summary>
-        /// <param name="d">委譲する処理</param>
-        /// <param name="state"><paramref name="d"/>に渡されるオブジェクト</param>
-        /// <exception cref="ArgumentNullException"><paramref name="d"/>がnull</exception>
-        public static void RegisterAtion(SendOrPostCallback d, object state) => SynchronizationContext.Post(d, state);
         /// <summary>
         /// オブジェクトを削除する
         /// </summary>

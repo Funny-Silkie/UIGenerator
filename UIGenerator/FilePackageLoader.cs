@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using asd;
-using fslib;
 using fslib.IO;
 
 namespace UIGenerator
@@ -29,6 +20,7 @@ namespace UIGenerator
         {
             Instanced = true;
             InitializeComponent();
+            UpdateStyles();
         }
         /// <summary>
         /// フォームが閉じられたときに実行
@@ -38,6 +30,9 @@ namespace UIGenerator
             Instanced = false;
             DataBase.Forms.Remove(this);
         }
+        /// <summary>
+        /// 読み込むファイルパッケージの参照を持つ
+        /// </summary>
         private void Button_Ref_Click(object sender, EventArgs e)
         {
             var name = TextBox_Path.Text;
@@ -51,33 +46,55 @@ namespace UIGenerator
             o.Dispose();
             TextBox_Path.Text = name;
         }
+        /// <summary>
+        /// パスワードの有無を変更
+        /// </summary>
         private void CheckBox_PassWord_CheckedChanged(object sender, EventArgs e) => TextBox_PassWord.Enabled = CheckBox_PassWord.Checked;
+        /// <summary>
+        /// ファイルパッケージの読み込み
+        /// </summary>
         private void Button_Register_Click(object sender, EventArgs e)
         {
             var path = TextBox_Path.Text;
             var passWord = TextBox_PassWord.Text;
-            DataBase.SynchronizationContext.Post(_ =>
-            {
-                var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Add(path, passWord) : DataBase.FllePackages.Add(path);
-                Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
-                if (!s) return;
-                ListView_Packages.Items.Add(path + (s ? $"PassWord({passWord})" : ""));
-            }, null);
+            var check = CheckBox_PassWord.Checked;
+            var s = check ? DataBase.FllePackages.Add(path, passWord) : DataBase.FllePackages.Add(path);
+            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+            if (!s) return;
             ClearForm();
         }
+        /// <summary>
+        /// ファイルパッケージの削除
+        /// </summary>
         private void Button_Remove_Click(object sender, EventArgs e)
         {
-            var index = CheckBox_PassWord.Checked ? DataBase.FllePackages.IndexOf(TextBox_Path.Text, TextBox_PassWord.Text) : DataBase.FllePackages.IndexOf(TextBox_Path.Text);
-            var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Remove(TextBox_Path.Text) : DataBase.FllePackages.Remove(TextBox_Path.Text, TextBox_PassWord.Text);
+            var path = TextBox_Path.Text;
+            var passWord = TextBox_PassWord.Text;
+            var check = CheckBox_PassWord.Checked;
+            var index = check ? DataBase.FllePackages.IndexOf(path, passWord) : DataBase.FllePackages.IndexOf(path);
+            var s = check ? DataBase.FllePackages.Remove(path, passWord) : DataBase.FllePackages.Remove(path);
             Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
             if (!s) return;
             ListView_Packages.Items.RemoveAt(index);
             ClearForm();
         }
+        /// <summary>
+        /// フォームのリセット
+        /// </summary>
         private void ClearForm()
         {
             TextBox_Path.Text = "";
             TextBox_PassWord.Text = "";
+            UpdateListView();
+        }
+        /// <summary>
+        /// <see cref="ListView_Packages"/>を更新する
+        /// </summary>
+        private void UpdateListView()
+        {
+            ListView_Packages.Items.Clear();
+            var names = DataBase.FllePackages.GetNames();
+            for (int i = 0; i < names.Length; i++) ListView_Packages.Items.Add(names[i]);
         }
     }
 }
