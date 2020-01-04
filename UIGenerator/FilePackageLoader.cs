@@ -30,6 +30,9 @@ namespace UIGenerator
             Instanced = true;
             InitializeComponent();
         }
+        /// <summary>
+        /// フォームが閉じられたときに実行
+        /// </summary>
         private void FilePackageLoader_FormClosed(object sender, FormClosedEventArgs e)
         {
             Instanced = false;
@@ -43,27 +46,23 @@ namespace UIGenerator
                 Title = "Open the File Package",
                 Filter = FilePathHelper.GetFilter("File Package", ".pack")
             };
-            var thread = new Thread(new ParameterizedThreadStart(x =>
-            {
-                var state = o.ShowDialog();
-                if (state == DialogResult.OK)
-                {
-                    name = o.FileName;
-                }
-            }));
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
+            var state = o.ShowDialog();
+            if (state == DialogResult.OK) name = o.FileName;
             o.Dispose();
             TextBox_Path.Text = name;
         }
         private void CheckBox_PassWord_CheckedChanged(object sender, EventArgs e) => TextBox_PassWord.Enabled = CheckBox_PassWord.Checked;
         private void Button_Register_Click(object sender, EventArgs e)
         {
-            var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Add(TextBox_Path.Text) : DataBase.FllePackages.Add(TextBox_Path.Text, TextBox_PassWord.Text);
-            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
-            if (!s) return;
-            ListView_Packages.Items.Add(TextBox_Path.Text + (s ? $"PassWord({TextBox_PassWord.Text})" : ""));
+            var path = TextBox_Path.Text;
+            var passWord = TextBox_PassWord.Text;
+            DataBase.SynchronizationContext.Post(_ =>
+            {
+                var s = CheckBox_PassWord.Checked ? DataBase.FllePackages.Add(path, passWord) : DataBase.FllePackages.Add(path);
+                Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+                if (!s) return;
+                ListView_Packages.Items.Add(path + (s ? $"PassWord({passWord})" : ""));
+            }, null);
             ClearForm();
         }
         private void Button_Remove_Click(object sender, EventArgs e)

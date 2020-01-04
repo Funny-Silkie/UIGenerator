@@ -508,8 +508,8 @@ namespace UIGenerator
         private void ReSize(int min)
         {
             if (Capacity >= min) return;
-            var size = Capacity == 0 ? 4 : Capacity * 2;
-            if ((uint)size < int.MaxValue) size = int.MaxValue;
+            var size = Capacity == 0 ? 4 : Capacity + 4;
+            if ((uint)size > int.MaxValue) size = int.MaxValue;
             if (size < min) size = min;
             var array = new FilePackageEntry[size];
             for (int i = 0; i < Count; i++) array[i] = _array[i];

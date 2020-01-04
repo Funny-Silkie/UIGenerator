@@ -5,17 +5,26 @@ using fslib.IO;
 
 namespace UIGenerator
 {
+    /// <summary>
+    /// メイン操作を行うフォーム
+    /// </summary>
     public partial class MainEdittor : Form
     {
         private string usePath = "";
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public MainEdittor()
         {
             InitializeComponent();
         }
-        private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e)
-        {
-            DataBase.MainScene.ChangeMode((int)NumericUpDown_ShowMode.Value);
-        }
+        /// <summary>
+        /// <see cref="NumericUpDown_ShowMode"/>の値が変化したときに実行
+        /// </summary>
+        private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e) => DataBase.MainScene.ChangeMode((int)NumericUpDown_ShowMode.Value);
+        /// <summary>
+        /// <see cref="要素を追加するToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void 要素を追加するToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!AddWindow.IsShown)
@@ -25,6 +34,9 @@ namespace UIGenerator
                 a.Show();
             }
         }
+        /// <summary>
+        /// <see cref="ListView_Main"/>のアイテムダブルクリック時の挙動
+        /// </summary>
         private void ListView_Main_ItemActivate(object sender, EventArgs e)
         {
             var selected = ListView_Main.SelectedItems;
@@ -56,6 +68,9 @@ namespace UIGenerator
                     }
             }
         }
+        /// <summary>
+        /// <see cref="フォントを編集するToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void フォントを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!FontIOForm.Instanced)
@@ -65,6 +80,9 @@ namespace UIGenerator
                 fontform.Show();
             }
         }
+        /// <summary>
+        /// <see cref="テクスチャを編集するToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void テクスチャを編集するToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!TextureIOForm.Instanced)
@@ -74,6 +92,9 @@ namespace UIGenerator
                 textureform.Show();
             }
         }
+        /// <summary>
+        /// <see cref="名前を付けて保存ToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void 名前を付けて保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dialog = new SaveFileDialog()
@@ -97,11 +118,17 @@ namespace UIGenerator
             if (string.IsNullOrWhiteSpace(usePath)) return;
             DataBase.Save(usePath);
         }
+        /// <summary>
+        /// <see cref="上書き保存ToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void 上書き保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!System.IO.File.Exists(usePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
             else DataBase.Save(usePath);
         }
+        /// <summary>
+        /// <see cref="ファイルToolStripMenuItem"/>クリック時の挙動
+        /// </summary>
         private void ファイルパッケージを管理するToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!FilePackageLoader.Instanced)

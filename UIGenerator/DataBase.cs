@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using asd;
 using fslib;
 using fslib.Collections;
@@ -84,6 +85,11 @@ namespace UIGenerator
         /// </summary>
         public static FilePackageCollection FllePackages { get; } = new FilePackageCollection();
         /// <summary>
+        /// 非同期処理をサポートするコンテキスト
+        /// </summary>
+        public static UIGeneratorSynchronizationContext SynchronizationContext => _synchronizationContext ?? (_synchronizationContext = new UIGeneratorSynchronizationContext());
+        private static UIGeneratorSynchronizationContext _synchronizationContext;
+        /// <summary>
         /// オブジェクトを追加する
         /// </summary>
         /// <param name="info">追加されるオブジェクト</param>
@@ -94,6 +100,13 @@ namespace UIGenerator
             UIInfos.Add(info.Mode, info.Name, info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
+        /// <summary>
+        /// <see cref="SynchronizationContext"/>に処理を委譲する
+        /// </summary>
+        /// <param name="d">委譲する処理</param>
+        /// <param name="state"><paramref name="d"/>に渡されるオブジェクト</param>
+        /// <exception cref="ArgumentNullException"><paramref name="d"/>がnull</exception>
+        public static void RegisterAtion(SendOrPostCallback d, object state) => SynchronizationContext.Post(d, state);
         /// <summary>
         /// オブジェクトを削除する
         /// </summary>

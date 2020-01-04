@@ -95,6 +95,7 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIGeneratorSynchronizationContext.cs" />
     <Compile Include="UIObjects\IUIElements.cs" />
     <Compile Include="TextEdittor.cs">
       <SubType>Form</SubType>
