@@ -10,7 +10,7 @@ namespace UIGenerator
     /// UIとして操作するオブジェクトの基底クラス
     /// </summary>
     [Serializable]
-    public abstract class UIInfoBase
+    public abstract class UIInfoBase : IUIGeneratorInfo
     {
         /// <summary>
         /// 使用するアクセシビリティを取得または設定する
@@ -37,11 +37,11 @@ namespace UIGenerator
         /// <summary>
         /// 表示するオブジェクト
         /// </summary>
-        internal abstract Object2D UIObj { get; }
+        public abstract Object2D UIObj { get; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        protected private UIInfoBase() { }
+        protected UIInfoBase() { }
         /// <summary>
         /// インスタンスを取得する
         /// </summary>
@@ -81,18 +81,20 @@ namespace UIGenerator
         /// <summary>
         /// 名前を取得または設定する
         /// </summary>
+        /// <exception cref="ArgumentNullException">設定しようとした値がnull</exception>
         public sealed override string Name
         {
             get => UIObject.Name;
-            set => UIObject.Name = value;
+            set => UIObject.Name = value ?? throw new ArgumentNullException();
         }
         /// <summary>
         /// 表示モードを取得または設定する
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">設定しようとした値が0未満</exception>
         public sealed override int Mode
         {
             get => UIObject.Mode;
-            set => UIObject.Mode = value;
+            set => UIObject.Mode = value >= 0 ? value : throw new ArgumentOutOfRangeException();
         }
         /// <summary>
         /// 管理している<see cref="IUIElements"/>のインスタンスを取得する
@@ -101,7 +103,7 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="Object2D"/>として<see cref="UIObject"/>を繋ぐ
         /// </summary>
-        internal sealed override Object2D UIObj => UIObject;
+        public sealed override Object2D UIObj => UIObject;
         /// <summary>
         /// コンストラクタ
         /// </summary>

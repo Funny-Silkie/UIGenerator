@@ -65,6 +65,7 @@
     <Compile Include="ClickArg.cs" />
     <Compile Include="CSharpCodeProvider.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="DrawAdditionally\DrawingAdditionaryInfoBase.cs" />
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +79,8 @@
       <DependentUpon>FontIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
-    <Compile Include="FontInfo.cs" />
+    <Compile Include="ResourcesInfo\FontInfo.cs" />
+    <Compile Include="IUIGeneratorInfo.cs" />
     <Compile Include="MainEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,8 +118,8 @@
     <Compile Include="TextureEdittor.Designer.cs">
       <DependentUpon>TextureEdittor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextureInfo.cs" />
-    <Compile Include="UIInfo.cs" />
+    <Compile Include="ResourcesInfo\TextureInfo.cs" />
+    <Compile Include="UIObjectInfo\UIInfo.cs" />
     <Compile Include="Collections\UIInfoCollection.cs" />
     <Compile Include="UIObjects\UIText.cs" />
     <Compile Include="UIObjects\UITexture.cs" />
@@ -181,8 +183,6 @@
       <DependentUpon>WindowEditter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DrawAdditionally\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
