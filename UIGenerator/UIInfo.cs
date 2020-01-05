@@ -15,7 +15,7 @@ namespace UIGenerator
         /// <summary>
         /// 使用するアクセシビリティを取得または設定する
         /// </summary>
-        public AccesibilityType Accesibility { get; set; }
+        public AccesibilityType Accesibility { get; set; } = AccesibilityType.Private;
         [NonSerialized]
         private System.Windows.Forms.Form handleForm = null;
         /// <summary>

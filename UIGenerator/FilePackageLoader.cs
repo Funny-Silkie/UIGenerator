@@ -59,7 +59,7 @@ namespace UIGenerator
             var passWord = TextBox_PassWord.Text;
             var check = CheckBox_PassWord.Checked;
             var s = check ? DataBase.FllePackages.Add(path, passWord) : DataBase.FllePackages.Add(path);
-            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register filepackage");
             if (!s) return;
             ClearForm();
         }
@@ -73,7 +73,7 @@ namespace UIGenerator
             var check = CheckBox_PassWord.Checked;
             var index = check ? DataBase.FllePackages.IndexOf(path, passWord) : DataBase.FllePackages.IndexOf(path);
             var s = check ? DataBase.FllePackages.Remove(path, passWord) : DataBase.FllePackages.Remove(path);
-            Console.WriteLine(s ? "Succeeded to register filepackage" : "Failed to register file package");
+            Console.WriteLine(s ? "Succeeded to remove filepackage" : "Failed to remove filepackage");
             if (!s) return;
             ListView_Packages.Items.RemoveAt(index);
             ClearForm();

@@ -110,18 +110,13 @@
             // 
             // ListView_Packages
             // 
-            this.ListView_Packages.AutoArrange = false;
             this.ListView_Packages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader_Name});
             this.ListView_Packages.FullRowSelect = true;
             this.ListView_Packages.GridLines = true;
-            this.ListView_Packages.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ListView_Packages.HideSelection = false;
-            this.ListView_Packages.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.ListView_Packages.Location = new System.Drawing.Point(37, 258);
-            this.ListView_Packages.MultiSelect = false;
             this.ListView_Packages.Name = "ListView_Packages";
-            this.ListView_Packages.OwnerDraw = true;
             this.ListView_Packages.Size = new System.Drawing.Size(623, 221);
             this.ListView_Packages.TabIndex = 7;
             this.ListView_Packages.UseCompatibleStateImageBehavior = false;

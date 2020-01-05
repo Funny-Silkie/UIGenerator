@@ -11,26 +11,26 @@ namespace UIGenerator
         /// <summary>
         /// private
         /// </summary>
-        Private = 0b0,
+        Private,
         /// <summary>
         /// protected private
         /// </summary>
-        ProtectedPrivate = 0b1,
+        ProtectedPrivate,
         /// <summary>
         /// internal
         /// </summary>
-        Internal = 0b11,
+        Internal,
         /// <summary>
         /// protected private
         /// </summary>
-        Protected = 0b101,
+        Protected,
         /// <summary>
         /// protected internal
         /// </summary>
-        ProtectedInternal = 0b111,
+        ProtectedInternal,
         /// <summary>
         /// public
         /// </summary>
-        Public = 0b1111
+        Public
     }
 }
