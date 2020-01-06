@@ -98,6 +98,9 @@
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UIGeneratorSynchronizationContext.cs" />
+    <Compile Include="UIObjectInfo\TextObjInfo.cs" />
+    <Compile Include="UIObjectInfo\TextureObjInfo.cs" />
+    <Compile Include="UIObjectInfo\WindowInfo.cs" />
     <Compile Include="UIObjects\IUIElements.cs" />
     <Compile Include="TextEdittor.cs">
       <SubType>Form</SubType>

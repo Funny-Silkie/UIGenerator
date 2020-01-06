@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using asd;
 using fslib.Serialization;
 
@@ -39,27 +38,20 @@ namespace UIGenerator
         public event EventHandler<ClickArg> MouseClicked;
         public event EventHandler MouseEnter;
         public event EventHandler MouseExit;
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
-        }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public sealed override void OnCursorEnter()
+        Object2D IUIElements.AsObject2D() => this;
+        protected override void OnCursorEnter()
         {
             MouseEnter?.Invoke(this, EventArgs.Empty);
         }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public sealed override void OnCursorExit()
+        protected override void OnCursorExit()
         {
             MouseExit?.Invoke(this, EventArgs.Empty);
         }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public sealed override void OnLeftPushed()
+        protected override void OnLeftPushed()
         {
             MouseClicked?.Invoke(this, new ClickArg(MouseButtons.ButtonLeft));
         }
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public sealed override void OnRightPushed()
+        protected override void OnRightPushed()
         {
             MouseClicked?.Invoke(this, new ClickArg(MouseButtons.ButtonRight));
         }

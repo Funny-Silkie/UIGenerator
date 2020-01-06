@@ -1,4 +1,5 @@
 ﻿using System;
+using asd;
 
 namespace UIGenerator
 {
@@ -31,5 +32,10 @@ namespace UIGenerator
         /// マウスカーソルとの重なりが解除されたときのイベント
         /// </summary>
         event EventHandler MouseExit;
+        /// <summary>
+        /// <see cref="Object2D"/>としてキャストする
+        /// </summary>
+        /// <returns>このインスタンスの<see cref="Object2D"/>としてのインスタンス</returns>
+        Object2D AsObject2D();
     }
 }
