@@ -480,7 +480,7 @@ namespace UIGenerator
             RemoveAt(index);
             return true;
         }
-        internal bool Remove(DoubleKeyValuePair<int, string, UIInfoBase> item)
+        private bool Remove(DoubleKeyValuePair<int, string, UIInfoBase> item)
         {
             if (item.Key1 < 0 || item.Key2 == null || item.Value == null) return false;
             var index = IndexOf(item.Key1, item.Key2);

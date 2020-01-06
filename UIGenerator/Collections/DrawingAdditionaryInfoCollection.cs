@@ -142,6 +142,25 @@ namespace UIGenerator.Collections
             }
         }
         /// <summary>
+        /// 指定した追加描画の情報を末尾に追加する
+        /// </summary>
+        /// <param name="mode">追加するオブジェクトの描画モード</param>
+        /// <param name="name">追加するオブジェクトの名前</param>
+        /// <param name="info">追加する追加描画の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>または<paramref name="info"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        public void Add(int mode, string name, DrawingAdditionaryInfoBase info)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, name, info);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
+            if (Capacity < Count + 1) ReSize(Count + 1);
+            _array[Count++] = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>(mode, name, info);
+            version++;
+        }
+        void ICollection<DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>>.Add(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
+        /// <summary>
         /// 格納されているすべての要素を削除する
         /// </summary>
         public void Clear()
@@ -185,6 +204,52 @@ namespace UIGenerator.Collections
         bool INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.ContainsValue(DrawingAdditionaryInfoBase value) => Contains(value);
         bool IReadOnlyNumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.ContainsValue(DrawingAdditionaryInfoBase value) => Contains(value);
         /// <summary>
+        /// 指定したコレクションの要素を配列にコピー
+        /// </summary>
+        /// <param name="array">コピー先の配列</param>
+        /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+        /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+        public void CopyTo(DrawingAdditionaryInfoBase[] array, int arrayIndex)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentException(array.Length < Count + arrayIndex, null);
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i].Value;
+        }
+        private void CopyTo(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[] array, int arrayIndex)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentException(array.Length < Count + arrayIndex, null);
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
+        }
+        void ICollection.CopyTo(Array array, int index)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, array);
+            Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentException(array.Length < Count + index || array.GetLowerBound(0) != 0, null);
+            switch (array)
+            {
+                case DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[] p: CopyTo(p, index); return;
+                case DrawingAdditionaryInfoBase[] i: CopyTo(i, index); return;
+                case object[] o:
+                    try
+                    {
+                        for (int i = 0; i < Count; i++) o[index++] = _array[i].Value;
+                    }
+                    catch (ArrayTypeMismatchException)
+                    {
+                        throw new ArgumentException();
+                    }
+                    return;
+                default: throw new ArgumentException();
+            }
+        }
+        void ICollection<DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>>.CopyTo(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[] array, int arrayIndex) => CopyTo(array, arrayIndex);
+        /// <summary>
         /// 列挙をサポートする構造体を返す
         /// </summary>
         /// <returns><see cref="Enumerator"/>の新しいインスタンス</returns>
@@ -224,7 +289,7 @@ namespace UIGenerator.Collections
             for (int i = 0; i < Count; i++)
                 if (info == _array[i].Value)
                     return i;
-            return -1
+            return -1;
         }
         private int IndexOf(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> item)
         {
@@ -249,6 +314,97 @@ namespace UIGenerator.Collections
                 if (name == _array[i].Key2)
                     return i;
             return -1;
+        }
+        /// <summary>
+        /// 指定した追加描画の情報を指定箇所に挿入する
+        /// </summary>
+        /// <param name="index">挿入するインデックス</param>
+        /// <param name="mode">追加するオブジェクトの描画モード</param>
+        /// <param name="name">追加するオブジェクトの名前</param>
+        /// <param name="info">追加する追加描画の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>または<paramref name="info"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>より大きい 若しくは<paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        public void Insert(int index, int mode, string name, DrawingAdditionaryInfoBase info)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, name, info);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowExceptionWithMessage(new KeyDuplicateException(), Contains(mode, name), null);
+            if (Capacity < Count + 1) ReSize(Count + 1);
+            if (index < Count) Array.Copy(_array, index, _array, index + 1, Count - index);
+            _array[index] = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>(mode, name, info);
+            Count++;
+            version++;
+        }
+        private void ReSize(int min)
+        {
+            if (Count < min) return;
+            var size = Capacity + 4;
+            if (size > int.MaxValue) size = int.MaxValue;
+            if (size < min) size = min;
+            var array = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[size];
+            for (int i = 0; i < Count; i++) array[i] = _array[i];
+            _array = array;
+        }
+        /// <summary>
+        /// 指定した表示モーと名前を持つ要素を削除する
+        /// </summary>
+        /// <param name="mode">削除する要素の表示モード</param>
+        /// <param name="name">削除する要素の名前</param>
+        /// <returns>削除出来たらtrue，それ以外でfalse</returns>
+        public bool Remove(int mode, string name)
+        {
+            var index = IndexOf(mode, name);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
+        }
+        private bool Remove(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> item)
+        {
+            var index = IndexOf(item);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
+        }
+        bool ICollection<DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>>.Remove(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> item) => Remove(item);
+        bool INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.Remove(DrawingAdditionaryInfoBase value)
+        {
+            var index = IndexOf(value);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
+        }
+        /// <summary>
+        /// 指定インデックスの要素を削除する
+        /// </summary>
+        /// <param name="index">削除する要素のインデックス</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        public void RemoveAt(int index)
+        {
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
+            if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
+            _array[Count - 1] = default;
+            Count--;
+            version++;
+        }
+        /// <summary>
+        /// 指定した表示モードと名前を持つ要素を取得する
+        /// </summary>
+        /// <param name="mode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <param name="info"><paramref name="mode"/>が先<paramref name="name"/>を持つ値 無かったら既定値</param>
+        /// <returns><paramref name="info"/>を取得出来たらtrue，それ以外でfalse</returns>
+        public bool TryGetValue(int mode, string name, out DrawingAdditionaryInfoBase info)
+        {
+            var index = IndexOf(mode, name);
+            if (index == -1)
+            {
+                info = null;
+                return false;
+            }
+            info = _array[index].Value;
+            return true;
         }
         /// <summary>
         /// 列挙をサポートする構造体
@@ -356,6 +512,43 @@ namespace UIGenerator.Collections
             void IList.Clear() => throw new NotSupportedException();
             bool IList.Contains(object value) => CompareHelper.IsCompatibleValue<string>(value, out var name) ? collection.ContainsName(name) : false;
             bool ICollection<string>.Contains(string item) => collection.ContainsName(item);
+            /// <summary>
+            /// 指定したコレクションの要素を配列にコピー
+            /// </summary>
+            /// <param name="array">コピー先の配列</param>
+            /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+            public void CopyTo(string[] array, int arrayIndex)
+            {
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
+                Central.ThrowHelper.ThrowArgumentException(array.Length < arrayIndex + Count, null);
+                for (int i = 0; i < Count; i++) array[arrayIndex++] = collection._array[i].Key2;
+            }
+            void ICollection.CopyTo(Array array, int index)
+            {
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
+                Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
+                Central.ThrowHelper.ThrowArgumentException(array.Length < Count + index || array.GetLowerBound(0) != 0, null);
+                switch (array)
+                {
+                    case string[] s: CopyTo(s, index); return;
+                    case object[] o:
+                        try
+                        {
+                            for (int i = 0; i < Count; i++) o[index++] = collection._array[i].Key2;
+                        }
+                        catch (ArrayTypeMismatchException)
+                        {
+                            throw new ArgumentException();
+                        }
+                        return;
+                    default: throw new ArgumentException();
+                }
+            }
             /// <summary>
             /// 列挙をサポートする構造体を返す
             /// </summary>
@@ -478,6 +671,37 @@ namespace UIGenerator.Collections
             void IList.Clear() => throw new NotSupportedException();
             bool ICollection<DrawingAdditionaryInfoBase>.Contains(DrawingAdditionaryInfoBase item) => collection.Contains(item);
             bool IList.Contains(object value) => CompareHelper.IsCompatibleValue<DrawingAdditionaryInfoBase>(value, out var info) ? collection.Contains(info) : false;
+            /// <summary>
+            /// 指定したコレクションの要素を配列にコピー
+            /// </summary>
+            /// <param name="array">コピー先の配列</param>
+            /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+            public void CopyTo(DrawingAdditionaryInfoBase[] array, int arrayIndex) => collection.CopyTo(array, arrayIndex);
+            void ICollection.CopyTo(Array array, int index)
+            {
+                Central.ThrowHelper.ThrowArgumentNullException(null, array);
+                Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
+                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
+                Central.ThrowHelper.ThrowArgumentException(array.Length < Count + index || array.GetLowerBound(0) != 0, null);
+                switch (array)
+                {
+                    case DrawingAdditionaryInfoBase[] d: CopyTo(d, index); return;
+                    case object[] o:
+                        try
+                        {
+                            for (int i = 0; i < Count; i++) o[index++] = collection._array[i].Value;
+                        }
+                        catch (ArrayTypeMismatchException)
+                        {
+                            throw new ArgumentException();
+                        }
+                        return;
+                    default: throw new ArgumentException();
+                }
+            }
             /// <summary>
             /// 列挙をサポートする構造体を返す
             /// </summary>
