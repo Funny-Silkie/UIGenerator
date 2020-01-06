@@ -21,13 +21,49 @@ namespace UIGenerator
         /// </summary>
         UITypes Type { get; }
         /// <summary>
-        /// マウスでクリックされたときのイベント
+        /// マウス左ボタンでクリックされたときのイベント
         /// </summary>
-        event EventHandler<ClickArg> MouseClicked;
+        event EventHandler<ClickArg> LeftPushed;
+        /// <summary>
+        /// マウス右ボタンでクリックされたときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> RightPushed;
+        /// <summary>
+        /// マウス中央ボタンでクリックされたときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> MiddlePushed;
+        /// <summary>
+        /// マウス左ボタンでクリックが終わったときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> LeftReleased;
+        /// <summary>
+        /// マウス右ボタンでクリックが終わったときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> RightReleased;
+        /// <summary>
+        /// マウス中央ボタンでクリックが終わったときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> MiddleReleased;
+        /// <summary>
+        /// マウス左ボタンでクリックされているときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> LeftHolded;
+        /// <summary>
+        /// マウス右ボタンでクリックされているときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> RightHolded;
+        /// <summary>
+        /// マウス中央ボタンでクリックされているときのイベント
+        /// </summary>
+        event EventHandler<ClickArg> MiddleHolded;
         /// <summary>
         /// マウスカーソルと重なったときのイベント
         /// </summary>
         event EventHandler MouseEnter;
+        /// <summary>
+        /// マウスカーソルと重なっているときのイベント
+        /// </summary>
+        event EventHandler MouseStay;
         /// <summary>
         /// マウスカーソルとの重なりが解除されたときのイベント
         /// </summary>
