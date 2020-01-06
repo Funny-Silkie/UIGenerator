@@ -1,4 +1,5 @@
 ﻿using System;
+using asd;
 
 namespace UIGenerator
 {
@@ -51,5 +52,13 @@ namespace UIGenerator
         /// </summary>
         /// <returns>この追加描画を実装するC#のコード</returns>
         public abstract string ToCSharp();
+    }
+    /// <summary>
+    /// <see cref="Layer2D.DrawArcAdditionally(Vector2DF, float, float, Color, int, int, int, float, Texture2D, AlphaBlendMode, int)"/>の実装を仲介するクラス
+    /// </summary>
+    [Serializable]
+    public sealed class DrawingArcInfo : DrawingAdditionaryInfoBase
+    {
+
     }
 }

@@ -14,7 +14,7 @@ namespace UIGenerator
     /// UIに関する情報を格納するコレクションのクラス
     /// </summary>
     [Serializable]
-    public sealed class UIInfoCollection : IList<DoubleKeyValuePair<int, string, UIInfoBase>>, IDoubleKeyDictionary<int, string, UIInfoBase>, IReadOnlyList<DoubleKeyValuePair<int, string, UIInfoBase>>, IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>, IList, IDictionary, ISerializable
+    public sealed class UIInfoCollection : INumericDoubleKeyDictionary<int, string, UIInfoBase>, IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>, ICollection, ISerializable
     {
         private int version = 0;
         private DoubleKeyValuePair<int, string, UIInfoBase>[] _array;
@@ -64,32 +64,22 @@ namespace UIGenerator
                 return list;
             }
         }
-        ICollection<int> IDoubleKeyDictionary<int, string, UIInfoBase>.Key1Collection => Modes;
-        IEnumerable<int> IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.Key1Collection => Modes;
+        IList<int> INumericDoubleKeyDictionary<int, string, UIInfoBase>.KeysCollection1 => Modes;
+        IEnumerable<int> IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.KeyCollection1 => Modes;
         /// <summary>
         /// 名前を格納しているコレクションを取得する
         /// </summary>
         public NameCollection Names => _names ?? (_names = new NameCollection(this));
         private NameCollection _names;
-        ICollection<string> IDoubleKeyDictionary<int, string, UIInfoBase>.Key2Collection => Names;
-        IEnumerable<string> IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.Key2Collection => Names;
-        ICollection IDictionary.Keys
-        {
-            get
-            {
-                var list = new List<DoubleKey<int, string>>(Count);
-                for (int i = 0; i < Count; i++) list.Add(_array[i].GetKeyValuePair().Key);
-                return list;
-            }
-        }
+        IList<string> INumericDoubleKeyDictionary<int, string, UIInfoBase>.KeysCollection2 => Names;
+        IEnumerable<string> IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.KeyCollection2 => Names;
         /// <summary>
         /// <see cref="UIInfoBase"/>を格納しているコレクションを取得する
         /// </summary>
         public InfoCollection Infos => _infos ?? (_infos = new InfoCollection(this));
         private InfoCollection _infos;
-        ICollection IDictionary.Values => Infos;
-        ICollection<UIInfoBase> IDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
-        IEnumerable<UIInfoBase> IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
+        IList<UIInfoBase> INumericDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
+        IEnumerable<UIInfoBase> IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.Values => Infos;
         bool ICollection.IsSynchronized => false;
         object ICollection.SyncRoot
         {
@@ -101,10 +91,6 @@ namespace UIGenerator
         }
         private object _syncRoot;
         bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.IsReadOnly => false;
-        bool IDictionary.IsFixedSize => false;
-        bool IDictionary.IsReadOnly => false;
-        bool IList.IsFixedSize => false;
-        bool IList.IsReadOnly => false;
         /// <summary>
         /// 既定の容量を備えた空の<see cref="UIInfoCollection"/>の新しいインスタンスを生成する
         /// </summary>
@@ -185,59 +171,7 @@ namespace UIGenerator
                 return _array[index].Value;
             }
         }
-        object IDictionary.this[object key]
-        {
-            get
-            {
-                switch (key)
-                {
-                    case null: throw new ArgumentNullException();
-                    case DoubleKey<int, string> p:
-                        var index1 = IndexOf(p.Key1, p.Key2);
-                        return index1 != -1 ? _array[index1].Value : throw new KeyNotFoundException();
-                    case DoubleKey<string, int> p:
-                        var index2 = IndexOf(p.Key2, p.Key1);
-                        return index2 != -1 ? _array[index2].Value : throw new KeyNotFoundException();
-                    case ValueTuple<int, string> t:
-                        var index3 = IndexOf(t.Item1, t.Item2);
-                        return index3 != -1 ? _array[index3].Value : throw new KeyNotFoundException();
-                    case ValueTuple<string, int> t:
-                        var index4 = IndexOf(t.Item2, t.Item1);
-                        return index4 != -1 ? _array[index4].Value : throw new KeyNotFoundException();
-                    default: throw new ArgumentNullException();
-                }
-            }
-            set
-            {
-                if (value is UIInfoBase v)
-                    switch (key)
-                    {
-                        case null: throw new ArgumentNullException();
-                        case DoubleKey<int, string> p:
-                            var index1 = IndexOf(p.Key1, p.Key2);
-                            if (index1 == -1) throw new KeyNotFoundException();
-                            _array[index1] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index1].Key1, _array[index1].Key2, v);
-                            return;
-                        case DoubleKey<string, int> p:
-                            var index2 = IndexOf(p.Key2, p.Key1);
-                            if (index2 == -1) throw new KeyNotFoundException();
-                            _array[index2] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index2].Key1, _array[index2].Key2, v);
-                            return;
-                        case ValueTuple<int, string> t:
-                            var index3 = IndexOf(t.Item1, t.Item2);
-                            if (index3 == -1) throw new KeyNotFoundException();
-                            _array[index3] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index3].Key1, _array[index3].Key2, v);
-                            return;
-                        case ValueTuple<string, int> t:
-                            var index4 = IndexOf(t.Item2, t.Item1);
-                            if (index4 == -1) throw new KeyNotFoundException();
-                            _array[index4] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index4].Key1, _array[index4].Key2, v);
-                            return;
-                        default: throw new ArgumentNullException();
-                    }
-            }
-        }
-        UIInfoBase IDoubleKeyDictionary<int, string, UIInfoBase>.this[int mode, string name]
+        UIInfoBase INumericDoubleKeyDictionary<int, string, UIInfoBase>.this[int mode, string name]
         {
             get
             {
@@ -256,48 +190,20 @@ namespace UIGenerator
                 _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index].Key1, _array[index].Key2, value);
             }
         }
-        object IList.this[int index]
+        UIInfoBase INumericDoubleKeyDictionary<int, string, UIInfoBase>.this[int index]
         {
             get
             {
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-                return _array[index];
+                return _array[index].Value;
             }
             set
             {
                 Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-                switch (value)
-                {
-                    case DoubleKeyValuePair<int, string, UIInfoBase> p: ((IList<DoubleKeyValuePair<int, string, UIInfoBase>>)this)[index] = p; return;
-                    case UIInfoBase u: _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index].Key1, _array[index].Key2, u); return;
-                    default: throw new ArgumentException();
-                }
-            }
-        }
-        DoubleKeyValuePair<int, string, UIInfoBase> IList<DoubleKeyValuePair<int, string, UIInfoBase>>.this[int index]
-        {
-            get
-            {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-                return _array[index];
-            }
-            set
-            {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(value.Key1, 0, int.MaxValue, null);
-                Central.ThrowHelper.ThrowArgumentNullException(null, values: value.Key2);
-                Central.ThrowHelper.ThrowArgumentNullException(null, value.Value);
-                var i = IndexOf(value.Key1, value.Key2);
+                Central.ThrowHelper.ThrowArgumentNullException(null, value);
+                var i = IndexOf(value);
                 Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), i != -1 && i != index, null);
-                _array[index] = value;
-            }
-        }
-        DoubleKeyValuePair<int, string, UIInfoBase> IReadOnlyList<DoubleKeyValuePair<int, string, UIInfoBase>>.this[int index]
-        {
-            get
-            {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
-                return _array[index];
+                _array[index] = new DoubleKeyValuePair<int, string, UIInfoBase>(_array[index].Key1, _array[index].Key2, value);
             }
         }
         /// <summary>
@@ -320,37 +226,6 @@ namespace UIGenerator
             version++;
         }
         void ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Add(DoubleKeyValuePair<int, string, UIInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
-        int IList.Add(object value)
-        {
-            Central.ThrowHelper.ThrowArgumentNullException(null, value);
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, UIInfoBase> p: Add(p.Key1, p.Key2, p.Value); break;
-                case ValueTuple<int, string, UIInfoBase> v: Add(v.Item1, v.Item2, v.Item3); break;
-                case ValueTuple<string, int, UIInfoBase> v: Add(v.Item2, v.Item1, v.Item3); break;
-                case KeyValuePair<DoubleKey<int, string>, UIInfoBase> d: Add(d.Key.Key1, d.Key.Key2, d.Value); break;
-                case KeyValuePair<DoubleKey<string, int>, UIInfoBase> d: Add(d.Key.Key2, d.Key.Key1, d.Value); break;
-                default: return -1;
-            }
-            return Count - 1;
-        }
-        void IDictionary.Add(object key, object value)
-        {
-            Central.ThrowHelper.ThrowArgumentNullException(null, key);
-            Central.ThrowHelper.ThrowArgumentNullException(null, value);
-            if (value is UIInfoBase u)
-            {
-                switch (key)
-                {
-                    case ValueTuple<int, string> v: Add(v.Item1, v.Item2, u); return;
-                    case ValueTuple<string, int> v: Add(v.Item2, v.Item1, u); return;
-                    case DoubleKey<int, string> p: Add(p.Key1, p.Key2, u); return;
-                    case DoubleKey<string, int> p: Add(p.Key2, p.Key1, u); return;
-                    default: throw new ArgumentException();
-                }
-            }
-            else throw new ArgumentException();
-        }
         /// <summary>
         /// 要素の名前を変更する
         /// </summary>
@@ -440,37 +315,14 @@ namespace UIGenerator
             return false;
         }
         bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Contains(DoubleKeyValuePair<int, string, UIInfoBase> item) => IndexOf(item) != -1;
-        bool IDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
-        bool IDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
-        bool IDictionary.Contains(object key)
-        {
-            if (key == null) return false;
-            switch (key)
-            {
-                case ValueTuple<int, string> t: return Contains(t.Item1, t.Item2);
-                case ValueTuple<string, int> t: return Contains(t.Item2, t.Item1);
-                case DoubleKey<int, string> p: return Contains(p.Key1, p.Key2);
-                case DoubleKey<string, int> p: return Contains(p.Key2, p.Key1);
-                default: return false;
-            }
-        }
-        bool IList.Contains(object value)
-        {
-            if (value == null) return false;
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, UIInfoBase> p: return IndexOf(p) != -1;
-                case UIInfoBase ui: return Contains(ui);
-                case ValueTuple<int, string> t: return Contains(t.Item1, t.Item2);
-                case ValueTuple<string, int> t: return Contains(t.Item2, t.Item1);
-                case DoubleKey<int, string> p: return Contains(p.Key1, p.Key2);
-                case DoubleKey<string, int> p: return Contains(p.Key2, p.Key1);
-                default: return false;
-            }
-        }
-        bool IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
-        bool IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
-        bool IReadOnlyDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool INumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
+        bool INumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey1(int mode) => ContainsMode(mode);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKey2(string name) => ContainsName(name);
+        bool INumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool INumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsValue(UIInfoBase value) => Contains(value);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, UIInfoBase>.ContainsValue(UIInfoBase value) => Contains(value);
         /// <summary>
         /// 指定した配列に要素をコピーする
         /// </summary>
@@ -585,20 +437,6 @@ namespace UIGenerator
                     return i;
             return -1;
         }
-        int IList.IndexOf(object value)
-        {
-            if (value == null) return -1;
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, UIInfoBase> pair: return IndexOf(pair);
-                case UIInfoBase ui: return IndexOf(ui);
-                case ValueTuple<int, string> t: return IndexOf(t.Item1, t.Item2);
-                case ValueTuple<string, int> t: return IndexOf(t.Item2, t.Item1);
-                case DoubleKey<int, string> p: return IndexOf(p.Key1, p.Key2);
-                default: return -1;
-            }
-        }
-        int IList<DoubleKeyValuePair<int, string, UIInfoBase>>.IndexOf(DoubleKeyValuePair<int, string, UIInfoBase> item) => IndexOf(item);
         /// <summary>
         /// 指定したインデックスに要素を挿入する
         /// </summary>
@@ -622,19 +460,12 @@ namespace UIGenerator
             Count++;
             version++;
         }
-        void IList.Insert(int index, object value)
-        {
-            Central.ThrowHelper.ThrowArgumentNullException(null, value);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, UIInfoBase> p: Insert(index, p.Key1, p.Key2, p.Value); return;
-                case KeyValuePair<DoubleKey<int, string>, UIInfoBase> p: Insert(index, p.Key.Key1, p.Key.Key2, p.Value); return;
-                case ValueTuple<int, string, UIInfoBase> t: Insert(index, t.Item1, t.Item2, t.Item3); return;
-                default: throw new ArgumentException();
-            }
-        }
-        void IList<DoubleKeyValuePair<int, string, UIInfoBase>>.Insert(int index, DoubleKeyValuePair<int, string, UIInfoBase> item) => Insert(index, item.Key1, item.Key2, item.Value);
+        int INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int key1, string oldKey2, string newKey2) => ChangeName(key1, oldKey2, newKey2);
+        int INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int oldKey1, string key2, int newKey1) => ChangeMode(oldKey1, key2, newKey1);
+        int INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int oldKey1, string oldKey2, int newKey1, string newKey2) => throw new NotImplementedException();
+        void INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int index, int newKey1) => throw new NotImplementedException();
+        void INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int index, string newKey2) => throw new NotImplementedException();
+        void INumericDoubleKeyDictionary<int, string, UIInfoBase>.OverWrite(int index, int newKey1, string newKey2) => throw new NotImplementedException();
         /// <summary>
         /// 指定した表示モードと名前を持つ要素を削除する
         /// </summary>
@@ -658,32 +489,12 @@ namespace UIGenerator
             return true;
         }
         bool ICollection<DoubleKeyValuePair<int, string, UIInfoBase>>.Remove(DoubleKeyValuePair<int, string, UIInfoBase> item) => Remove(item);
-        void IDictionary.Remove(object key)
+        bool INumericDoubleKeyDictionary<int, string, UIInfoBase>.Remove(UIInfoBase value)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, key);
-            switch (key)
-            {
-                case DoubleKey<int, string> p: Remove(p.Key1, p.Key2); return;
-                case DoubleKey<string, int> p: Remove(p.Key2, p.Key1); return;
-                case ValueTuple<int, string> t: Remove(t.Item1, t.Item2); return;
-                case ValueTuple<string, int> t: Remove(t.Item2, t.Item1); return;
-            }
-        }
-        void IList.Remove(object value)
-        {
-            Central.ThrowHelper.ThrowArgumentNullException(null, value);
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, UIInfoBase> p: Remove(p); return;
-                case UIInfoBase u:
-                    var index = IndexOf(u);
-                    if (index != -1) RemoveAt(index);
-                    return;
-                case DoubleKey<int, string> p: Remove(p.Key1, p.Key2); return;
-                case DoubleKey<string, int> p: Remove(p.Key2, p.Key1); return;
-                case ValueTuple<int, string> t: Remove(t.Item1, t.Item2); return;
-                case ValueTuple<string, int> t: Remove(t.Item2, t.Item1); return;
-            }
+            var index = IndexOf(value);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
         }
         /// <summary>
         /// 指定したインデックスの要素を削除する
@@ -745,12 +556,11 @@ namespace UIGenerator
         public Enumerator GetEnumerator() => new Enumerator(this);
         IEnumerator<DoubleKeyValuePair<int, string, UIInfoBase>> IEnumerable<DoubleKeyValuePair<int, string, UIInfoBase>>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        IDictionaryEnumerator IDictionary.GetEnumerator() => GetEnumerator();
         /// <summary>
         /// 列挙をサポートする構造体
         /// </summary>
         [Serializable]
-        public struct Enumerator : IEnumerator<DoubleKeyValuePair<int, string, UIInfoBase>>, IDictionaryEnumerator
+        public struct Enumerator : IEnumerator<DoubleKeyValuePair<int, string, UIInfoBase>>
         {
             private int index;
             private readonly int version;
@@ -765,30 +575,6 @@ namespace UIGenerator
                 {
                     Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
                     return Current;
-                }
-            }
-            object IDictionaryEnumerator.Key
-            {
-                get
-                {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
-                    return Current.GetKeyValuePair().Key;
-                }
-            }
-            object IDictionaryEnumerator.Value
-            {
-                get
-                {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
-                    return Current.Value;
-                }
-            }
-            DictionaryEntry IDictionaryEnumerator.Entry
-            {
-                get
-                {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
-                    return new DictionaryEntry(Current.GetKeyValuePair().Key, Current.Value);
                 }
             }
             internal Enumerator(UIInfoCollection collection)

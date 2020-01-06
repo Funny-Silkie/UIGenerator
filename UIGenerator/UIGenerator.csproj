@@ -63,6 +63,7 @@
       <DependentUpon>AddWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ClickArg.cs" />
+    <Compile Include="Collections\DrawingAdditionaryInfoCollection.cs" />
     <Compile Include="CSharpCodeProvider.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="DrawAdditionally\DrawingAdditionaryInfoBase.cs" />
