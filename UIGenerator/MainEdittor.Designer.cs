@@ -172,6 +172,7 @@
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainEdittor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainEdittor_FormClosed);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).EndInit();

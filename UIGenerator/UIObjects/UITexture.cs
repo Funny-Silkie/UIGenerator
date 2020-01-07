@@ -71,6 +71,18 @@ namespace UIGenerator
         /// マウスカーソルとの重なりが解除されたときのイベント
         /// </summary>
         public event EventHandler MouseExit;
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="mode">表示モード</param>
+        /// <param name="name">名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        public UITexture(int mode, string name) : base(DataBase.DefaultTexture.Texture)
+        {
+            Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
+            Name = name ?? throw new ArgumentNullException();
+        }
         Object2D IUIElements.AsObject2D() => this;
         protected override void OnCursorEnter() => MouseEnter?.Invoke(this, EventArgs.Empty);
         protected override void OnCursorExit() => MouseExit?.Invoke(this, EventArgs.Empty);

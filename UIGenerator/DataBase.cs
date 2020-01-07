@@ -15,15 +15,36 @@ namespace UIGenerator
         /// <summary>
         /// 現在表示しているオブジェクトのモードを取得または設定する
         /// </summary>
-        public static int ShowMode { get; set; } = 0;
+        /// <exception cref="ArgumentOutOfRangeException">設定しようとした値が0未満</exception>
+        public static int ShowMode
+        {
+            get => _showMode;
+            set => _showMode = value >= 0 ? value : throw new ArgumentOutOfRangeException();
+        }
+        private static int _showMode = 0;
         /// <summary>
         /// プロジェクト名を取得または設定する
         /// </summary>
-        public static string ProjectName { get; set; } = "";
+        /// <exception cref="ArgumentNullException">設定しようとした値がnull</exception>
+        public static string ProjectName
+        {
+            get => _projectName;
+            set
+            {
+                _projectName = value ?? throw new ArgumentNullException();
+                Engine.Title = value;
+            }
+        }
+        private static string _projectName = "";
         /// <summary>
         /// ウィンドウの大きさを取得または設定する
         /// </summary>
-        public static SerializableVector2DI WindowSize { get; set; }
+        public static SerializableVector2DI WindowSize
+        {
+            get => _windowSize;
+            set => SetWindowSize(value);
+        }
+        private static SerializableVector2DI _windowSize;
         /// <summary>
         /// 文字列のタイプを取得する
         /// </summary>
@@ -69,11 +90,6 @@ namespace UIGenerator
         /// </summary>
         public static FilePackageCollection FllePackages { get; } = new FilePackageCollection();
         /// <summary>
-        /// 非同期処理をサポートするコンテキスト
-        /// </summary>
-        public static UIGeneratorSynchronizationContext SynchronizationContext => _synchronizationContext ?? (_synchronizationContext = new UIGeneratorSynchronizationContext());
-        private static UIGeneratorSynchronizationContext _synchronizationContext;
-        /// <summary>
         /// オブジェクトを追加する
         /// </summary>
         /// <param name="info">追加されるオブジェクト</param>
@@ -106,6 +122,21 @@ namespace UIGenerator
             Forms.Clear();
         }
         /// <summary>
+        /// ウィンドウサイズ，タイトルを初期化する
+        /// </summary>
+        /// <param name="sizeX">ウィンドウのX方向の大きさ</param>
+        /// <param name="sizeY">ウィンドウのY方向の大きさ</param>
+        /// <param name="title">プロジェクト名</param>
+        /// <exception cref="ArgumentNullException"><paramref name="title"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="sizeX"/>または<paramref name="sizeY"/>が0以下</exception>
+        public static void Initialize(int sizeX, int sizeY, string title)
+        {
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(sizeX, 1, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(sizeY, 1, int.MaxValue, null);
+            _windowSize = new SerializableVector2DI(sizeX, sizeY);
+            _projectName = title ?? throw new ArgumentNullException();
+        }
+        /// <summary>
         /// データをバイナリ形式でセーブする
         /// </summary>
         /// <param name="path">セーブするファイルのパス</param>
@@ -125,18 +156,18 @@ namespace UIGenerator
             _fonts = c.FontCollection;
             _textures = c.TextureCollection;
             ProjectName = c.ProjectName;
-            WindowSize = c.WindowSize;
+            _windowSize = c.WindowSize;
         }
         /// <summary>
         /// ウィンドウのサイズを変更する
         /// </summary>
         /// <param name="size">変更後のウィンドウサイズ</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>のXまたはYの値が0以下</exception>
-        public static void SetWindowSize(SerializableVector2DI size)
+        private static void SetWindowSize(SerializableVector2DI size)
         {
-            if (size == WindowSize) return;
+            if (size == _windowSize) return;
             if (size.X <= 0 || size.Y <= 0) throw new ArgumentOutOfRangeException();
-            WindowSize = size;
+            _windowSize = size;
             Engine.WindowSize = size;
         }
     }

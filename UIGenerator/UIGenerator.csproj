@@ -77,6 +77,12 @@
     <Compile Include="DrawAdditionally\DrawingSpriteInfo.cs" />
     <Compile Include="DrawAdditionally\DrawingTextInfo.cs" />
     <Compile Include="DrawAdditionally\DrawingTriangleInfo.cs" />
+    <Compile Include="DrawingLineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingLineForm.Designer.cs">
+      <DependentUpon>DrawingLineForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddWindow.resx">
       <DependentUpon>AddWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingLineForm.resx">
+      <DependentUpon>DrawingLineForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilePackageLoader.resx">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>

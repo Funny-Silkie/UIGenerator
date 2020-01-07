@@ -138,5 +138,13 @@ namespace UIGenerator
                 form.Show();
             }
         }
+        /// <summary>
+        /// フォームが閉じられたときの挙動
+        /// </summary>
+        private void MainEdittor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DataBase.CloseAllWindow();
+            Program.ContinueUpdating = false;
+        }
     }
 }

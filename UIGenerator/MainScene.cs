@@ -24,6 +24,10 @@ namespace UIGenerator
         {
             AddLayer(MainLayer);
         }
+        protected override void OnUpdated()
+        {
+            DataBase.DrawingCollection.OperateAll(MainLayer);
+        }
         /// <summary>
         /// 表示するアイテムを変更する
         /// </summary>

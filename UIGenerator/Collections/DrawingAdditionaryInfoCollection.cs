@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading;
+using asd;
 using fslib;
 using fslib.Collections;
 using fslib.Exception;
@@ -404,6 +405,18 @@ namespace UIGenerator
             _array[index] = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>(mode, name, info);
             Count++;
             version++;
+        }
+        /// <summary>
+        /// 全ての描画を実行する
+        /// </summary>
+        /// <param name="layer">描画を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public void OperateAll(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            for (int i = 0; i < Count; i++)
+                if (_array[i].Key1 == DataBase.ShowMode)
+                    _array[i].Value.Operate(layer);
         }
         void INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int index, int newKey1) => throw new NotImplementedException();
         void INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int index, int newKey1, string newKey2) => throw new NotImplementedException();
