@@ -63,13 +63,20 @@
       <DependentUpon>AddWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ClickArg.cs" />
+    <Compile Include="Code\CSharp\DrawingAdditionalCSharp.cs" />
     <Compile Include="Collections\DrawingAdditionaryInfoCollection.cs" />
-    <Compile Include="CSharpCodeProvider.cs" />
+    <Compile Include="Code\CSharp\CSharpCodeProvider.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="DrawAdditionally\DrawingAdditionalMode.cs" />
     <Compile Include="DrawAdditionally\DrawingAdditionaryInfoBase.cs" />
     <Compile Include="DrawAdditionally\DrawingArcInfo.cs" />
     <Compile Include="DrawAdditionally\DrawingCircleInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingLineInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingRectangleInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingRotatedRectangleInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingSpriteInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingTextInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingTriangleInfo.cs" />
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>

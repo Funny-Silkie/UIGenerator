@@ -1,5 +1,6 @@
 ﻿using System;
 using asd;
+using fslib;
 
 namespace UIGenerator
 {
@@ -62,9 +63,119 @@ namespace UIGenerator
             DrawingAdditionalMode = drawingAdditionalMode;
         }
         /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public abstract void Operate(Layer2D layer);
+        /// <summary>
         /// C#のコードを返す
         /// </summary>
         /// <returns>この追加描画を実装するC#のコード</returns>
         public abstract string ToCSharp();
+    }
+    public partial class DrawingArcInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawArcAdditionally(Center, OuterDiameter, InnerDiameter, Color, VertNum, StartingVerticalAngle, EndingVerticalAngle, Angle, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingCircleInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawCircleAdditionally(Center, OuterDiameter, InnerDiameter, Color, VertNum, Angle, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingLineInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawLineAdditionally(Point1, Point2, Thickness, Color, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingRectangleInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawRectangleAdditionally(DrawingArea, Color, UV, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingRotatedRectangleInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawRotatedRectangleAdditionally(DrawingArea, Color, RotationCenter, Angle, UV, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingSpriteInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawSpriteAdditionally(UpperLeftPos, UpperRightPos, LowerLeftPos, LowerRightPos, UpperLeftColor, UpperRightColor, LowerLeftColor, LowerRightColor, UpperLeftUV, UpperRightUV, LowerLeftUV, LowerRightUV, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingTextInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawTextAdditionally(Position, Color, FontInfo.Font.Font, Text, WritingDirection, AlphaBlend, DrawingPriority);
+        }
+    }
+    public partial class DrawingTriangleInfo
+    {
+        /// <summary>
+        /// 描画処理を実行する
+        /// </summary>
+        /// <param name="layer">描画処理を行うレイヤー</param>
+        /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
+        public override void Operate(Layer2D layer)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            layer.DrawTriangleAdditionally(Position1, Position2, Position3, Color, UV1, UV2, UV3, Texture.Texture, AlphaBlend, DrawingPriority);
+        }
     }
 }

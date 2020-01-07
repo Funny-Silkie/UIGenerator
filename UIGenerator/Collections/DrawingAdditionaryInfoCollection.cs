@@ -10,7 +10,7 @@ using fslib.Exception;
 namespace UIGenerator
 {
     /// <summary>
-    /// <see cref="DrawingArcInfo"/>を管理するコレクション
+    /// <see cref="DrawingAdditionaryInfoBase"/>を管理するコレクション
     /// </summary>
     [Serializable]
     public sealed class DrawingAdditionaryInfoCollection : INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>, IReadOnlyNumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>, ICollection, ISerializable

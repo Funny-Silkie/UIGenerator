@@ -13,6 +13,8 @@ namespace UIGenerator
         Line,
         Rectangle,
         RotatedRectangle,
-        Text
+        Sprite,
+        Text,
+        Triangle
     }
 }
