@@ -7,7 +7,7 @@ using fslib;
 using fslib.Collections;
 using fslib.Exception;
 
-namespace UIGenerator.Collections
+namespace UIGenerator
 {
     /// <summary>
     /// <see cref="DrawingArcInfo"/>を管理するコレクション
@@ -15,6 +15,9 @@ namespace UIGenerator.Collections
     [Serializable]
     public sealed class DrawingAdditionaryInfoCollection : INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>, IReadOnlyNumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>, ICollection, ISerializable
     {
+        #region SerializeName
+        private const string S_Array = "S_Array";
+        #endregion
         private DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[] _array;
         private readonly static DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[] emptyArray = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[0];
         private int version = 0;
@@ -74,13 +77,15 @@ namespace UIGenerator.Collections
         public DrawingAdditionaryInfoCollection(IEnumerable<DrawingAdditionaryInfoBase> collection)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            _array = emptyArray;
             using (var en = collection.GetEnumerator())
                 while (en.MoveNext())
                     Add(en.Current.Mode, en.Current.Name, en.Current);
         }
         private DrawingAdditionaryInfoCollection(SerializationInfo info, StreamingContext context)
         {
-
+            _array = info.GetValue<DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[]>(S_Array);
+            Count = _array.Length;
         }
         /// <summary>
         /// 指定したインデックスに対応する要素を取得する
@@ -160,6 +165,56 @@ namespace UIGenerator.Collections
             version++;
         }
         void ICollection<DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>>.Add(DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> item) => Add(item.Key1, item.Key2, item.Value);
+        /// <summary>
+        /// 要素の名前を変更する
+        /// </summary>
+        /// <param name="mode">変更する要素の表示モード</param>
+        /// <param name="oldname">変更前の名前</param>
+        /// <param name="newname">変更後の名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="oldname"/>又は<paramref name="newname"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="newname"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="mode"/>と<paramref name="oldname"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeName(int mode, string oldname, string newname)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: oldname);
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: newname);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(mode, 0, int.MaxValue, null);
+            var index = IndexOf(mode, oldname);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(mode, newname);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Name = newname;
+            _array[index] = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>(pair.Key1, newname, pair.Value);
+            return index;
+        }
+        /// <summary>
+        /// 要素の表示モードを変更する
+        /// </summary>
+        /// <param name="oldmode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <param name="newmode">変更後の表示モード</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="oldmode"/>または<paramref name="newmode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="newmode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="oldmode"/>と<paramref name="name"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeMode(int oldmode, string name, int newmode)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, values: name);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(oldmode, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(newmode, 0, int.MaxValue, null);
+            var index = IndexOf(oldmode, name);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(newmode, name);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Mode = newmode;
+            _array[index] = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>(newmode, pair.Key2, pair.Value);
+            return index;
+        }
         /// <summary>
         /// 格納されているすべての要素を削除する
         /// </summary>
@@ -263,6 +318,19 @@ namespace UIGenerator.Collections
             return array;
         }
         /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアル化するデータを格納する<see cref="SerializationInfo"/>のインスタンス</param>
+        /// <param name="context">送信先を表す<see cref="StreamingContext"/>のインスタンス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            var array = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[Count];
+            CopyTo(array, 0);
+            info.AddValue(S_Array, _array);
+        }
+        /// <summary>
         /// 指定したモードと名前の組み合わせを持つ値のインデックスを取得する
         /// </summary>
         /// <param name="mode"><検索する値の表示モード/param>
@@ -337,6 +405,12 @@ namespace UIGenerator.Collections
             Count++;
             version++;
         }
+        void INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int index, int newKey1) => throw new NotImplementedException();
+        void INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int index, int newKey1, string newKey2) => throw new NotImplementedException();
+        void INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int index, string newKey2) => throw new NotImplementedException();
+        int INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int key1, string oldKey2, string newKey2) => ChangeName(key1, oldKey2, newKey2);
+        int INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int oldKey1, string key2, int newKey1) => ChangeMode(oldKey1, key2, newKey1);
+        int INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int oldKey1, string oldKey2, int newKey1, string newKey2) => throw new NotImplementedException();
         private void ReSize(int min)
         {
             if (Count < min) return;

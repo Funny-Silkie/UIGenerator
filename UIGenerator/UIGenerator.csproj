@@ -66,7 +66,10 @@
     <Compile Include="Collections\DrawingAdditionaryInfoCollection.cs" />
     <Compile Include="CSharpCodeProvider.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="DrawAdditionally\DrawingAdditionalMode.cs" />
     <Compile Include="DrawAdditionally\DrawingAdditionaryInfoBase.cs" />
+    <Compile Include="DrawAdditionally\DrawingArcInfo.cs" />
+    <Compile Include="DrawAdditionally\DrawingCircleInfo.cs" />
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +131,7 @@
     <Compile Include="UIObjects\UIText.cs" />
     <Compile Include="UIObjects\UITexture.cs" />
     <Compile Include="UIObjects\UIWindow.cs" />
+    <Compile Include="UITypes.cs" />
     <Compile Include="WindowEditter.cs">
       <SubType>Form</SubType>
     </Compile>

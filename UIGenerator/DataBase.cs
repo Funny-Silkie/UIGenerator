@@ -8,25 +8,6 @@ using fslib.Serialization;
 namespace UIGenerator
 {
     /// <summary>
-    /// UIのタイプを表す
-    /// </summary>
-    [Serializable]
-    public enum UITypes
-    {
-        /// <summary>
-        /// テキスト
-        /// </summary>
-        Text,
-        /// <summary>
-        /// テクスチャ
-        /// </summary>
-        Texture,
-        /// <summary>
-        /// ウィンドウ
-        /// </summary>
-        Window
-    }
-    /// <summary>
     /// 処理に必要なデータを格納しておくクラス
     /// </summary>
     public static class DataBase
@@ -55,6 +36,10 @@ namespace UIGenerator
         /// <see cref="UIInfo{T}"/>の情報を取得する
         /// </summary>
         public static UIInfoCollection UIInfos { get; private set; } = new UIInfoCollection();
+        /// <summary>
+        /// 追加描画の情報を格納するコレクションを取得する
+        /// </summary>
+        public static DrawingAdditionaryInfoCollection DrawingCollection { get; private set; } = new DrawingAdditionaryInfoCollection();
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>

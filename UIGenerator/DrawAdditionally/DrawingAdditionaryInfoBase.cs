@@ -9,6 +9,10 @@ namespace UIGenerator
     [Serializable]
     public abstract class DrawingAdditionaryInfoBase : IUIGeneratorInfo
     {
+        /// <summary>
+        /// 追加描画のタイプを取得する
+        /// </summary>
+        public DrawingAdditionalMode DrawingAdditionalMode { get; }
         [NonSerialized]
         private System.Windows.Forms.Form _handleForm = null;
         /// <summary>
@@ -36,29 +40,31 @@ namespace UIGenerator
         }
         private string _name;
         /// <summary>
+        /// 使用するアルファブレンドの設定を取得または設定する
+        /// </summary>
+        public AlphaBlendMode AlphaBlend { get; set; }
+        /// <summary>
+        /// 描画優先度を取得または設定する
+        /// </summary>
+        public int DrawingPriority { get; set; }
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="mode">表示モード</param>
         /// <param name="name">設定する名前</param>
+        /// <param name="drawingAdditionalMode">追加描画のモード</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        protected DrawingAdditionaryInfoBase(int mode, string name)
+        protected DrawingAdditionaryInfoBase(int mode, string name, DrawingAdditionalMode drawingAdditionalMode)
         {
             Mode = mode >= 0 ? mode : throw new ArgumentOutOfRangeException();
             Name = name ?? throw new ArgumentNullException();
+            DrawingAdditionalMode = drawingAdditionalMode;
         }
         /// <summary>
         /// C#のコードを返す
         /// </summary>
         /// <returns>この追加描画を実装するC#のコード</returns>
         public abstract string ToCSharp();
-    }
-    /// <summary>
-    /// <see cref="Layer2D.DrawArcAdditionally(Vector2DF, float, float, Color, int, int, int, float, Texture2D, AlphaBlendMode, int)"/>の実装を仲介するクラス
-    /// </summary>
-    [Serializable]
-    public sealed class DrawingArcInfo : DrawingAdditionaryInfoBase
-    {
-
     }
 }
