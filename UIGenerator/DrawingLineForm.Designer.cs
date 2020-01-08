@@ -100,6 +100,7 @@
             this.NumericUpDown_Priority.Name = "NumericUpDown_Priority";
             this.NumericUpDown_Priority.Size = new System.Drawing.Size(68, 22);
             this.NumericUpDown_Priority.TabIndex = 12;
+            this.NumericUpDown_Priority.ValueChanged += new System.EventHandler(this.NumericUpDown_Priority_ValueChanged);
             // 
             // Label_Priority
             // 
@@ -439,6 +440,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_Thickness.ValueChanged += new System.EventHandler(this.NumericUpDown_Thickness_ValueChanged);
             // 
             // Label_Thickness
             // 

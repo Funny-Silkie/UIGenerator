@@ -74,5 +74,13 @@ namespace UIGenerator
                 else TextBox_Name.Text = oldName;
             }
         }
+        /// <summary>
+        /// 描画優先度変更
+        /// </summary>
+        private void NumericUpDown_Priority_ValueChanged(object sender, EventArgs e) => info.DrawingPriority = (int)NumericUpDown_Priority.Value;
+        /// <summary>
+        /// 線の太さ変更
+        /// </summary>
+        private void NumericUpDown_Thickness_ValueChanged(object sender, EventArgs e) => info.Thickness = (int)NumericUpDown_Thickness.Value;
     }
 }
