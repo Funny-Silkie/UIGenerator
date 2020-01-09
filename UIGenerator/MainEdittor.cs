@@ -169,10 +169,15 @@ namespace UIGenerator
                 if (element.HandleForm == null)
                     switch (element.DrawingAdditionalMode)
                     {
+                        case DrawingAdditionalMode.Arc:
+                            var form_arc = new DrawingArcForm(this, (DrawingArcInfo)element);
+                            DataBase.Forms.Add(form_arc);
+                            form_arc.Show();
+                            return;
                         case DrawingAdditionalMode.Line:
-                            var form = new DrawingLineForm(this, (DrawingLineInfo)element);
-                            DataBase.Forms.Add(form);
-                            form.Show();
+                            var form_line = new DrawingLineForm(this, (DrawingLineInfo)element);
+                            DataBase.Forms.Add(form_line);
+                            form_line.Show();
                             return;
                         default: throw new InvalidOperationException();
                     }

@@ -46,10 +46,6 @@ namespace UIGenerator
         }
         private static SerializableVector2DI _windowSize;
         /// <summary>
-        /// 文字列のタイプを取得する
-        /// </summary>
-        public static string[] Types { get; } = Enum.GetNames(typeof(UITypes));
-        /// <summary>
         /// メインのシーンを取得する
         /// </summary>
         public static MainScene MainScene { get; } = new MainScene();

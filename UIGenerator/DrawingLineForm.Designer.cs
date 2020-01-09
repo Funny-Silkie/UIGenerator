@@ -493,7 +493,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 420);
+            this.ClientSize = new System.Drawing.Size(627, 420);
             this.Controls.Add(this.ComboBox_AlphaBlend);
             this.Controls.Add(this.Label_AlphaBlend);
             this.Controls.Add(this.NumericUpDown_Thickness);

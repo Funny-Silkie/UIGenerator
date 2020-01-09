@@ -24,7 +24,7 @@ namespace UIGenerator
             mainEdittor = main ?? throw new ArgumentNullException();
             IsShown = true;
             InitializeComponent();
-            ComboBox_Obj_Type.DataSource = DataBase.Types;
+            ComboBox_Obj_Type.DataSource = Enum.GetNames(typeof(UITypes));
             ComboBox_Add_Type.DataSource = Enum.GetNames(typeof(DrawingAdditionalMode));
         }
         /// <summary>

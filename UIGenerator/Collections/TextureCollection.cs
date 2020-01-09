@@ -104,12 +104,19 @@ namespace UIGenerator
         }
         private void ChangeComboBox()
         {
+            var names = GetNames();
             foreach (var u in DataBase.UIInfos)
                 if (u.Value.Type == UITypes.Texture)
                 {
                     var form = (TextureEdittor)((TextureObjInfo)u.Value).HandleForm;
                     if (form == null) continue;
-                    else form.ComboBox_Texture.DataSource = GetNames();
+                    else form.ComboBox_Texture.DataSource = names;
+                }
+            foreach (var a in DataBase.DrawingCollection)
+                switch (a.Value.HandleForm)
+                {
+                    case DrawingArcForm f: f.ComboBox_Texture.DataSource = names; continue;
+                    default: continue;
                 }
         }
         /// <summary>
