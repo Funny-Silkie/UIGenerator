@@ -1,49 +1,89 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using fslib;
 
 namespace UIGenerator
 {
+    /// <summary>
+    /// 要素を追加するウィンドウ
+    /// </summary>
     public partial class AddWindow : Form
     {
         private readonly MainEdittor mainEdittor;
-        public static bool IsShown { get; set; } = false;
+        /// <summary>
+        /// インスタンスが存在しているかどうかを取得する
+        /// </summary>
+        public static bool IsShown { get; private set; } = false;
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="main"><see cref="MainEdittor"/></param>への参照
+        /// <exception cref="ArgumentNullException"><paramref name="main"/>がnull</exception>
         public AddWindow(MainEdittor main)
         {
             mainEdittor = main ?? throw new ArgumentNullException();
             IsShown = true;
             InitializeComponent();
-            ComboBox_Type.DataSource = DataBase.Types;
+            ComboBox_Obj_Type.DataSource = DataBase.Types;
+            ComboBox_Add_Type.DataSource = Enum.GetNames(typeof(DrawingAdditionalMode));
         }
+        /// <summary>
+        /// フォームが閉じられたときの挙動
+        /// </summary>
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             IsShown = false;
             DataBase.Forms.Remove(this);
         }
+        /// <summary>
+        /// Object2D要素の追加
+        /// </summary>
         private void Button_Add_Click(object sender, EventArgs e)
         {
-            var mode = (int)NumericUpDown_Mode.Value;
-            var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Type.Text);
-            var name = TextBox_Name.Text;
+            var mode = (int)NumericUpDown_Obj_Mode.Value;
+            var type = (UITypes)Enum.Parse(typeof(UITypes), ComboBox_Obj_Type.Text);
+            var name = TextBox_Obj_Name.Text;
             if (!DataBase.UIInfos.Contains(mode, name))
             {
                 DataBase.AddObject(UIInfoBase.GetInstance(type, mode, name));
-                var item = mainEdittor.ListView_Main.Items.Add(type.ToString());
+                var item = mainEdittor.ListView_Objects.Items.Add(type.ToString());
                 item.SubItems.Add(name);
                 item.SubItems.Add(mode.ToString());
-                Reset();
+                Reset_Obj();
             }
         }
-        private void Reset()
+        /// <summary>
+        /// Object2D周辺のフォーム情報のリセット
+        /// </summary>
+        private void Reset_Obj()
         {
-            TextBox_Name.Text = "";
-            NumericUpDown_Mode.Value = 0;
+            TextBox_Obj_Name.Text = "";
+            NumericUpDown_Obj_Mode.Value = 0;
+        }
+        /// <summary>
+        /// 追加描画要素の追加
+        /// </summary>
+        private void Button_Add_Add_Click(object sender, EventArgs e)
+        {
+            var mode = (int)NumericUpDown_Add_Mode.Value;
+            var type = EnumHelper.FromString<DrawingAdditionalMode>(ComboBox_Add_Type.Text);
+            var name = TextBox_Add_Name.Text;
+            if (!DataBase.UIInfos.Contains(mode, name))
+            {
+                DataBase.DrawingCollection.Add(mode, name, DrawingAdditionaryInfoBase.GetInstance(type, mode, name));
+                var item = mainEdittor.ListView_Additionalies.Items.Add(type.ToString());
+                item.SubItems.Add(name);
+                item.SubItems.Add(mode.ToString());
+                Reset_Add();
+            }
+        }
+        /// <summary>
+        /// 追加描画周辺のフォーム情報のリセット
+        /// </summary>
+        private void Reset_Add()
+        {
+            TextBox_Add_Name.Text = "";
+            NumericUpDown_Add_Mode.Value = 0;
         }
     }
 }

@@ -39,12 +39,17 @@
             this.フォントを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.テクスチャを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ListView_Main = new System.Windows.Forms.ListView();
+            this.ListView_objects = new System.Windows.Forms.ListView();
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ObjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_ShowMode = new System.Windows.Forms.Label();
             this.NumericUpDown_ShowMode = new System.Windows.Forms.NumericUpDown();
+            this.Label_Obj = new System.Windows.Forms.Label();
+            this.ListView_additional = new System.Windows.Forms.ListView();
+            this.ColumnHeader_Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -118,21 +123,21 @@
             resources.ApplyResources(this.ファイルパッケージを管理するToolStripMenuItem, "ファイルパッケージを管理するToolStripMenuItem");
             this.ファイルパッケージを管理するToolStripMenuItem.Click += new System.EventHandler(this.ファイルパッケージを管理するToolStripMenuItem_Click);
             // 
-            // ListView_Main
+            // ListView_objects
             // 
-            this.ListView_Main.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ListView_objects.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Type,
             this.ObjectName,
             this.Mode});
-            this.ListView_Main.FullRowSelect = true;
-            this.ListView_Main.GridLines = true;
-            this.ListView_Main.HideSelection = false;
-            resources.ApplyResources(this.ListView_Main, "ListView_Main");
-            this.ListView_Main.MultiSelect = false;
-            this.ListView_Main.Name = "ListView_Main";
-            this.ListView_Main.UseCompatibleStateImageBehavior = false;
-            this.ListView_Main.View = System.Windows.Forms.View.Details;
-            this.ListView_Main.ItemActivate += new System.EventHandler(this.ListView_Main_ItemActivate);
+            this.ListView_objects.FullRowSelect = true;
+            this.ListView_objects.GridLines = true;
+            this.ListView_objects.HideSelection = false;
+            resources.ApplyResources(this.ListView_objects, "ListView_objects");
+            this.ListView_objects.MultiSelect = false;
+            this.ListView_objects.Name = "ListView_objects";
+            this.ListView_objects.UseCompatibleStateImageBehavior = false;
+            this.ListView_objects.View = System.Windows.Forms.View.Details;
+            this.ListView_objects.ItemActivate += new System.EventHandler(this.ListView_Objects_ItemActivate);
             // 
             // Type
             // 
@@ -162,13 +167,46 @@
             this.NumericUpDown_ShowMode.Name = "NumericUpDown_ShowMode";
             this.NumericUpDown_ShowMode.ValueChanged += new System.EventHandler(this.NumericUpDown_ShowMode_ValueChanged);
             // 
+            // Label_Obj
+            // 
+            resources.ApplyResources(this.Label_Obj, "Label_Obj");
+            this.Label_Obj.Name = "Label_Obj";
+            // 
+            // ListView_additional
+            // 
+            this.ListView_additional.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader_Type,
+            this.ColumnHeader_Name,
+            this.ColumnHeader_Mode});
+            this.ListView_additional.GridLines = true;
+            this.ListView_additional.HideSelection = false;
+            resources.ApplyResources(this.ListView_additional, "ListView_additional");
+            this.ListView_additional.Name = "ListView_additional";
+            this.ListView_additional.UseCompatibleStateImageBehavior = false;
+            this.ListView_additional.View = System.Windows.Forms.View.Details;
+            this.ListView_additional.ItemActivate += new System.EventHandler(this.ListView_additional_ItemActivate);
+            // 
+            // ColumnHeader_Type
+            // 
+            resources.ApplyResources(this.ColumnHeader_Type, "ColumnHeader_Type");
+            // 
+            // ColumnHeader_Name
+            // 
+            resources.ApplyResources(this.ColumnHeader_Name, "ColumnHeader_Name");
+            // 
+            // ColumnHeader_Mode
+            // 
+            resources.ApplyResources(this.ColumnHeader_Mode, "ColumnHeader_Mode");
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ListView_additional);
+            this.Controls.Add(this.Label_Obj);
             this.Controls.Add(this.NumericUpDown_ShowMode);
             this.Controls.Add(this.Label_ShowMode);
-            this.Controls.Add(this.ListView_Main);
+            this.Controls.Add(this.ListView_objects);
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainEdittor";
@@ -193,11 +231,16 @@
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 要素を追加するToolStripMenuItem;
         private System.Windows.Forms.Label Label_ShowMode;
-        public System.Windows.Forms.ListView ListView_Main;
         public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
         private System.Windows.Forms.ToolStripMenuItem フォントを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem テクスチャを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ファイルパッケージを管理するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Label Label_Obj;
+        private System.Windows.Forms.ListView ListView_additional;
+        private System.Windows.Forms.ColumnHeader ColumnHeader_Type;
+        private System.Windows.Forms.ColumnHeader ColumnHeader_Name;
+        private System.Windows.Forms.ColumnHeader ColumnHeader_Mode;
+        private System.Windows.Forms.ListView ListView_objects;
     }
 }

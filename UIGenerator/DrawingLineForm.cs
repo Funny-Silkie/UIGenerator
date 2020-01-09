@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using asd;
 
 namespace UIGenerator
 {
@@ -52,7 +46,7 @@ namespace UIGenerator
                 if (!DataBase.UIInfos.Contains(newMode, info.Name))
                 {
                     var index = DataBase.DrawingCollection.ChangeMode(oldMode, info.Name, newMode);
-                    main.ListView_Main.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newMode.ToString());
+                    main.ListView_Additionalies.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Additionalies.Items[index], newMode.ToString());
                 }
                 else NumericUpDown_Mode.Value = oldMode;
             }
@@ -69,7 +63,7 @@ namespace UIGenerator
                 if (!DataBase.UIInfos.Contains(info.Mode, newName))
                 {
                     var index = DataBase.DrawingCollection.ChangeName(info.Mode, oldName, newName);
-                    main.ListView_Main.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newName.ToString());
+                    main.ListView_Additionalies.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Additionalies.Items[index], newName.ToString());
                 }
                 else TextBox_Name.Text = oldName;
             }
@@ -82,5 +76,53 @@ namespace UIGenerator
         /// 線の太さ変更
         /// </summary>
         private void NumericUpDown_Thickness_ValueChanged(object sender, EventArgs e) => info.Thickness = (int)NumericUpDown_Thickness.Value;
+        /// <summary>
+        /// 色のR変更
+        /// </summary>
+        private void NumericUpDown_R_ValueChanged(object sender, EventArgs e)
+        {
+            var c = info.Color;
+            info.Color = new Color((int)NumericUpDown_R.Value, c.G, c.B, c.A);
+        }
+        /// <summary>
+        /// 色のG変更
+        /// </summary>
+        private void NumericUpDown_G_ValueChanged(object sender, EventArgs e)
+        {
+            var c = info.Color;
+            info.Color = new Color(c.R, (int)NumericUpDown_G.Value, c.B, c.A);
+        }
+        /// <summary>
+        /// 色のB変更
+        /// </summary>
+        private void NumericUpDown_B_ValueChanged(object sender, EventArgs e)
+        {
+            var c = info.Color;
+            info.Color = new Color(c.R, c.G, (int)NumericUpDown_B.Value, c.A);
+        }
+        /// <summary>
+        /// 色のA変更
+        /// </summary>
+        private void NumericUpDown_A_ValueChanged(object sender, EventArgs e)
+        {
+            var c = info.Color;
+            info.Color = new Color(c.R, c.G, c.B, (int)NumericUpDown_A.Value);
+        }
+        /// <summary>
+        /// 座標1X変更
+        /// </summary>
+        private void NumericUpDown_Pos_X_ValueChanged(object sender, EventArgs e) => info.Point1 = new Vector2DF((float)NumericUpDown_Pos1_X.Value, info.Point1.Y);
+        /// <summary>
+        /// 座標1Y変更
+        /// </summary>
+        private void NumericUpDown_Pos_Y_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF(info.Point1.X, (float)NumericUpDown_Pos1_Y.Value);
+        /// <summary>
+        /// 座標2X変更
+        /// </summary>
+        private void NumericUpDown_Size_X_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF((float)NumericUpDown_Pos1_X.Value, info.Point2.Y);
+        /// <summary>
+        /// 座標2Y変更
+        /// </summary>
+        private void NumericUpDown_Size_Y_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF(info.Point2.X, (float)NumericUpDown_Pos1_Y.Value);
     }
 }

@@ -426,7 +426,7 @@ namespace UIGenerator
         int INumericDoubleKeyDictionary<int, string, DrawingAdditionaryInfoBase>.OverWrite(int oldKey1, string oldKey2, int newKey1, string newKey2) => throw new NotImplementedException();
         private void ReSize(int min)
         {
-            if (Count < min) return;
+            if (Count > min) return;
             var size = Capacity + 4;
             if (size > int.MaxValue) size = int.MaxValue;
             if (size < min) size = min;

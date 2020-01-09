@@ -87,7 +87,7 @@ namespace UIGenerator
                 if (!DataBase.UIInfos.Contains(info.Mode, newName))
                 {
                     var index = DataBase.UIInfos.ChangeName(info.Mode, oldName, newName);
-                    main.ListView_Main.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newName.ToString());
+                    main.ListView_Objects.Items[index].SubItems[1] = new ListViewItem.ListViewSubItem(main.ListView_Objects.Items[index], newName.ToString());
                 }
                 else TextBox_Name.Text = oldName;
             }
@@ -138,7 +138,7 @@ namespace UIGenerator
                     var index = DataBase.UIInfos.ChangeMode(oldMode, info.Name, newMode);
                     if (oldMode == DataBase.ShowMode && info.UIObj.Layer != null) DataBase.MainScene.RemoveObject(info);
                     if (newMode == DataBase.ShowMode && info.UIObj.Layer == null) DataBase.MainScene.AddObject(info);
-                    main.ListView_Main.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Main.Items[index], newMode.ToString());
+                    main.ListView_Objects.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Objects.Items[index], newMode.ToString());
                 }
                 else NumericUpDown_Mode.Value = oldMode;
             }

@@ -46,12 +46,12 @@
             this.Label_Color = new System.Windows.Forms.Label();
             this.Label_Color_R = new System.Windows.Forms.Label();
             this.Panel_Positions = new System.Windows.Forms.Panel();
-            this.NumericUpDown_Size_Y = new System.Windows.Forms.NumericUpDown();
-            this.NumericUpDown_Pos_Y = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos2_Y = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos1_Y = new System.Windows.Forms.NumericUpDown();
             this.Label_Size_Y = new System.Windows.Forms.Label();
             this.Label_Pos_Y = new System.Windows.Forms.Label();
-            this.NumericUpDown_Size_X = new System.Windows.Forms.NumericUpDown();
-            this.NumericUpDown_Pos_X = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos2_X = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos1_X = new System.Windows.Forms.NumericUpDown();
             this.Label_Size_X = new System.Windows.Forms.Label();
             this.Label_Position2 = new System.Windows.Forms.Label();
             this.Label_Pos_X = new System.Windows.Forms.Label();
@@ -66,10 +66,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_G)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_R)).BeginInit();
             this.Panel_Positions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_Y)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_Y)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_X)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Thickness)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,6 +182,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_A.ValueChanged += new System.EventHandler(this.NumericUpDown_A_ValueChanged);
             // 
             // NumericUpDown_B
             // 
@@ -199,6 +200,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_B.ValueChanged += new System.EventHandler(this.NumericUpDown_B_ValueChanged);
             // 
             // NumericUpDown_G
             // 
@@ -216,6 +218,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_G.ValueChanged += new System.EventHandler(this.NumericUpDown_G_ValueChanged);
             // 
             // Label_Color_A
             // 
@@ -242,6 +245,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_R.ValueChanged += new System.EventHandler(this.NumericUpDown_R_ValueChanged);
             // 
             // Label_Color_G
             // 
@@ -282,12 +286,12 @@
             // Panel_Positions
             // 
             this.Panel_Positions.BackColor = System.Drawing.Color.White;
-            this.Panel_Positions.Controls.Add(this.NumericUpDown_Size_Y);
-            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos_Y);
+            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos2_Y);
+            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos1_Y);
             this.Panel_Positions.Controls.Add(this.Label_Size_Y);
             this.Panel_Positions.Controls.Add(this.Label_Pos_Y);
-            this.Panel_Positions.Controls.Add(this.NumericUpDown_Size_X);
-            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos_X);
+            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos2_X);
+            this.Panel_Positions.Controls.Add(this.NumericUpDown_Pos1_X);
             this.Panel_Positions.Controls.Add(this.Label_Size_X);
             this.Panel_Positions.Controls.Add(this.Label_Position2);
             this.Panel_Positions.Controls.Add(this.Label_Pos_X);
@@ -297,39 +301,41 @@
             this.Panel_Positions.Size = new System.Drawing.Size(566, 105);
             this.Panel_Positions.TabIndex = 15;
             // 
-            // NumericUpDown_Size_Y
+            // NumericUpDown_Pos2_Y
             // 
-            this.NumericUpDown_Size_Y.Location = new System.Drawing.Point(459, 46);
-            this.NumericUpDown_Size_Y.Maximum = new decimal(new int[] {
+            this.NumericUpDown_Pos2_Y.Location = new System.Drawing.Point(459, 46);
+            this.NumericUpDown_Pos2_Y.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Size_Y.Minimum = new decimal(new int[] {
+            this.NumericUpDown_Pos2_Y.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Size_Y.Name = "NumericUpDown_Size_Y";
-            this.NumericUpDown_Size_Y.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Size_Y.TabIndex = 13;
+            this.NumericUpDown_Pos2_Y.Name = "NumericUpDown_Pos2_Y";
+            this.NumericUpDown_Pos2_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos2_Y.TabIndex = 13;
+            this.NumericUpDown_Pos2_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Size_Y_ValueChanged);
             // 
-            // NumericUpDown_Pos_Y
+            // NumericUpDown_Pos1_Y
             // 
-            this.NumericUpDown_Pos_Y.Location = new System.Drawing.Point(184, 46);
-            this.NumericUpDown_Pos_Y.Maximum = new decimal(new int[] {
+            this.NumericUpDown_Pos1_Y.Location = new System.Drawing.Point(184, 46);
+            this.NumericUpDown_Pos1_Y.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Pos_Y.Minimum = new decimal(new int[] {
+            this.NumericUpDown_Pos1_Y.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Pos_Y.Name = "NumericUpDown_Pos_Y";
-            this.NumericUpDown_Pos_Y.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Pos_Y.TabIndex = 9;
+            this.NumericUpDown_Pos1_Y.Name = "NumericUpDown_Pos1_Y";
+            this.NumericUpDown_Pos1_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos1_Y.TabIndex = 9;
+            this.NumericUpDown_Pos1_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos_Y_ValueChanged);
             // 
             // Label_Size_Y
             // 
@@ -349,39 +355,41 @@
             this.Label_Pos_Y.TabIndex = 0;
             this.Label_Pos_Y.Text = "Y";
             // 
-            // NumericUpDown_Size_X
+            // NumericUpDown_Pos2_X
             // 
-            this.NumericUpDown_Size_X.Location = new System.Drawing.Point(324, 46);
-            this.NumericUpDown_Size_X.Maximum = new decimal(new int[] {
+            this.NumericUpDown_Pos2_X.Location = new System.Drawing.Point(324, 46);
+            this.NumericUpDown_Pos2_X.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Size_X.Minimum = new decimal(new int[] {
+            this.NumericUpDown_Pos2_X.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Size_X.Name = "NumericUpDown_Size_X";
-            this.NumericUpDown_Size_X.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Size_X.TabIndex = 12;
+            this.NumericUpDown_Pos2_X.Name = "NumericUpDown_Pos2_X";
+            this.NumericUpDown_Pos2_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos2_X.TabIndex = 12;
+            this.NumericUpDown_Pos2_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Size_X_ValueChanged);
             // 
-            // NumericUpDown_Pos_X
+            // NumericUpDown_Pos1_X
             // 
-            this.NumericUpDown_Pos_X.Location = new System.Drawing.Point(49, 46);
-            this.NumericUpDown_Pos_X.Maximum = new decimal(new int[] {
+            this.NumericUpDown_Pos1_X.Location = new System.Drawing.Point(49, 46);
+            this.NumericUpDown_Pos1_X.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Pos_X.Minimum = new decimal(new int[] {
+            this.NumericUpDown_Pos1_X.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Pos_X.Name = "NumericUpDown_Pos_X";
-            this.NumericUpDown_Pos_X.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Pos_X.TabIndex = 8;
+            this.NumericUpDown_Pos1_X.Name = "NumericUpDown_Pos1_X";
+            this.NumericUpDown_Pos1_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos1_X.TabIndex = 8;
+            this.NumericUpDown_Pos1_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos_X_ValueChanged);
             // 
             // Label_Size_X
             // 
@@ -480,10 +488,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_R)).EndInit();
             this.Panel_Positions.ResumeLayout(false);
             this.Panel_Positions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_Y)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_Y)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size_X)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Thickness)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -510,12 +518,12 @@
         private System.Windows.Forms.Label Label_Color;
         private System.Windows.Forms.Label Label_Color_R;
         private System.Windows.Forms.Panel Panel_Positions;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Size_Y;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos_Y;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos2_Y;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos1_Y;
         private System.Windows.Forms.Label Label_Size_Y;
         private System.Windows.Forms.Label Label_Pos_Y;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Size_X;
-        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos_X;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos2_X;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_Pos1_X;
         private System.Windows.Forms.Label Label_Size_X;
         private System.Windows.Forms.Label Label_Position2;
         private System.Windows.Forms.Label Label_Pos_X;

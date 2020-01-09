@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using asd;
 using fslib;
 
@@ -61,6 +62,31 @@ namespace UIGenerator
             Mode = mode >= 0 ? mode : throw new ArgumentOutOfRangeException();
             Name = name ?? throw new ArgumentNullException();
             DrawingAdditionalMode = drawingAdditionalMode;
+        }
+        /// <summary>
+        /// <see cref="DrawingAdditionaryInfoBase"/>のインスタンスを取得する
+        /// </summary>
+        /// <param name="drawingAdditionalMode">追加描画のタイプ</param>
+        /// <param name="mode">表示モード</param>
+        /// <param name="name">名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="drawingAdditionalMode"/>の値が不正</exception>
+        /// <returns></returns>
+        public static DrawingAdditionaryInfoBase GetInstance(DrawingAdditionalMode drawingAdditionalMode, int mode, string name)
+        {
+            switch (drawingAdditionalMode)
+            {
+                case DrawingAdditionalMode.Arc: return new DrawingArcInfo(mode, name);
+                case DrawingAdditionalMode.Circle: return new DrawingCircleInfo(mode, name);
+                case DrawingAdditionalMode.Line: return new DrawingLineInfo(mode, name);
+                case DrawingAdditionalMode.Rectangle: return new DrawingRectangleInfo(mode, name);
+                case DrawingAdditionalMode.RotatedRectangle: return new DrawingRotatedRectangleInfo(mode, name);
+                case DrawingAdditionalMode.Sprite: return new DrawingSpriteInfo(mode, name);
+                case DrawingAdditionalMode.Text: return new DrawingTextInfo(mode, name);
+                case DrawingAdditionalMode.Triangle: return new DrawingTriangleInfo(mode, name);
+                default: throw new InvalidEnumArgumentException();
+            }
         }
         /// <summary>
         /// 描画処理を実行する

@@ -12,6 +12,14 @@ namespace UIGenerator
     {
         private string usePath = "";
         /// <summary>
+        /// オブジェクトを格納する<see cref="ListView"/>を取得する
+        /// </summary>
+        public ListView ListView_Objects => ListView_objects;
+        /// <summary>
+        /// 追加描画の情報を格納する<see cref="ListView"/>を取得する
+        /// </summary>
+        public ListView ListView_Additionalies => ListView_additional;
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public MainEdittor()
@@ -35,11 +43,11 @@ namespace UIGenerator
             }
         }
         /// <summary>
-        /// <see cref="ListView_Main"/>のアイテムダブルクリック時の挙動
+        /// <see cref="ListView_objects"/>のアイテムダブルクリック時の挙動
         /// </summary>
-        private void ListView_Main_ItemActivate(object sender, EventArgs e)
+        private void ListView_Objects_ItemActivate(object sender, EventArgs e)
         {
-            var selected = ListView_Main.SelectedItems;
+            var selected = ListView_objects.SelectedItems;
             if (selected.Count > 0)
             {
                 var first = selected[0];
@@ -145,6 +153,30 @@ namespace UIGenerator
         {
             DataBase.CloseAllWindow();
             Program.ContinueUpdating = false;
+        }
+        /// <summary>
+        /// 追加描画情報のウィンドウ開放
+        /// </summary>
+        private void ListView_additional_ItemActivate(object sender, EventArgs e)
+        {
+            var selected = ListView_Additionalies.SelectedItems;
+            if (selected.Count > 0)
+            {
+                var first = selected[0];
+                var name = first.SubItems[1].Text;
+                var mode = int.Parse(first.SubItems[2].Text);
+                var element = DataBase.DrawingCollection[mode, name];
+                if (element.HandleForm == null)
+                    switch (element.DrawingAdditionalMode)
+                    {
+                        case DrawingAdditionalMode.Line:
+                            var form = new DrawingLineForm(this, (DrawingLineInfo)element);
+                            DataBase.Forms.Add(form);
+                            form.Show();
+                            return;
+                        default: throw new InvalidOperationException();
+                    }
+            }
         }
     }
 }

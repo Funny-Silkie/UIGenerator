@@ -120,11 +120,48 @@
   <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="MainMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 28</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="MainMenu.Text" xml:space="preserve">
+    <value>MainMenu</value>
+  </data>
+  <data name="&gt;&gt;MainMenu.Name" xml:space="preserve">
+    <value>MainMenu</value>
+  </data>
+  <data name="&gt;&gt;MainMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainMenu.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ファイルToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 24</value>
+  </data>
+  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
   <data name="上書き保存ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+S</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="上書き保存ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 26</value>
   </data>
@@ -140,17 +177,14 @@
   <data name="名前を付けて保存ToolStripMenuItem.Text" xml:space="preserve">
     <value>名前を付けて保存</value>
   </data>
-  <data name="ファイルToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
+  <data name="編集ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+E</value>
   </data>
-  <data name="ファイルToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F</value>
+  <data name="編集ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 24</value>
   </data>
-  <data name="ファイルToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 24</value>
-  </data>
-  <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
-    <value>ファイル</value>
+  <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
+    <value>編集</value>
   </data>
   <data name="要素を追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 26</value>
@@ -182,43 +216,27 @@
   <data name="ファイルパッケージを管理するToolStripMenuItem.Text" xml:space="preserve">
     <value>ファイルパッケージを管理する</value>
   </data>
-  <data name="編集ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+E</value>
+  <data name="ListView_objects.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 145</value>
   </data>
-  <data name="編集ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 24</value>
+  <data name="ListView_objects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 393</value>
   </data>
-  <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
-    <value>編集</value>
+  <data name="ListView_objects.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="MainMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="&gt;&gt;ListView_objects.Name" xml:space="preserve">
+    <value>ListView_objects</value>
   </data>
-  <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 28</value>
+  <data name="&gt;&gt;ListView_objects.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="MainMenu.Text" xml:space="preserve">
-    <value>MainMenu</value>
-  </data>
-  <data name="&gt;&gt;MainMenu.Name" xml:space="preserve">
-    <value>MainMenu</value>
-  </data>
-  <data name="&gt;&gt;MainMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainMenu.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ListView_objects.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;ListView_objects.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <metadata name="ListView_Main.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="Type.Text" xml:space="preserve">
     <value>Type</value>
   </data>
@@ -239,27 +257,6 @@
   </data>
   <data name="Mode.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
-  </data>
-  <data name="ListView_Main.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 102</value>
-  </data>
-  <data name="ListView_Main.Size" type="System.Drawing.Size, System.Drawing">
-    <value>776, 393</value>
-  </data>
-  <data name="ListView_Main.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Name" xml:space="preserve">
-    <value>ListView_Main</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ListView_Main.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="Label_ShowMode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -286,7 +283,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label_ShowMode.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="NumericUpDown_ShowMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 54</value>
@@ -307,6 +304,78 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NumericUpDown_ShowMode.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label_Obj.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_Obj.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 105</value>
+  </data>
+  <data name="Label_Obj.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 15</value>
+  </data>
+  <data name="Label_Obj.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Label_Obj.Text" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="&gt;&gt;Label_Obj.Name" xml:space="preserve">
+    <value>Label_Obj</value>
+  </data>
+  <data name="&gt;&gt;Label_Obj.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_Obj.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label_Obj.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ColumnHeader_Type.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ColumnHeader_Type.Width" type="System.Int32, mscorlib">
+    <value>106</value>
+  </data>
+  <data name="ColumnHeader_Name.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ColumnHeader_Name.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="ColumnHeader_Name.Width" type="System.Int32, mscorlib">
+    <value>151</value>
+  </data>
+  <data name="ColumnHeader_Mode.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="ColumnHeader_Mode.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="ColumnHeader_Mode.Width" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="ListView_additional.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 145</value>
+  </data>
+  <data name="ListView_additional.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 393</value>
+  </data>
+  <data name="ListView_additional.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ListView_additional.Name" xml:space="preserve">
+    <value>ListView_additional</value>
+  </data>
+  <data name="&gt;&gt;ListView_additional.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ListView_additional.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ListView_additional.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -316,7 +385,7 @@
     <value>8, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 507</value>
+    <value>800, 559</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>MainEdittor</value>
@@ -391,6 +460,24 @@
     <value>Mode</value>
   </data>
   <data name="&gt;&gt;Mode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Type.Name" xml:space="preserve">
+    <value>ColumnHeader_Type</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Type.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Name.Name" xml:space="preserve">
+    <value>ColumnHeader_Name</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Mode.Name" xml:space="preserve">
+    <value>ColumnHeader_Mode</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader_Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
