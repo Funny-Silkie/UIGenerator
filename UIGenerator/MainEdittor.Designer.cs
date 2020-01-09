@@ -178,9 +178,11 @@
             this.ColumnHeader_Type,
             this.ColumnHeader_Name,
             this.ColumnHeader_Mode});
+            this.ListView_additional.FullRowSelect = true;
             this.ListView_additional.GridLines = true;
             this.ListView_additional.HideSelection = false;
             resources.ApplyResources(this.ListView_additional, "ListView_additional");
+            this.ListView_additional.MultiSelect = false;
             this.ListView_additional.Name = "ListView_additional";
             this.ListView_additional.UseCompatibleStateImageBehavior = false;
             this.ListView_additional.View = System.Windows.Forms.View.Details;

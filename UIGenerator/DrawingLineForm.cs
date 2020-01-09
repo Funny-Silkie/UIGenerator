@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using asd;
+using fslib;
 
 namespace UIGenerator
 {
@@ -24,7 +25,29 @@ namespace UIGenerator
             this.info = info ?? throw new ArgumentNullException();
             info.HandleForm = this;
             InitializeComponent();
+            Init();
+            ComboBox_AlphaBlend.SelectedIndexChanged += new EventHandler(ComboBox_AlphaBlend_SelectedIndexChanged);
             inited = true;
+        }
+        /// <summary>
+        /// フォーム情報の初期化を行う
+        /// </summary>
+        private void Init()
+        {
+            ComboBox_AlphaBlend.DataSource = Enum.GetNames(typeof(AlphaBlendMode));
+            ComboBox_AlphaBlend.SelectedIndex = (int)info.AlphaBlend;
+            NumericUpDown_Mode.Value = info.Mode;
+            TextBox_Name.Text = info.Name;
+            NumericUpDown_Pos1_X.Value = (decimal)info.Point1.X;
+            NumericUpDown_Pos1_Y.Value = (decimal)info.Point1.Y;
+            NumericUpDown_Pos2_X.Value = (decimal)info.Point2.X;
+            NumericUpDown_Pos2_Y.Value = (decimal)info.Point2.Y;
+            NumericUpDown_Priority.Value = info.DrawingPriority;
+            NumericUpDown_R.Value = info.Color.R;
+            NumericUpDown_G.Value = info.Color.G;
+            NumericUpDown_B.Value = info.Color.B;
+            NumericUpDown_A.Value = info.Color.A;
+            NumericUpDown_Thickness.Value = (decimal)info.Thickness;
         }
         /// <summary>
         /// フォームが閉じられたときの挙動
@@ -115,14 +138,18 @@ namespace UIGenerator
         /// <summary>
         /// 座標1Y変更
         /// </summary>
-        private void NumericUpDown_Pos_Y_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF(info.Point1.X, (float)NumericUpDown_Pos1_Y.Value);
+        private void NumericUpDown_Pos_Y_ValueChanged(object sender, EventArgs e) => info.Point1 = new Vector2DF(info.Point1.X, (float)NumericUpDown_Pos1_Y.Value);
         /// <summary>
         /// 座標2X変更
         /// </summary>
-        private void NumericUpDown_Size_X_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF((float)NumericUpDown_Pos1_X.Value, info.Point2.Y);
+        private void NumericUpDown_Size_X_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF((float)NumericUpDown_Pos2_X.Value, info.Point2.Y);
         /// <summary>
         /// 座標2Y変更
         /// </summary>
-        private void NumericUpDown_Size_Y_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF(info.Point2.X, (float)NumericUpDown_Pos1_Y.Value);
+        private void NumericUpDown_Size_Y_ValueChanged(object sender, EventArgs e) => info.Point2 = new Vector2DF(info.Point2.X, (float)NumericUpDown_Pos2_Y.Value);
+        /// <summary>
+        /// アルファブレンド変更
+        /// </summary>
+        private void ComboBox_AlphaBlend_SelectedIndexChanged(object sender, EventArgs e) => info.AlphaBlend = EnumHelper.FromNumber<AlphaBlendMode>(ComboBox_AlphaBlend.SelectedIndex);
     }
 }

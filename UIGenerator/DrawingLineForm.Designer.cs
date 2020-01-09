@@ -58,6 +58,8 @@
             this.Label_Position1 = new System.Windows.Forms.Label();
             this.NumericUpDown_Thickness = new System.Windows.Forms.NumericUpDown();
             this.Label_Thickness = new System.Windows.Forms.Label();
+            this.Label_AlphaBlend = new System.Windows.Forms.Label();
+            this.ComboBox_AlphaBlend = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Priority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).BeginInit();
             this.Panel_Color.SuspendLayout();
@@ -317,6 +319,11 @@
             this.NumericUpDown_Pos2_Y.Name = "NumericUpDown_Pos2_Y";
             this.NumericUpDown_Pos2_Y.Size = new System.Drawing.Size(70, 22);
             this.NumericUpDown_Pos2_Y.TabIndex = 13;
+            this.NumericUpDown_Pos2_Y.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.NumericUpDown_Pos2_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Size_Y_ValueChanged);
             // 
             // NumericUpDown_Pos1_Y
@@ -371,6 +378,11 @@
             this.NumericUpDown_Pos2_X.Name = "NumericUpDown_Pos2_X";
             this.NumericUpDown_Pos2_X.Size = new System.Drawing.Size(70, 22);
             this.NumericUpDown_Pos2_X.TabIndex = 12;
+            this.NumericUpDown_Pos2_X.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.NumericUpDown_Pos2_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Size_X_ValueChanged);
             // 
             // NumericUpDown_Pos1_X
@@ -459,11 +471,31 @@
             this.Label_Thickness.TabIndex = 16;
             this.Label_Thickness.Text = "Thickness";
             // 
+            // Label_AlphaBlend
+            // 
+            this.Label_AlphaBlend.AutoSize = true;
+            this.Label_AlphaBlend.Location = new System.Drawing.Point(302, 80);
+            this.Label_AlphaBlend.Name = "Label_AlphaBlend";
+            this.Label_AlphaBlend.Size = new System.Drawing.Size(77, 15);
+            this.Label_AlphaBlend.TabIndex = 18;
+            this.Label_AlphaBlend.Text = "AlphaBlend";
+            // 
+            // ComboBox_AlphaBlend
+            // 
+            this.ComboBox_AlphaBlend.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_AlphaBlend.FormattingEnabled = true;
+            this.ComboBox_AlphaBlend.Location = new System.Drawing.Point(414, 77);
+            this.ComboBox_AlphaBlend.Name = "ComboBox_AlphaBlend";
+            this.ComboBox_AlphaBlend.Size = new System.Drawing.Size(147, 23);
+            this.ComboBox_AlphaBlend.TabIndex = 19;
+            // 
             // DrawingLineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 420);
+            this.Controls.Add(this.ComboBox_AlphaBlend);
+            this.Controls.Add(this.Label_AlphaBlend);
             this.Controls.Add(this.NumericUpDown_Thickness);
             this.Controls.Add(this.Label_Thickness);
             this.Controls.Add(this.Panel_Positions);
@@ -530,5 +562,7 @@
         private System.Windows.Forms.Label Label_Position1;
         private System.Windows.Forms.NumericUpDown NumericUpDown_Thickness;
         private System.Windows.Forms.Label Label_Thickness;
+        private System.Windows.Forms.Label Label_AlphaBlend;
+        private System.Windows.Forms.ComboBox ComboBox_AlphaBlend;
     }
 }

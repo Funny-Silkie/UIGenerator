@@ -18,15 +18,15 @@ namespace UIGenerator
         /// <summary>
         /// 端点の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Point2 { get; set; }
+        public SerializableVector2DF Point2 { get; set; } = new SerializableVector2DF(100, 100);
         /// <summary>
         /// 線の太さを取得または設定する
         /// </summary>
-        public float Thickness { get; set; }
+        public float Thickness { get; set; } = 3;
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color { get; set; }
+        public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// コンストラクタ
         /// </summary>
