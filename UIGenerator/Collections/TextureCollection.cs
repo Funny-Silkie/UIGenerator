@@ -116,6 +116,7 @@ namespace UIGenerator
                 switch (a.Value.HandleForm)
                 {
                     case DrawingArcForm f: f.ComboBox_Texture.DataSource = names; continue;
+                    case DrawingCircleForm f: f.ComboBox_Texture.DataSource = names; continue;
                     default: continue;
                 }
         }

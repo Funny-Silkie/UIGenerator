@@ -12,21 +12,17 @@ namespace UIGenerator
         /// <summary>
         /// UIオブジェクトを表示するレイヤーを取得する
         /// </summary>
-        public Layer2DPlus MainLayer { get; }
+        public MainLayer MainLayer { get; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public MainScene()
         {
-            MainLayer = new Layer2DPlus();
+            MainLayer = new MainLayer();
         }
         protected override void OnRegistered()
         {
             AddLayer(MainLayer);
-        }
-        protected override void OnUpdated()
-        {
-            DataBase.DrawingCollection.OperateAll(MainLayer);
         }
         /// <summary>
         /// 表示するアイテムを変更する
@@ -60,6 +56,13 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
             if (info.UIObj.Layer != null) Engine.RemoveObject2D(info.UIObj);
+        }
+    }
+    public class MainLayer : Layer2DPlus
+    {
+        protected override void OnDrawAdditionally()
+        {
+            DataBase.DrawingCollection.OperateAll(this);
         }
     }
 }

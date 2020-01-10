@@ -174,6 +174,11 @@ namespace UIGenerator
                             DataBase.Forms.Add(form_arc);
                             form_arc.Show();
                             return;
+                        case DrawingAdditionalMode.Circle:
+                            var form_circle = new DrawingCircleForm(this, (DrawingCircleInfo)element);
+                            DataBase.Forms.Add(form_circle);
+                            form_circle.Show();
+                            return;
                         case DrawingAdditionalMode.Line:
                             var form_line = new DrawingLineForm(this, (DrawingLineInfo)element);
                             DataBase.Forms.Add(form_line);

@@ -14,11 +14,11 @@ namespace UIGenerator
         /// <summary>
         /// 描画エリアを取得または設定する
         /// </summary>
-        public SerializableRectF DrawingArea { get; set; }
+        public SerializableRectF DrawingArea { get; set; } = new SerializableRectF(DataBase.CenterPosition, new Vector2DF(100, 100));
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color { get; set; }
+        public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
         public SerializableRectF UV { get; set; }
         /// <summary>
         /// 使用するテクスチャの情報を取得または設定する

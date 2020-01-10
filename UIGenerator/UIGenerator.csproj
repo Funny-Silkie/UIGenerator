@@ -83,6 +83,12 @@
     <Compile Include="DrawingArcForm.Designer.cs">
       <DependentUpon>DrawingArcForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrawingCircleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingCircleForm.Designer.cs">
+      <DependentUpon>DrawingCircleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawingLineForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingArcForm.resx">
       <DependentUpon>DrawingArcForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingCircleForm.resx">
+      <DependentUpon>DrawingCircleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingLineForm.resx">
       <DependentUpon>DrawingLineForm.cs</DependentUpon>

@@ -86,6 +86,10 @@ namespace UIGenerator
         /// </summary>
         public static FilePackageCollection FllePackages { get; } = new FilePackageCollection();
         /// <summary>
+        /// ウィンドウの中央の座標を取得する
+        /// </summary>
+        public static Vector2DF CenterPosition => Engine.WindowSize.To2DF() / 2;
+        /// <summary>
         /// オブジェクトを追加する
         /// </summary>
         /// <param name="info">追加されるオブジェクト</param>
@@ -112,9 +116,10 @@ namespace UIGenerator
         /// </summary>
         public static void CloseAllWindow()
         {
-            foreach (var f in Forms)
-                if (f != null && !f.IsDisposed)
-                    f.Close();
+            var array = Forms.ToArray();
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null && !array[i].IsDisposed)
+                    array[i].Close();
             Forms.Clear();
         }
         /// <summary>

@@ -210,6 +210,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_A.ValueChanged += new System.EventHandler(this.NumericUpDown_A_ValueChanged);
             // 
             // NumericUpDown_B
             // 
@@ -227,6 +228,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_B.ValueChanged += new System.EventHandler(this.NumericUpDown_B_ValueChanged);
             // 
             // NumericUpDown_G
             // 
@@ -244,6 +246,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_G.ValueChanged += new System.EventHandler(this.NumericUpDown_G_ValueChanged);
             // 
             // Label_Color_A
             // 
@@ -270,6 +273,7 @@
             0,
             0,
             0});
+            this.NumericUpDown_R.ValueChanged += new System.EventHandler(this.NumericUpDown_R_ValueChanged);
             // 
             // Label_Color_G
             // 
@@ -379,13 +383,18 @@
             -1,
             0});
             this.NumericUpDown_VertNum.Minimum = new decimal(new int[] {
-            -1,
-            -1,
-            -1,
-            -2147483648});
+            3,
+            0,
+            0,
+            0});
             this.NumericUpDown_VertNum.Name = "NumericUpDown_VertNum";
             this.NumericUpDown_VertNum.Size = new System.Drawing.Size(70, 22);
             this.NumericUpDown_VertNum.TabIndex = 34;
+            this.NumericUpDown_VertNum.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             this.NumericUpDown_VertNum.ValueChanged += new System.EventHandler(this.NumericUpDown_VertNum_ValueChanged);
             // 
             // Llabel_VertNum
@@ -485,11 +494,6 @@
             0,
             0,
             0});
-            this.NumericUpDown_StartingVerticalAngle.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
             this.NumericUpDown_StartingVerticalAngle.Name = "NumericUpDown_StartingVerticalAngle";
             this.NumericUpDown_StartingVerticalAngle.Size = new System.Drawing.Size(70, 22);
             this.NumericUpDown_StartingVerticalAngle.TabIndex = 34;

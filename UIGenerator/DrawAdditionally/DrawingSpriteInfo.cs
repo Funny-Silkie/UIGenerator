@@ -14,35 +14,35 @@ namespace UIGenerator
         /// <summary>
         /// 左上の座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF UpperLeftPos { get; set; }
+        public SerializableVector2DF UpperLeftPos { get; set; } = DataBase.CenterPosition - new Vector2DF(25, 25);
         /// <summary>
         /// 右上の座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF UpperRightPos { get; set; }
+        public SerializableVector2DF UpperRightPos { get; set; } = DataBase.CenterPosition + new Vector2DF(25, -25);
         /// <summary>
         /// 右下の座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF LowerRightPos { get; set; }
+        public SerializableVector2DF LowerRightPos { get; set; } = DataBase.CenterPosition + new Vector2DF(25, 25);
         /// <summary>
         /// 左下の座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF LowerLeftPos { get; set; }
+        public SerializableVector2DF LowerLeftPos { get; set; } = DataBase.CenterPosition + new Vector2DF(-25, 25);
         /// <summary>
         /// 左上の色を取得または設定する
         /// </summary>
-        public ColorPlus UpperLeftColor { get; set; }
+        public ColorPlus UpperLeftColor { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 右上の色を取得または設定する
         /// </summary>
-        public ColorPlus UpperRightColor { get; set; }
+        public ColorPlus UpperRightColor { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 右下の色を取得または設定する
         /// </summary>
-        public ColorPlus LowerRightColor { get; set; }
+        public ColorPlus LowerRightColor { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 左下の色を取得または設定する
         /// </summary>
-        public ColorPlus LowerLeftColor { get; set; }
+        public ColorPlus LowerLeftColor { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 左上のUV値を取得または設定する
         /// </summary>

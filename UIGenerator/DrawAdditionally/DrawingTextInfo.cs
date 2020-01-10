@@ -14,11 +14,11 @@ namespace UIGenerator
         /// <summary>
         /// 表示する座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF Position { get; set; }
+        public SerializableVector2DF Position { get; set; } = DataBase.CenterPosition;
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color { get; set; }
+        public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 使用するフォントを取得または設定する
         /// </summary>
@@ -36,7 +36,7 @@ namespace UIGenerator
             get => _text;
             set => _text = value ?? "";
         }
-        private string _text = "Texts";
+        private string _text = "AdditionalText";
         /// <summary>
         /// 文字列の方向を取得または設定する
         /// </summary>

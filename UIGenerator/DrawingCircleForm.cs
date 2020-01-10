@@ -6,12 +6,12 @@ using fslib;
 namespace UIGenerator
 {
     /// <summary>
-    /// <see cref="DrawingArcInfo"/>のプロパティ情報を操作するクラス
+    /// <see cref="DrawingCircleInfo"/>のプロパティ情報を操作するフォーム
     /// </summary>
-    public partial class DrawingArcForm : Form
+    public partial class DrawingCircleForm : Form
     {
         private readonly MainEdittor main;
-        private readonly DrawingArcInfo info;
+        private readonly DrawingCircleInfo info;
         private readonly bool inited = false;
         /// <summary>
         /// テクスチャの情報を格納する<see cref="ComboBox"/>を取得する
@@ -21,9 +21,9 @@ namespace UIGenerator
         /// コンストラクタ
         /// </summary>
         /// <param name="main"><see cref="MainEdittor"/>への参照</param>
-        /// <param name="info">操作する<see cref="DrawingArcInfo"/>への参照</param>
+        /// <param name="info">操作する<see cref="DrawingCircleInfo"/>への参照</param>
         /// <exception cref="ArgumentNullException"><paramref name="main"/>または<paramref name="info"/>がnull</exception>
-        public DrawingArcForm(MainEdittor main, DrawingArcInfo info)
+        public DrawingCircleForm(MainEdittor main, DrawingCircleInfo info)
         {
             this.main = main ?? throw new ArgumentNullException();
             this.info = info ?? throw new ArgumentNullException();
@@ -55,28 +55,16 @@ namespace UIGenerator
             NumericUpDown_G.Value = info.Color.G;
             NumericUpDown_B.Value = info.Color.B;
             NumericUpDown_A.Value = info.Color.A;
-            NumericUpDown_StartingVerticalAngle.Value = info.StartingVerticalAngle;
-            NumericUpDown_EndingVerticalAngle.Value = info.EndingVerticalAngle;
-            SetMinMax();
             ComboBox_AlphaBlend.SelectedIndexChanged += new EventHandler(ComboBox_AlphaBlend_SelectedIndexChanged);
             ComboBox_texture.SelectedIndexChanged += new EventHandler(ComboBox_Texture_SelectedIndexChanged);
         }
         /// <summary>
-        /// フォームの値の範囲を設定する
-        /// </summary>
-        private void SetMinMax()
-        {
-            NumericUpDown_StartingVerticalAngle.Maximum = Math.Min(NumericUpDown_EndingVerticalAngle.Value, NumericUpDown_VertNum.Value);
-            NumericUpDown_EndingVerticalAngle.Minimum = NumericUpDown_StartingVerticalAngle.Value;
-            NumericUpDown_EndingVerticalAngle.Maximum = NumericUpDown_VertNum.Value;
-        }
-        /// <summary>
         /// フォームが閉じられたときの挙動
         /// </summary>
-        private void DrawingArcForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void DrawingCircleForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DataBase.Forms.Remove(this);
             info.HandleForm = null;
+            DataBase.Forms.Remove(this);
         }
         /// <summary>
         /// 描画モード変更
@@ -121,54 +109,6 @@ namespace UIGenerator
         /// </summary>
         private void ComboBox_AlphaBlend_SelectedIndexChanged(object sender, EventArgs e) => info.AlphaBlend = EnumHelper.FromNumber<AlphaBlendMode>(ComboBox_AlphaBlend.SelectedIndex);
         /// <summary>
-        /// 座標X変更
-        /// </summary>
-        private void NumericUpDown_Pos_X_ValueChanged(object sender, EventArgs e) => info.Center = new Vector2DF((float)NumericUpDown_Center_X.Value, info.Center.Y);
-        /// <summary>
-        /// 座標Y変更
-        /// </summary>
-        private void NumericUpDown_Pos_Y_ValueChanged(object sender, EventArgs e) => info.Center = new Vector2DF(info.Center.X, (float)NumericUpDown_Center_Y.Value);
-        /// <summary>
-        /// VertNum変更
-        /// </summary>
-        private void NumericUpDown_VertNum_ValueChanged(object sender, EventArgs e)
-        {
-            info.VertNum = (int)NumericUpDown_VertNum.Value;
-            SetMinMax();
-        }
-        /// <summary>
-        /// 外側の半径の変更
-        /// </summary>
-        private void NumericUpDown_OuterDiameter_ValueChanged(object sender, EventArgs e) => info.OuterDiameter = (float)NumericUpDown_OuterDiameter.Value;
-        /// <summary>
-        /// 内側の半径の変更
-        /// </summary>
-        private void NumericUpDown_InnterDiameter_ValueChanged(object sender, EventArgs e) => info.InnerDiameter = (float)NumericUpDown_InnterDiameter.Value;
-        /// <summary>
-        /// 回転角度変更
-        /// </summary>
-        private void NumericUpDown_Angle_ValueChanged(object sender, EventArgs e) => info.Angle = (float)NumericUpDown_Angle.Value;
-        /// <summary>
-        /// StartingVerticalAngle変更
-        /// </summary>
-        private void NumericUpDown_StartingVerticalAngle_ValueChanged(object sender, EventArgs e)
-        {
-            info.StartingVerticalAngle = (int)NumericUpDown_StartingVerticalAngle.Value;
-            SetMinMax();
-        }
-        /// <summary>
-        /// EndingVerticalAngle変更
-        /// </summary>
-        private void NumericUpDown_EndingVerticalAngle_ValueChanged(object sender, EventArgs e)
-        {
-            info.EndingVerticalAngle = (int)NumericUpDown_EndingVerticalAngle.Value;
-            SetMinMax();
-        }
-        /// <summary>
-        /// テクスチャの変更
-        /// </summary>
-        private void ComboBox_Texture_SelectedIndexChanged(object sender, EventArgs e) => info.Texture = DataBase.Textures[ComboBox_texture.SelectedIndex];
-        /// <summary>
         /// 色のR変更
         /// </summary>
         private void NumericUpDown_R_ValueChanged(object sender, EventArgs e)
@@ -200,5 +140,33 @@ namespace UIGenerator
             var c = info.Color;
             info.Color = new ColorPlus(c.R, c.G, c.B, (int)NumericUpDown_A.Value);
         }
+        /// <summary>
+        /// 座標X変更
+        /// </summary>
+        private void NumericUpDown_Center_X_ValueChanged(object sender, EventArgs e) => info.Center = new Vector2DF((float)NumericUpDown_Center_X.Value, info.Center.Y);
+        /// <summary>
+        /// 座標Y変更
+        /// </summary>
+        private void NumericUpDown_Center_Y_ValueChanged(object sender, EventArgs e) => info.Center = new Vector2DF(info.Center.X, (float)NumericUpDown_Center_Y.Value);
+        /// <summary>
+        /// テクスチャの変更
+        /// </summary>
+        private void ComboBox_Texture_SelectedIndexChanged(object sender, EventArgs e) => info.Texture = DataBase.Textures[ComboBox_texture.SelectedIndex];
+        /// <summary>
+        /// VertNum変更
+        /// </summary>
+        private void NumericUpDown_VertNum_ValueChanged(object sender, EventArgs e) => info.VertNum = (int)NumericUpDown_VertNum.Value;
+        /// <summary>
+        /// 外側の半径の変更
+        /// </summary>
+        private void NumericUpDown_OuterDiameter_ValueChanged(object sender, EventArgs e) => info.OuterDiameter = (float)NumericUpDown_OuterDiameter.Value;
+        /// <summary>
+        /// 内側の半径の変更
+        /// </summary>
+        private void NumericUpDown_InnterDiameter_ValueChanged(object sender, EventArgs e) => info.InnerDiameter = (float)NumericUpDown_InnterDiameter.Value;
+        /// <summary>
+        /// 回転角度変更
+        /// </summary>
+        private void NumericUpDown_Angle_ValueChanged(object sender, EventArgs e) => info.Angle = (float)NumericUpDown_Angle.Value;
     }
 }

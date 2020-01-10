@@ -14,22 +14,22 @@ namespace UIGenerator
         /// <summary>
         /// 中心の座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF Center { get; set; }
+        public SerializableVector2DF Center { get; set; } = DataBase.CenterPosition;
         /// <summary>
         /// 外側の半径を取得または設定する
         /// </summary>
-        public float OuterDiameter { get; set; }
+        public float OuterDiameter { get; set; } = 60;
         /// <summary>
         /// 内側の半径を取得または設定する
         /// </summary>
-        public float InnerDiameter { get; set; }
+        public float InnerDiameter { get; set; } = 15;
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color { get; set; }
-        public int VertNum { get; set; }
+        public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
+        public int VertNum { get; set; } = 30;
         public int StartingVerticalAngle { get; set; }
-        public int EndingVerticalAngle { get; set; }
+        public int EndingVerticalAngle { get; set; } = 10;
         /// <summary>
         /// 描画角度を取得または設定する
         /// </summary>

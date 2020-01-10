@@ -14,11 +14,11 @@ namespace UIGenerator
         /// <summary>
         /// 端点の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Point1 { get; set; }
+        public SerializableVector2DF Point1 { get; set; } = DataBase.CenterPosition - new Vector2DF(50, 0);
         /// <summary>
         /// 端点の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Point2 { get; set; } = new SerializableVector2DF(100, 100);
+        public SerializableVector2DF Point2 { get; set; } = DataBase.CenterPosition + new Vector2DF(50, 0);
         /// <summary>
         /// 線の太さを取得または設定する
         /// </summary>

@@ -68,7 +68,7 @@ namespace UIGenerator
             var mode = (int)NumericUpDown_Add_Mode.Value;
             var type = EnumHelper.FromString<DrawingAdditionalMode>(ComboBox_Add_Type.Text);
             var name = TextBox_Add_Name.Text;
-            if (!DataBase.UIInfos.Contains(mode, name))
+            if (!DataBase.DrawingCollection.Contains(mode, name))
             {
                 DataBase.DrawingCollection.Add(mode, name, DrawingAdditionaryInfoBase.GetInstance(type, mode, name));
                 var item = mainEdittor.ListView_Additionalies.Items.Add(type.ToString());

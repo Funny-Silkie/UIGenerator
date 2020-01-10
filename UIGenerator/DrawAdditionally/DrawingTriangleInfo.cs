@@ -14,15 +14,15 @@ namespace UIGenerator
         /// <summary>
         /// 頂点の座標の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Position1 { get; set; }
+        public SerializableVector2DF Position1 { get; set; } = DataBase.CenterPosition - new Vector2DF(0, 25);
         /// <summary>
         /// 頂点の座標の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Position2 { get; set; }
+        public SerializableVector2DF Position2 { get; set; } = DataBase.CenterPosition - new Vector2DF(25, 0);
         /// <summary>
         /// 頂点の座標の一つを取得または設定する
         /// </summary>
-        public SerializableVector2DF Position3 { get; set; }
+        public SerializableVector2DF Position3 { get; set; } = DataBase.CenterPosition + new Vector2DF(25, 0);
         /// <summary>
         /// <see cref="Position1"/>のUV値を取得または設定する
         /// </summary>
@@ -38,7 +38,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color { get; set; }
+        public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
         /// <summary>
         /// 使用するテクスチャの情報を取得または設定する
         /// </summary>
