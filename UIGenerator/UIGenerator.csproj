@@ -95,6 +95,24 @@
     <Compile Include="DrawingLineForm.Designer.cs">
       <DependentUpon>DrawingLineForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrawingRectangleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingRectangleForm.Designer.cs">
+      <DependentUpon>DrawingRectangleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingRotatedRectangleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingRotatedRectangleForm.Designer.cs">
+      <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingTriangleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingTriangleForm.Designer.cs">
+      <DependentUpon>DrawingTriangleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +214,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingLineForm.resx">
       <DependentUpon>DrawingLineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingRectangleForm.resx">
+      <DependentUpon>DrawingRectangleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingRotatedRectangleForm.resx">
+      <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingTriangleForm.resx">
+      <DependentUpon>DrawingTriangleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilePackageLoader.resx">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>

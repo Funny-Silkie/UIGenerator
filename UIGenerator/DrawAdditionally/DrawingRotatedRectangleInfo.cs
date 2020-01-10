@@ -20,7 +20,7 @@ namespace UIGenerator
         /// </summary>
         public ColorPlus Color { get; set; } = new ColorPlus(ColorSet.White);
         public SerializableRectF UV { get; set; }
-        public SerializableVector2DF RotationCenter { get; set; } = DataBase.CenterPosition + new Vector2DF(50, 50);
+        public SerializableVector2DF RotationCenter { get; set; } = new Vector2DF(50, 50);
         /// <summary>
         /// 回転角度を取得または設定する
         /// </summary>

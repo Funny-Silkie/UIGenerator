@@ -184,6 +184,19 @@ namespace UIGenerator
                             DataBase.Forms.Add(form_line);
                             form_line.Show();
                             return;
+                        case DrawingAdditionalMode.Rectangle:
+                            var form_rect = new DrawingRectangleForm(this, (DrawingRectangleInfo)element);
+                            DataBase.Forms.Add(form_rect);
+                            form_rect.Show();
+                            return;
+                        case DrawingAdditionalMode.RotatedRectangle:
+                            var form_rotatedrect = new DrawingRotatedRectangleForm(this, (DrawingRotatedRectangleInfo)element);
+                            DataBase.Forms.Add(form_rotatedrect);
+                            form_rotatedrect.Show();
+                            return;
+                        case DrawingAdditionalMode.Sprite:
+                        case DrawingAdditionalMode.Text:
+                        case DrawingAdditionalMode.Triangle:
                         default: throw new InvalidOperationException();
                     }
             }

@@ -385,7 +385,6 @@
             this.ComboBox_AlphaBlend.Name = "ComboBox_AlphaBlend";
             this.ComboBox_AlphaBlend.Size = new System.Drawing.Size(147, 23);
             this.ComboBox_AlphaBlend.TabIndex = 43;
-            this.ComboBox_AlphaBlend.SelectedIndexChanged += new System.EventHandler(this.ComboBox_AlphaBlend_SelectedIndexChanged);
             // 
             // Label_AlphaBlend
             // 
