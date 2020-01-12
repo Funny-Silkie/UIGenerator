@@ -150,6 +150,10 @@
     <Compile Include="Collections\FilePackageCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesInfo\FontType.cs" />
+    <Compile Include="Serialization\UIGeneratorDynamicFont.cs" />
+    <Compile Include="Serialization\UIGeneratorFontBase.cs" />
+    <Compile Include="Serialization\UIGeneratorStaticFont.cs" />
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -7,21 +7,6 @@ using fslib.Serialization;
 namespace UIGenerator
 {
     /// <summary>
-    /// フォントのタイプを表す
-    /// </summary>
-    [Serializable]
-    public enum FontType
-    {
-        /// <summary>
-        /// <see cref="Graphics.CreateDynamicFont(string, int, Color, int, Color)"/>によって生成されるフォント
-        /// </summary>
-        Dynamic,
-        /// <summary>
-        /// <see cref="Graphics.CreateFont(string)"/>によってaffファイルから生成されたフォント
-        /// </summary>
-        Static
-    }
-    /// <summary>
     /// フォントの情報を格納するクラスの基底クラス
     /// </summary>
     [Serializable]
@@ -46,7 +31,7 @@ namespace UIGenerator
         /// <param name="name">格納される名前</param>
         /// <param name="type">フォントのタイプ</param>
         /// <exception cref="ArgumentNullException"><paramref name="font"/>又は<paramref name="name"/>がnull</exception>
-        protected private FontInfoBase(SerializableFont font, string name, FontType type)
+        protected FontInfoBase(SerializableFont font, string name, FontType type)
         {
             Font = font ?? throw new ArgumentNullException();
             Name = name ?? throw new ArgumentNullException();
