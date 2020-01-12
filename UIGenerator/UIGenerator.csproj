@@ -56,11 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesibilityType.cs" />
-    <Compile Include="AddWindow.cs">
+    <Compile Include="ElementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddWindow.Designer.cs">
-      <DependentUpon>AddWindow.cs</DependentUpon>
+    <Compile Include="ElementWindow.Designer.cs">
+      <DependentUpon>ElementWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ClickArg.cs" />
     <Compile Include="Code\CSharp\DrawingAdditionalCSharp.cs" />
@@ -77,52 +77,52 @@
     <Compile Include="DrawAdditionally\DrawingSpriteInfo.cs" />
     <Compile Include="DrawAdditionally\DrawingTextInfo.cs" />
     <Compile Include="DrawAdditionally\DrawingTriangleInfo.cs" />
-    <Compile Include="DrawingArcForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingArcForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingArcForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingArcForm.Designer.cs">
       <DependentUpon>DrawingArcForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingCircleForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingCircleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingCircleForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingCircleForm.Designer.cs">
       <DependentUpon>DrawingCircleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingLineForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingLineForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingLineForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingLineForm.Designer.cs">
       <DependentUpon>DrawingLineForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingRectangleForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingRectangleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingRectangleForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingRectangleForm.Designer.cs">
       <DependentUpon>DrawingRectangleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingRotatedRectangleForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingRotatedRectangleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingRotatedRectangleForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingRotatedRectangleForm.Designer.cs">
       <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingSpriteForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingSpriteForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingSpriteForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingSpriteForm.Designer.cs">
       <DependentUpon>DrawingSpriteForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingTextForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingTextForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingTextForm.Designer.cs">
       <DependentUpon>DrawingTextForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingTriangleForm.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingTriangleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawingTriangleForm.Designer.cs">
+    <Compile Include="DrawAdditionally\Forms\DrawingTriangleForm.Designer.cs">
       <DependentUpon>DrawingTriangleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FilePackageLoader.cs">
@@ -157,14 +157,14 @@
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UIGeneratorSynchronizationContext.cs" />
-    <Compile Include="UIObjectInfo\TextObjInfo.cs" />
-    <Compile Include="UIObjectInfo\TextureObjInfo.cs" />
-    <Compile Include="UIObjectInfo\WindowInfo.cs" />
+    <Compile Include="UIObjects\Info\TextObjInfo.cs" />
+    <Compile Include="UIObjects\Info\TextureObjInfo.cs" />
+    <Compile Include="UIObjects\Info\WindowInfo.cs" />
     <Compile Include="UIObjects\IUIElements.cs" />
-    <Compile Include="TextEdittor.cs">
+    <Compile Include="UIObjects\Forms\TextEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TextEdittor.Designer.cs">
+    <Compile Include="UIObjects\Forms\TextEdittor.Designer.cs">
       <DependentUpon>TextEdittor.cs</DependentUpon>
     </Compile>
     <Compile Include="TextureIOForm.cs">
@@ -174,23 +174,23 @@
       <DependentUpon>TextureIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\TextureCollection.cs" />
-    <Compile Include="TextureEdittor.cs">
+    <Compile Include="UIObjects\Forms\TextureEdittor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TextureEdittor.Designer.cs">
+    <Compile Include="UIObjects\Forms\TextureEdittor.Designer.cs">
       <DependentUpon>TextureEdittor.cs</DependentUpon>
     </Compile>
     <Compile Include="ResourcesInfo\TextureInfo.cs" />
-    <Compile Include="UIObjectInfo\UIInfo.cs" />
+    <Compile Include="UIObjects\Info\UIInfo.cs" />
     <Compile Include="Collections\UIInfoCollection.cs" />
     <Compile Include="UIObjects\UIText.cs" />
     <Compile Include="UIObjects\UITexture.cs" />
     <Compile Include="UIObjects\UIWindow.cs" />
     <Compile Include="UITypes.cs" />
-    <Compile Include="WindowEditter.cs">
+    <Compile Include="UIObjects\Forms\WindowEditter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WindowEditter.Designer.cs">
+    <Compile Include="UIObjects\Forms\WindowEditter.Designer.cs">
       <DependentUpon>WindowEditter.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -215,31 +215,31 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AddWindow.resx">
-      <DependentUpon>AddWindow.cs</DependentUpon>
+    <EmbeddedResource Include="ElementWindow.resx">
+      <DependentUpon>ElementWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingArcForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingArcForm.resx">
       <DependentUpon>DrawingArcForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingCircleForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingCircleForm.resx">
       <DependentUpon>DrawingCircleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingLineForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingLineForm.resx">
       <DependentUpon>DrawingLineForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingRectangleForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingRectangleForm.resx">
       <DependentUpon>DrawingRectangleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingRotatedRectangleForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingRotatedRectangleForm.resx">
       <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingSpriteForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingSpriteForm.resx">
       <DependentUpon>DrawingSpriteForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingTextForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingTextForm.resx">
       <DependentUpon>DrawingTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawingTriangleForm.resx">
+    <EmbeddedResource Include="DrawAdditionally\Forms\DrawingTriangleForm.resx">
       <DependentUpon>DrawingTriangleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilePackageLoader.resx">
@@ -257,16 +257,16 @@
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextEdittor.resx">
+    <EmbeddedResource Include="UIObjects\Forms\TextEdittor.resx">
       <DependentUpon>TextEdittor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureIOForm.resx">
       <DependentUpon>TextureIOForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextureEdittor.resx">
+    <EmbeddedResource Include="UIObjects\Forms\TextureEdittor.resx">
       <DependentUpon>TextureEdittor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WindowEditter.resx">
+    <EmbeddedResource Include="UIObjects\Forms\WindowEditter.resx">
       <DependentUpon>WindowEditter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

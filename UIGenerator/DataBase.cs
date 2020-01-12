@@ -112,7 +112,7 @@ namespace UIGenerator
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
         }
         /// <summary>
-        /// 全ての<see cref="AddWindow"/>，<see cref="TextEdittor"/>，<see cref="TextureIOForm"/>，<see cref="TextureEdittor"/>，<see cref="FontIOForm"/>を閉じる
+        /// 登録されているすべてのウィンドウを閉じる
         /// </summary>
         public static void CloseAllWindow()
         {

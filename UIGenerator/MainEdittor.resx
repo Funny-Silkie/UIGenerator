@@ -152,17 +152,11 @@
   <data name="ファイルToolStripMenuItem.Text" xml:space="preserve">
     <value>ファイル</value>
   </data>
-  <data name="要素を追加するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="要素を追加削除するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 26</value>
   </data>
-  <data name="要素を追加するToolStripMenuItem.Text" xml:space="preserve">
-    <value>要素を追加する</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
-  </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
-    <value>要素を削除する</value>
+  <data name="要素を追加削除するToolStripMenuItem.Text" xml:space="preserve">
+    <value>要素を追加/削除する</value>
   </data>
   <data name="フォントを編集するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 26</value>
@@ -214,7 +208,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Type.Text" xml:space="preserve">
     <value>Type</value>
@@ -238,10 +232,10 @@
     <value>Center</value>
   </data>
   <data name="ListView_objects.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 145</value>
+    <value>27, 145</value>
   </data>
   <data name="ListView_objects.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 393</value>
+    <value>721, 393</value>
   </data>
   <data name="ListView_objects.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -256,7 +250,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ListView_objects.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Label_ShowMode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -283,7 +277,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label_ShowMode.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="NumericUpDown_ShowMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 54</value>
@@ -304,7 +298,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NumericUpDown_ShowMode.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Label_Obj.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -331,7 +325,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label_Obj.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ColumnHeader_Type.Text" xml:space="preserve">
     <value>Type</value>
@@ -358,10 +352,10 @@
     <value>64</value>
   </data>
   <data name="ListView_additional.Location" type="System.Drawing.Point, System.Drawing">
-    <value>399, 145</value>
+    <value>27, 595</value>
   </data>
   <data name="ListView_additional.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 393</value>
+    <value>721, 201</value>
   </data>
   <data name="ListView_additional.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -378,6 +372,36 @@
   <data name="&gt;&gt;ListView_additional.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="Label_Additional.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label_Additional.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_Additional.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 561</value>
+  </data>
+  <data name="Label_Additional.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 15</value>
+  </data>
+  <data name="Label_Additional.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Label_Additional.Text" xml:space="preserve">
+    <value>AdditionalDrawing</value>
+  </data>
+  <data name="&gt;&gt;Label_Additional.Name" xml:space="preserve">
+    <value>Label_Additional</value>
+  </data>
+  <data name="&gt;&gt;Label_Additional.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_Additional.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label_Additional.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -385,7 +409,7 @@
     <value>8, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 559</value>
+    <value>800, 808</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>MainEdittor</value>
@@ -414,16 +438,10 @@
   <data name="&gt;&gt;編集ToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;要素を追加するToolStripMenuItem.Name" xml:space="preserve">
-    <value>要素を追加するToolStripMenuItem</value>
+  <data name="&gt;&gt;要素を追加削除するToolStripMenuItem.Name" xml:space="preserve">
+    <value>要素を追加削除するToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;要素を追加するToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;要素を追加削除するToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;フォントを編集するToolStripMenuItem.Name" xml:space="preserve">

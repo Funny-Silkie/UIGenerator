@@ -7,7 +7,7 @@ namespace UIGenerator
     /// <summary>
     /// 要素を追加するウィンドウ
     /// </summary>
-    public partial class AddWindow : Form
+    public partial class ElementWindow : Form
     {
         private readonly MainEdittor mainEdittor;
         /// <summary>
@@ -19,7 +19,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="main"><see cref="MainEdittor"/></param>への参照
         /// <exception cref="ArgumentNullException"><paramref name="main"/>がnull</exception>
-        public AddWindow(MainEdittor main)
+        public ElementWindow(MainEdittor main)
         {
             mainEdittor = main ?? throw new ArgumentNullException();
             IsShown = true;

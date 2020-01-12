@@ -34,8 +34,7 @@
             this.上書き保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.名前を付けて保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.要素を追加するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.要素を追加削除するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.フォントを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.テクスチャを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +49,7 @@
             this.ColumnHeader_Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Label_Additional = new System.Windows.Forms.Label();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -86,24 +86,18 @@
             // 編集ToolStripMenuItem
             // 
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.要素を追加するToolStripMenuItem,
-            this.toolStripMenuItem1,
+            this.要素を追加削除するToolStripMenuItem,
             this.フォントを編集するToolStripMenuItem,
             this.テクスチャを編集するToolStripMenuItem,
             this.ファイルパッケージを管理するToolStripMenuItem});
             this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
             resources.ApplyResources(this.編集ToolStripMenuItem, "編集ToolStripMenuItem");
             // 
-            // 要素を追加するToolStripMenuItem
+            // 要素を追加削除するToolStripMenuItem
             // 
-            this.要素を追加するToolStripMenuItem.Name = "要素を追加するToolStripMenuItem";
-            resources.ApplyResources(this.要素を追加するToolStripMenuItem, "要素を追加するToolStripMenuItem");
-            this.要素を追加するToolStripMenuItem.Click += new System.EventHandler(this.要素を追加するToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.要素を追加削除するToolStripMenuItem.Name = "要素を追加削除するToolStripMenuItem";
+            resources.ApplyResources(this.要素を追加削除するToolStripMenuItem, "要素を追加削除するToolStripMenuItem");
+            this.要素を追加削除するToolStripMenuItem.Click += new System.EventHandler(this.要素を追加削除するToolStripMenuItem_Click);
             // 
             // フォントを編集するToolStripMenuItem
             // 
@@ -200,11 +194,17 @@
             // 
             resources.ApplyResources(this.ColumnHeader_Mode, "ColumnHeader_Mode");
             // 
+            // Label_Additional
+            // 
+            resources.ApplyResources(this.Label_Additional, "Label_Additional");
+            this.Label_Additional.Name = "Label_Additional";
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.ListView_additional);
+            this.Controls.Add(this.Label_Additional);
             this.Controls.Add(this.Label_Obj);
             this.Controls.Add(this.NumericUpDown_ShowMode);
             this.Controls.Add(this.Label_ShowMode);
@@ -231,18 +231,18 @@
         private System.Windows.Forms.ColumnHeader Mode;
         private System.Windows.Forms.ColumnHeader ObjectName;
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 要素を追加するToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 要素を追加削除するToolStripMenuItem;
         private System.Windows.Forms.Label Label_ShowMode;
         public System.Windows.Forms.NumericUpDown NumericUpDown_ShowMode;
         private System.Windows.Forms.ToolStripMenuItem フォントを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem テクスチャを編集するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ファイルパッケージを管理するToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Label Label_Obj;
         private System.Windows.Forms.ListView ListView_additional;
         private System.Windows.Forms.ColumnHeader ColumnHeader_Type;
         private System.Windows.Forms.ColumnHeader ColumnHeader_Name;
         private System.Windows.Forms.ColumnHeader ColumnHeader_Mode;
         private System.Windows.Forms.ListView ListView_objects;
+        private System.Windows.Forms.Label Label_Additional;
     }
 }

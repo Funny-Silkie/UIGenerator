@@ -31,13 +31,13 @@ namespace UIGenerator
         /// </summary>
         private void NumericUpDown_ShowMode_ValueChanged(object sender, EventArgs e) => DataBase.MainScene.ChangeMode((int)NumericUpDown_ShowMode.Value);
         /// <summary>
-        /// <see cref="要素を追加するToolStripMenuItem"/>クリック時の挙動
+        /// <see cref="要素を追加削除するToolStripMenuItem"/>クリック時の挙動
         /// </summary>
-        private void 要素を追加するToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 要素を追加削除するToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!AddWindow.IsShown)
+            if (!ElementWindow.IsShown)
             {
-                var a = new AddWindow(this);
+                var a = new ElementWindow(this);
                 DataBase.Forms.Add(a);
                 a.Show();
             }

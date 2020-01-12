@@ -1,6 +1,6 @@
 ﻿namespace UIGenerator
 {
-    partial class AddWindow
+    partial class ElementWindow
     {
         /// <summary>
         /// Required designer variable.
