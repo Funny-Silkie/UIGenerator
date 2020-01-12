@@ -40,7 +40,7 @@ namespace UIGenerator
         /// <summary>
         /// 文字列の方向を取得または設定する
         /// </summary>
-        public WritingDirection WritingDirection { get; set; }
+        public WritingDirection WritingDirection { get; set; } = WritingDirection.Horizontal;
         /// <summary>
         /// コンストラクタ
         /// </summary>

@@ -195,8 +195,20 @@ namespace UIGenerator
                             form_rotatedrect.Show();
                             return;
                         case DrawingAdditionalMode.Sprite:
+                            var form_sprite = new DrawingSpriteForm(this, (DrawingSpriteInfo)element);
+                            DataBase.Forms.Add(form_sprite);
+                            form_sprite.Show();
+                            return;
                         case DrawingAdditionalMode.Text:
+                            var form_text = new DrawingTextForm(this, (DrawingTextInfo)element);
+                            DataBase.Forms.Add(form_text);
+                            form_text.Show();
+                            return;
                         case DrawingAdditionalMode.Triangle:
+                            var form_triangle = new DrawingTriangleForm(this, (DrawingTriangleInfo)element);
+                            DataBase.Forms.Add(form_triangle);
+                            form_triangle.Show();
+                            return;
                         default: throw new InvalidOperationException();
                     }
             }

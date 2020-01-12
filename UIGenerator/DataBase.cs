@@ -1,7 +1,7 @@
 ﻿using System;
 using asd;
 using fslib;
-using fslib.Collections;
+using fslib.Collections.BasicModel;
 using fslib.IO;
 using fslib.Serialization;
 

@@ -107,6 +107,18 @@
     <Compile Include="DrawingRotatedRectangleForm.Designer.cs">
       <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrawingSpriteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingSpriteForm.Designer.cs">
+      <DependentUpon>DrawingSpriteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawingTextForm.Designer.cs">
+      <DependentUpon>DrawingTextForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawingTriangleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +232,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingRotatedRectangleForm.resx">
       <DependentUpon>DrawingRotatedRectangleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingSpriteForm.resx">
+      <DependentUpon>DrawingSpriteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawingTextForm.resx">
+      <DependentUpon>DrawingTextForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingTriangleForm.resx">
       <DependentUpon>DrawingTriangleForm.cs</DependentUpon>

@@ -51,20 +51,36 @@
             this.Label_Mode = new System.Windows.Forms.Label();
             this.Panel_Positions = new System.Windows.Forms.Panel();
             this.NumericUpDown_Pos2_Y = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos3_Y = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_Pos1_Y = new System.Windows.Forms.NumericUpDown();
             this.Label_Size_Y = new System.Windows.Forms.Label();
+            this.Label_Pos3_Y = new System.Windows.Forms.Label();
             this.Label_Pos_Y = new System.Windows.Forms.Label();
             this.NumericUpDown_Pos2_X = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_Pos3_X = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_Pos1_X = new System.Windows.Forms.NumericUpDown();
             this.Label_Size_X = new System.Windows.Forms.Label();
             this.Label_Position2 = new System.Windows.Forms.Label();
-            this.Label_Pos_X = new System.Windows.Forms.Label();
-            this.Label_Position1 = new System.Windows.Forms.Label();
-            this.Label_Pos3 = new System.Windows.Forms.Label();
             this.Label_Pos3_X = new System.Windows.Forms.Label();
-            this.NumericUpDown_Pos3_X = new System.Windows.Forms.NumericUpDown();
-            this.Label_Pos3_Y = new System.Windows.Forms.Label();
-            this.NumericUpDown_Pos3_Y = new System.Windows.Forms.NumericUpDown();
+            this.Label_Pos_X = new System.Windows.Forms.Label();
+            this.Label_Pos3 = new System.Windows.Forms.Label();
+            this.Label_Position1 = new System.Windows.Forms.Label();
+            this.Panel_UV = new System.Windows.Forms.Panel();
+            this.NumericUpDown_UV2_Y = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_UV3_Y = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_UV1_Y = new System.Windows.Forms.NumericUpDown();
+            this.Label_UV2_Y = new System.Windows.Forms.Label();
+            this.Label_UV3_Y = new System.Windows.Forms.Label();
+            this.Label_UV1_Y = new System.Windows.Forms.Label();
+            this.NumericUpDown_UV2_X = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_UV3_X = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_UV1_X = new System.Windows.Forms.NumericUpDown();
+            this.Label_UV2_X = new System.Windows.Forms.Label();
+            this.Label_UV2 = new System.Windows.Forms.Label();
+            this.Label_UV3_X = new System.Windows.Forms.Label();
+            this.Label_UV1_X = new System.Windows.Forms.Label();
+            this.Label_UV3 = new System.Windows.Forms.Label();
+            this.Label_UV1 = new System.Windows.Forms.Label();
             this.Panel_Color.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_B)).BeginInit();
@@ -74,11 +90,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).BeginInit();
             this.Panel_Positions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_X)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_X)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).BeginInit();
+            this.Panel_UV.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV2_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV3_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV1_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV2_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV3_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV1_X)).BeginInit();
             this.SuspendLayout();
             // 
             // ComboBox_texture
@@ -368,6 +391,24 @@
             this.NumericUpDown_Pos2_Y.TabIndex = 13;
             this.NumericUpDown_Pos2_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos2_Y_ValueChanged);
             // 
+            // NumericUpDown_Pos3_Y
+            // 
+            this.NumericUpDown_Pos3_Y.Location = new System.Drawing.Point(187, 123);
+            this.NumericUpDown_Pos3_Y.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_Pos3_Y.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_Pos3_Y.Name = "NumericUpDown_Pos3_Y";
+            this.NumericUpDown_Pos3_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos3_Y.TabIndex = 9;
+            this.NumericUpDown_Pos3_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos3_Y_ValueChanged);
+            // 
             // NumericUpDown_Pos1_Y
             // 
             this.NumericUpDown_Pos1_Y.Location = new System.Drawing.Point(184, 46);
@@ -395,6 +436,15 @@
             this.Label_Size_Y.TabIndex = 0;
             this.Label_Size_Y.Text = "Y";
             // 
+            // Label_Pos3_Y
+            // 
+            this.Label_Pos3_Y.AutoSize = true;
+            this.Label_Pos3_Y.Location = new System.Drawing.Point(149, 125);
+            this.Label_Pos3_Y.Name = "Label_Pos3_Y";
+            this.Label_Pos3_Y.Size = new System.Drawing.Size(16, 15);
+            this.Label_Pos3_Y.TabIndex = 0;
+            this.Label_Pos3_Y.Text = "Y";
+            // 
             // Label_Pos_Y
             // 
             this.Label_Pos_Y.AutoSize = true;
@@ -421,6 +471,24 @@
             this.NumericUpDown_Pos2_X.Size = new System.Drawing.Size(70, 22);
             this.NumericUpDown_Pos2_X.TabIndex = 12;
             this.NumericUpDown_Pos2_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos2_X_ValueChanged);
+            // 
+            // NumericUpDown_Pos3_X
+            // 
+            this.NumericUpDown_Pos3_X.Location = new System.Drawing.Point(52, 123);
+            this.NumericUpDown_Pos3_X.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_Pos3_X.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_Pos3_X.Name = "NumericUpDown_Pos3_X";
+            this.NumericUpDown_Pos3_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_Pos3_X.TabIndex = 8;
+            this.NumericUpDown_Pos3_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos3_X_ValueChanged);
             // 
             // NumericUpDown_Pos1_X
             // 
@@ -458,6 +526,15 @@
             this.Label_Position2.TabIndex = 0;
             this.Label_Position2.Text = "Position2";
             // 
+            // Label_Pos3_X
+            // 
+            this.Label_Pos3_X.AutoSize = true;
+            this.Label_Pos3_X.Location = new System.Drawing.Point(14, 125);
+            this.Label_Pos3_X.Name = "Label_Pos3_X";
+            this.Label_Pos3_X.Size = new System.Drawing.Size(16, 15);
+            this.Label_Pos3_X.TabIndex = 0;
+            this.Label_Pos3_X.Text = "X";
+            // 
             // Label_Pos_X
             // 
             this.Label_Pos_X.AutoSize = true;
@@ -466,15 +543,6 @@
             this.Label_Pos_X.Size = new System.Drawing.Size(16, 15);
             this.Label_Pos_X.TabIndex = 0;
             this.Label_Pos_X.Text = "X";
-            // 
-            // Label_Position1
-            // 
-            this.Label_Position1.AutoSize = true;
-            this.Label_Position1.Location = new System.Drawing.Point(11, 15);
-            this.Label_Position1.Name = "Label_Position1";
-            this.Label_Position1.Size = new System.Drawing.Size(66, 15);
-            this.Label_Position1.TabIndex = 0;
-            this.Label_Position1.Text = "Position1";
             // 
             // Label_Pos3
             // 
@@ -485,65 +553,233 @@
             this.Label_Pos3.TabIndex = 0;
             this.Label_Pos3.Text = "Position3";
             // 
-            // Label_Pos3_X
+            // Label_Position1
             // 
-            this.Label_Pos3_X.AutoSize = true;
-            this.Label_Pos3_X.Location = new System.Drawing.Point(14, 125);
-            this.Label_Pos3_X.Name = "Label_Pos3_X";
-            this.Label_Pos3_X.Size = new System.Drawing.Size(16, 15);
-            this.Label_Pos3_X.TabIndex = 0;
-            this.Label_Pos3_X.Text = "X";
+            this.Label_Position1.AutoSize = true;
+            this.Label_Position1.Location = new System.Drawing.Point(11, 15);
+            this.Label_Position1.Name = "Label_Position1";
+            this.Label_Position1.Size = new System.Drawing.Size(66, 15);
+            this.Label_Position1.TabIndex = 0;
+            this.Label_Position1.Text = "Position1";
             // 
-            // NumericUpDown_Pos3_X
+            // Panel_UV
             // 
-            this.NumericUpDown_Pos3_X.Location = new System.Drawing.Point(52, 123);
-            this.NumericUpDown_Pos3_X.Maximum = new decimal(new int[] {
+            this.Panel_UV.BackColor = System.Drawing.Color.White;
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV2_Y);
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV3_Y);
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV1_Y);
+            this.Panel_UV.Controls.Add(this.Label_UV2_Y);
+            this.Panel_UV.Controls.Add(this.Label_UV3_Y);
+            this.Panel_UV.Controls.Add(this.Label_UV1_Y);
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV2_X);
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV3_X);
+            this.Panel_UV.Controls.Add(this.NumericUpDown_UV1_X);
+            this.Panel_UV.Controls.Add(this.Label_UV2_X);
+            this.Panel_UV.Controls.Add(this.Label_UV2);
+            this.Panel_UV.Controls.Add(this.Label_UV3_X);
+            this.Panel_UV.Controls.Add(this.Label_UV1_X);
+            this.Panel_UV.Controls.Add(this.Label_UV3);
+            this.Panel_UV.Controls.Add(this.Label_UV1);
+            this.Panel_UV.Location = new System.Drawing.Point(23, 528);
+            this.Panel_UV.Name = "Panel_UV";
+            this.Panel_UV.Size = new System.Drawing.Size(566, 164);
+            this.Panel_UV.TabIndex = 76;
+            // 
+            // NumericUpDown_UV2_Y
+            // 
+            this.NumericUpDown_UV2_Y.Location = new System.Drawing.Point(459, 46);
+            this.NumericUpDown_UV2_Y.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Pos3_X.Minimum = new decimal(new int[] {
+            this.NumericUpDown_UV2_Y.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Pos3_X.Name = "NumericUpDown_Pos3_X";
-            this.NumericUpDown_Pos3_X.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Pos3_X.TabIndex = 8;
-            this.NumericUpDown_Pos3_X.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos3_X_ValueChanged);
+            this.NumericUpDown_UV2_Y.Name = "NumericUpDown_UV2_Y";
+            this.NumericUpDown_UV2_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV2_Y.TabIndex = 13;
+            this.NumericUpDown_UV2_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_UV2_Y_ValueChanged);
             // 
-            // Label_Pos3_Y
+            // NumericUpDown_UV3_Y
             // 
-            this.Label_Pos3_Y.AutoSize = true;
-            this.Label_Pos3_Y.Location = new System.Drawing.Point(149, 125);
-            this.Label_Pos3_Y.Name = "Label_Pos3_Y";
-            this.Label_Pos3_Y.Size = new System.Drawing.Size(16, 15);
-            this.Label_Pos3_Y.TabIndex = 0;
-            this.Label_Pos3_Y.Text = "Y";
-            // 
-            // NumericUpDown_Pos3_Y
-            // 
-            this.NumericUpDown_Pos3_Y.Location = new System.Drawing.Point(187, 123);
-            this.NumericUpDown_Pos3_Y.Maximum = new decimal(new int[] {
+            this.NumericUpDown_UV3_Y.Location = new System.Drawing.Point(187, 123);
+            this.NumericUpDown_UV3_Y.Maximum = new decimal(new int[] {
             -1,
             -1,
             -1,
             0});
-            this.NumericUpDown_Pos3_Y.Minimum = new decimal(new int[] {
+            this.NumericUpDown_UV3_Y.Minimum = new decimal(new int[] {
             -1,
             -1,
             -1,
             -2147483648});
-            this.NumericUpDown_Pos3_Y.Name = "NumericUpDown_Pos3_Y";
-            this.NumericUpDown_Pos3_Y.Size = new System.Drawing.Size(70, 22);
-            this.NumericUpDown_Pos3_Y.TabIndex = 9;
-            this.NumericUpDown_Pos3_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_Pos3_Y_ValueChanged);
+            this.NumericUpDown_UV3_Y.Name = "NumericUpDown_UV3_Y";
+            this.NumericUpDown_UV3_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV3_Y.TabIndex = 9;
+            this.NumericUpDown_UV3_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_UV3_Y_ValueChanged);
+            // 
+            // NumericUpDown_UV1_Y
+            // 
+            this.NumericUpDown_UV1_Y.Location = new System.Drawing.Point(184, 46);
+            this.NumericUpDown_UV1_Y.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_UV1_Y.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_UV1_Y.Name = "NumericUpDown_UV1_Y";
+            this.NumericUpDown_UV1_Y.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV1_Y.TabIndex = 9;
+            this.NumericUpDown_UV1_Y.ValueChanged += new System.EventHandler(this.NumericUpDown_UV1_Y_ValueChanged);
+            // 
+            // Label_UV2_Y
+            // 
+            this.Label_UV2_Y.AutoSize = true;
+            this.Label_UV2_Y.Location = new System.Drawing.Point(421, 48);
+            this.Label_UV2_Y.Name = "Label_UV2_Y";
+            this.Label_UV2_Y.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV2_Y.TabIndex = 0;
+            this.Label_UV2_Y.Text = "Y";
+            // 
+            // Label_UV3_Y
+            // 
+            this.Label_UV3_Y.AutoSize = true;
+            this.Label_UV3_Y.Location = new System.Drawing.Point(149, 125);
+            this.Label_UV3_Y.Name = "Label_UV3_Y";
+            this.Label_UV3_Y.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV3_Y.TabIndex = 0;
+            this.Label_UV3_Y.Text = "Y";
+            // 
+            // Label_UV1_Y
+            // 
+            this.Label_UV1_Y.AutoSize = true;
+            this.Label_UV1_Y.Location = new System.Drawing.Point(146, 48);
+            this.Label_UV1_Y.Name = "Label_UV1_Y";
+            this.Label_UV1_Y.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV1_Y.TabIndex = 0;
+            this.Label_UV1_Y.Text = "Y";
+            // 
+            // NumericUpDown_UV2_X
+            // 
+            this.NumericUpDown_UV2_X.Location = new System.Drawing.Point(324, 46);
+            this.NumericUpDown_UV2_X.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_UV2_X.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_UV2_X.Name = "NumericUpDown_UV2_X";
+            this.NumericUpDown_UV2_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV2_X.TabIndex = 12;
+            this.NumericUpDown_UV2_X.ValueChanged += new System.EventHandler(this.NumericUpDown_UV2_X_ValueChanged);
+            // 
+            // NumericUpDown_UV3_X
+            // 
+            this.NumericUpDown_UV3_X.Location = new System.Drawing.Point(52, 123);
+            this.NumericUpDown_UV3_X.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_UV3_X.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_UV3_X.Name = "NumericUpDown_UV3_X";
+            this.NumericUpDown_UV3_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV3_X.TabIndex = 8;
+            this.NumericUpDown_UV3_X.ValueChanged += new System.EventHandler(this.NumericUpDown_UV3_X_ValueChanged);
+            // 
+            // NumericUpDown_UV1_X
+            // 
+            this.NumericUpDown_UV1_X.Location = new System.Drawing.Point(49, 46);
+            this.NumericUpDown_UV1_X.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.NumericUpDown_UV1_X.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
+            this.NumericUpDown_UV1_X.Name = "NumericUpDown_UV1_X";
+            this.NumericUpDown_UV1_X.Size = new System.Drawing.Size(70, 22);
+            this.NumericUpDown_UV1_X.TabIndex = 8;
+            this.NumericUpDown_UV1_X.ValueChanged += new System.EventHandler(this.NumericUpDown_UV1_X_ValueChanged);
+            // 
+            // Label_UV2_X
+            // 
+            this.Label_UV2_X.AutoSize = true;
+            this.Label_UV2_X.Location = new System.Drawing.Point(286, 48);
+            this.Label_UV2_X.Name = "Label_UV2_X";
+            this.Label_UV2_X.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV2_X.TabIndex = 0;
+            this.Label_UV2_X.Text = "X";
+            // 
+            // Label_UV2
+            // 
+            this.Label_UV2.AutoSize = true;
+            this.Label_UV2.Location = new System.Drawing.Point(286, 15);
+            this.Label_UV2.Name = "Label_UV2";
+            this.Label_UV2.Size = new System.Drawing.Size(34, 15);
+            this.Label_UV2.TabIndex = 0;
+            this.Label_UV2.Text = "UV2";
+            // 
+            // Label_UV3_X
+            // 
+            this.Label_UV3_X.AutoSize = true;
+            this.Label_UV3_X.Location = new System.Drawing.Point(14, 125);
+            this.Label_UV3_X.Name = "Label_UV3_X";
+            this.Label_UV3_X.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV3_X.TabIndex = 0;
+            this.Label_UV3_X.Text = "X";
+            // 
+            // Label_UV1_X
+            // 
+            this.Label_UV1_X.AutoSize = true;
+            this.Label_UV1_X.Location = new System.Drawing.Point(11, 48);
+            this.Label_UV1_X.Name = "Label_UV1_X";
+            this.Label_UV1_X.Size = new System.Drawing.Size(16, 15);
+            this.Label_UV1_X.TabIndex = 0;
+            this.Label_UV1_X.Text = "X";
+            // 
+            // Label_UV3
+            // 
+            this.Label_UV3.AutoSize = true;
+            this.Label_UV3.Location = new System.Drawing.Point(14, 92);
+            this.Label_UV3.Name = "Label_UV3";
+            this.Label_UV3.Size = new System.Drawing.Size(34, 15);
+            this.Label_UV3.TabIndex = 0;
+            this.Label_UV3.Text = "UV3";
+            // 
+            // Label_UV1
+            // 
+            this.Label_UV1.AutoSize = true;
+            this.Label_UV1.Location = new System.Drawing.Point(11, 15);
+            this.Label_UV1.Name = "Label_UV1";
+            this.Label_UV1.Size = new System.Drawing.Size(34, 15);
+            this.Label_UV1.TabIndex = 0;
+            this.Label_UV1.Text = "UV1";
             // 
             // DrawingTriangleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(627, 704);
+            this.ClientSize = new System.Drawing.Size(627, 725);
+            this.Controls.Add(this.Panel_UV);
             this.Controls.Add(this.Panel_Positions);
             this.Controls.Add(this.ComboBox_texture);
             this.Controls.Add(this.Label_Texture);
@@ -571,11 +807,19 @@
             this.Panel_Positions.ResumeLayout(false);
             this.Panel_Positions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_Y)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_Y)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos2_X)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_X)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos3_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Pos1_X)).EndInit();
+            this.Panel_UV.ResumeLayout(false);
+            this.Panel_UV.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV2_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV3_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV1_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV2_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV3_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_UV1_X)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,5 +864,21 @@
         private System.Windows.Forms.NumericUpDown NumericUpDown_Pos3_X;
         private System.Windows.Forms.Label Label_Pos3_X;
         private System.Windows.Forms.Label Label_Pos3;
+        private System.Windows.Forms.Panel Panel_UV;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV2_Y;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV3_Y;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV1_Y;
+        private System.Windows.Forms.Label Label_UV2_Y;
+        private System.Windows.Forms.Label Label_UV3_Y;
+        private System.Windows.Forms.Label Label_UV1_Y;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV2_X;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV3_X;
+        private System.Windows.Forms.NumericUpDown NumericUpDown_UV1_X;
+        private System.Windows.Forms.Label Label_UV2_X;
+        private System.Windows.Forms.Label Label_UV2;
+        private System.Windows.Forms.Label Label_UV3_X;
+        private System.Windows.Forms.Label Label_UV1_X;
+        private System.Windows.Forms.Label Label_UV3;
+        private System.Windows.Forms.Label Label_UV1;
     }
 }

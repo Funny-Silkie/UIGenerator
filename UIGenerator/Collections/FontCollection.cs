@@ -108,13 +108,17 @@ namespace UIGenerator
         /// </summary>
         private void ChangeFontComboBox()
         {
+            var names = GetNames();
             foreach (var u in DataBase.UIInfos)
                 if (u.Value.Type == UITypes.Text)
                 {
                     var form = (TextEdittor)((TextObjInfo)u.Value).HandleForm;
                     if (form == null) continue;
-                    else form.ComboBox_Font.DataSource = GetNames();
+                    else form.ComboBox_Font.DataSource = names;
                 }
+            foreach (var form in DataBase.Forms)
+                if (form is DrawingTextForm f)
+                    f.ComboBox_Font.DataSource = names;
         }
         /// <summary>
         /// 要素をすべて削除する

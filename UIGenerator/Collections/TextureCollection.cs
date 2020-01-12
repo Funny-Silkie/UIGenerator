@@ -119,6 +119,8 @@ namespace UIGenerator
                     case DrawingCircleForm f: f.ComboBox_Texture.DataSource = names; continue;
                     case DrawingRectangleForm f: f.ComboBox_Texture.DataSource = names; continue;
                     case DrawingRotatedRectangleForm f: f.ComboBox_Texture.DataSource = names; continue;
+                    case DrawingSpriteForm f: f.ComboBox_Texture.DataSource = names; continue;
+                    case DrawingTriangleForm f: f.ComboBox_Texture.DataSource = names; continue;
                     default: continue;
                 }
         }

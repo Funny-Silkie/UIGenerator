@@ -55,6 +55,10 @@ namespace UIGenerator
             NumericUpDown_A.Value = info.Color.A;
             NumericUpDown_UV1_X.Value = (decimal)info.UV1.X;
             NumericUpDown_UV1_Y.Value = (decimal)info.UV1.Y;
+            NumericUpDown_UV2_X.Value = (decimal)info.UV2.X;
+            NumericUpDown_UV2_Y.Value = (decimal)info.UV2.Y;
+            NumericUpDown_UV3_X.Value = (decimal)info.UV3.X;
+            NumericUpDown_UV3_Y.Value = (decimal)info.UV3.Y;
             ComboBox_AlphaBlend.SelectedIndexChanged += new EventHandler(ComboBox_AlphaBlend_SelectedIndexChanged);
             ComboBox_texture.SelectedIndexChanged += new EventHandler(ComboBox_Texture_SelectedIndexChanged);
         }
@@ -168,5 +172,29 @@ namespace UIGenerator
         /// 座標3Y変更
         /// </summary>
         private void NumericUpDown_Pos3_Y_ValueChanged(object sender, EventArgs e) => info.Position3 = new Vector2DF(info.Position3.X, (float)NumericUpDown_Pos3_Y.Value);
+        /// <summary>
+        /// UV1X変更
+        /// </summary>
+        private void NumericUpDown_UV1_X_ValueChanged(object sender, EventArgs e) => info.UV1 = new SerializableVector2DF((float)NumericUpDown_UV1_X.Value, info.UV1.Y);
+        /// <summary>
+        /// UV1Y変更
+        /// </summary>
+        private void NumericUpDown_UV1_Y_ValueChanged(object sender, EventArgs e) => info.UV1 = new SerializableVector2DF(info.UV1.X, (float)NumericUpDown_UV1_Y.Value);
+        /// <summary>
+        /// UV2X変更
+        /// </summary>
+        private void NumericUpDown_UV2_X_ValueChanged(object sender, EventArgs e) => info.UV2 = new SerializableVector2DF((float)NumericUpDown_UV2_X.Value, info.UV2.Y);
+        /// <summary>
+        /// UV2Y変更
+        /// </summary>
+        private void NumericUpDown_UV2_Y_ValueChanged(object sender, EventArgs e) => info.UV2 = new SerializableVector2DF(info.UV2.X, (float)NumericUpDown_UV2_Y.Value);
+        /// <summary>
+        /// UV3X変更
+        /// </summary>
+        private void NumericUpDown_UV3_X_ValueChanged(object sender, EventArgs e) => info.UV3 = new SerializableVector2DF((float)NumericUpDown_UV3_X.Value, info.UV3.Y);
+        /// <summary>
+        /// UV3Y変更
+        /// </summary>
+        private void NumericUpDown_UV3_Y_ValueChanged(object sender, EventArgs e) => info.UV3 = new SerializableVector2DF(info.UV3.X, (float)NumericUpDown_UV3_Y.Value);
     }
 }
