@@ -30,6 +30,15 @@ namespace UIGenerator
         /// <param name="context">送信元の情報</param>
         private UIGeneratorStaticFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
+        /// パッケージ化する
+        /// </summary>
+        /// <param name="path">フォントファイルのパス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
+        /// <exception cref="IOException">読み込みに失敗した</exception>
+        /// <returns>パッケージ化されたフォント</returns>
+        protected override PackageFont CreatePackageFont(string path) => new PackageStaticFont(path);
+        /// <summary>
         /// 指定したパスからフォントを読み込む
         /// </summary>
         /// <param name="path">使用するパス</param>

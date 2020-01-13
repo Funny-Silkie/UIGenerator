@@ -1,16 +1,15 @@
-﻿using System;
+﻿using fslib;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
-using asd;
-using fslib;
 
 namespace UIGenerator
 {
     /// <summary>
-    /// シリアライズ可能な動的フォントを扱うクラス
+    /// byte配列を用いて動的フォントデータをシリアライズするためのクラス
     /// </summary>
     [Serializable]
-    public sealed class UIGeneratorDynamicFont : UIGeneratorFontBase, ISerializable, IDeserializationCallback
+    public sealed class PackageDynamicFont : PackageFont, ISerializable, IDeserializationCallback
     {
         #region SerializeName
         private const string S_Color = "S_Color";
@@ -35,39 +34,54 @@ namespace UIGenerator
         /// </summary>
         public int Size { get; private set; }
         /// <summary>
-        /// 指定したファイルパスからフォントを読み込みインスタンスを初期化する
+        /// 指定したパスからデータを読み込んでインスタンスを初期化する
         /// </summary>
-        /// <param name="path">使用するファイルパス</param>
+        /// <param name="path">読み込むファイルのパス</param>
         /// <param name="color">フォントの色</param>
         /// <param name="size">フォントサイズ</param>
         /// <param name="outLineColor">枠線の色</param>
         /// <param name="outLineSize">枠線の太さ</param>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>または<paramref name="outLineSize"/>が0以下</exception>
-        /// <exception cref="FileNotFoundException"><paramref name="path"/>で指定されたファイルが存在しない</exception>
-        /// <exception cref="IOException">フォントを読み込めなかった</exception>
-        public UIGeneratorDynamicFont(string path, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path)
+        /// <exception cref="FileNotFoundException"><paramref name="path"/>で指定されたファイルが見つからない</exception>
+        /// <exception cref="IOException">ファイルが読み込めなかった</exception>
+        public PackageDynamicFont(string path, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path)
         {
             if (size <= 0 || outLineSize <= 0) throw new ArgumentOutOfRangeException();
-            if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             Color = color;
             Size = size;
             OutLineColor = outLineColor;
             OutLineSize = outLineSize;
-            Font = GetFont(path) ?? throw new IOException();
         }
         /// <summary>
-        /// シリアライズするデータを用いてインスタンスを初期化する
+        /// byte配列とファイルパスからインスタンスを初期化する
         /// </summary>
-        /// <param name="info">シリアル化するデータを持つオブジェクト</param>
-        /// <param name="context">送信元の情報</param>
-        private UIGeneratorDynamicFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <param name="path">ファイルパス</param>
+        /// <param name="buffer">ファイルのデータ</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>または<paramref name="buffer"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>または<paramref name="outLineSize"/>が0以下</exception>
+        public PackageDynamicFont(string path, byte[] buffer, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path, buffer)
+        {
+            if (size <= 0 || outLineSize <= 0) throw new ArgumentOutOfRangeException();
+            Color = color;
+            Size = size;
+            OutLineColor = outLineColor;
+            OutLineSize = outLineSize;
+        }
         /// <summary>
-        /// 指定したパスからフォントを読み込む
+        /// シリアライズされたデータを用いてインスタンスを初期化する
         /// </summary>
-        /// <param name="path">使用するパス</param>
-        /// <returns>読み込まれたフォント</returns>
-        protected override Font GetFont(string path) => Engine.Graphics.CreateDynamicFont(path, Size, Color, OutLineSize, OutLineColor);
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private PackageDynamicFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// もう1つの<see cref="PackagedFile"/>との同値性を判定する
+        /// </summary>
+        /// <param name="other">同値性を判定するもう一つの<see cref="PackagedFile"/>のインスタンス</param>
+        /// <returns>このインスタンスと<paramref name="other"/>が同値だったらtrue，それ以外でfalse</returns>
+        /// <remarks>このインスタンス又は<paramref name="other"/>が破棄されている場合無条件でfalseを返す</remarks>
+        public override bool Equals(PackagedFile other) => other is PackageDynamicFont f ? Equals(f) : false;
+        private bool Equals(PackageDynamicFont other) => Color == other.Color && Size == other.Size && OutLineColor == other.OutLineColor && OutLineSize == other.OutLineSize && base.Equals(other);
         /// <summary>
         /// シリアル化するデータを設定する
         /// </summary>
@@ -95,14 +109,5 @@ namespace UIGenerator
             OutLineSize = SeInfo.GetInt32(S_OutLineSize);
             base.OnDeserialization(sender);
         }
-        /// <summary>
-        /// パッケージ化する
-        /// </summary>
-        /// <param name="path">フォントファイルのパス</param>
-        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
-        /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
-        /// <exception cref="IOException">読み込みに失敗した</exception>
-        /// <returns>パッケージ化されたフォント</returns>
-        protected override PackageFont CreatePackageFont(string path) => new PackageDynamicFont(path, Color, Size, OutLineColor, OutLineSize);
     }
 }
