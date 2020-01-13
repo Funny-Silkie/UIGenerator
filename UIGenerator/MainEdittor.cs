@@ -220,5 +220,19 @@ namespace UIGenerator
         {
             using (var form = new OptionForm()) form.ShowDialog();
         }
+        /// <summary>
+        /// ファイルチェックウィンドウを開く
+        /// </summary>
+        private void ファイルの有無をチェックToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// プロジェクトファイルを開く
+        /// </summary>
+        private void プロジェクトを開く_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

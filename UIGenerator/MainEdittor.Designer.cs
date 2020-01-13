@@ -54,6 +54,7 @@
             this.ファイルの有無をチェックToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プロジェクトを開く = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +72,7 @@
             // ファイルToolStripMenuItem
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.プロジェクトを開く,
             this.上書き保存ToolStripMenuItem,
             this.名前を付けて保存ToolStripMenuItem,
             this.エクスポートToolStripMenuItem});
@@ -217,6 +219,7 @@
             // 
             this.ファイルの有無をチェックToolStripMenuItem.Name = "ファイルの有無をチェックToolStripMenuItem";
             resources.ApplyResources(this.ファイルの有無をチェックToolStripMenuItem, "ファイルの有無をチェックToolStripMenuItem");
+            this.ファイルの有無をチェックToolStripMenuItem.Click += new System.EventHandler(this.ファイルの有無をチェックToolStripMenuItem_Click);
             // 
             // オプションToolStripMenuItem
             // 
@@ -228,6 +231,12 @@
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
             resources.ApplyResources(this.エクスポートToolStripMenuItem, "エクスポートToolStripMenuItem");
+            // 
+            // プロジェクトを開く
+            // 
+            this.プロジェクトを開く.Name = "プロジェクトを開く";
+            resources.ApplyResources(this.プロジェクトを開く, "プロジェクトを開く");
+            this.プロジェクトを開く.Click += new System.EventHandler(this.プロジェクトを開く_Click);
             // 
             // MainEdittor
             // 
@@ -278,5 +287,6 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルの有無をチェックToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem オプションToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem プロジェクトを開く;
     }
 }
