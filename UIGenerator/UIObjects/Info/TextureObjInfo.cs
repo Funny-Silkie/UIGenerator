@@ -1,6 +1,6 @@
 ﻿using System;
-using fslib;
-using fslib.Serialization;
+using System.Runtime.Serialization;
+using asd;
 
 namespace UIGenerator
 {
@@ -9,8 +9,11 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public sealed class TextureObjInfo : UIInfo<UITexture>
+    public sealed partial class TextureObjInfo : UIInfo<UITexture>, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_TextureIndex = "S_TextureIndex";
+        #endregion
         /// <summary>
         /// オブジェクトのタイプを取得する
         /// </summary>
@@ -26,7 +29,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color
+        public Color Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -34,7 +37,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF Position
+        public Vector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -42,7 +45,7 @@ namespace UIGenerator
         /// <summary>
         /// 中心座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF CenterPosition
+        public Vector2DF CenterPosition
         {
             get => UIObject.CenterPosition;
             set => UIObject.CenterPosition = value;
@@ -50,30 +53,22 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public SerializableVector2DF Size
+        public Vector2DF Size
         {
             get => UIObject.Size;
             set => UIObject.Size = value;
         }
         /// <summary>
-        /// 使用するテクスチャを取得または設定する
-        /// </summary>
-        public SerializableTexture Texture
-        {
-            get => UIObject.Texture;
-            set => UIObject.Texture = value;
-        }
-        /// <summary>
         /// 使用するテクスチャの情報を格納するインスタンスを取得または設定する
         /// </summary>
-        internal TextureInfo TextureInfo
+        public TextureInfo TextureInfo
         {
             get => _textureInfo;
             set
             {
                 if (value == null) value = DataBase.DefaultTexture;
                 _textureInfo = value;
-                Texture = value.Texture;
+                UIObject.Texture = value.Texture;
             }
         }
         private TextureInfo _textureInfo;
@@ -97,14 +92,33 @@ namespace UIGenerator
 
         }
         /// <summary>
-        /// 最初のフィールド宣言を行う
+        /// シリアライズされたデータを用いてインスタンスを初期化する
         /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UITexture texture_{Mode}_{Name};";
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private TextureObjInfo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// 各要素の設定を行う
+        /// シリアライズするデータを設定する
         /// </summary>
-        /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() => throw new NotImplementedException();
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            var textureIndex = DataBase.Textures.IndexOf(TextureInfo);
+            if (textureIndex == -1) textureIndex = 0;
+            info.AddValue(S_TextureIndex, textureIndex);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public override void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            TextureInfo = DataBase.Textures[SeInfo.GetInt32(S_TextureIndex)];
+            base.OnDeserialization(sender);
+        }
     }
 }

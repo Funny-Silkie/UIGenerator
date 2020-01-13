@@ -68,5 +68,6 @@ namespace UIGenerator
             Font = GetFont(path) ?? throw new SerializationException();
             SeInfo = null;
         }
+        public static implicit operator Font(UIGeneratorFontBase f) => f.Font:
     }
 }

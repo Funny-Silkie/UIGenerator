@@ -1,6 +1,5 @@
 ﻿using System;
-using fslib;
-using fslib.Serialization;
+using asd;
 
 namespace UIGenerator
 {
@@ -9,7 +8,7 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public sealed class WindowInfo : UIInfo<UIWindow>
+    public sealed partial class WindowInfo : UIInfo<UIWindow>
     {
         /// <summary>
         /// オブジェクトのタイプを取得する
@@ -26,7 +25,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color
+        public Color Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -34,7 +33,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF Position
+        public Vector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -42,7 +41,7 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public SerializableVector2DF Size
+        public Vector2DF Size
         {
             get => UIObject.Size;
             set => UIObject.Size = value;
@@ -58,7 +57,7 @@ namespace UIGenerator
         /// <summary>
         /// 枠線の色を取得または設定する
         /// </summary>
-        public ColorPlus LineColor
+        public Color LineColor
         {
             get => UIObject.LineColor;
             set => UIObject.LineColor = value;
@@ -90,26 +89,5 @@ namespace UIGenerator
         {
 
         }
-        /// <summary>
-        /// 最初のフィールド宣言を行う
-        /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIWindow window_{Mode}_{Name};";
-        /// <summary>
-        /// 各要素の設定を行う
-        /// </summary>
-        /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() =>
-            $"window_{Mode}_{Name} = new UIWindow({Mode}, {Name})\n" +
-             "{\n" +
-            $"    Position = new Vector2DF{Position},\n" +
-            $"    Color = new Color({Color.R}, {Color.G}, {Color.B}, {Color.A}),\n" +
-            $"    IsClickable = {IsClickable},\n" +
-            $"    Size = new Vector2DF{Size},\n" +
-            $"    DrawingPriority = {DrawingPriority},\n" +
-            $"    LineColor = new Color({LineColor.R}, {LineColor.G}, {LineColor.B}, {LineColor.A}),\n" +
-            $"    Thickness = {LineThickness},\n" +
-            $"    GeneratingFlame = {GeneratingFlame}\n" +
-             "}";
     }
 }

@@ -2,7 +2,6 @@
 using System.IO;
 using asd;
 using fslib;
-using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -13,9 +12,9 @@ namespace UIGenerator
     public abstract class FontInfoBase : IEquatable<FontInfoBase>
     {
         /// <summary>
-        /// 内部に格納されている<see cref="SerializableFont"/>を取得する
+        /// 内部に格納されている<see cref="UIGeneratorFontBase"/>を取得する
         /// </summary>
-        public SerializableFont Font { get; }
+        public UIGeneratorFontBase Font { get; }
         /// <summary>
         /// フォントの名前を取得する
         /// </summary>
@@ -31,7 +30,7 @@ namespace UIGenerator
         /// <param name="name">格納される名前</param>
         /// <param name="type">フォントのタイプ</param>
         /// <exception cref="ArgumentNullException"><paramref name="font"/>又は<paramref name="name"/>がnull</exception>
-        protected FontInfoBase(SerializableFont font, string name, FontType type)
+        protected FontInfoBase(UIGeneratorFontBase font, string name, FontType type)
         {
             Font = font ?? throw new ArgumentNullException();
             Name = name ?? throw new ArgumentNullException();
@@ -67,7 +66,7 @@ namespace UIGenerator
         /// 縁の色を取得する
         /// </summary>
         public ColorPlus OutLineColor { get; }
-        private DynamicFontInfo(SerializableDynamicFont font, string name) : base(font, name, FontType.Dynamic)
+        private DynamicFontInfo(UIGeneratorDynamicFont font, string name) : base(font, name, FontType.Dynamic)
         {
             Size = font.Size;
             Color = font.Color;
@@ -93,7 +92,7 @@ namespace UIGenerator
             if (size <= 0 || outlinesize <= 0) throw new ArgumentOutOfRangeException();
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = Path.GetFileNameWithoutExtension(path);
-            return new DynamicFontInfo(new SerializableDynamicFont(path, size, outlinesize, color, outlinecolor), name);
+            return new DynamicFontInfo(new UIGeneratorDynamicFont(path, color, size, outlinecolor, outlinesize), name);
         }
         /// <summary>
         /// 現在のオブジェクトを表す文字列を返す
@@ -108,7 +107,7 @@ namespace UIGenerator
     [Serializable]
     public sealed class StaticFontInfo : FontInfoBase
     {
-        private StaticFontInfo(SerializableStaticFont font, string name) : base(font, name, FontType.Static) { }
+        private StaticFontInfo(UIGeneratorStaticFont font, string name) : base(font, name, FontType.Static) { }
         /// <summary>
         /// 指定した引数から<see cref="StaticFontInfo"/>のインスタンスを取得する
         /// </summary>
@@ -122,7 +121,7 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = Path.GetFileNameWithoutExtension(path);
-            return new StaticFontInfo(new SerializableStaticFont(path), name);
+            return new StaticFontInfo(new UIGeneratorStaticFont(path), name);
         }
         /// <summary>
         /// 現在のオブジェクトを表す文字列を返す

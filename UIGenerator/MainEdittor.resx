@@ -185,6 +185,12 @@
   <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
     <value>編集</value>
   </data>
+  <data name="ツールToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 24</value>
+  </data>
+  <data name="ツールToolStripMenuItem.Text" xml:space="preserve">
+    <value>ツール</value>
+  </data>
   <data name="MainMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -497,6 +503,12 @@
   </data>
   <data name="&gt;&gt;ColumnHeader_Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ツールToolStripMenuItem.Name" xml:space="preserve">
+    <value>ツールToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ツールToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>

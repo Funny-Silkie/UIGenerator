@@ -75,8 +75,8 @@ namespace UIGenerator
                 if (!DataBase.UIInfos.Contains(newMode, info.Name))
                 {
                     var index = DataBase.UIInfos.ChangeMode(oldMode, info.Name, newMode);
-                    if (oldMode == DataBase.ShowMode && info.UIObj.Layer != null) DataBase.MainScene.RemoveObject(info);
-                    if (newMode == DataBase.ShowMode && info.UIObj.Layer == null) DataBase.MainScene.AddObject(info);
+                    if (oldMode == DataBase.ShowMode && info.__UIObj.Layer != null) DataBase.MainScene.RemoveObject(info);
+                    if (newMode == DataBase.ShowMode && info.__UIObj.Layer == null) DataBase.MainScene.AddObject(info);
                     main.ListView_Objects.Items[index].SubItems[2] = new ListViewItem.ListViewSubItem(main.ListView_Objects.Items[index], newMode.ToString());
                 }
                 else NumericUpDown_Mode.Value = oldMode;
@@ -113,7 +113,7 @@ namespace UIGenerator
         private void NumericUpDown_R_ValueChanged(object sender, EventArgs e)
         {
             var c = info.Color;
-            info.Color = new asd.Color((int)NumericUpDown_R.Value, c.G, c.B, c.A);
+            info.Color = new Color((int)NumericUpDown_R.Value, c.G, c.B, c.A);
         }
         /// <summary>
         /// 色のG変更
@@ -121,7 +121,7 @@ namespace UIGenerator
         private void NumericUpDown_G_ValueChanged(object sender, EventArgs e)
         {
             var c = info.Color;
-            info.Color = new asd.Color(c.R, (int)NumericUpDown_G.Value, c.B, c.A);
+            info.Color = new Color(c.R, (int)NumericUpDown_G.Value, c.B, c.A);
         }
         /// <summary>
         /// 色のB変更
@@ -129,7 +129,7 @@ namespace UIGenerator
         private void NumericUpDown_B_ValueChanged(object sender, EventArgs e)
         {
             var c = info.Color;
-            info.Color = new asd.Color(c.R, c.G, (int)NumericUpDown_B.Value, c.A);
+            info.Color = new Color(c.R, c.G, (int)NumericUpDown_B.Value, c.A);
         }
         /// <summary>
         /// 色のA変更
@@ -137,7 +137,7 @@ namespace UIGenerator
         private void NumericUpDown_A_ValueChanged(object sender, EventArgs e)
         {
             var c = info.Color;
-            info.Color = new asd.Color(c.R, c.G, c.B, (int)NumericUpDown_A.Value);
+            info.Color = new Color(c.R, c.G, c.B, (int)NumericUpDown_A.Value);
         }
         /// <summary>
         /// 座標X変更
@@ -176,7 +176,7 @@ namespace UIGenerator
         /// </summary>
         private void ReSize()
         {
-            var s = ((Texture2D)info.Texture).Size;
+            var s = info.TextureInfo.Texture.Texture.Size;
             var scale = info.UIObject.Scale;
             var size = new Vector2DF(s.X * scale.X, s.Y * scale.Y);
             NumericUpDown_Size_X.Value = float.IsNaN(size.X) ? 0 : (decimal)size.X;

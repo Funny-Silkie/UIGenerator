@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesibilityType.cs" />
+    <Compile Include="Code\CSharp\UIObjectInfo.cs" />
     <Compile Include="ElementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +155,7 @@
     <Compile Include="Serialization\UIGeneratorDynamicFont.cs" />
     <Compile Include="Serialization\UIGeneratorFontBase.cs" />
     <Compile Include="Serialization\UIGeneratorStaticFont.cs" />
+    <Compile Include="Serialization\UIGeneratorTexture2D.cs" />
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
     </Compile>

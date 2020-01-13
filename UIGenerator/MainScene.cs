@@ -45,7 +45,7 @@ namespace UIGenerator
         public void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
-            if (info.UIObj.Layer == null) Engine.AddObject2D(info.UIObj);
+            if (info.__UIObj.Layer == null) Engine.AddObject2D(info.__UIObj);
         }
         /// <summary>
         /// 表示する要素を削除する
@@ -55,7 +55,7 @@ namespace UIGenerator
         public void RemoveObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
-            if (info.UIObj.Layer != null) Engine.RemoveObject2D(info.UIObj);
+            if (info.__UIObj.Layer != null) Engine.RemoveObject2D(info.__UIObj);
         }
     }
     public class MainLayer : Layer2DPlus

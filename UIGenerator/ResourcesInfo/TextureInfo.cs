@@ -2,7 +2,6 @@
 using System.IO;
 using asd;
 using fslib;
-using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -20,9 +19,9 @@ namespace UIGenerator
         /// <summary>
         /// テクスチャを取得する
         /// </summary>
-        public SerializableTexture Texture { get; }
+        public UIGeneratorTexture2D Texture { get; }
         private readonly string path;
-        private TextureInfo(SerializableTexture texture, string name, string path)
+        private TextureInfo(UIGeneratorTexture2D texture, string name, string path)
         {
             Texture= texture;
             Name = name;
@@ -41,7 +40,7 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = Path.GetFileName(path);
-            return new TextureInfo(new SerializableTexture(path), name, path);
+            return new TextureInfo(new UIGeneratorTexture2D(path), name, path);
         }
         /// <summary>
         /// もう一つの<see cref="TextureInfo"/>との同値性を確かめる

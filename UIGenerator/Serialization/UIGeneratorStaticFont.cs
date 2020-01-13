@@ -9,7 +9,7 @@ namespace UIGenerator
     /// シリアライズ可能な静的なフォントを扱うクラス
     /// </summary>
     [Serializable]
-    public sealed class UIGeneratorStaticFont : UIGeneratorFontBase
+    public sealed class UIGeneratorStaticFont : UIGeneratorFontBase, ISerializable, IDeserializationCallback
     {
         /// <summary>
         /// 指定したファイルパスからフォントを読み込みインスタンスを初期化する

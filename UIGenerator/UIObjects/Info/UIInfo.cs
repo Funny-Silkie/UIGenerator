@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using asd;
+using fslib;
 
 namespace UIGenerator
 {
@@ -8,18 +10,19 @@ namespace UIGenerator
     /// UIとして操作するオブジェクトの基底クラス
     /// </summary>
     [Serializable]
-    public abstract class UIInfoBase : IUIGeneratorInfo
+    public abstract class UIInfoBase : IUIGeneratorInfo, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_Accesibility = "S_Accesibility";
+        #endregion
         /// <summary>
         /// 使用するアクセシビリティを取得または設定する
         /// </summary>
         public AccesibilityType Accesibility { get; set; } = AccesibilityType.Private;
-        [NonSerialized]
-        private System.Windows.Forms.Form handleForm = null;
         /// <summary>
         /// このインスタンスを管理するフォームを取得または設定する
         /// </summary>
-        public System.Windows.Forms.Form HandleForm { get => handleForm; set => handleForm = value; }
+        public System.Windows.Forms.Form HandleForm { get; set; } = null;
         /// <summary>
         /// このインスタンスの管理するオブジェクトのタイプを取得する
         /// </summary>
@@ -33,13 +36,47 @@ namespace UIGenerator
         /// </summary>
         public abstract int Mode { get; set; }
         /// <summary>
+        /// シリアライズされたデータを格納するオブジェクトを取得する
+        /// </summary>
+        protected SerializationInfo SeInfo { get; private set; }
+        /// <summary>
         /// 表示するオブジェクト
         /// </summary>
-        public abstract Object2D UIObj { get; }
+        public abstract Object2D __UIObj { get; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
         protected UIInfoBase() { }
+        /// <summary>
+        /// シリアライズされたデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        protected UIInfoBase(SerializationInfo info, StreamingContext context)
+        {
+            SeInfo = info;
+        }
+        /// <summary>
+        /// シリアライズするデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            info.AddValue(S_Accesibility, Accesibility);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public virtual void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            Accesibility = SeInfo.GetValue<AccesibilityType>(S_Accesibility);
+            SeInfo = null;
+        }
         /// <summary>
         /// インスタンスを取得する
         /// </summary>
@@ -74,8 +111,13 @@ namespace UIGenerator
     /// </summary>
     /// <typeparam name="T">UIオブジェクトの型</typeparam>
     [Serializable]
-    public abstract class UIInfo<T> : UIInfoBase where T : Object2D, IUIElements
+    public abstract class UIInfo<T> : UIInfoBase, ISerializable, IDeserializationCallback where T : Object2D, IUIElements
     {
+        #region SerializeName
+        private const string S_Name = "S_Name";
+        private const string S_Mode = "S_Mode";
+        private const string S_Object = "S_Object";
+        #endregion
         /// <summary>
         /// 名前を取得または設定する
         /// </summary>
@@ -97,11 +139,12 @@ namespace UIGenerator
         /// <summary>
         /// 管理している<see cref="IUIElements"/>のインスタンスを取得する
         /// </summary>
-        public T UIObject { get; }
+        public T UIObject { get; private set; }
         /// <summary>
         /// <see cref="Object2D"/>として<see cref="UIObject"/>を繋ぐ
         /// </summary>
-        public sealed override Object2D UIObj => UIObject;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public sealed override Object2D __UIObj => UIObject;
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -116,6 +159,37 @@ namespace UIGenerator
             UIObject = (T)GetUIElement(type, mode, name);
             Mode = mode >= 0 ? mode : throw new ArgumentOutOfRangeException();
             Name = name ?? throw new ArgumentNullException();
+        }
+        /// <summary>
+        /// シリアライズされたデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        protected UIInfo(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// シリアライズするデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(S_Mode, Mode);
+            info.AddValue(S_Name, Name);
+            info.AddValue(S_Object, UIObject, typeof(T));
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public override void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            Mode = SeInfo.GetInt32(S_Mode);
+            Name = SeInfo.GetString(S_Name);
+            UIObject = SeInfo.GetValue<T>(S_Object);
+            base.OnDeserialization(sender);
         }
         /// <summary>
         /// 指定したタイプの<see cref="IUIElements"/>を返す

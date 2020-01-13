@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using asd;
-using fslib;
-using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -10,8 +9,11 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public sealed class TextObjInfo : UIInfo<UIText>
+    public sealed partial class TextObjInfo : UIInfo<UIText>, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_FontIndex = "S_FontIndex";
+        #endregion
         /// <summary>
         /// オブジェクトのタイプを取得する
         /// </summary>
@@ -27,7 +29,7 @@ namespace UIGenerator
         /// <summary>
         /// 色を取得または設定する
         /// </summary>
-        public ColorPlus Color
+        public Color Color
         {
             get => UIObject.Color;
             set => UIObject.Color = value;
@@ -35,7 +37,7 @@ namespace UIGenerator
         /// <summary>
         /// 座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF Position
+        public Vector2DF Position
         {
             get => UIObject.Position;
             set => UIObject.Position = value;
@@ -43,7 +45,7 @@ namespace UIGenerator
         /// <summary>
         /// 中心座標を取得または設定する
         /// </summary>
-        public SerializableVector2DF CenterPosition
+        public Vector2DF CenterPosition
         {
             get => UIObject.CenterPosition;
             set => UIObject.CenterPosition = value;
@@ -51,12 +53,12 @@ namespace UIGenerator
         /// <summary>
         /// 大きさを取得または設定する
         /// </summary>
-        public SerializableVector2DF Size
+        public Vector2DF Size
         {
             get => UIObject.Size;
             set
             {
-                var size = UIObject.Font.Font.CalcTextureSize(UIObject.Text, UIObject.WritingDirection).To2DF();
+                var size = UIObject.Font.CalcTextureSize(UIObject.Text, UIObject.WritingDirection).To2DF();
                 UIObject.Scale = new Vector2DF(value.X / size.X, value.Y / size.Y);
             }
         }
@@ -85,24 +87,16 @@ namespace UIGenerator
             set => UIObject.Text = value;
         }
         /// <summary>
-        /// 使用するフォントを取得または設定する
-        /// </summary>
-        public SerializableFont Font
-        {
-            get => UIObject.Font;
-            set => UIObject.Font = value;
-        }
-        /// <summary>
         /// 使用するフォントの情報を格納するインスタンスを取得または設定する
         /// </summary>
-        internal FontInfoBase FontInfo
+        public FontInfoBase FontInfo
         {
             get => _fontInfo;
             set
             {
                 if (value == null) value = DataBase.DefaultFont;
                 _fontInfo = value;
-                Font = value.Font;
+                UIObject.Font = value.Font;
             }
         }
         private FontInfoBase _fontInfo;
@@ -118,25 +112,33 @@ namespace UIGenerator
 
         }
         /// <summary>
-        /// 最初のフィールド宣言を行う
+        /// シリアライズされたデータを用いてインスタンスを初期化する
         /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIText text_{Mode}_{Name};";
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private TextObjInfo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// 各要素の設定を行う
+        /// シリアライズするデータを設定する
         /// </summary>
-        /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() =>
-            $"text_{Mode}_{Name} = new UIText({Mode}, {Name})\n" +
-             "{\n" +
-            $"    Position = new Vector2DF{Position},\n" +
-            $"    CenterPosition = new Vector2DF{CenterPosition},\n" +
-            $"    Color = new Color({Color.R}, {Color.G}, {Color.B}, {Color.A}),\n" +
-            $"    WritingDirection = {WritingDirection},\n" +
-            $"    Text = {Text},\n" +
-            $"    IsClickable = {IsClickable},\n" +
-            $"    Size = new Vector2DF{Size},\n" +
-            $"    DrawingPriority = {DrawingPriority}\n" +
-             "}";
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            var fontIndex = DataBase.Fonts.IndexOf(FontInfo);
+            if (fontIndex == -1) fontIndex = 0;
+            info.AddValue(S_FontIndex, fontIndex);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public override void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            FontInfo = DataBase.Fonts[SeInfo.GetInt32(S_FontIndex)];
+            base.OnDeserialization(sender);
+        }
     }
 }

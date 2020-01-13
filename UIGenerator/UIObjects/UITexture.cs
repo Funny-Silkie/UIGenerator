@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using asd;
+using fslib;
 using fslib.Serialization;
 
 namespace UIGenerator
@@ -9,8 +11,19 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public class UITexture : SerializableClickableTexture, IUIElements
+    public class UITexture : ClickableTexture, IUIElements, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_CenterPosition = "S_CenterPosition";
+        private const string S_Color = "S_Color";
+        private const string S_IsClickable = "S_IsClickable";
+        private const string S_Mode = "S_Mode";
+        private const string S_Name = "S_Name";
+        private const string S_Position = "S_Position";
+        private const string S_DrawingPriority = "S_DrawingPriority";
+        private const string S_Scale = "S_Scale";
+        #endregion
+        private SerializationInfo seInfo;
         /// <summary>
         /// 表示モードを取得または設定する
         /// </summary>
@@ -82,6 +95,50 @@ namespace UIGenerator
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
+        }
+        /// <summary>
+        /// シリアライズされたデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private UITexture(SerializationInfo info, StreamingContext context)
+        {
+            seInfo = info;
+        }
+        /// <summary>
+        /// シリアライズするデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            info.AddValue(S_CenterPosition, (SerializableVector2DF)CenterPosition);
+            info.AddValue(S_Color, (ColorPlus)Color);
+            info.AddValue(S_DrawingPriority, DrawingPriority);
+            info.AddValue(S_IsClickable, IsClickable);
+            info.AddValue(S_Mode, Mode);
+            info.AddValue(S_Name, Name);
+            info.AddValue(S_Position, (SerializableVector2DF)Position);
+            info.AddValue(S_Scale, (SerializableVector2DF)Scale);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public void OnDeserialization(object sender)
+        {
+            if (seInfo == null) return;
+            CenterPosition = seInfo.GetValue<SerializableVector2DF>(S_CenterPosition);
+            Color = seInfo.GetValue<ColorPlus>(S_Color);
+            DrawingPriority = seInfo.GetInt32(S_DrawingPriority);
+            IsClickable = seInfo.GetBoolean(S_IsClickable);
+            Mode = seInfo.GetInt32(S_Mode);
+            Name = seInfo.GetString(S_Name);
+            Position = seInfo.GetValue<SerializableVector2DF>(S_Position);
+            Scale = seInfo.GetValue<SerializableVector2DF>(S_Scale);
+            seInfo = null;
         }
         Object2D IUIElements.AsObject2D() => this;
         protected override void OnCursorEnter() => MouseEnter?.Invoke(this, EventArgs.Empty);
