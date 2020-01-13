@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 namespace UIGenerator
 {
     /// <summary>
-    /// byte配列を用いて静的フォントデータをシリアライズするためのクラス
+    /// byte配列を用いてテクスチャをシリアライズするためのクラス
     /// </summary>
     [Serializable]
-    public sealed class PackageStaticFont : PackageFont, ISerializable, IDeserializationCallback
+    public sealed class PackagedTexture2D : PackagedFile, ISerializable, IDeserializationCallback
     {
         /// <summary>
         /// 指定したパスからデータを読み込んでインスタンスを初期化する
@@ -17,20 +17,20 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
         /// <exception cref="FileNotFoundException"><paramref name="path"/>で指定されたファイルが見つからない</exception>
         /// <exception cref="IOException">ファイルが読み込めなかった</exception>
-        public PackageStaticFont(string path) : base(path) { }
+        public PackagedTexture2D(string path) : base(path) { }
         /// <summary>
         /// byte配列とファイルパスからインスタンスを初期化する
         /// </summary>
         /// <param name="path">ファイルパス</param>
         /// <param name="buffer">ファイルのデータ</param>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>または<paramref name="buffer"/>がnull</exception>
-        public PackageStaticFont(string path, byte[] buffer) : base(path, buffer) { }
+        public PackagedTexture2D(string path, byte[] buffer) : base(path, buffer) { }
         /// <summary>
         /// シリアライズされたデータを用いてインスタンスを初期化する
         /// </summary>
         /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
         /// <param name="context">送信元の情報</param>
-        private PackageStaticFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        private PackagedTexture2D(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// このインスタンスの複製を作成する
         /// </summary>
@@ -39,16 +39,12 @@ namespace UIGenerator
         public override PackagedFile Clone()
         {
             ThrowIfDisposed();
-            return new PackageStaticFont(Path, Buffer);
+            return new PackagedTexture2D(Path, Buffer);
         }
         /// <summary>
-        /// <see cref="UIGeneratorFontBase"/>のインスタンスを生成する
+        /// テクスチャに変換する
         /// </summary>
-        /// <param name="path">フォントファイルのパス</param>
-        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
-        /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
-        /// <exception cref="IOException">フォントの読み込みに失敗した</exception>
-        /// <returns>フォント</returns>
-        protected override UIGeneratorFontBase CreateFont(string path) => new UIGeneratorStaticFont(path);
+        /// <returns>テクスチャ</returns>
+        public UIGeneratorTexture2D ToTexture() => new UIGeneratorTexture2D(Path);
     }
 }

@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
     <Compile Include="Serialization\PackagedFile.cs" />
+    <Compile Include="Serialization\PackagedTexture2D.cs" />
     <Compile Include="Serialization\PackageDynamicFont.cs" />
     <Compile Include="Serialization\PackageFont.cs" />
     <Compile Include="Serialization\PackageStaticFont.cs" />

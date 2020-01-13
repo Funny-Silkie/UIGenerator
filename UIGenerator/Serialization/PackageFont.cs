@@ -31,5 +31,19 @@ namespace UIGenerator
         /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
         /// <param name="context">送信元の情報</param>
         protected PackageFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// <see cref="UIGeneratorFontBase"/>のインスタンスを生成する
+        /// </summary>
+        /// <param name="path">フォントファイルのパス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
+        /// <exception cref="IOException">フォントの読み込みに失敗した</exception>
+        /// <returns>フォント</returns>
+        protected abstract UIGeneratorFontBase CreateFont(string path);
+        /// <summary>
+        /// フォントに変換する
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">このインスタンスが破棄されている</exception>
+        public UIGeneratorFontBase ToFont() => IsDisposed ? throw new ObjectDisposedException(GetType().ToString()) : CreateFont(Path);
     }
 }

@@ -65,6 +65,11 @@ namespace UIGenerator
             Texture = Engine.Graphics.CreateTexture2D(path) ?? throw new SerializationException();
             seInfo = null;
         }
+        /// <summary>
+        /// byte配列で保存するテクスチャに変換する
+        /// </summary>
+        /// <exception cref="IOException">ファイルの読み込みに失敗した</exception>
+        public PackagedTexture2D ToPackageTexture() => new PackagedTexture2D(path);
         public static implicit operator Texture2D(UIGeneratorTexture2D t) => t.Texture;
     }
 }

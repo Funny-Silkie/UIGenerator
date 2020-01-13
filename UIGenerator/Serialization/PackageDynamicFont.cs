@@ -75,13 +75,32 @@ namespace UIGenerator
         /// <param name="context">送信元の情報</param>
         private PackageDynamicFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
+        /// このインスタンスの複製を作成する
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">このインスタンスが破棄されている</exception>
+        /// <returns>このインスタンスの複製</returns>
+        public override PackagedFile Clone()
+        {
+            ThrowIfDisposed();
+            return new PackageDynamicFont(Path, Buffer, Color, Size, OutLineColor, OutLineSize);
+        }
+        /// <summary>
+        /// <see cref="UIGeneratorFontBase"/>のインスタンスを生成する
+        /// </summary>
+        /// <param name="path">フォントファイルのパス</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
+        /// <exception cref="IOException">フォントの読み込みに失敗した</exception>
+        /// <returns>フォント</returns>
+        protected override UIGeneratorFontBase CreateFont(string path) => new UIGeneratorDynamicFont(path, Color, Size, OutLineColor, OutLineSize);
+        /// <summary>
         /// もう1つの<see cref="PackagedFile"/>との同値性を判定する
         /// </summary>
         /// <param name="other">同値性を判定するもう一つの<see cref="PackagedFile"/>のインスタンス</param>
         /// <returns>このインスタンスと<paramref name="other"/>が同値だったらtrue，それ以外でfalse</returns>
         /// <remarks>このインスタンス又は<paramref name="other"/>が破棄されている場合無条件でfalseを返す</remarks>
         public override bool Equals(PackagedFile other) => other is PackageDynamicFont f ? Equals(f) : false;
-        private bool Equals(PackageDynamicFont other) => Color == other.Color && Size == other.Size && OutLineColor == other.OutLineColor && OutLineSize == other.OutLineSize && base.Equals(other);
+        private bool Equals(PackageDynamicFont other) => !IsDisposed && Color == other.Color && Size == other.Size && OutLineColor == other.OutLineColor && OutLineSize == other.OutLineSize && base.Equals(other);
         /// <summary>
         /// シリアル化するデータを設定する
         /// </summary>
