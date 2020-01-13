@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using asd;
 using fslib;
 using fslib.Serialization;
@@ -37,6 +36,7 @@ namespace UIGenerator
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
             DrawingPriority = -1;
+            GeneratingFlame = true;
             SetColor(ColorSet.WindowDefault);
         }
         /// <summary>

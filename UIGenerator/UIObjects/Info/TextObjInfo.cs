@@ -99,7 +99,7 @@ namespace UIGenerator
                 UIObject.Font = value.Font;
             }
         }
-        private FontInfoBase _fontInfo;
+        private FontInfoBase _fontInfo = DataBase.DefaultFont;
         /// <summary>
         /// コンストラクタ
         /// </summary>

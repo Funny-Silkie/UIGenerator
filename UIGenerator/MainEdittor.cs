@@ -225,7 +225,12 @@ namespace UIGenerator
         /// </summary>
         private void ファイルの有無をチェックToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!FileSearchForm.Instanced)
+            {
+                var form = new FileSearchForm();
+                DataBase.Forms.Add(form);
+                form.Show();
+            }
         }
         /// <summary>
         /// プロジェクトファイルを開く

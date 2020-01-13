@@ -139,6 +139,12 @@
       <DependentUpon>FontIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
+    <Compile Include="Tools\FileSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\FileSearchForm.Designer.cs">
+      <DependentUpon>FileSearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\OptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainEdittor.resx">
       <DependentUpon>MainEdittor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\FileSearchForm.resx">
+      <DependentUpon>FileSearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\OptionForm.resx">
       <DependentUpon>OptionForm.cs</DependentUpon>
