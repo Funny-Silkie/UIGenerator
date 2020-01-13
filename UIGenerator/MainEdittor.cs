@@ -124,7 +124,7 @@ namespace UIGenerator
             thread.Start();
             thread.Join();
             if (string.IsNullOrWhiteSpace(usePath)) return;
-            DataBase.Save(usePath);
+            DataBase.SaveProject(usePath);
         }
         /// <summary>
         /// <see cref="上書き保存ToolStripMenuItem"/>クリック時の挙動
@@ -132,7 +132,7 @@ namespace UIGenerator
         private void 上書き保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!System.IO.File.Exists(usePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
-            else DataBase.Save(usePath);
+            else DataBase.SaveProject(usePath);
         }
         /// <summary>
         /// <see cref="ファイルToolStripMenuItem"/>クリック時の挙動

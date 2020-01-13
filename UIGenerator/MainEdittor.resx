@@ -158,6 +158,24 @@
   <data name="エクスポートToolStripMenuItem.Text" xml:space="preserve">
     <value>エクスポート</value>
   </data>
+  <data name="リソース情報を保存するToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 26</value>
+  </data>
+  <data name="リソース情報を保存するToolStripMenuItem.Text" xml:space="preserve">
+    <value>リソース情報を保存する</value>
+  </data>
+  <data name="リソース情報を読み込むToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 26</value>
+  </data>
+  <data name="リソース情報を読み込むToolStripMenuItem.Text" xml:space="preserve">
+    <value>リソース情報を読み込む</value>
+  </data>
+  <data name="リソースの管理ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 26</value>
+  </data>
+  <data name="リソースの管理ToolStripMenuItem.Text" xml:space="preserve">
+    <value>リソースの管理</value>
+  </data>
   <data name="ファイルToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -562,6 +580,24 @@
     <value>プロジェクトを開く</value>
   </data>
   <data name="&gt;&gt;プロジェクトを開く.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソースの管理ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソース情報を保存するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソース情報を読み込むToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

@@ -139,6 +139,7 @@
       <DependentUpon>FontIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
+    <Compile Include="Serialization\ResourcePackage.cs" />
     <Compile Include="Tools\FileSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +226,8 @@
     <Content Include="Altseed_core.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="License\Altseed.txt" />
+    <Content Include="License\DefaultFont.txt" />
     <Content Include="Resource\DefaultPicture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

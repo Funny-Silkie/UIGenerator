@@ -138,19 +138,19 @@ namespace UIGenerator
             _projectName = title ?? throw new ArgumentNullException();
         }
         /// <summary>
-        /// データをバイナリ形式でセーブする
+        /// プロジェクトデータをバイナリ形式でセーブする
         /// </summary>
         /// <param name="path">セーブするファイルのパス</param>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
-        public static void Save(string path)
+        public static void SaveProject(string path)
         {
             IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier());
         }
         /// <summary>
-        /// バイナリ形式のデータをロードする
+        /// プロジェクトデータをバイナリ形式でロードする
         /// </summary>
         /// <param name="path">読み込むデータのパス</param>
-        public static void Load(string path)
+        public static void LoadProject(string path)
         {
             var c = IOHandler.ReadBinary<DataCarrier>(path);
             UIInfos = c.UIInfoCollection;
