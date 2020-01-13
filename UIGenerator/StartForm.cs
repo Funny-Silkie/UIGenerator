@@ -24,7 +24,7 @@ namespace UIGenerator
             if (int.TryParse(TextBox_length.Text, out var length) && int.TryParse(TextBox_wide.Text, out var wide) && length > 0 && wide > 0)
             {
                 Engine.Initialize(TextBox_Name.Text, wide, length, new EngineOption());
-                DataBase.Initialize(wide, length, TextBox_wide.Text);
+                DataBase.Initialize(wide, length, TextBox_Name.Text);
                 Close();
             }
             TextBox_length.Text = "";

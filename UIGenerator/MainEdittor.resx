@@ -140,6 +140,15 @@
   <data name="名前を付けて保存ToolStripMenuItem.Text" xml:space="preserve">
     <value>名前を付けて保存</value>
   </data>
+  <data name="エクスポートToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+B</value>
+  </data>
+  <data name="エクスポートToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 26</value>
+  </data>
+  <data name="エクスポートToolStripMenuItem.Text" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
   <data name="ファイルToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -184,6 +193,18 @@
   </data>
   <data name="編集ToolStripMenuItem.Text" xml:space="preserve">
     <value>編集</value>
+  </data>
+  <data name="ファイルの有無をチェックToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 26</value>
+  </data>
+  <data name="ファイルの有無をチェックToolStripMenuItem.Text" xml:space="preserve">
+    <value>ファイルの有無をチェック</value>
+  </data>
+  <data name="オプションToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 26</value>
+  </data>
+  <data name="オプションToolStripMenuItem.Text" xml:space="preserve">
+    <value>オプション</value>
   </data>
   <data name="ツールToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 24</value>
@@ -508,6 +529,24 @@
     <value>ツールToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ツールToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Name" xml:space="preserve">
+    <value>ファイルの有無をチェックToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;オプションToolStripMenuItem.Name" xml:space="preserve">
+    <value>オプションToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;オプションToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;エクスポートToolStripMenuItem.Name" xml:space="preserve">
+    <value>エクスポートToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;エクスポートToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

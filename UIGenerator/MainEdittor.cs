@@ -213,5 +213,12 @@ namespace UIGenerator
                     }
             }
         }
+        /// <summary>
+        /// オプションメニューを開始
+        /// </summary>
+        private void オプションToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new OptionForm()) form.ShowDialog();
+        }
     }
 }

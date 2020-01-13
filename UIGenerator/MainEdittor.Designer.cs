@@ -50,6 +50,10 @@
             this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_Additional = new System.Windows.Forms.Label();
+            this.ツールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ファイルの有無をチェックToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +63,8 @@
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ファイルToolStripMenuItem,
-            this.編集ToolStripMenuItem});
+            this.編集ToolStripMenuItem,
+            this.ツールToolStripMenuItem});
             resources.ApplyResources(this.MainMenu, "MainMenu");
             this.MainMenu.Name = "MainMenu";
             // 
@@ -67,7 +72,8 @@
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.上書き保存ToolStripMenuItem,
-            this.名前を付けて保存ToolStripMenuItem});
+            this.名前を付けて保存ToolStripMenuItem,
+            this.エクスポートToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(this.ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
@@ -199,6 +205,30 @@
             resources.ApplyResources(this.Label_Additional, "Label_Additional");
             this.Label_Additional.Name = "Label_Additional";
             // 
+            // ツールToolStripMenuItem
+            // 
+            this.ツールToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルの有無をチェックToolStripMenuItem,
+            this.オプションToolStripMenuItem});
+            this.ツールToolStripMenuItem.Name = "ツールToolStripMenuItem";
+            resources.ApplyResources(this.ツールToolStripMenuItem, "ツールToolStripMenuItem");
+            // 
+            // ファイルの有無をチェックToolStripMenuItem
+            // 
+            this.ファイルの有無をチェックToolStripMenuItem.Name = "ファイルの有無をチェックToolStripMenuItem";
+            resources.ApplyResources(this.ファイルの有無をチェックToolStripMenuItem, "ファイルの有無をチェックToolStripMenuItem");
+            // 
+            // オプションToolStripMenuItem
+            // 
+            this.オプションToolStripMenuItem.Name = "オプションToolStripMenuItem";
+            resources.ApplyResources(this.オプションToolStripMenuItem, "オプションToolStripMenuItem");
+            this.オプションToolStripMenuItem.Click += new System.EventHandler(this.オプションToolStripMenuItem_Click);
+            // 
+            // エクスポートToolStripMenuItem
+            // 
+            this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
+            resources.ApplyResources(this.エクスポートToolStripMenuItem, "エクスポートToolStripMenuItem");
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
@@ -244,5 +274,9 @@
         private System.Windows.Forms.ColumnHeader ColumnHeader_Mode;
         private System.Windows.Forms.ListView ListView_objects;
         private System.Windows.Forms.Label Label_Additional;
+        private System.Windows.Forms.ToolStripMenuItem ツールToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ファイルの有無をチェックToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem オプションToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
     }
 }
