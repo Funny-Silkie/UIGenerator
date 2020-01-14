@@ -9,7 +9,7 @@ namespace UIGenerator
     /// byte配列を用いて動的フォントデータをシリアライズするためのクラス
     /// </summary>
     [Serializable]
-    public sealed class PackageDynamicFont : PackageFont, ISerializable, IDeserializationCallback
+    public sealed class PackagedDynamicFont : PackagedFont, ISerializable, IDeserializationCallback
     {
         #region SerializeName
         private const string S_Color = "S_Color";
@@ -45,7 +45,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>または<paramref name="outLineSize"/>が0以下</exception>
         /// <exception cref="FileNotFoundException"><paramref name="path"/>で指定されたファイルが見つからない</exception>
         /// <exception cref="IOException">ファイルが読み込めなかった</exception>
-        public PackageDynamicFont(string path, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path)
+        public PackagedDynamicFont(string path, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path)
         {
             if (size <= 0 || outLineSize <= 0) throw new ArgumentOutOfRangeException();
             Color = color;
@@ -60,7 +60,7 @@ namespace UIGenerator
         /// <param name="buffer">ファイルのデータ</param>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>または<paramref name="buffer"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="size"/>または<paramref name="outLineSize"/>が0以下</exception>
-        public PackageDynamicFont(string path, byte[] buffer, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path, buffer)
+        public PackagedDynamicFont(string path, byte[] buffer, ColorPlus color, int size, ColorPlus outLineColor, int outLineSize) : base(path, buffer)
         {
             if (size <= 0 || outLineSize <= 0) throw new ArgumentOutOfRangeException();
             Color = color;
@@ -73,7 +73,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
         /// <param name="context">送信元の情報</param>
-        private PackageDynamicFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        private PackagedDynamicFont(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// このインスタンスの複製を作成する
         /// </summary>
@@ -82,7 +82,7 @@ namespace UIGenerator
         public override PackagedFile Clone()
         {
             ThrowIfDisposed();
-            return new PackageDynamicFont(Path, Buffer, Color, Size, OutLineColor, OutLineSize);
+            return new PackagedDynamicFont(Path, Buffer, Color, Size, OutLineColor, OutLineSize);
         }
         /// <summary>
         /// <see cref="UIGeneratorFontBase"/>のインスタンスを生成する
@@ -99,8 +99,8 @@ namespace UIGenerator
         /// <param name="other">同値性を判定するもう一つの<see cref="PackagedFile"/>のインスタンス</param>
         /// <returns>このインスタンスと<paramref name="other"/>が同値だったらtrue，それ以外でfalse</returns>
         /// <remarks>このインスタンス又は<paramref name="other"/>が破棄されている場合無条件でfalseを返す</remarks>
-        public override bool Equals(PackagedFile other) => other is PackageDynamicFont f ? Equals(f) : false;
-        private bool Equals(PackageDynamicFont other) => !IsDisposed && Color == other.Color && Size == other.Size && OutLineColor == other.OutLineColor && OutLineSize == other.OutLineSize && base.Equals(other);
+        public override bool Equals(PackagedFile other) => other is PackagedDynamicFont f ? Equals(f) : false;
+        private bool Equals(PackagedDynamicFont other) => !IsDisposed && Color == other.Color && Size == other.Size && OutLineColor == other.OutLineColor && OutLineSize == other.OutLineSize && base.Equals(other);
         /// <summary>
         /// シリアル化するデータを設定する
         /// </summary>

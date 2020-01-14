@@ -103,6 +103,6 @@ namespace UIGenerator
         /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
         /// <exception cref="IOException">読み込みに失敗した</exception>
         /// <returns>パッケージ化されたフォント</returns>
-        protected override PackageFont CreatePackageFont(string path) => new PackageDynamicFont(path, Color, Size, OutLineColor, OutLineSize);
+        protected override PackagedFont CreatePackageFont(string path) => new PackagedDynamicFont(path, Color, Size, OutLineColor, OutLineSize);
     }
 }

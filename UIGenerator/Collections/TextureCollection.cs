@@ -233,6 +233,16 @@ namespace UIGenerator
         IEnumerator<TextureInfo> IEnumerable<TextureInfo>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         /// <summary>
+        /// テクスチャの配列を返す
+        /// </summary>
+        /// <returns>登録されているテクスチャの配列</returns>
+        public UIGeneratorTexture2D[] ToTextureArray()
+        {
+            var array = new UIGeneratorTexture2D[Count];
+            for (int i = 0; i < Count; i++) array[i] = _array[i].Texture;
+            return array;
+        }
+        /// <summary>
         /// 列挙をサポートする構造体
         /// </summary>
         [Serializable]

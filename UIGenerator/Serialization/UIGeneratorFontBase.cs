@@ -73,7 +73,7 @@ namespace UIGenerator
         /// byte配列で保存するフォントに変換する
         /// </summary>
         /// <exception cref="IOException">ファイルの読み込みに失敗した</exception>
-        public PackageFont ToPackageFont() => CreatePackageFont(path);
+        public PackagedFont ToPackageFont() => CreatePackageFont(path);
         /// <summary>
         /// パッケージ化する
         /// </summary>
@@ -82,7 +82,7 @@ namespace UIGenerator
         /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
         /// <exception cref="IOException">読み込みに失敗した</exception>
         /// <returns>パッケージ化されたフォント</returns>
-        protected abstract PackageFont CreatePackageFont(string path);
+        protected abstract PackagedFont CreatePackageFont(string path);
         public static implicit operator Font(UIGeneratorFontBase f) => f.Font;
     }
 }

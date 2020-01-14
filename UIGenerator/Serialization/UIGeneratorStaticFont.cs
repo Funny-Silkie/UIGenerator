@@ -37,7 +37,7 @@ namespace UIGenerator
         /// <exception cref="FileNotFoundException"><paramref name="path"/>が存在しない</exception>
         /// <exception cref="IOException">読み込みに失敗した</exception>
         /// <returns>パッケージ化されたフォント</returns>
-        protected override PackageFont CreatePackageFont(string path) => new PackageStaticFont(path);
+        protected override PackagedFont CreatePackageFont(string path) => new PackagedStaticFont(path);
         /// <summary>
         /// 指定したパスからフォントを読み込む
         /// </summary>

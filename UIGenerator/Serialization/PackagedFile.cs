@@ -146,7 +146,7 @@ namespace UIGenerator
         /// ハッシュコードを取得する
         /// </summary>
         /// <returns>このオブジェクトのハッシュコード</returns>
-        public override int GetHashCode() => base.GetHashCode();
+        public override int GetHashCode() => path.GetHashCode() ^ Buffer.Length;
         /// <summary>
         /// シリアライズするデータを設定する
         /// </summary>

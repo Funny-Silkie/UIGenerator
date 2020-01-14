@@ -141,9 +141,9 @@
     <Compile Include="Collections\FontCollection.cs" />
     <Compile Include="Serialization\PackagedFile.cs" />
     <Compile Include="Serialization\PackagedTexture2D.cs" />
-    <Compile Include="Serialization\PackageDynamicFont.cs" />
-    <Compile Include="Serialization\PackageFont.cs" />
-    <Compile Include="Serialization\PackageStaticFont.cs" />
+    <Compile Include="Serialization\PackagedDynamicFont.cs" />
+    <Compile Include="Serialization\PackagedFont.cs" />
+    <Compile Include="Serialization\PackagedStaticFont.cs" />
     <Compile Include="Serialization\ResourcePackage.cs" />
     <Compile Include="Tools\FileSearchForm.cs">
       <SubType>Form</SubType>

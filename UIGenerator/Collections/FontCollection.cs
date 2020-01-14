@@ -238,6 +238,16 @@ namespace UIGenerator
                 array[i] = _array[i];
             _array = array;
         }
+        /// <summary>
+        /// 格納されているフォントからなる配列を返す
+        /// </summary>
+        /// <returns>格納されているフォントからなる配列</returns>
+        public UIGeneratorFontBase[] ToFontArray()
+        {
+            var array = new UIGeneratorFontBase[Count];
+            for (int i = 0; i < Count; i++) array[i] = _array[i].Font;
+            return array;
+        }
         void ICollection.CopyTo(Array array, int index)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, array);
