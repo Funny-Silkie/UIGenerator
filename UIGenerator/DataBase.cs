@@ -143,10 +143,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="path">セーブするファイルのパス</param>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
-        public static void SaveProject(string path)
-        {
-            IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier());
-        }
+        public static void SaveProject(string path) => IOHandler.WriteBinary(path ?? throw new ArgumentNullException(), new DataCarrier());
         /// <summary>
         /// プロジェクトデータをバイナリ形式でロードする
         /// </summary>
@@ -154,11 +151,17 @@ namespace UIGenerator
         public static void LoadProject(string path)
         {
             var c = IOHandler.ReadBinary<DataCarrier>(path);
-            UIInfos = c.UIInfoCollection;
-            _fonts = c.FontCollection;
-            _textures = c.TextureCollection;
-            ProjectName = c.ProjectName;
-            _windowSize = c.WindowSize;
+            _fonts = c.FontCollection ?? _fonts;
+            _textures = c.TextureCollection ?? _textures;
+            DrawingCollection = c.DrawingAdditionaryInfoCollection ?? DrawingCollection;
+            UIInfos = c.UIInfoCollection ?? UIInfos;
+            ProjectName = c.ProjectName ?? ProjectName;
+            WindowSize = c.WindowSize;
+            MainEdittor.SingleInstance?.ResetListView();
+            ShowMode = 0;
+            foreach (var obj in UIInfos)
+                if (obj.Key1 == ShowMode)
+                    MainScene.AddObject(obj.Value);
         }
         /// <summary>
         /// 指定したパスにリソース情報を保存する
@@ -181,12 +184,12 @@ namespace UIGenerator
             var resources = IOHandler.ReadBinary<ResourcePackage>(path);
             _fonts = resources.OpenPackageFonts();
             _textures = resources.OpenPackageTextures();
-            UpdateControls();
+            UpdateResourceControls();
         }
         /// <summary>
         /// 開かれているフォームのリソース関係のコントロールを更新する
         /// </summary>
-        private static void UpdateControls()
+        private static void UpdateResourceControls()
         {
             Fonts.ChangeFontComboBox();
             Textures.ChangeComboBox();
@@ -227,6 +230,10 @@ namespace UIGenerator
         /// </summary>
         public TextureCollection TextureCollection { get; }
         /// <summary>
+        /// <see cref="DataBase.DrawingCollection"/>のインスタンス
+        /// </summary>
+        public DrawingAdditionaryInfoCollection DrawingAdditionaryInfoCollection { get; }
+        /// <summary>
         /// プロジェクト名を取得または設定する
         /// </summary>
         public string ProjectName { get; set; }
@@ -242,6 +249,7 @@ namespace UIGenerator
             UIInfoCollection = DataBase.UIInfos;
             FontCollection = DataBase.Fonts;
             TextureCollection = DataBase.Textures;
+            DrawingAdditionaryInfoCollection = DataBase.DrawingCollection;
             ProjectName = DataBase.ProjectName;
             WindowSize = DataBase.WindowSize;
         }

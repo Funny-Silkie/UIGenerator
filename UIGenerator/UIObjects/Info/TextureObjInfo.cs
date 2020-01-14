@@ -117,8 +117,9 @@ namespace UIGenerator
         public override void OnDeserialization(object sender)
         {
             if (SeInfo == null) return;
-            TextureInfo = DataBase.Textures[SeInfo.GetInt32(S_TextureIndex)];
+            var index = SeInfo.GetInt32(S_TextureIndex);
             base.OnDeserialization(sender);
+            TextureInfo = DataBase.Textures[index];
         }
     }
 }

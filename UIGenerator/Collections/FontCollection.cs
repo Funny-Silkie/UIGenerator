@@ -42,7 +42,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
         public FontCollection(int capacity)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(0, capacity, int.MaxValue, null);
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
             _array = capacity == 0 ? emptyArray : new FontInfoBase[capacity];
             Add(DataBase.DefaultFont);
         }

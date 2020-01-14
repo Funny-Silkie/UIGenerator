@@ -124,6 +124,7 @@
             // 
             this.リソース情報を読み込むToolStripMenuItem.Name = "リソース情報を読み込むToolStripMenuItem";
             resources.ApplyResources(this.リソース情報を読み込むToolStripMenuItem, "リソース情報を読み込むToolStripMenuItem");
+            this.リソース情報を読み込むToolStripMenuItem.Click += new System.EventHandler(this.リソース情報を読み込むToolStripMenuItem_Click);
             // 
             // 編集ToolStripMenuItem
             // 

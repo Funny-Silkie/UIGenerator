@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using asd;
 using fslib;
 
@@ -9,12 +10,18 @@ namespace UIGenerator
     /// 追加描画を扱うクラスの基底クラス
     /// </summary>
     [Serializable]
-    public abstract class DrawingAdditionaryInfoBase : IUIGeneratorInfo
+    public abstract class DrawingAdditionaryInfoBase : IUIGeneratorInfo, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_Mode = "S_Mode";
+        private const string S_Name = "S_Name";
+        private const string S_Priority = "S_Priority";
+        private const string S_AlphaBlend = "S_AlphaBlend";
+        #endregion
         /// <summary>
         /// 追加描画のタイプを取得する
         /// </summary>
-        public DrawingAdditionalMode DrawingAdditionalMode { get; }
+        public abstract DrawingAdditionalMode DrawingAdditionalMode { get; }
         [NonSerialized]
         private System.Windows.Forms.Form _handleForm = null;
         /// <summary>
@@ -50,18 +57,20 @@ namespace UIGenerator
         /// </summary>
         public int DrawingPriority { get; set; }
         /// <summary>
+        /// デシリアライズ時の情報を格納するオブジェクトを取得する
+        /// </summary>
+        protected SerializationInfo SeInfo { get; private set; }
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="mode">表示モード</param>
         /// <param name="name">設定する名前</param>
-        /// <param name="drawingAdditionalMode">追加描画のモード</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        protected DrawingAdditionaryInfoBase(int mode, string name, DrawingAdditionalMode drawingAdditionalMode)
+        protected DrawingAdditionaryInfoBase(int mode, string name)
         {
             Mode = mode >= 0 ? mode : throw new ArgumentOutOfRangeException();
             Name = name ?? throw new ArgumentNullException();
-            DrawingAdditionalMode = drawingAdditionalMode;
         }
         /// <summary>
         /// <see cref="DrawingAdditionaryInfoBase"/>のインスタンスを取得する
@@ -87,6 +96,42 @@ namespace UIGenerator
                 case DrawingAdditionalMode.Triangle: return new DrawingTriangleInfo(mode, name);
                 default: throw new InvalidEnumArgumentException();
             }
+        }
+        /// <summary>
+        /// シリアライズするデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアル化するデータを持つオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        protected DrawingAdditionaryInfoBase(SerializationInfo info, StreamingContext context)
+        {
+            SeInfo = info;
+        }
+        /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            if (info == null) throw new ArgumentNullException();
+            info.AddValue(S_Mode, Mode);
+            info.AddValue(S_Name, Name);
+            info.AddValue(S_Priority, DrawingPriority);
+            info.AddValue(S_AlphaBlend, (int)AlphaBlend);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public virtual void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            Mode = SeInfo.GetInt32(S_Mode);
+            Name = SeInfo.GetString(S_Name);
+            DrawingPriority = SeInfo.GetInt32(S_Priority);
+            AlphaBlend = EnumHelper.FromNumber<AlphaBlendMode>(SeInfo.GetInt32(S_AlphaBlend));
+            SeInfo = null;
         }
         /// <summary>
         /// 描画処理を実行する

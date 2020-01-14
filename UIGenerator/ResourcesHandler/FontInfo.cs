@@ -49,9 +49,10 @@ namespace UIGenerator
         public static FontInfoBase FromPackage(PackagedFont package)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, package);
-            package.Save();
+            var e = File.Exists(package.Path);
+            if(!e) package.Save();
             var result = FromPackagePrivate(package);
-            File.Delete(package.Path);
+            if(!e) File.Delete(package.Path);
             return result;
         }
         private static FontInfoBase FromPackagePrivate(PackagedFont package)

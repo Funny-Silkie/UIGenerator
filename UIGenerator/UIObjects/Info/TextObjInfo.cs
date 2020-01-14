@@ -137,8 +137,9 @@ namespace UIGenerator
         public override void OnDeserialization(object sender)
         {
             if (SeInfo == null) return;
-            FontInfo = DataBase.Fonts[SeInfo.GetInt32(S_FontIndex)];
+            var index = SeInfo.GetInt32(S_FontIndex);
             base.OnDeserialization(sender);
+            FontInfo = DataBase.Fonts[index];
         }
     }
 }

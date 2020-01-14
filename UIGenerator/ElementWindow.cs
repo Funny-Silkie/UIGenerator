@@ -13,16 +13,20 @@ namespace UIGenerator
         /// <summary>
         /// インスタンスが存在しているかどうかを取得する
         /// </summary>
-        public static bool IsShown { get; private set; } = false;
+        public static bool Instanced => SingleInstance != null;
+        /// <summary>
+        /// 唯一のインスタンスを取得する
+        /// </summary>
+        public static ElementWindow SingleInstance { get; private set; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="main"><see cref="MainEdittor"/></param>への参照
         /// <exception cref="ArgumentNullException"><paramref name="main"/>がnull</exception>
-        public ElementWindow(MainEdittor main)
+        private ElementWindow(MainEdittor main)
         {
             mainEdittor = main ?? throw new ArgumentNullException();
-            IsShown = true;
+            SingleInstance = this;
             InitializeComponent();
             ComboBox_Obj_Type.DataSource = Enum.GetNames(typeof(UITypes));
             ComboBox_Add_Type.DataSource = Enum.GetNames(typeof(DrawingAdditionalMode));
@@ -32,7 +36,7 @@ namespace UIGenerator
         /// </summary>
         private void AddWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            IsShown = false;
+            SingleInstance = null;
             DataBase.Forms.Remove(this);
         }
         /// <summary>
@@ -84,6 +88,22 @@ namespace UIGenerator
         {
             TextBox_Add_Name.Text = "";
             NumericUpDown_Add_Mode.Value = 0;
+        }
+        /// <summary>
+        /// インスタンスを生成して表示する
+        /// </summary>
+        /// <param name="main">メインのエディターへの参照</param>
+        /// <exception cref="ArgumentNullException"><paramref name="main"/>がnull</exception>
+        public static bool CreateAndShow(MainEdittor main)
+        {
+            if (!Instanced)
+            {
+                var a = new ElementWindow(main);
+                DataBase.Forms.Add(a);
+                a.Show();
+                return true;
+            }
+            return false;
         }
     }
 }

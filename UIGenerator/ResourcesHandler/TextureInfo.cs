@@ -57,9 +57,10 @@ namespace UIGenerator
         public static TextureInfo FromPackage(PackagedTexture2D package)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, package);
-            package.Save();
+            var e = System.IO.File.Exists(package.Path);
+            if(!e) package.Save();
             var result = GetInstance(package.Path);
-            System.IO.File.Delete(package.Path);
+            if(!e) System.IO.File.Delete(package.Path);
             return result;
         }
         /// <summary>

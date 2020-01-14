@@ -61,7 +61,7 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, fonts);
             var array = fonts.ToFontArray();
             var collection = new BasicCollection<PackagedFont>(array.Length);
-            for (int i = 0; i < array.Length; i++) collection.Add(array[i].ToPackageFont());
+            for (int i = 1; i < array.Length; i++) collection.Add(array[i].ToPackageFont());
             return collection;
         }
         /// <summary>
@@ -76,7 +76,7 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, textures);
             var array = textures.ToTextureArray();
             var collection = new BasicCollection<PackagedTexture2D>(array.Length);
-            for (int i = 0; i < array.Length; i++) collection.Add(array[i].ToPackageTexture());
+            for (int i = 1; i < array.Length; i++) collection.Add(array[i].ToPackageTexture());
             return collection;
         }
     }

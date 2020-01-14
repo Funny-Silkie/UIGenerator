@@ -10,15 +10,19 @@ namespace UIGenerator
     public partial class FileSearchForm : Form
     {
         /// <summary>
-        /// インスタンスとして存在するか廊下を取得する
+        /// インスタンスとして存在するかどうかを取得する
         /// </summary>
-        public static bool Instanced { get; private set; }
+        public static bool Instanced => SingleInstance != null;
+        /// <summary>
+        /// 唯一のインスタンスを取得する
+        /// </summary>
+        public static FileSearchForm SingleInstance { get; private set; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public FileSearchForm()
+        private FileSearchForm()
         {
-            Instanced = true;
+            SingleInstance = this;
             InitializeComponent();
         }
         /// <summary>
@@ -37,7 +41,21 @@ namespace UIGenerator
         private void FileSearchForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DataBase.Forms.Remove(this);
-            Instanced = false;
+            SingleInstance = null;
+        }
+        /// <summary>
+        /// インスタンスを生成して表示する
+        /// </summary>
+        public static bool CreateAndShow()
+        {
+            if (!Instanced)
+            {
+                var form = new FileSearchForm();
+                DataBase.Forms.Add(form);
+                form.Show();
+                return true;
+            }
+            return false;
         }
     }
 }

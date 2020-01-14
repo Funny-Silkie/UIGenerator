@@ -186,9 +186,9 @@ namespace UIGenerator
         public override void OnDeserialization(object sender)
         {
             if (SeInfo == null) return;
+            UIObject = SeInfo.GetValue<T>(S_Object);
             Mode = SeInfo.GetInt32(S_Mode);
             Name = SeInfo.GetString(S_Name);
-            UIObject = SeInfo.GetValue<T>(S_Object);
             base.OnDeserialization(sender);
         }
         /// <summary>
