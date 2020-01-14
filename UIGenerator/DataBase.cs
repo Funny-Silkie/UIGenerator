@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using asd;
 using fslib;
 using fslib.Collections.BasicModel;
@@ -158,6 +159,41 @@ namespace UIGenerator
             _textures = c.TextureCollection;
             ProjectName = c.ProjectName;
             _windowSize = c.WindowSize;
+        }
+        /// <summary>
+        /// 指定したパスにリソース情報を保存する
+        /// </summary>
+        /// <param name="path">保存先のパス</param>
+        /// <exception cref="ArgumentException"><paramref name="path"/>が空文字のみでできている又は特定の拡張子を持つ</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="path"/>の指定するディレクトリが存在しない</exception>
+        /// <exception cref="NotSupportedException"><paramref name="path"/>が特定の拡張子を持つ</exception>
+        /// <exception cref="IOException">IO上のエラー</exception>
+        /// <exception cref="PathTooLongException"><paramref name="path"/>が長すぎる</exception>
+        /// <exception cref="System.Security.SecurityException">アクセスが拒否された</exception>
+        public static void SaveResourcePackage(string path) => IOHandler.WriteBinary(path, new ResourcePackage());
+        /// <summary>
+        /// 指定したパスのリソース情報を読み込み現在の情報に上書きする
+        /// </summary>
+        /// <param name="path">読み込むファイルのパス</param>
+        public static void LoadResourcePackage(string path)
+        {
+            var resources = IOHandler.ReadBinary<ResourcePackage>(path);
+            _fonts = resources.OpenPackageFonts();
+            _textures = resources.OpenPackageTextures();
+            UpdateControls();
+        }
+        /// <summary>
+        /// 開かれているフォームのリソース関係のコントロールを更新する
+        /// </summary>
+        private static void UpdateControls()
+        {
+            Fonts.ChangeFontComboBox();
+            Textures.ChangeComboBox();
+            FontIOForm.SigleInstance?.ResetComboBox();
+            FontIOForm.SigleInstance?.ResetListView(true);
+            TextureIOForm.SingleInstance?.ResetCombobox();
+            TextureIOForm.SingleInstance?.ResetListView(true);
         }
         /// <summary>
         /// ウィンドウのサイズを変更する

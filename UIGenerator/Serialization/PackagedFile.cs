@@ -196,6 +196,13 @@ namespace UIGenerator
         /// 指定したパスにデータを保存する
         /// </summary>
         /// <param name="path">保存するファイルパス</param>
+        /// <exception cref="ObjectDisposedException">このインスタンスが破棄されている</exception>
+        /// <exception cref="System.Security.SecurityException">アクセスが拒否された</exception>
+        public void Save() => Save(Path);
+        /// <summary>
+        /// 指定したパスにデータを保存する
+        /// </summary>
+        /// <param name="path">保存するファイルパス</param>
         /// <exception cref="ArgumentException"><paramref name="path"/>が空文字や特定の拡張子を持つ</exception>
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
         /// <exception cref="DirectoryNotFoundException"><paramref name="path"/>のディレクトリが存在しない</exception>

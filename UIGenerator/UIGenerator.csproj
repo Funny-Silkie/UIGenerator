@@ -132,6 +132,7 @@
     <Compile Include="FilePackageLoader.Designer.cs">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResourcesHandler\DynamicFontInfo.cs" />
     <Compile Include="ResourcesHandler\FontIOForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +140,7 @@
       <DependentUpon>FontIOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Collections\FontCollection.cs" />
+    <Compile Include="ResourcesHandler\StaticFontInfo.cs" />
     <Compile Include="Serialization\PackagedFile.cs" />
     <Compile Include="Serialization\PackagedTexture2D.cs" />
     <Compile Include="Serialization\PackagedDynamicFont.cs" />

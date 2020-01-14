@@ -12,13 +12,17 @@ namespace UIGenerator
         /// <summary>
         /// インスタンスが生成されているかどうかを取得する
         /// </summary>
-        public static bool Instanced { get; private set; } = false;
+        public static bool Instanced => SigleInstance != null;
+        /// <summary>
+        /// 唯一のインスタンスを取得する
+        /// </summary>
+        public static FontIOForm SigleInstance { get; private set; } = null;
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public FontIOForm()
+        private FontIOForm()
         {
-            Instanced = true;
+            SigleInstance = this;
             InitializeComponent();
             ResetListView(false);
             ResetComboBox();
@@ -29,7 +33,7 @@ namespace UIGenerator
         private void FontAddForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DataBase.Forms.Remove(this);
-            Instanced = false;
+            SigleInstance = null;
         }
         /// <summary>
         /// <see cref="Button_D_FileSearch"/>クリック時の挙動
@@ -127,7 +131,7 @@ namespace UIGenerator
         /// <see cref="ListView_AllFonts"/>を更新する
         /// </summary>
         /// <param name="clear">今までの要素を削除するかどうか</param>
-        private void ResetListView(bool clear)
+        public void ResetListView(bool clear)
         {
             if (clear) ListView_AllFonts.Items.Clear();
             foreach (var f in DataBase.Fonts) ListView_AllFonts.Items.Add(f.ToString());
@@ -135,7 +139,7 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="ComboBox_RemoveRange"/>の要素を更新する
         /// </summary>
-        private void ResetComboBox()
+        public void ResetComboBox()
         {
             ComboBox_RemoveRange.DataSource = DataBase.Fonts.GetNames();
             ComboBox_RemoveRange.SelectedIndex = 0;
@@ -192,6 +196,20 @@ namespace UIGenerator
             Console.WriteLine("フォントの削除に成功しました");
             ResetListView(true);
             ResetComboBox();
+        }
+        /// <summary>
+        /// インスタンスを生成して開く
+        /// </summary>
+        public static bool CreateAndShow()
+        {
+            if (!Instanced)
+            {
+                var fontform = new FontIOForm();
+                DataBase.Forms.Add(fontform);
+                fontform.Show();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -12,13 +12,17 @@ namespace UIGenerator
         /// <summary>
         /// インスタンス化されているかどうかを取得する
         /// </summary>
-        public static bool Instanced { get; private set; }
+        public static bool Instanced => SingleInstance != null;
+        /// <summary>
+        /// 唯一のインスタンスを取得する
+        /// </summary>
+        public static TextureIOForm SingleInstance { get; private set; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public TextureIOForm()
+        private TextureIOForm()
         {
-            Instanced = true;
+            SingleInstance = this;
             InitializeComponent();
             ResetListView(false);
             ResetCombobox();
@@ -29,13 +33,13 @@ namespace UIGenerator
         private void TextureAddForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DataBase.Forms.Remove(this);
-            Instanced = false;
+            SingleInstance = null;
         }
         /// <summary>
         /// <see cref="ListView_AllTextures"/>を更新する
         /// </summary>
         /// <param name="clear">要素をクリアするかどうか</param>
-        private void ResetListView(bool clear)
+        public void ResetListView(bool clear)
         {
             if (clear) ListView_AllTextures.Items.Clear();
             foreach (var f in DataBase.Textures) ListView_AllTextures.Items.Add(f.ToString());
@@ -111,11 +115,25 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="ComboBox_RemoveRange"/>を更新する
         /// </summary>
-        private void ResetCombobox()
+        public void ResetCombobox()
         {
             var array = DataBase.Textures.GetNames();
             ComboBox_RemoveRange.DataSource = array;
             ComboBox_RemoveRange.SelectedIndex = 0;
+        }
+        /// <summary>
+        /// インスタンスを生成し表示する
+        /// </summary>
+        public static bool CreateAndShow()
+        {
+            if (!Instanced)
+            {
+                var textureform = new TextureIOForm();
+                DataBase.Forms.Add(textureform);
+                textureform.Show();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -31,13 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainEdittor));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プロジェクトを開く = new System.Windows.Forms.ToolStripMenuItem();
             this.上書き保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.名前を付けて保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.リソースの管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.リソース情報を保存するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.リソース情報を読み込むToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.要素を追加削除するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.フォントを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.テクスチャを編集するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ファイルパッケージを管理するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ツールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ファイルの有無をチェックToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListView_objects = new System.Windows.Forms.ListView();
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ObjectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,14 +58,6 @@
             this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_Additional = new System.Windows.Forms.Label();
-            this.ツールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ファイルの有無をチェックToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.プロジェクトを開く = new System.Windows.Forms.ToolStripMenuItem();
-            this.リソースの管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.リソース情報を保存するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.リソース情報を読み込むToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +83,12 @@
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(this.ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
             // 
+            // プロジェクトを開く
+            // 
+            this.プロジェクトを開く.Name = "プロジェクトを開く";
+            resources.ApplyResources(this.プロジェクトを開く, "プロジェクトを開く");
+            this.プロジェクトを開く.Click += new System.EventHandler(this.プロジェクトを開く_Click);
+            // 
             // 上書き保存ToolStripMenuItem
             // 
             this.上書き保存ToolStripMenuItem.Name = "上書き保存ToolStripMenuItem";
@@ -94,6 +100,30 @@
             this.名前を付けて保存ToolStripMenuItem.Name = "名前を付けて保存ToolStripMenuItem";
             resources.ApplyResources(this.名前を付けて保存ToolStripMenuItem, "名前を付けて保存ToolStripMenuItem");
             this.名前を付けて保存ToolStripMenuItem.Click += new System.EventHandler(this.名前を付けて保存ToolStripMenuItem_Click);
+            // 
+            // エクスポートToolStripMenuItem
+            // 
+            this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
+            resources.ApplyResources(this.エクスポートToolStripMenuItem, "エクスポートToolStripMenuItem");
+            // 
+            // リソースの管理ToolStripMenuItem
+            // 
+            this.リソースの管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.リソース情報を保存するToolStripMenuItem,
+            this.リソース情報を読み込むToolStripMenuItem});
+            this.リソースの管理ToolStripMenuItem.Name = "リソースの管理ToolStripMenuItem";
+            resources.ApplyResources(this.リソースの管理ToolStripMenuItem, "リソースの管理ToolStripMenuItem");
+            // 
+            // リソース情報を保存するToolStripMenuItem
+            // 
+            this.リソース情報を保存するToolStripMenuItem.Name = "リソース情報を保存するToolStripMenuItem";
+            resources.ApplyResources(this.リソース情報を保存するToolStripMenuItem, "リソース情報を保存するToolStripMenuItem");
+            this.リソース情報を保存するToolStripMenuItem.Click += new System.EventHandler(this.リソース情報を保存するToolStripMenuItem_Click);
+            // 
+            // リソース情報を読み込むToolStripMenuItem
+            // 
+            this.リソース情報を読み込むToolStripMenuItem.Name = "リソース情報を読み込むToolStripMenuItem";
+            resources.ApplyResources(this.リソース情報を読み込むToolStripMenuItem, "リソース情報を読み込むToolStripMenuItem");
             // 
             // 編集ToolStripMenuItem
             // 
@@ -128,6 +158,26 @@
             this.ファイルパッケージを管理するToolStripMenuItem.Name = "ファイルパッケージを管理するToolStripMenuItem";
             resources.ApplyResources(this.ファイルパッケージを管理するToolStripMenuItem, "ファイルパッケージを管理するToolStripMenuItem");
             this.ファイルパッケージを管理するToolStripMenuItem.Click += new System.EventHandler(this.ファイルパッケージを管理するToolStripMenuItem_Click);
+            // 
+            // ツールToolStripMenuItem
+            // 
+            this.ツールToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルの有無をチェックToolStripMenuItem,
+            this.オプションToolStripMenuItem});
+            this.ツールToolStripMenuItem.Name = "ツールToolStripMenuItem";
+            resources.ApplyResources(this.ツールToolStripMenuItem, "ツールToolStripMenuItem");
+            // 
+            // ファイルの有無をチェックToolStripMenuItem
+            // 
+            this.ファイルの有無をチェックToolStripMenuItem.Name = "ファイルの有無をチェックToolStripMenuItem";
+            resources.ApplyResources(this.ファイルの有無をチェックToolStripMenuItem, "ファイルの有無をチェックToolStripMenuItem");
+            this.ファイルの有無をチェックToolStripMenuItem.Click += new System.EventHandler(this.ファイルの有無をチェックToolStripMenuItem_Click);
+            // 
+            // オプションToolStripMenuItem
+            // 
+            this.オプションToolStripMenuItem.Name = "オプションToolStripMenuItem";
+            resources.ApplyResources(this.オプションToolStripMenuItem, "オプションToolStripMenuItem");
+            this.オプションToolStripMenuItem.Click += new System.EventHandler(this.オプションToolStripMenuItem_Click);
             // 
             // ListView_objects
             // 
@@ -210,55 +260,6 @@
             // 
             resources.ApplyResources(this.Label_Additional, "Label_Additional");
             this.Label_Additional.Name = "Label_Additional";
-            // 
-            // ツールToolStripMenuItem
-            // 
-            this.ツールToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルの有無をチェックToolStripMenuItem,
-            this.オプションToolStripMenuItem});
-            this.ツールToolStripMenuItem.Name = "ツールToolStripMenuItem";
-            resources.ApplyResources(this.ツールToolStripMenuItem, "ツールToolStripMenuItem");
-            // 
-            // ファイルの有無をチェックToolStripMenuItem
-            // 
-            this.ファイルの有無をチェックToolStripMenuItem.Name = "ファイルの有無をチェックToolStripMenuItem";
-            resources.ApplyResources(this.ファイルの有無をチェックToolStripMenuItem, "ファイルの有無をチェックToolStripMenuItem");
-            this.ファイルの有無をチェックToolStripMenuItem.Click += new System.EventHandler(this.ファイルの有無をチェックToolStripMenuItem_Click);
-            // 
-            // オプションToolStripMenuItem
-            // 
-            this.オプションToolStripMenuItem.Name = "オプションToolStripMenuItem";
-            resources.ApplyResources(this.オプションToolStripMenuItem, "オプションToolStripMenuItem");
-            this.オプションToolStripMenuItem.Click += new System.EventHandler(this.オプションToolStripMenuItem_Click);
-            // 
-            // エクスポートToolStripMenuItem
-            // 
-            this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
-            resources.ApplyResources(this.エクスポートToolStripMenuItem, "エクスポートToolStripMenuItem");
-            // 
-            // プロジェクトを開く
-            // 
-            this.プロジェクトを開く.Name = "プロジェクトを開く";
-            resources.ApplyResources(this.プロジェクトを開く, "プロジェクトを開く");
-            this.プロジェクトを開く.Click += new System.EventHandler(this.プロジェクトを開く_Click);
-            // 
-            // リソースの管理ToolStripMenuItem
-            // 
-            this.リソースの管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.リソース情報を保存するToolStripMenuItem,
-            this.リソース情報を読み込むToolStripMenuItem});
-            this.リソースの管理ToolStripMenuItem.Name = "リソースの管理ToolStripMenuItem";
-            resources.ApplyResources(this.リソースの管理ToolStripMenuItem, "リソースの管理ToolStripMenuItem");
-            // 
-            // リソース情報を保存するToolStripMenuItem
-            // 
-            this.リソース情報を保存するToolStripMenuItem.Name = "リソース情報を保存するToolStripMenuItem";
-            resources.ApplyResources(this.リソース情報を保存するToolStripMenuItem, "リソース情報を保存するToolStripMenuItem");
-            // 
-            // リソース情報を読み込むToolStripMenuItem
-            // 
-            this.リソース情報を読み込むToolStripMenuItem.Name = "リソース情報を読み込むToolStripMenuItem";
-            resources.ApplyResources(this.リソース情報を読み込むToolStripMenuItem, "リソース情報を読み込むToolStripMenuItem");
             // 
             // MainEdittor
             // 

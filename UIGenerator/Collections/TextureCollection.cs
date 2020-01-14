@@ -102,7 +102,10 @@ namespace UIGenerator
             for (int i = 0; i < Count; i++) array[i] = _array[i];
             _array = array;
         }
-        private void ChangeComboBox()
+        /// <summary>
+        /// コンボボックスの内容を更新する
+        /// </summary>
+        public void ChangeComboBox()
         {
             var names = GetNames();
             foreach (var u in DataBase.UIInfos)

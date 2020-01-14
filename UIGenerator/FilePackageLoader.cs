@@ -12,13 +12,17 @@ namespace UIGenerator
         /// <summary>
         /// インスタンスが存在するかどうかを取得する
         /// </summary>
-        public static bool Instanced { get; private set; } = false;
+        public static bool Instanced => SingleInstance != null;
+        /// <summary>
+        /// 唯一のインスタンスを取得する
+        /// </summary>
+        public static FilePackageLoader SingleInstance { get; private set; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public FilePackageLoader()
+        private FilePackageLoader()
         {
-            Instanced = true;
+            SingleInstance = this;
             InitializeComponent();
             UpdateStyles();
         }
@@ -27,7 +31,7 @@ namespace UIGenerator
         /// </summary>
         private void FilePackageLoader_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Instanced = false;
+            SingleInstance = null;
             DataBase.Forms.Remove(this);
         }
         /// <summary>
@@ -95,6 +99,20 @@ namespace UIGenerator
             ListView_Packages.Items.Clear();
             var names = DataBase.FllePackages.GetNames();
             for (int i = 0; i < names.Length; i++) ListView_Packages.Items.Add(names[i]);
+        }
+        /// <summary>
+        /// インスタンスを生成して表示する
+        /// </summary>
+        public static bool CreateAndShow()
+        {
+            if (!Instanced)
+            {
+                var form = new FilePackageLoader();
+                DataBase.Forms.Add(form);
+                form.Show();
+                return true;
+            }
+            return false;
         }
     }
 }

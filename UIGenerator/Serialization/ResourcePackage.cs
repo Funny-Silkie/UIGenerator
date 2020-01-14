@@ -14,11 +14,11 @@ namespace UIGenerator
         /// <summary>
         /// フォントを格納するコレクション
         /// </summary>
-        public BasicCollection<PackagedFont> Fonts { get; private set; }
+        public BasicCollection<PackagedFont> Fonts { get; }
         /// <summary>
         /// テクスチャを格納するコレクション
         /// </summary>
-        public BasicCollection<PackagedTexture2D> Textures { get; private set; }
+        public BasicCollection<PackagedTexture2D> Textures { get; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -26,6 +26,28 @@ namespace UIGenerator
         {
             Fonts = PackageFonts(DataBase.Fonts);
             Textures = PackageTextures(DataBase.Textures);
+        }
+        /// <summary>
+        /// フォントを使用できる形にする
+        /// </summary>
+        /// <returns>利用できる形のフォントのコレクション</returns>
+        public FontCollection OpenPackageFonts()
+        {
+            var array = Fonts.ToArray();
+            var collection = new FontCollection(array.Length);
+            for (int i = 0; i < array.Length; i++) collection.Add(FontInfoBase.FromPackage(array[i]));
+            return collection;
+        }
+        /// <summary>
+        /// テクスチャを使用できる形にする
+        /// </summary>
+        /// <returns>利用できる形のテクスチャのコレクション</returns>
+        public TextureCollection OpenPackageTextures()
+        {
+            var array = Textures.ToArray();
+            var collection = new TextureCollection(array.Length);
+            for (int i = 0; i < array.Length; i++) collection.Add(TextureInfo.FromPackage(array[i]));
+            return collection;
         }
         /// <summary>
         /// フォントをパッケージ化する

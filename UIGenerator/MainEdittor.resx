@@ -474,6 +474,12 @@
   <data name="&gt;&gt;ファイルToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;プロジェクトを開く.Name" xml:space="preserve">
+    <value>プロジェクトを開く</value>
+  </data>
+  <data name="&gt;&gt;プロジェクトを開く.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;上書き保存ToolStripMenuItem.Name" xml:space="preserve">
     <value>上書き保存ToolStripMenuItem</value>
   </data>
@@ -484,6 +490,30 @@
     <value>名前を付けて保存ToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;名前を付けて保存ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;エクスポートToolStripMenuItem.Name" xml:space="preserve">
+    <value>エクスポートToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;エクスポートToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソースの管理ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソース情報を保存するToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Name" xml:space="preserve">
+    <value>リソース情報を読み込むToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;編集ToolStripMenuItem.Name" xml:space="preserve">
@@ -514,6 +544,24 @@
     <value>ファイルパッケージを管理するToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ファイルパッケージを管理するToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ツールToolStripMenuItem.Name" xml:space="preserve">
+    <value>ツールToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ツールToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Name" xml:space="preserve">
+    <value>ファイルの有無をチェックToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;オプションToolStripMenuItem.Name" xml:space="preserve">
+    <value>オプションToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;オプションToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Type.Name" xml:space="preserve">
@@ -551,54 +599,6 @@
   </data>
   <data name="&gt;&gt;ColumnHeader_Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ツールToolStripMenuItem.Name" xml:space="preserve">
-    <value>ツールToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ツールToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Name" xml:space="preserve">
-    <value>ファイルの有無をチェックToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ファイルの有無をチェックToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;オプションToolStripMenuItem.Name" xml:space="preserve">
-    <value>オプションToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;オプションToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;エクスポートToolStripMenuItem.Name" xml:space="preserve">
-    <value>エクスポートToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;エクスポートToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;プロジェクトを開く.Name" xml:space="preserve">
-    <value>プロジェクトを開く</value>
-  </data>
-  <data name="&gt;&gt;プロジェクトを開く.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Name" xml:space="preserve">
-    <value>リソースの管理ToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;リソースの管理ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Name" xml:space="preserve">
-    <value>リソース情報を保存するToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;リソース情報を保存するToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Name" xml:space="preserve">
-    <value>リソース情報を読み込むToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;リソース情報を読み込むToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>

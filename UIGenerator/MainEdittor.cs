@@ -79,27 +79,11 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="フォントを編集するToolStripMenuItem"/>クリック時の挙動
         /// </summary>
-        private void フォントを編集するToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!FontIOForm.Instanced)
-            {
-                var fontform = new FontIOForm();
-                DataBase.Forms.Add(fontform);
-                fontform.Show();
-            }
-        }
+        private void フォントを編集するToolStripMenuItem_Click(object sender, EventArgs e) => FontIOForm.CreateAndShow();
         /// <summary>
         /// <see cref="テクスチャを編集するToolStripMenuItem"/>クリック時の挙動
         /// </summary>
-        private void テクスチャを編集するToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!TextureIOForm.Instanced)
-            {
-                var textureform = new TextureIOForm();
-                DataBase.Forms.Add(textureform);
-                textureform.Show();
-            }
-        }
+        private void テクスチャを編集するToolStripMenuItem_Click(object sender, EventArgs e) => TextureIOForm.CreateAndShow();
         /// <summary>
         /// <see cref="名前を付けて保存ToolStripMenuItem"/>クリック時の挙動
         /// </summary>
@@ -137,15 +121,7 @@ namespace UIGenerator
         /// <summary>
         /// <see cref="ファイルToolStripMenuItem"/>クリック時の挙動
         /// </summary>
-        private void ファイルパッケージを管理するToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!FilePackageLoader.Instanced)
-            {
-                var form = new FilePackageLoader();
-                DataBase.Forms.Add(form);
-                form.Show();
-            }
-        }
+        private void ファイルパッケージを管理するToolStripMenuItem_Click(object sender, EventArgs e) => FilePackageLoader.CreateAndShow();
         /// <summary>
         /// フォームが閉じられたときの挙動
         /// </summary>
@@ -236,6 +212,13 @@ namespace UIGenerator
         /// プロジェクトファイルを開く
         /// </summary>
         private void プロジェクトを開く_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// リソースファイルの保存
+        /// </summary>
+        private void リソース情報を保存するToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

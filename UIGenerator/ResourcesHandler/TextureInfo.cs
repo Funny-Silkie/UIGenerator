@@ -49,6 +49,20 @@ namespace UIGenerator
         /// <returns>同値だったらtrue，それ以外でfalse</returns>
         public bool Equals(TextureInfo other) => path == other.path;
         /// <summary>
+        /// パッケージからインスタンス生成する
+        /// </summary>
+        /// <param name="package">インスタンス生成に用いるパッケージ</param>
+        /// <exception cref="ArgumentNullException"><paramref name="package"/>がnull</exception>
+        /// <returns>テクスチャ</returns>
+        public static TextureInfo FromPackage(PackagedTexture2D package)
+        {
+            Central.ThrowHelper.ThrowArgumentNullException(null, package);
+            package.Save();
+            var result = GetInstance(package.Path);
+            System.IO.File.Delete(package.Path);
+            return result;
+        }
+        /// <summary>
         /// 現在のオブジェクトを表す文字列を返す
         /// </summary>
         /// <returns>現在のオブジェクトを表す文字列</returns>

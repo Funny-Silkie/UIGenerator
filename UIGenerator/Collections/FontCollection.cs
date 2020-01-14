@@ -104,9 +104,9 @@ namespace UIGenerator
             ChangeFontComboBox();
         }
         /// <summary>
-        /// 現在開かれている<see cref="TextEdittor"/>の，<see cref="TextEdittor.ComboBox_Font"/>の内容を更新する
+        /// コンボボックスの内容を更新する
         /// </summary>
-        private void ChangeFontComboBox()
+        public void ChangeFontComboBox()
         {
             var names = GetNames();
             foreach (var u in DataBase.UIInfos)
