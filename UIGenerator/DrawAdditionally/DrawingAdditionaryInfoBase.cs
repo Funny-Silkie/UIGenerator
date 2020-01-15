@@ -22,12 +22,10 @@ namespace UIGenerator
         /// 追加描画のタイプを取得する
         /// </summary>
         public abstract DrawingAdditionalMode DrawingAdditionalMode { get; }
-        [NonSerialized]
-        private System.Windows.Forms.Form _handleForm = null;
         /// <summary>
         /// このインスタンスを操作するフォームを取得または設定する
         /// </summary>
-        public System.Windows.Forms.Form HandleForm { get => _handleForm; set => _handleForm = value; }
+        public System.Windows.Forms.Form HandleForm { get; set; } = null;
         /// <summary>
         /// 表示モードを取得または設定する
         /// </summary>

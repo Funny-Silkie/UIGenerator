@@ -329,7 +329,7 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
             var array = new DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase>[Count];
             CopyTo(array, 0);
-            info.AddValue(S_Array, _array);
+            info.AddValue(S_Array, array);
         }
         /// <summary>
         /// 指定したモードと名前の組み合わせを持つ値のインデックスを取得する

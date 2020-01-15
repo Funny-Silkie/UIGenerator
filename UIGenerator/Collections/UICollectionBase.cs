@@ -1,0 +1,923 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Threading;
+using fslib;
+using fslib.Collections;
+using fslib.Exception;
+
+namespace UIGenerator
+{
+    /// <summary>
+    /// モードと値をキーとするコレクション
+    /// </summary>
+    /// <typeparam name="T">格納される情報</typeparam>
+    [Serializable]
+    public abstract class UICollectionBase<T> : INumericDoubleKeyDictionary<int, string, T>, IReadOnlyNumericDoubleKeyDictionary<int, string, T>, IDictionary, IList, ISerializable where T : IUIGeneratorInfo
+    {
+        #region SerializeName
+        private const string S_Array = "S_Array";
+        private const string S_Version = "S_Version";
+        #endregion
+        private DoubleKeyValuePair<int, string, T>[] _array;
+        private readonly static DoubleKeyValuePair<int, string, T>[] emptyArray = new DoubleKeyValuePair<int, string, T>[0];
+        private SerializationInfo seInfo;
+        private int version = 0;
+        private int Capacity => _array.Length;
+        /// <summary>
+        /// 格納されている要素数を取得する
+        /// </summary>
+        public int Count { get; private set; }
+        /// <summary>
+        /// UI情報を格納するコレクションを取得する
+        /// </summary>
+        public InfoCollection Infos => _infos ?? (_infos = new InfoCollection(this));
+        private InfoCollection _infos;
+        bool IDictionary.IsFixedSize => false;
+        bool IList.IsFixedSize => false;
+        bool ICollection<DoubleKeyValuePair<int, string, T>>.IsReadOnly => false;
+        bool IDictionary.IsReadOnly => false;
+        bool IList.IsReadOnly => false;
+        bool ICollection.IsSynchronized => false;
+        ICollection IDictionary.Keys
+        {
+            get
+            {
+                var array = new DoubleKey<int, string>[Count];
+                for (int i = 0; i < Count; i++) array[i] = new DoubleKey<int, string>(_array[i].Key1, _array[i].Key2);
+                return Array.AsReadOnly(array);
+            }
+        }
+        IEnumerable<int> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.KeyCollection1 => Modes;
+        IEnumerable<string> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.KeyCollection2 => Names;
+        IList<int> INumericDoubleKeyDictionary<int, string, T>.KeysCollection1 => Modes;
+        IList<string> INumericDoubleKeyDictionary<int, string, T>.KeysCollection2 => Names;
+        /// <summary>
+        /// 表示モードを格納するコレクションを取得する
+        /// </summary>
+        public ModeCollection Modes => _modes ?? (_modes = new ModeCollection(this));
+        private ModeCollection _modes;
+        /// <summary>
+        /// 名前を格納するコレクションを取得する
+        /// </summary>
+        public NameCollection Names => _names ?? (_names = new NameCollection(this));
+        private NameCollection _names;
+        object ICollection.SyncRoot
+        {
+            get
+            {
+                if (_syncRoot == null) Interlocked.CompareExchange(ref _syncRoot, new object(), null);
+                return _syncRoot;
+            }
+        }
+        private object _syncRoot;
+        ICollection IDictionary.Values => Infos;
+        IList<T> INumericDoubleKeyDictionary<int, string, T>.Values => Infos;
+        IEnumerable<T> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.Values => Infos;
+        /// <summary>
+        /// 既定の容量を備えた空の<see cref="UICollectionBase{T}"/>の新しいインスタンスを生成する
+        /// </summary>
+        protected UICollectionBase() : this(0) { }
+        /// <summary>
+        /// 指定した容量を備えた空の<see cref="UICollectionBase{T}"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <param name="capacity">設定する容量</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>がnull</exception>
+        protected UICollectionBase(int capacity)
+        {
+            Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
+            _array = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, T>[capacity];
+        }
+        /// <summary>
+        /// シリアライズするデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアル化するデータを持つオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        protected UICollectionBase(SerializationInfo info, StreamingContext context)
+        {
+            seInfo = info;
+        }
+        /// <summary>
+        /// 指定したインデックスのUI情報を取得する
+        /// </summary>
+        /// <param name="index">検索する要素のインデックス</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        /// <returns><paramref name="index"/>に対応した要素</returns>
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
+                return _array[index].Value;
+            }
+        }
+        /// <summary>
+        /// 指定した表示モードと名前を持つUI情報を取得する
+        /// </summary>
+        /// <param name="mode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="mode"/>と<paramref name="name"/>のペアが存在しない</exception>
+        /// <returns><paramref name="mode"/>と<paramref name="name"/>を持つ値</returns>
+        public T this[int mode, string name]
+        {
+            get
+            {
+                if (mode < 0) throw new ArgumentOutOfRangeException();
+                if (name == null) throw new ArgumentNullException();
+                var index = IndexOf(mode, name);
+                if (index == -1) throw new KeyNotFoundException();
+                return _array[index].Value;
+            }
+        }
+        object IDictionary.this[object key]
+        {
+            get
+            {
+                switch (key)
+                {
+                    case null: throw new ArgumentNullException();
+                    case DoubleKey<int, string> p: return this[p.Key1, p.Key2];
+                    default: throw new ArgumentException();
+                }
+            }
+            set => throw new NotSupportedException();
+        }
+        object IList.this[int index]
+        {
+            get => this[index];
+            set => throw new NotSupportedException();
+        }
+        T INumericDoubleKeyDictionary<int, string, T>.this[int index]
+        {
+            get => this[index];
+            set => throw new NotSupportedException();
+        }
+        T INumericDoubleKeyDictionary<int, string, T>.this[int key1, string key2]
+        {
+            get => this[key1, key2];
+            set => throw new NotSupportedException();
+        }
+        /// <summary>
+        /// 指定したUI情報を末尾に追加する
+        /// </summary>
+        /// <param name="value">追加するUI情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/>またはその名前がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/>の表示モードが0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="value"/>内のキーの組み合わせが既に存在している</exception>
+        public void Add(T value) => _ = value == null ? throw new ArgumentNullException() : Add(value.Mode, value.Name, value);
+        private void Add(int mode, string name, T value)
+        {
+            if (mode < 0) throw new ArgumentOutOfRangeException();
+            if (name == null || value == null) throw new ArgumentNullException();
+            if (ContainsKeyPair(mode, name)) throw new KeyDuplicateException();
+            if (Capacity < Count + 1) ReSize(Count + 1);
+            var item = new DoubleKeyValuePair<int, string, T>(mode, name, value);
+            _array[Count++] = item;
+            version++;
+            OnAdded(item, Count - 1);
+        }
+        private void Add(DoubleKeyValuePair<int, string, T> item)
+        {
+            if (item.Key1 != item.Value.Mode || item.Key2 != item.Value.Name) throw new ArgumentException();
+            Add(item.Value);
+        }
+        void ICollection<DoubleKeyValuePair<int, string, T>>.Add(DoubleKeyValuePair<int, string, T> item) => Add(item);
+        void IDictionary.Add(object key, object value)
+        {
+            if (CompareHelper.IsCompatibleValue<DoubleKey<int, string>>(key, out var keys) && CompareHelper.IsCompatibleValue<T>(value, out var v)) Add(keys.Key1, keys.Key2, v);
+            else throw new ArgumentException();
+        }
+        int IList.Add(object value)
+        {
+            switch (value)
+            {
+                case null: throw new ArgumentNullException();
+                case DoubleKeyValuePair<int, string, T> p: Add(p);  return Count - 1;
+                case T t: Add(t); return Count - 1;
+                default: throw new ArgumentException();
+            }
+        }
+        void INumericDoubleKeyDictionary<int, string, T>.Add(int key1, string key2, T value) => Add(key1, key2, value);
+        /// <summary>
+        /// 要素の名前を変更する
+        /// </summary>
+        /// <param name="mode">変更する要素の表示モード</param>
+        /// <param name="oldname">変更前の名前</param>
+        /// <param name="newname">変更後の名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="oldname"/>又は<paramref name="newname"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="mode"/>と<paramref name="newname"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="mode"/>と<paramref name="oldname"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeName(int mode, string oldname, string newname)
+        {
+            if (oldname == null || newname == null) throw new ArgumentNullException();
+            if (mode < 0) throw new ArgumentOutOfRangeException();
+            var index = IndexOf(mode, oldname);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(mode, newname);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Name = newname;
+            _array[index] = new DoubleKeyValuePair<int, string, T>(pair.Key1, newname, pair.Value);
+            return index;
+        }
+        /// <summary>
+        /// 要素の表示モードを変更する
+        /// </summary>
+        /// <param name="oldmode">検索する要素の表示モード</param>
+        /// <param name="name">検索する要素の名前</param>
+        /// <param name="newmode">変更後の表示モード</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="oldmode"/>または<paramref name="newmode"/>が0未満</exception>
+        /// <exception cref="KeyDuplicateException"><paramref name="newmode"/>と<paramref name="name"/>の組み合わせが既に存在している</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="oldmode"/>と<paramref name="name"/>の組み合わせが存在しない</exception>
+        /// <returns>変更した要素のインデックス</returns>
+        public int ChangeMode(int oldmode, string name, int newmode)
+        {
+            if (name == null) throw new ArgumentNullException();
+            if (oldmode < 0 || newmode < 0) throw new ArgumentOutOfRangeException();
+            var index = IndexOf(oldmode, name);
+            if (index == -1) throw new KeyNotFoundException();
+            var ind = IndexOf(newmode, name);
+            if (ind != -1 && index != ind) throw new KeyDuplicateException();
+            var pair = _array[index];
+            pair.Value.Mode = newmode;
+            _array[index] = new DoubleKeyValuePair<int, string, T>(newmode, pair.Key2, pair.Value);
+            return index;
+        }
+        /// <summary>
+        /// 全ての要素を削除する
+        /// </summary>
+        public void Clear()
+        {
+            for (int i = 0; i < Count; i++) _array[i] = default;
+            Count = 0;
+            version++;
+            OnCleared();
+        }
+        /// <summary>
+        /// 指定した配列に要素をコピーする
+        /// </summary>
+        /// <param name="array">コピー先の配列</param>
+        /// <param name="arrayIndex"><paramref name="arrayIndex"/>におけるコピー開始地点</param>
+        /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            if (array == null) throw new ArgumentNullException();
+            if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
+            if (array.Length < arrayIndex + Count) throw new ArgumentException();
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i].Value;
+        }
+        private void CopyTo(DoubleKeyValuePair<int, string, T>[] array, int arrayIndex)
+        {
+            if (array == null) throw new ArgumentNullException();
+            if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
+            if (array.Length < arrayIndex + Count) throw new ArgumentException();
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
+        }
+        void ICollection.CopyTo(Array array, int index)
+        {
+            if (array == null) throw new ArgumentNullException();
+            if (array.Rank != 1) throw new RankException();
+            if (index < 0) throw new ArgumentOutOfRangeException();
+            if (array.Length < index + Count || array.GetLowerBound(0) != 0) throw new ArgumentException();
+            switch (array)
+            {
+                case DoubleKeyValuePair<int, string, T>[] pairs: CopyTo(pairs, index); return;
+                case T[] t: CopyTo(t, index); return;
+                case DictionaryEntry[] entries:
+                    for (int i = 0; i < Count; i++) entries[index++] = new DictionaryEntry(new DoubleKey<int, string>(_array[i].Key1, _array[i].Key2), _array[i].Value);
+                    return;
+                case object[] o:
+                    try
+                    {
+                        for (int i = 0; i < Count; i++) o[index++] = _array[i];
+                    }
+                    catch (ArrayTypeMismatchException)
+                    {
+                        throw new ArgumentException();
+                    }
+                    return;
+                default: throw new ArgumentException();
+            }
+        }
+        void ICollection<DoubleKeyValuePair<int, string, T>>.CopyTo(DoubleKeyValuePair<int, string, T>[] array, int arrayIndex) => CopyTo(array, arrayIndex);
+        private bool Contains(DoubleKeyValuePair<int, string, T> item) => IndexOf(item) != -1;
+        bool ICollection<DoubleKeyValuePair<int, string, T>>.Contains(DoubleKeyValuePair<int, string, T> item) => Contains(item);
+        bool IDictionary.Contains(object key)
+        {
+            switch (key)
+            {
+                case int mode: return ContainsMode(mode);
+                case string name: return ContainsName(name);
+                case DoubleKey<int, string> pair: return ContainsKeyPair(pair.Key1, pair.Key2);
+                case null: throw new ArgumentNullException();
+                default: throw new ArgumentException();
+            }
+        }
+        bool IList.Contains(object value)
+        {
+            switch (value)
+            {
+                case T t: return ContainsValue(t);
+                case DoubleKeyValuePair<int, string, T> pair: return Contains(pair);
+                case null: return false;
+                default: throw new ArgumentException();
+            }
+        }
+        /// <summary>
+        /// 指定した表示モードと名前の組み合わせが存在するかどうかを検索する
+        /// </summary>
+        /// <param name="mode">検索する表示モード</param>
+        /// <param name="name">検索する名前</param>
+        /// <returns><paramref name="mode"/>と<paramref name="name"/>のペアが格納されていたらtrue，それ以外でfalse</returns>
+        public bool ContainsKeyPair(int mode, string name) => IndexOf(mode, name) != -1;
+        bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
+        bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey2(string key) => ContainsName(key);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKey2(string key) => ContainsName(key);
+        private bool ContainsMode(int mode) => IndexOfMode(mode) != -1;
+        private bool ContainsName(string name) => IndexOfName(name) != -1;
+        /// <summary>
+        /// 指定したUI情報が格納されているかどうかを検索する
+        /// </summary>
+        /// <param name="value">検索するUI情報</param>
+        /// <returns><paramref name="value"/>が格納されていたらtrue，それ以外でfalse</returns>
+        public bool ContainsValue(T value) => IndexOf(value) != -1;
+        /// <summary>
+        /// 2つの<typeparamref name="T"/>の値の同一性を判定する
+        /// </summary>
+        /// <param name="t1">同一性を判定する<typeparamref name="T"/>の値</param>
+        /// <param name="t2">同一性を判定するもう一つの<typeparamref name="T"/>の値</param>
+        /// <returns><paramref name="t1"/>と<paramref name="t2"/>が同じならばtrue，それ以外でfalse</returns>
+        protected abstract bool Equals(T t1, T t2);
+        /// <summary>
+        /// 列挙をサポートする構造体を返す
+        /// </summary>
+        /// <returns><see cref="Enumerator"/>の新しいインスタンス</returns>
+        public Enumerator GetEnumerator() => new Enumerator(this);
+        IDictionaryEnumerator IDictionary.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator<DoubleKeyValuePair<int, string, T>> IEnumerable<DoubleKeyValuePair<int, string, T>>.GetEnumerator() => GetEnumerator();
+        /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            if (info == null) throw new ArgumentNullException();
+            var array = new DoubleKeyValuePair<int, string, T>[Count];
+            CopyTo(array, 0);
+            info.AddValue(S_Array, array);
+            info.AddValue(S_Version, version);
+        }
+        /// <summary>
+        /// 指定したキーの組み合わせのインデックスを取得する
+        /// </summary>
+        /// <param name="mode">検索する表示モード</param>
+        /// <param name="name">検索する名前</param>
+        /// <returns><paramref name="mode"/>と<paramref name="name"/>のペアが存在していたらそのインデックス，無かったら-1</returns>
+        public int IndexOf(int mode, string name)
+        {
+            if (mode < 0 || name == null) return -1;
+            for (int i = 0; i < Count; i++)
+                if (_array[i].Key1 == mode && _array[i].Key2 == name)
+                    return i;
+            return -1;
+        }
+        /// <summary>
+        /// 指定したUI情報のインデックスを取得する
+        /// </summary>
+        /// <param name="value">検索するUI情報</param>
+        /// <returns><paramref name="value"/>のインデックス，無かったら-1</returns>
+        public int IndexOf(T value) => value == null ? -1 : IndexOf(value.Mode, value.Name);
+        private int IndexOf(DoubleKeyValuePair<int, string, T> item)
+        {
+            var index = IndexOf(item.Key1, item.Key2);
+            if (index == -1) return -1;
+            return Equals(item.Value, _array[index].Value) ? index : -1;
+        }
+        int IList.IndexOf(object value)
+        {
+            switch (value)
+            {
+                case DoubleKeyValuePair<int, string, T> pair: return IndexOf(pair);
+                case T t: return IndexOf(t);
+                case DoubleKey<int, string> keys: return IndexOf(keys.Key1, keys.Key2);
+                case null: return -1;
+                default: throw new ArgumentException();
+            }
+        }
+        private int IndexOfMode(int mode)
+        {
+            if (mode < 0) return -1;
+            for (int i = 0; i < Count; i++)
+                if (mode == _array[i].Key1)
+                    return i;
+            return -1;
+        }
+        private int IndexOfName(string name)
+        {
+            if (name == null) return -1;
+            for (int i = 0; i < Count; i++)
+                if (name == _array[i].Key2)
+                    return i;
+            return -1;
+        }
+        void IList.Insert(int index, object value) => throw new NotSupportedException();
+        void INumericDoubleKeyDictionary<int, string, T>.Insert(int index, int key1, string key2, T value) => throw new NotSupportedException();
+        /// <summary>
+        /// 要素が追加されたときに実行
+        /// </summary>
+        /// <param name="element">追加された要素</param>
+        /// <param name="index"><paramref name="element"/>が追加されたインデックス</param>
+        protected virtual void OnAdded(in DoubleKeyValuePair<int, string, T> element, int index) { }
+        /// <summary>
+        /// 全ての要素が削除されたときに実行
+        /// </summary>
+        protected virtual void OnCleared() { }
+        /// <summary>
+        /// 要素が削除されたときに実行
+        /// </summary>
+        /// <param name="element">削除された要素</param>
+        /// <param name="index"><paramref name="element"/>に割り当てられていたインデックス</param>
+        protected virtual void OnRemoved(in DoubleKeyValuePair<int, string, T> element, int index) { }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public virtual void OnDeserialization(object sender)
+        {
+            if (seInfo == null) return;
+            _array = seInfo.GetValue<DoubleKeyValuePair<int, string, T>[]>(S_Array);
+            Count = _array.Length;
+            version = seInfo.GetInt32(S_Version);
+            seInfo = null;
+        }
+        void INumericDoubleKeyDictionary<int, string, T>.OverWrite(int index, int newKey1) => throw new NotSupportedException();
+        void INumericDoubleKeyDictionary<int, string, T>.OverWrite(int index, int newKey1, string newKey2) => throw new NotSupportedException();
+        void INumericDoubleKeyDictionary<int, string, T>.OverWrite(int index, string newKey2) => throw new NotSupportedException();
+        int INumericDoubleKeyDictionary<int, string, T>.OverWrite(int key1, string oldKey2, string newKey2) => ChangeName(key1, oldKey2, newKey2);
+        int INumericDoubleKeyDictionary<int, string, T>.OverWrite(int oldKey1, string key2, int newKey1) => ChangeMode(oldKey1, key2, newKey1);
+        int INumericDoubleKeyDictionary<int, string, T>.OverWrite(int oldKey1, string oldKey2, int newKey1, string newKey2) => throw new NotSupportedException();
+        /// <summary>
+        /// 指定した表示モードと名前を持つ要素を削除する
+        /// </summary>
+        /// <param name="mode">削除する要素の表示モード</param>
+        /// <param name="name">削除する要素の名前</param>
+        /// <returns>要素を削除出来たらture，それ以外でfalse</returns>
+        public bool Remove(int mode, string name)
+        {
+            var index = IndexOf(mode, name);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
+        }
+        /// <summary>
+        /// 指定したUI情報を削除する
+        /// </summary>
+        /// <param name="value">削除するUI情報</param>
+        /// <returns><paramref name="value"/>を削除できたらtrue，それ以外でfalse</returns>
+        public bool Remove(T value) => value == null ? false : Remove(value.Mode, value.Name);
+        private bool Remove(DoubleKeyValuePair<int, string, T> item)
+        {
+            var index = IndexOf(item);
+            if (index == -1) return false;
+            RemoveAt(index);
+            return true;
+        }
+        bool ICollection<DoubleKeyValuePair<int, string, T>>.Remove(DoubleKeyValuePair<int, string, T> item) => Remove(item);
+        void IDictionary.Remove(object key) => _ = CompareHelper.IsCompatibleValue<DoubleKey<int, string>>(key, out var keys) ? Remove(keys.Key1, keys.Key2) : throw new ArgumentException();
+        void IList.Remove(object value)
+        {
+            switch (value)
+            {
+                case null: throw new ArgumentNullException();
+                case T t: Remove(t); return;
+                case DoubleKeyValuePair<int, string, T> pair: Remove(pair); return;
+                default: throw new ArgumentException();
+            }
+        }
+        /// <summary>
+        /// 指定したインデックスの要素を削除する
+        /// </summary>
+        /// <param name="index">削除する要素のインデックス</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+        public void RemoveAt(int index)
+        {
+            if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
+            var item = _array[index];
+            if (index < Count) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
+            _array[Count - 1] = default;
+            Count--;
+            version++;
+            OnRemoved(item, index);
+        }
+        /// <summary>
+        /// 内部配列の容量を変更する
+        /// </summary>
+        /// <param name="min">変更後の要素の最小値</param>
+        protected void ReSize(int min)
+        {
+            if (min < Count) return;
+            var size = Capacity == 0 ? 4 : Capacity + 5;
+            if ((uint)size > int.MaxValue) size = int.MaxValue;
+            if (size < min) size = min;
+            var array = new DoubleKeyValuePair<int, string, T>[size];
+            for (int i = 0; i < Count; i++) array[i] = _array[i];
+            _array = array;
+        }
+        /// <summary>
+        /// 指定したキーを持つUI情報を取得する
+        /// </summary>
+        /// <param name="mode">取得するUI情報の表示モード</param>
+        /// <param name="name">取得するUI情報の名前</param>
+        /// <param name="value"><paramref name="mode"/>と<paramref name="name"/>を持つUI情報 無かったら既定値</param>
+        /// <returns><paramref name="value"/>が見つかったらtrue，それ以外でfalse</returns>
+        public bool TryGetValue(int mode, string name, out T value)
+        {
+            var index = IndexOf(mode, name);
+            if (index == -1)
+            {
+                value = default;
+                return false;
+            }
+            value = _array[index].Value;
+            return true;
+        }
+        /// <summary>
+        /// 列挙をサポートする構造体
+        /// </summary>
+        [Serializable]
+        public struct Enumerator : IEnumerator<DoubleKeyValuePair<int, string, T>>, IDictionaryEnumerator
+        {
+            private readonly UICollectionBase<T> collection;
+            private int index;
+            private readonly int version;
+            /// <summary>
+            /// 現在列挙されている要素を取得する
+            /// </summary>
+            public DoubleKeyValuePair<int, string, T> Current { get; private set; }
+            object IEnumerator.Current
+            {
+                get
+                {
+                    ThrowIfInvalidIndex();
+                    return Current;
+                }
+            }
+            DictionaryEntry IDictionaryEnumerator.Entry
+            {
+                get
+                {
+                    ThrowIfInvalidIndex();
+                    return new DictionaryEntry(new DoubleKey<int, string>(Current.Key1, Current.Key2), Current.Value);
+                }
+            }
+            object IDictionaryEnumerator.Key
+            {
+                get
+                {
+                    ThrowIfInvalidIndex();
+                    return new DoubleKey<int, string>(Current.Key1, Current.Key2);
+                }
+            }
+            object IDictionaryEnumerator.Value
+            {
+                get
+                {
+                    ThrowIfInvalidIndex();
+                    return Current.Value;
+                }
+            }
+            internal Enumerator(UICollectionBase<T> collection)
+            {
+                this.collection = collection ?? throw new ArgumentNullException();
+                index = 0;
+                Current = default;
+                version = collection.version;
+            }
+            /// <summary>
+            /// このインスタンスを破棄する
+            /// </summary>
+            public void Dispose() { }
+            /// <summary>
+            /// 列挙を次に進める
+            /// </summary>
+            /// <exception cref="InvalidOperationException">列挙中にコレクションが変更された</exception>
+            /// <returns>次に進められたらtrue，それ以外でfalse</returns>
+            public bool MoveNext()
+            {
+                ThrowIfInvalidVersion();
+                if (index < collection.Count)
+                {
+                    Current = collection._array[index++];
+                    return true;
+                }
+                Current = default;
+                index = collection.Count + 1;
+                return false;
+            }
+            void IEnumerator.Reset()
+            {
+                ThrowIfInvalidVersion();
+                index = 0;
+                Current = default;
+            }
+            private void ThrowIfInvalidIndex()
+            {
+                if (index < 0 || collection.Count < index) throw new InvalidOperationException();
+            }
+            private void ThrowIfInvalidVersion()
+            {
+                if (version != collection.version) throw new InvalidOperationException();
+            }
+        }
+        /// <summary>
+        /// 内部コレクションの基底のクラス
+        /// </summary>
+        /// <typeparam name="TAnother">格納される値の型</typeparam>
+        [Serializable]
+        public abstract class InnerCollectionBase<TAnother> : IList<TAnother>, IReadOnlyList<TAnother>, IList
+        {
+            /// <summary>
+            /// もととなるコレクションへの参照を取得する
+            /// </summary>
+            protected UICollectionBase<T> Collection { get; }
+            /// <summary>
+            /// 格納されている要素数を取得する
+            /// </summary>
+            public int Count => Collection.Count;
+            /// <summary>
+            /// 与えられた値のペアから<typeparamref name="TAnother"/>に値を変更する関数を取得する
+            /// </summary>
+
+            protected abstract Func<DoubleKeyValuePair<int, string, T>, TAnother> Converter { get; }
+            bool IList.IsFixedSize => false;
+            bool ICollection<TAnother>.IsReadOnly => true;
+            bool IList.IsReadOnly => true;
+            bool ICollection.IsSynchronized => false;
+            object ICollection.SyncRoot => ((ICollection)Collection).SyncRoot;
+            private protected InnerCollectionBase(UICollectionBase<T> collection)
+            {
+                this.Collection = collection ?? throw new ArgumentNullException();
+            }
+            /// <summary>
+            /// 指定したインデックスの要素を取得する
+            /// </summary>
+            /// <param name="index">検索する要素のインデックス</param>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
+            /// <returns><paramref name="index"/>に対応する要素</returns>
+            public TAnother this[int index] => Converter.Invoke(Collection._array[index]);
+            object IList.this[int index]
+            {
+                get => this[index];
+                set => throw new NotSupportedException();
+            }
+            TAnother IList<TAnother>.this[int index]
+            {
+                get => this[index];
+                set => throw new NotSupportedException();
+            }
+            void ICollection<TAnother>.Add(TAnother item) => throw new NotSupportedException();
+            int IList.Add(object value) => throw new NotSupportedException();
+            void ICollection<TAnother>.Clear() => throw new NotSupportedException();
+            void IList.Clear() => throw new NotSupportedException();
+            /// <summary>
+            /// 指定した要素が格納されているかどうかを検索する
+            /// </summary>
+            /// <param name="item">検索する要素</param>
+            /// <returns><paramref name="item"/>が格納されていたらtrue，それ以外でfalse</returns>
+            public bool Contains(TAnother item) => IndexOf(item) != -1;
+            bool IList.Contains(object value) => CompareHelper.IsCompatibleValue<TAnother>(value, out var item) ? Contains(item) : throw new ArgumentException();
+            /// <summary>
+            /// 指定した配列に要素をコピーする
+            /// </summary>
+            /// <param name="array">コピー先の配列</param>
+            /// <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            /// <exception cref="ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="array"/>がnull</exception>
+            /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+            public void CopyTo(TAnother[] array, int arrayIndex)
+            {
+                if (array == null) throw new ArgumentNullException();
+                if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
+                if (array.Length < arrayIndex + Count) throw new ArgumentException();
+                for (int i = 0; i < Count; i++) array[arrayIndex++] = Converter.Invoke(Collection._array[i]);
+            }
+            void ICollection.CopyTo(Array array, int index)
+            {
+                if (array == null) throw new ArgumentNullException();
+                if (array.Rank != 1) throw new RankException();
+                if (index < 0) throw new ArgumentOutOfRangeException();
+                if (array.Length < Count + index || array.GetLowerBound(0) != 0) throw new ArgumentException();
+                switch (array)
+                {
+                    case TAnother[] t: CopyTo(t, index); return;
+                    case object[] o:
+                        try
+                        {
+                            for (int i = 0; i < Count; i++) o[index++] = Converter.Invoke(Collection._array[index]);
+                        }
+                        catch (ArrayTypeMismatchException)
+                        {
+                            throw new ArgumentException();
+                        }
+                        return;
+                    default: throw new ArgumentException();
+                }
+            }
+            /// <summary>
+            /// 列挙をサポートする構造体を返す
+            /// </summary>
+            /// <returns><see cref="Enumerator"/>の新しいインスタンス</returns>
+            public Enumerator GetEnumerator() => new Enumerator(Collection, Converter);
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            IEnumerator<TAnother> IEnumerable<TAnother>.GetEnumerator() => GetEnumerator();
+            /// <summary>
+            /// 指定した要素のインデックスを検索する
+            /// </summary>
+            /// <param name="item">検索する要素のインデックス</param>
+            /// <returns><paramref name="item"/>の持つインデックス 無い場合は-1</returns>
+            public int IndexOf(TAnother item) => IndexOfItem(item);
+            int IList.IndexOf(object value) => CompareHelper.IsCompatibleValue<TAnother>(value, out var item) ? IndexOf(item) : throw new ArgumentException();
+            /// <summary>
+            /// 指定した要素のインデックスを検索する
+            /// </summary>
+            /// <param name="item">検索する要素のインデックス</param>
+            /// <returns><paramref name="item"/>の持つインデックス 無い場合は-1</returns>
+            protected abstract int IndexOfItem(TAnother item);
+            void IList.Insert(int index, object value) => throw new NotSupportedException();
+            void IList<TAnother>.Insert(int index, TAnother item) => throw new NotSupportedException();
+            bool ICollection<TAnother>.Remove(TAnother item) => throw new NotSupportedException();
+            void IList.Remove(object value) => throw new NotSupportedException();
+            void IList.RemoveAt(int index) => throw new NotSupportedException();
+            void IList<TAnother>.RemoveAt(int index) => throw new NotSupportedException();
+            /// <summary>
+            /// 現在格納されている要素を配列にまとめて返す
+            /// </summary>
+            /// <returns>現在格納されている要素が格納された配列</returns>
+            public TAnother[] ToAttay()
+            {
+                var array = new TAnother[Count];
+                CopyTo(array, 0);
+                return array;
+            }
+            /// <summary>
+            /// 列挙をサポートする構造体
+            /// </summary>
+            [Serializable]
+            public struct Enumerator : IEnumerator<TAnother>
+            {
+                private readonly UICollectionBase<T> collection;
+                private readonly Func<DoubleKeyValuePair<int, string, T>, TAnother> converter;
+                private int index;
+                private readonly int version;
+                /// <summary>
+                /// 現在列挙されている要素を取得する
+                /// </summary>
+                public TAnother Current { get; private set; }
+                object IEnumerator.Current
+                {
+                    get
+                    {
+                        if (index < 0 || collection.Count < index) throw new InvalidOperationException();
+                        return Current;
+                    }
+                }
+                internal Enumerator(UICollectionBase<T> collection, Func<DoubleKeyValuePair<int, string, T>, TAnother> converter)
+                {
+                    this.collection = collection ?? throw new ArgumentNullException();
+                    this.converter = converter ?? throw new ArgumentNullException();
+                    index = 0;
+                    version = collection.version;
+                    Current = default;
+                }
+                /// <summary>
+                /// このインスタンスを破棄する
+                /// </summary>
+                public void Dispose() { }
+                /// <summary>
+                /// 列挙を次に進める
+                /// </summary>
+                /// <exception cref="InvalidOperationException">列挙中にコレクションが変更された</exception>
+                /// <returns>次に進められたらtrue，それ以外でfalse</returns>
+                public bool MoveNext()
+                {
+                    if (version != collection.version) throw new InvalidOperationException();
+                    if (index < collection.Count)
+                    {
+                        Current = converter.Invoke(collection._array[index++]);
+                        return true;
+                    }
+                    Current = default;
+                    index = collection.Count + 1;
+                    return false;
+                }
+                void IEnumerator.Reset()
+                {
+                    if (version != collection.version) throw new InvalidOperationException();
+                    index = 0;
+                    Current = default;
+                }
+            }
+        }
+        /// <summary>
+        /// 表示モードを格納するコレクション
+        /// </summary>
+        [Serializable]
+        public sealed class ModeCollection : InnerCollectionBase<int>
+        {
+            /// <summary>
+            /// 格納されている要素の最大値を取得する
+            /// </summary>
+            public int Max
+            {
+                get
+                {
+                    if (Count == 0) return 0;
+                    var max = Collection._array[0].Key1;
+                    for (int i = 1; i < Count; i++)
+                        if (max < Collection._array[i].Key1)
+                            max = Collection._array[i].Key1;
+                    return max;
+                }
+            }
+            /// <summary>
+            /// 格納されている要素の最小値を取得する
+            /// </summary>
+            public int Min
+            {
+                get
+                {
+                    if (Count == 0) return 0;
+                    var min = Collection._array[0].Key1;
+                    for (int i = 1; i < Count; i++)
+                        if (min > Collection._array[i].Key1)
+                            min = Collection._array[i].Key1;
+                    return min;
+                }
+            }
+            /// <summary>
+            /// 与えられた値のペアから値を変換する関数を取得する
+            /// </summary>
+            protected override Func<DoubleKeyValuePair<int, string, T>, int> Converter => x => x.Key1;
+            internal ModeCollection(UICollectionBase<T> collection) : base(collection) { }
+            /// <summary>
+            /// 指定した要素のインデックスを検索する
+            /// </summary>
+            /// <param name="item">検索する要素のインデックス</param>
+            /// <returns><paramref name="item"/>の持つインデックス 無い場合は-1</returns>
+            protected override int IndexOfItem(int item) => Collection.IndexOfMode(item);
+            /// <summary>
+            /// <see cref="HashSet{T}"/>として返す
+            /// </summary>
+            /// <returns>現在格納されている要素を持った<see cref="HashSet{T}"/>の新しいインスタンス</returns>
+            public HashSet<int> ToHashSet() => new HashSet<int>(this);
+        }
+        /// <summary>
+        /// 名前を格納するコレクション
+        /// </summary>
+        [Serializable]
+        public sealed class NameCollection : InnerCollectionBase<string>
+        {
+            /// <summary>
+            /// 与えられた値のペアから値を変換する関数を取得する
+            /// </summary>
+            protected override Func<DoubleKeyValuePair<int, string, T>, string> Converter => x => x.Key2;
+            internal NameCollection(UICollectionBase<T> collection) : base(collection) { }
+            /// <summary>
+            /// 指定した要素のインデックスを検索する
+            /// </summary>
+            /// <param name="item">検索する要素のインデックス</param>
+            /// <returns><paramref name="item"/>の持つインデックス 無い場合は-1</returns>
+            protected override int IndexOfItem(string item) => Collection.IndexOfName(item);
+        }
+        /// <summary>
+        /// UI情報を格納するコレクション
+        /// </summary>
+        [Serializable]
+        public sealed class InfoCollection : InnerCollectionBase<T>
+        {
+            /// <summary>
+            /// 与えられた値のペアから値を変換する関数を取得する
+            /// </summary>
+            protected override Func<DoubleKeyValuePair<int, string, T>, T> Converter => x => x.Value;
+            internal InfoCollection(UICollectionBase<T> collection) : base(collection) { }
+            /// <summary>
+            /// 指定した要素のインデックスを検索する
+            /// </summary>
+            /// <param name="item">検索する要素のインデックス</param>
+            /// <returns><paramref name="item"/>の持つインデックス 無い場合は-1</returns>
+            protected override int IndexOfItem(T item) => Collection.IndexOf(item);
+        }
+    }
+}

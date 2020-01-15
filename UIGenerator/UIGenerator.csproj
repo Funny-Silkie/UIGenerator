@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AccesibilityType.cs" />
     <Compile Include="Code\CSharp\UIObjectInfo.cs" />
+    <Compile Include="Collections\UICollectionBase.cs" />
     <Compile Include="ElementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
