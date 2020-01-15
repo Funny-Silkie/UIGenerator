@@ -20,11 +20,10 @@ namespace UIGenerator
         private const string S_Array = "S_Array";
         private const string S_Version = "S_Version";
         #endregion
-        private DoubleKeyValuePair<int, string, T>[] _array;
         private readonly static DoubleKeyValuePair<int, string, T>[] emptyArray = new DoubleKeyValuePair<int, string, T>[0];
         private SerializationInfo seInfo;
         private int version = 0;
-        private int Capacity => _array.Length;
+        private int Capacity => InnerArray.Length;
         /// <summary>
         /// 格納されている要素数を取得する
         /// </summary>
@@ -34,6 +33,10 @@ namespace UIGenerator
         /// </summary>
         public InfoCollection Infos => _infos ?? (_infos = new InfoCollection(this));
         private InfoCollection _infos;
+        /// <summary>
+        /// 内部配列を取得する
+        /// </summary>
+        protected DoubleKeyValuePair<int, string, T>[] InnerArray { get; private set; }
         bool IDictionary.IsFixedSize => false;
         bool IList.IsFixedSize => false;
         bool ICollection<DoubleKeyValuePair<int, string, T>>.IsReadOnly => false;
@@ -45,7 +48,7 @@ namespace UIGenerator
             get
             {
                 var array = new DoubleKey<int, string>[Count];
-                for (int i = 0; i < Count; i++) array[i] = new DoubleKey<int, string>(_array[i].Key1, _array[i].Key2);
+                for (int i = 0; i < Count; i++) array[i] = new DoubleKey<int, string>(InnerArray[i].Key1, InnerArray[i].Key2);
                 return Array.AsReadOnly(array);
             }
         }
@@ -87,7 +90,7 @@ namespace UIGenerator
         protected UICollectionBase(int capacity)
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
-            _array = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, T>[capacity];
+            InnerArray = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, T>[capacity];
         }
         /// <summary>
         /// シリアライズするデータを用いてインスタンスを初期化する
@@ -109,7 +112,7 @@ namespace UIGenerator
             get
             {
                 if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
-                return _array[index].Value;
+                return InnerArray[index].Value;
             }
         }
         /// <summary>
@@ -129,7 +132,7 @@ namespace UIGenerator
                 if (name == null) throw new ArgumentNullException();
                 var index = IndexOf(mode, name);
                 if (index == -1) throw new KeyNotFoundException();
-                return _array[index].Value;
+                return InnerArray[index].Value;
             }
         }
         object IDictionary.this[object key]
@@ -175,7 +178,7 @@ namespace UIGenerator
             if (ContainsKeyPair(mode, name)) throw new KeyDuplicateException();
             if (Capacity < Count + 1) ReSize(Count + 1);
             var item = new DoubleKeyValuePair<int, string, T>(mode, name, value);
-            _array[Count++] = item;
+            InnerArray[Count++] = item;
             version++;
             OnAdded(item, Count - 1);
         }
@@ -220,9 +223,9 @@ namespace UIGenerator
             if (index == -1) throw new KeyNotFoundException();
             var ind = IndexOf(mode, newname);
             if (ind != -1 && index != ind) throw new KeyDuplicateException();
-            var pair = _array[index];
+            var pair = InnerArray[index];
             pair.Value.Name = newname;
-            _array[index] = new DoubleKeyValuePair<int, string, T>(pair.Key1, newname, pair.Value);
+            InnerArray[index] = new DoubleKeyValuePair<int, string, T>(pair.Key1, newname, pair.Value);
             return index;
         }
         /// <summary>
@@ -244,9 +247,9 @@ namespace UIGenerator
             if (index == -1) throw new KeyNotFoundException();
             var ind = IndexOf(newmode, name);
             if (ind != -1 && index != ind) throw new KeyDuplicateException();
-            var pair = _array[index];
+            var pair = InnerArray[index];
             pair.Value.Mode = newmode;
-            _array[index] = new DoubleKeyValuePair<int, string, T>(newmode, pair.Key2, pair.Value);
+            InnerArray[index] = new DoubleKeyValuePair<int, string, T>(newmode, pair.Key2, pair.Value);
             return index;
         }
         /// <summary>
@@ -254,7 +257,7 @@ namespace UIGenerator
         /// </summary>
         public void Clear()
         {
-            for (int i = 0; i < Count; i++) _array[i] = default;
+            for (int i = 0; i < Count; i++) InnerArray[i] = default;
             Count = 0;
             version++;
             OnCleared();
@@ -272,14 +275,14 @@ namespace UIGenerator
             if (array == null) throw new ArgumentNullException();
             if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
             if (array.Length < arrayIndex + Count) throw new ArgumentException();
-            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i].Value;
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = InnerArray[i].Value;
         }
         private void CopyTo(DoubleKeyValuePair<int, string, T>[] array, int arrayIndex)
         {
             if (array == null) throw new ArgumentNullException();
             if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
             if (array.Length < arrayIndex + Count) throw new ArgumentException();
-            for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
+            for (int i = 0; i < Count; i++) array[arrayIndex++] = InnerArray[i];
         }
         void ICollection.CopyTo(Array array, int index)
         {
@@ -292,12 +295,12 @@ namespace UIGenerator
                 case DoubleKeyValuePair<int, string, T>[] pairs: CopyTo(pairs, index); return;
                 case T[] t: CopyTo(t, index); return;
                 case DictionaryEntry[] entries:
-                    for (int i = 0; i < Count; i++) entries[index++] = new DictionaryEntry(new DoubleKey<int, string>(_array[i].Key1, _array[i].Key2), _array[i].Value);
+                    for (int i = 0; i < Count; i++) entries[index++] = new DictionaryEntry(new DoubleKey<int, string>(InnerArray[i].Key1, InnerArray[i].Key2), InnerArray[i].Value);
                     return;
                 case object[] o:
                     try
                     {
-                        for (int i = 0; i < Count; i++) o[index++] = _array[i];
+                        for (int i = 0; i < Count; i++) o[index++] = InnerArray[i];
                     }
                     catch (ArrayTypeMismatchException)
                     {
@@ -389,7 +392,7 @@ namespace UIGenerator
         {
             if (mode < 0 || name == null) return -1;
             for (int i = 0; i < Count; i++)
-                if (_array[i].Key1 == mode && _array[i].Key2 == name)
+                if (InnerArray[i].Key1 == mode && InnerArray[i].Key2 == name)
                     return i;
             return -1;
         }
@@ -403,7 +406,7 @@ namespace UIGenerator
         {
             var index = IndexOf(item.Key1, item.Key2);
             if (index == -1) return -1;
-            return Equals(item.Value, _array[index].Value) ? index : -1;
+            return Equals(item.Value, InnerArray[index].Value) ? index : -1;
         }
         int IList.IndexOf(object value)
         {
@@ -420,7 +423,7 @@ namespace UIGenerator
         {
             if (mode < 0) return -1;
             for (int i = 0; i < Count; i++)
-                if (mode == _array[i].Key1)
+                if (mode == InnerArray[i].Key1)
                     return i;
             return -1;
         }
@@ -428,7 +431,7 @@ namespace UIGenerator
         {
             if (name == null) return -1;
             for (int i = 0; i < Count; i++)
-                if (name == _array[i].Key2)
+                if (name == InnerArray[i].Key2)
                     return i;
             return -1;
         }
@@ -457,8 +460,8 @@ namespace UIGenerator
         public virtual void OnDeserialization(object sender)
         {
             if (seInfo == null) return;
-            _array = seInfo.GetValue<DoubleKeyValuePair<int, string, T>[]>(S_Array);
-            Count = _array.Length;
+            InnerArray = seInfo.GetValue<DoubleKeyValuePair<int, string, T>[]>(S_Array);
+            Count = InnerArray.Length;
             version = seInfo.GetInt32(S_Version);
             seInfo = null;
         }
@@ -514,9 +517,9 @@ namespace UIGenerator
         public void RemoveAt(int index)
         {
             if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
-            var item = _array[index];
-            if (index < Count) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
-            _array[Count - 1] = default;
+            var item = InnerArray[index];
+            if (index < Count) Array.Copy(InnerArray, index + 1, InnerArray, index, Count - index - 1);
+            InnerArray[Count - 1] = default;
             Count--;
             version++;
             OnRemoved(item, index);
@@ -532,8 +535,8 @@ namespace UIGenerator
             if ((uint)size > int.MaxValue) size = int.MaxValue;
             if (size < min) size = min;
             var array = new DoubleKeyValuePair<int, string, T>[size];
-            for (int i = 0; i < Count; i++) array[i] = _array[i];
-            _array = array;
+            for (int i = 0; i < Count; i++) array[i] = InnerArray[i];
+            InnerArray = array;
         }
         /// <summary>
         /// 指定したキーを持つUI情報を取得する
@@ -550,7 +553,7 @@ namespace UIGenerator
                 value = default;
                 return false;
             }
-            value = _array[index].Value;
+            value = InnerArray[index].Value;
             return true;
         }
         /// <summary>
@@ -619,7 +622,7 @@ namespace UIGenerator
                 ThrowIfInvalidVersion();
                 if (index < collection.Count)
                 {
-                    Current = collection._array[index++];
+                    Current = collection.InnerArray[index++];
                     return true;
                 }
                 Current = default;
@@ -676,7 +679,7 @@ namespace UIGenerator
             /// <param name="index">検索する要素のインデックス</param>
             /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
             /// <returns><paramref name="index"/>に対応する要素</returns>
-            public TAnother this[int index] => Converter.Invoke(Collection._array[index]);
+            public TAnother this[int index] => Converter.Invoke(Collection.InnerArray[index]);
             object IList.this[int index]
             {
                 get => this[index];
@@ -711,7 +714,7 @@ namespace UIGenerator
                 if (array == null) throw new ArgumentNullException();
                 if (arrayIndex < 0) throw new ArgumentOutOfRangeException();
                 if (array.Length < arrayIndex + Count) throw new ArgumentException();
-                for (int i = 0; i < Count; i++) array[arrayIndex++] = Converter.Invoke(Collection._array[i]);
+                for (int i = 0; i < Count; i++) array[arrayIndex++] = Converter.Invoke(Collection.InnerArray[i]);
             }
             void ICollection.CopyTo(Array array, int index)
             {
@@ -725,7 +728,7 @@ namespace UIGenerator
                     case object[] o:
                         try
                         {
-                            for (int i = 0; i < Count; i++) o[index++] = Converter.Invoke(Collection._array[index]);
+                            for (int i = 0; i < Count; i++) o[index++] = Converter.Invoke(Collection.InnerArray[index]);
                         }
                         catch (ArrayTypeMismatchException)
                         {
@@ -815,7 +818,7 @@ namespace UIGenerator
                     if (version != collection.version) throw new InvalidOperationException();
                     if (index < collection.Count)
                     {
-                        Current = converter.Invoke(collection._array[index++]);
+                        Current = converter.Invoke(collection.InnerArray[index++]);
                         return true;
                     }
                     Current = default;
@@ -844,10 +847,10 @@ namespace UIGenerator
                 get
                 {
                     if (Count == 0) return 0;
-                    var max = Collection._array[0].Key1;
+                    var max = Collection.InnerArray[0].Key1;
                     for (int i = 1; i < Count; i++)
-                        if (max < Collection._array[i].Key1)
-                            max = Collection._array[i].Key1;
+                        if (max < Collection.InnerArray[i].Key1)
+                            max = Collection.InnerArray[i].Key1;
                     return max;
                 }
             }
@@ -859,10 +862,10 @@ namespace UIGenerator
                 get
                 {
                     if (Count == 0) return 0;
-                    var min = Collection._array[0].Key1;
+                    var min = Collection.InnerArray[0].Key1;
                     for (int i = 1; i < Count; i++)
-                        if (min > Collection._array[i].Key1)
-                            min = Collection._array[i].Key1;
+                        if (min > Collection.InnerArray[i].Key1)
+                            min = Collection.InnerArray[i].Key1;
                     return min;
                 }
             }

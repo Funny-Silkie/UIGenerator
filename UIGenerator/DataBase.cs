@@ -98,7 +98,7 @@ namespace UIGenerator
         public static void AddObject(UIInfoBase info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
-            UIInfos.Add(info.Mode, info.Name, info);
+            UIInfos.Add(info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
         /// <summary>
