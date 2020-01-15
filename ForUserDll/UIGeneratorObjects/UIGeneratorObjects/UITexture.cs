@@ -5,10 +5,10 @@ using fslib;
 namespace UIGenerator
 {
     /// <summary>
-    /// テキストを表すクラス
+    /// テクスチャを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIText : ClickableText, IUIElements
+    public class UITexture : ClickableTexture, IUIElements
     {
         /// <summary>
         /// 表示モードを取得する
@@ -18,18 +18,6 @@ namespace UIGenerator
         /// 名前を取得する
         /// </summary>
         public string Name { get; }
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="mode">表示モード</param>
-        /// <param name="name">名前</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIText(int mode, string name) : base()
-        {
-            Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
-            Name = name ?? throw new ArgumentNullException();
-        }
         /// <summary>
         /// マウス左ボタンでクリックされたときのイベント
         /// </summary>
@@ -78,6 +66,18 @@ namespace UIGenerator
         /// マウスカーソルとの重なりが解除されたときのイベント
         /// </summary>
         public event EventHandler MouseExit;
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="mode">表示モード</param>
+        /// <param name="name">名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        public UITexture(int mode, string name) : base()
+        {
+            Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
+            Name = name ?? throw new ArgumentNullException();
+        }
         Object2D IUIElements.AsObject2D() => this;
         protected override void OnCursorEnter() => MouseEnter?.Invoke(this, EventArgs.Empty);
         protected override void OnCursorExit() => MouseExit?.Invoke(this, EventArgs.Empty);

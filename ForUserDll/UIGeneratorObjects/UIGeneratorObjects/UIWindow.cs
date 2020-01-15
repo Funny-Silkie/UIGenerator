@@ -5,10 +5,10 @@ using fslib;
 namespace UIGenerator
 {
     /// <summary>
-    /// テキストを表すクラス
+    /// ウィンドウを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIText : ClickableText, IUIElements
+    public sealed class UIWindow : Window, IUIElements
     {
         /// <summary>
         /// 表示モードを取得する
@@ -25,10 +25,13 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIText(int mode, string name) : base()
+        public UIWindow(int mode, string name) : base(new Vector2DF(100, 100), 0, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
+            DrawingPriority = -1;
+            GeneratingFlame = true;
+            SetColor(ColorSet.WindowDefault);
         }
         /// <summary>
         /// マウス左ボタンでクリックされたときのイベント
