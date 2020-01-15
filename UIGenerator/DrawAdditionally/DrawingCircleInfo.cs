@@ -98,7 +98,7 @@ namespace UIGenerator
             Texture = DataBase.Textures[SeInfo.GetInt32(S_TextureIndex)];
             Angle = SeInfo.GetSingle(S_Angle);
             Center = SeInfo.GetValue<SerializableVector2DF>(S_Center);
-            Color = SeInfo.GetValue<ColorPlus>(S_Center);
+            Color = SeInfo.GetValue<ColorPlus>(S_Color);
             VertNum = SeInfo.GetInt32(S_VertNum);
             InnerDiameter = SeInfo.GetSingle(S_InnerD);
             OuterDiameter = SeInfo.GetSingle(S_OuterD);

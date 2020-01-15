@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using asd;
 using fslib;
 using fslib.Serialization;
@@ -9,8 +10,20 @@ namespace UIGenerator
     /// <see cref="Layer2D.DrawRotatedRectangleAdditionally(RectF, Color, Vector2DF, float, RectF, Texture2D, AlphaBlendMode, int)"/>の実装を仲介するクラス
     /// </summary>
     [Serializable]
-    public sealed partial class DrawingRotatedRectangleInfo : DrawingAdditionaryInfoBase
+    public sealed partial class DrawingRotatedRectangleInfo : DrawingAdditionaryInfoBase, ISerializable, IDeserializationCallback
     {
+        #region SerializeName
+        private const string S_Angle = "S_Angle";
+        private const string S_Center = "S_Center";
+        private const string S_Color = "S_Color";
+        private const string S_DrawingArea = "S_DrawingArea";
+        private const string S_TextureIndex = "S_TextureIndex";
+        private const string S_UV = "S_UV";
+        #endregion
+        /// <summary>
+        /// 追加描画のタイプを取得する
+        /// </summary>
+        public override DrawingAdditionalMode DrawingAdditionalMode => DrawingAdditionalMode.RotatedRectangle;
         /// <summary>
         /// 描画エリアを取得または設定する
         /// </summary>
@@ -41,6 +54,45 @@ namespace UIGenerator
         /// <param name="name">設定する名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public DrawingRotatedRectangleInfo(int mode, string name) : base(mode, name, DrawingAdditionalMode.RotatedRectangle) { }
+        public DrawingRotatedRectangleInfo(int mode, string name) : base(mode, name) { }
+        /// <summary>
+        /// シリアライズするデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアル化するデータを持つオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private DrawingRotatedRectangleInfo(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(S_Angle, Angle);
+            info.AddValue(S_Center, RotationCenter);
+            info.AddValue(S_Color, Color);
+            info.AddValue(S_DrawingArea, DrawingArea);
+            info.AddValue(S_UV, UV);
+            var textureindex = DataBase.Textures.IndexOf(Texture);
+            if (textureindex == -1) textureindex = 0;
+            info.AddValue(S_TextureIndex, textureindex);
+        }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        public override void OnDeserialization(object sender)
+        {
+            if (SeInfo == null) return;
+            Texture = DataBase.Textures[SeInfo.GetInt32(S_TextureIndex)];
+            DrawingArea = SeInfo.GetValue<SerializableRectF>(S_DrawingArea);
+            UV = SeInfo.GetValue<SerializableRectF>(S_UV);
+            Angle = SeInfo.GetSingle(S_Angle);
+            RotationCenter = SeInfo.GetValue<SerializableVector2DF>(S_Center);
+            Color = SeInfo.GetValue<ColorPlus>(S_Color);
+            base.OnDeserialization(sender);
+        }
     }
 }
