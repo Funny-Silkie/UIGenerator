@@ -242,14 +242,14 @@
             this.Label_Add_Name.TabIndex = 1;
             this.Label_Add_Name.Text = "Name";
             // 
-            // AddWindow
+            // ElementWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(545, 497);
             this.Controls.Add(this.Panel_Add);
             this.Controls.Add(this.Panel_Obj);
-            this.Name = "AddWindow";
+            this.Name = "ElementWindow";
             this.Text = "AddWindow";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddWindow_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Obj_Mode)).EndInit();

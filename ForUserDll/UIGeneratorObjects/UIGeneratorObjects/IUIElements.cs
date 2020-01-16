@@ -1,7 +1,7 @@
 ﻿using System;
 using asd;
 
-namespace UIGenerator
+namespace UIGeneratorObjects
 {
     /// <summary>
     /// UIとして使用されるオブジェクトの基底のインターフェイス

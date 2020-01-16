@@ -2,7 +2,7 @@
 using asd;
 using fslib;
 
-namespace UIGenerator
+namespace UIGeneratorObjects
 {
     /// <summary>
     /// テクスチャを表すクラス

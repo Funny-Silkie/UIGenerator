@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IUIElements.cs" />
+    <Compile Include="UIInfoCollection.cs" />
+    <Compile Include="UILayer.cs" />
     <Compile Include="UIText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UITexture.cs" />

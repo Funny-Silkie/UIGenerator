@@ -74,7 +74,7 @@ namespace UIGenerator
             var name = TextBox_Add_Name.Text;
             if (!DataBase.DrawingCollection.Contains(mode, name))
             {
-                DataBase.DrawingCollection.Add(mode, name, DrawingAdditionaryInfoBase.GetInstance(type, mode, name));
+                DataBase.DrawingCollection.Add(DrawingAdditionaryInfoBase.GetInstance(type, mode, name));
                 var item = mainEdittor.ListView_Additionalies.Items.Add(type.ToString());
                 item.SubItems.Add(name);
                 item.SubItems.Add(mode.ToString());

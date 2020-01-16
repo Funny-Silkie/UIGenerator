@@ -150,6 +150,7 @@ namespace UIGenerator
         /// <param name="path">読み込むデータのパス</param>
         public static void LoadProject(string path)
         {
+            MainScene.MainLayer.Clear();
             var c = IOHandler.ReadBinary<DataCarrier>(path);
             _fonts = c.FontCollection ?? _fonts;
             _textures = c.TextureCollection ?? _textures;
@@ -224,6 +225,10 @@ namespace UIGenerator
     [Serializable]
     public class DataCarrier
     {
+        /// <summary>
+        /// このファイルのバージョンを取得する
+        /// </summary>
+        public string Version => "Beta";
         /// <summary>
         /// <see cref="DataBase.UIInfos"/>のインスタンス
         /// </summary>
