@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using fslib.Collections;
 
@@ -20,6 +21,18 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
         /// <param name="capacity">設定する容量</param>
         public UIInfoCollection(int capacity) : base(capacity) { }
+        /// <summary>
+        /// 指定したコレクションの要素のコピーを持った<see cref="UIInfoCollection"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
+        /// <param name="collection">要素をコピーする<see cref="IDoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</param>
+        public UIInfoCollection(IEnumerable<DoubleKeyValuePair<int, string, UIInfoBase>> collection) : base(collection) { }
+        /// <summary>
+        /// 指定したコレクションの要素のコピーを持った<see cref="UIInfoCollection"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
+        /// <param name="collection">要素をコピーする<see cref="IEnumerable{T}"/>のインスタンス</param>
+        public UIInfoCollection(IEnumerable<UIInfoBase> collection) : base(collection) { }
         private UIInfoCollection(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// 指定された表示モードと名前の組み合わせが存在するかどうかを返す

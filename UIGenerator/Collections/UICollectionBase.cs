@@ -14,7 +14,7 @@ namespace UIGenerator
     /// </summary>
     /// <typeparam name="T">格納される情報</typeparam>
     [Serializable]
-    public abstract class UICollectionBase<T> : INumericDoubleKeyDictionary<int, string, T>, IReadOnlyNumericDoubleKeyDictionary<int, string, T>, IDictionary, IList, ISerializable where T : IUIGeneratorInfo
+    public abstract class UICollectionBase<T> : INumericDoubleKeyDictionary<int, string, T>, IReadOnlyNumericDoubleKeyDictionary<int, string, T>, IDictionary, IList, ISerializable, IDeserializationCallback where T : IUIGeneratorInfo
     {
         #region SerializeName
         private const string S_Array = "S_Array";
@@ -91,6 +91,26 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
             InnerArray = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, T>[capacity];
+        }
+        protected UICollectionBase(IEnumerable<DoubleKeyValuePair<int, string, T>> collection)
+        {
+            if (collection == null) throw new ArgumentNullException();
+            InnerArray = collection is ICollection<DoubleKeyValuePair<int, string, T>> c && c.Count != 0 ? new DoubleKeyValuePair<int, string, T>[c.Count] : emptyArray;
+            using (var en = collection.GetEnumerator())
+                while (en.MoveNext())
+                    Add(en.Current);
+        }
+        /// <summary>
+        /// 指定したコレクションのコピーを格納する<see cref="UICollectionBase{T}"/>の新しいインスタンスを生成する
+        /// </summary>
+        /// <param name="collection">要素のコピー元のコレクション</param>
+        /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
+        protected UICollectionBase(IEnumerable<T> collection)
+        {
+            if (collection == null) throw new ArgumentNullException();
+            using (var en = collection.GetEnumerator())
+                while (en.MoveNext())
+                    Add(en.Current);
         }
         /// <summary>
         /// シリアライズするデータを用いてインスタンスを初期化する
@@ -170,7 +190,11 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="value"/>またはその名前がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/>の表示モードが0未満</exception>
         /// <exception cref="KeyDuplicateException"><paramref name="value"/>内のキーの組み合わせが既に存在している</exception>
-        public void Add(T value) => _ = value == null ? throw new ArgumentNullException() : Add(value.Mode, value.Name, value);
+        public void Add(T value)
+        {
+            if (value == null) throw new ArgumentNullException();
+            Add(value.Mode, value.Name, value);
+        }
         private void Add(int mode, string name, T value)
         {
             if (mode < 0) throw new ArgumentOutOfRangeException();
@@ -662,8 +686,7 @@ namespace UIGenerator
             /// <summary>
             /// 与えられた値のペアから<typeparamref name="TAnother"/>に値を変更する関数を取得する
             /// </summary>
-
-            protected abstract Func<DoubleKeyValuePair<int, string, T>, TAnother> Converter { get; }
+            protected abstract Converter<DoubleKeyValuePair<int, string, T>, TAnother> Converter { get; }
             bool IList.IsFixedSize => false;
             bool ICollection<TAnother>.IsReadOnly => true;
             bool IList.IsReadOnly => true;
@@ -781,7 +804,7 @@ namespace UIGenerator
             public struct Enumerator : IEnumerator<TAnother>
             {
                 private readonly UICollectionBase<T> collection;
-                private readonly Func<DoubleKeyValuePair<int, string, T>, TAnother> converter;
+                private readonly Converter<DoubleKeyValuePair<int, string, T>, TAnother> converter;
                 private int index;
                 private readonly int version;
                 /// <summary>
@@ -796,7 +819,7 @@ namespace UIGenerator
                         return Current;
                     }
                 }
-                internal Enumerator(UICollectionBase<T> collection, Func<DoubleKeyValuePair<int, string, T>, TAnother> converter)
+                internal Enumerator(UICollectionBase<T> collection, Converter<DoubleKeyValuePair<int, string, T>, TAnother> converter)
                 {
                     this.collection = collection ?? throw new ArgumentNullException();
                     this.converter = converter ?? throw new ArgumentNullException();
@@ -872,7 +895,7 @@ namespace UIGenerator
             /// <summary>
             /// 与えられた値のペアから値を変換する関数を取得する
             /// </summary>
-            protected override Func<DoubleKeyValuePair<int, string, T>, int> Converter => x => x.Key1;
+            protected override Converter<DoubleKeyValuePair<int, string, T>, int> Converter => x => x.Key1;
             internal ModeCollection(UICollectionBase<T> collection) : base(collection) { }
             /// <summary>
             /// 指定した要素のインデックスを検索する
@@ -895,7 +918,7 @@ namespace UIGenerator
             /// <summary>
             /// 与えられた値のペアから値を変換する関数を取得する
             /// </summary>
-            protected override Func<DoubleKeyValuePair<int, string, T>, string> Converter => x => x.Key2;
+            protected override Converter<DoubleKeyValuePair<int, string, T>, string> Converter => x => x.Key2;
             internal NameCollection(UICollectionBase<T> collection) : base(collection) { }
             /// <summary>
             /// 指定した要素のインデックスを検索する
@@ -913,7 +936,7 @@ namespace UIGenerator
             /// <summary>
             /// 与えられた値のペアから値を変換する関数を取得する
             /// </summary>
-            protected override Func<DoubleKeyValuePair<int, string, T>, T> Converter => x => x.Value;
+            protected override Converter<DoubleKeyValuePair<int, string, T>, T> Converter => x => x.Value;
             internal InfoCollection(UICollectionBase<T> collection) : base(collection) { }
             /// <summary>
             /// 指定した要素のインデックスを検索する
