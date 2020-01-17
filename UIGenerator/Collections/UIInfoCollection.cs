@@ -35,13 +35,6 @@ namespace UIGenerator
         public UIInfoCollection(IEnumerable<UIInfoBase> collection) : base(collection) { }
         private UIInfoCollection(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// 指定された表示モードと名前の組み合わせが存在するかどうかを返す
-        /// </summary>
-        /// <param name="mode">検索する表示モード</param>
-        /// <param name="name">検索する名前</param>
-        /// <returns>含まれていたらtrue，それ以外でfalse</returns>
-        public bool Contains(int mode, string name) => IndexOf(mode, name) != -1;
-        /// <summary>
         /// 2つの値の同一性を判定する
         /// </summary>
         /// <param name="t1">同一性を判定する値</param>
@@ -69,16 +62,6 @@ namespace UIGenerator
             info.HandleForm?.Close();
             info.HandleForm = null;
             info.__UIObj.Dispose();
-        }
-        /// <summary>
-        /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
-        /// </summary>
-        /// <returns>要素がコピーされた<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</returns>
-        public DoubleKeyDictionary<int, string, UIInfoBase> ToDoubleKeyDictionary()
-        {
-            var dic = new DoubleKeyDictionary<int, string, UIInfoBase>(Count);
-            for (int i = 0; i < Count; i++) dic.Add(InnerArray[i].Key1, InnerArray[i].Key2, InnerArray[i].Value);
-            return dic;
         }
     }
 }

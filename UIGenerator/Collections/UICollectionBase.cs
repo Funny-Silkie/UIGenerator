@@ -199,7 +199,7 @@ namespace UIGenerator
         {
             if (mode < 0) throw new ArgumentOutOfRangeException();
             if (name == null || value == null) throw new ArgumentNullException();
-            if (ContainsKeyPair(mode, name)) throw new KeyDuplicateException();
+            if (Contains(mode, name)) throw new KeyDuplicateException();
             if (Capacity < Count + 1) ReSize(Count + 1);
             var item = new DoubleKeyValuePair<int, string, T>(mode, name, value);
             InnerArray[Count++] = item;
@@ -343,7 +343,7 @@ namespace UIGenerator
             {
                 case int mode: return ContainsMode(mode);
                 case string name: return ContainsName(name);
-                case DoubleKey<int, string> pair: return ContainsKeyPair(pair.Key1, pair.Key2);
+                case DoubleKey<int, string> pair: return Contains(pair.Key1, pair.Key2);
                 case null: throw new ArgumentNullException();
                 default: throw new ArgumentException();
             }
@@ -352,7 +352,7 @@ namespace UIGenerator
         {
             switch (value)
             {
-                case T t: return ContainsValue(t);
+                case T t: return Contains(t);
                 case DoubleKeyValuePair<int, string, T> pair: return Contains(pair);
                 case null: return false;
                 default: throw new ArgumentException();
@@ -364,19 +364,23 @@ namespace UIGenerator
         /// <param name="mode">検索する表示モード</param>
         /// <param name="name">検索する名前</param>
         /// <returns><paramref name="mode"/>と<paramref name="name"/>のペアが格納されていたらtrue，それ以外でfalse</returns>
-        public bool ContainsKeyPair(int mode, string name) => IndexOf(mode, name) != -1;
+        public bool Contains(int mode, string name) => IndexOf(mode, name) != -1;
+        /// <summary>
+        /// 指定したUI情報が格納されているかどうかを検索する
+        /// </summary>
+        /// <param name="value">検索するUI情報</param>
+        /// <returns><paramref name="value"/>が格納されていたらtrue，それ以外でfalse</returns>
+        public bool Contains(T value) => IndexOf(value) != -1;
+        bool INumericDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
         bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
         bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
         bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey2(string key) => ContainsName(key);
         bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKey2(string key) => ContainsName(key);
         private bool ContainsMode(int mode) => IndexOfMode(mode) != -1;
         private bool ContainsName(string name) => IndexOfName(name) != -1;
-        /// <summary>
-        /// 指定したUI情報が格納されているかどうかを検索する
-        /// </summary>
-        /// <param name="value">検索するUI情報</param>
-        /// <returns><paramref name="value"/>が格納されていたらtrue，それ以外でfalse</returns>
-        public bool ContainsValue(T value) => IndexOf(value) != -1;
+        bool INumericDoubleKeyDictionary<int, string, T>.ContainsValue(T value) => Contains(value);
+        bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsValue(T value) => Contains(value);
         /// <summary>
         /// 2つの<typeparamref name="T"/>の値の同一性を判定する
         /// </summary>
@@ -567,6 +571,46 @@ namespace UIGenerator
             var array = new DoubleKeyValuePair<int, string, T>[size];
             for (int i = 0; i < Count; i++) array[i] = InnerArray[i];
             InnerArray = array;
+        }
+        /// <summary>
+        /// 指定した表示モードを持つ要素をすべて取得する
+        /// </summary>
+        /// <param name="name">取得する要素の表示モード</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="name"/>が0未満</exception>
+        /// <returns><paramref name="name"/>を持つ全ての要素が格納されたコレクション</returns>
+        public List<T> SearchFromMode(int mode)
+        {
+            if (mode < 0) throw new ArgumentOutOfRangeException();
+            var collection = new List<T>(Count);
+            for (int i = 0; i < Count; i++)
+                if (mode == InnerArray[i].Key1)
+                    collection.Add(InnerArray[i].Value);
+            return collection;
+        }
+        /// <summary>
+        /// 指定した名前を持つ要素をすべて取得する
+        /// </summary>
+        /// <param name="name">取得する要素の表示モード</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <returns><paramref name="name"/>を持つ全ての要素が格納されたコレクション</returns>
+        public List<T> SearchFromName(string name)
+        {
+            if (name == null) throw new ArgumentNullException();
+            var collection = new List<T>(Count);
+            for (int i = 0; i < Count; i++)
+                if (name == InnerArray[i].Key2)
+                    collection.Add(InnerArray[i].Value);
+            return collection;
+        }
+        /// <summary>
+        /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
+        /// </summary>
+        /// <returns>要素がコピーされた<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</returns>
+        public DoubleKeyDictionary<int, string, T> ToDoubleKeyDictionary()
+        {
+            var dic = new DoubleKeyDictionary<int, string, T>(Count);
+            for (int i = 0; i < Count; i++) dic.Add(InnerArray[i].Key1, InnerArray[i].Key2, InnerArray[i].Value);
+            return dic;
         }
         /// <summary>
         /// 指定したキーを持つUI情報を取得する

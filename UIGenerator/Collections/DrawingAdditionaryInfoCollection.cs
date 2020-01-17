@@ -33,19 +33,6 @@ namespace UIGenerator
         public DrawingAdditionaryInfoCollection(IEnumerable<DrawingAdditionaryInfoBase> collection) : base(collection) { }
         private DrawingAdditionaryInfoCollection(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// 指定したモードと名前のペアが格納されているかどうかを返す
-        /// </summary>
-        /// <param name="mode">検索する表示モード</param>
-        /// <param name="name">検索する名前</param>
-        /// <returns><paramref name="mode"/>と<paramref name="name"/>を持つ値が格納されていたらtrue，それ以外でfalse</returns>
-        public bool Contains(int mode, string name) => IndexOf(mode, name) != -1;
-        /// <summary>
-        /// 指定した追加描画の情報が格納されているかどうかを返す
-        /// </summary>
-        /// <param name="info">検索する追加描画の情報</param>
-        /// <returns><paramref name="info"/>が格納されていたらtrue，それ以外でfalse</returns>
-        public bool Contains(DrawingAdditionaryInfoBase info) => IndexOf(info) != -1;
-        /// <summary>
         /// 2つの値の同一性を判定する
         /// </summary>
         /// <param name="t1">同一性を判定する値</param>
