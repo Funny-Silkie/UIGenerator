@@ -49,6 +49,28 @@ namespace UIGenerator
         /// <returns><paramref name="t1"/>と<paramref name="t2"/>が同じならばtrue，それ以外でfalse</returns>
         protected override bool Equals(UIInfoBase t1, UIInfoBase t2) => t1 == t2;
         /// <summary>
+        /// コレクションの文字列情報の配列を取得する
+        /// </summary>
+        /// <returns>コレクションの文字列情報の配列</returns>
+        public string[] GetNames()
+        {
+            var array = new string[Count];
+            for (int i = 0; i < Count; i++) array[i] = $"{InnerArray[i].Key2}(Mode{InnerArray[i].Key1})[{InnerArray[i].Value.Type}]";
+            return array;
+        }
+        /// <summary>
+        /// 要素が削除されたときに実行
+        /// </summary>
+        /// <param name="element">削除された要素</param>
+        /// <param name="index"><paramref name="element"/>に割り当てられていたインデックス</param>
+        protected override void OnRemoved(in DoubleKeyValuePair<int, string, UIInfoBase> element, int index)
+        {
+            var info = element.Value;
+            info.HandleForm?.Close();
+            info.HandleForm = null;
+            info.__UIObj.Dispose();
+        }
+        /// <summary>
         /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
         /// </summary>
         /// <returns>要素がコピーされた<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</returns>

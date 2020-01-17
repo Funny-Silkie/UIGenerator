@@ -158,7 +158,7 @@ namespace UIGenerator
             UIInfos = c.UIInfoCollection ?? UIInfos;
             ProjectName = c.ProjectName ?? ProjectName;
             WindowSize = c.WindowSize;
-            UpdateListView();
+            UpdateUIObjectControls();
             ShowMode = 0;
             foreach (var obj in UIInfos)
                 if (obj.Key1 == ShowMode)
@@ -200,11 +200,13 @@ namespace UIGenerator
             TextureIOForm.SingleInstance?.ResetListView(true);
         }
         /// <summary>
-        /// リストビューの内容を更新する
+        /// UIオブジェクトのコントロール内容を更新する
         /// </summary>
-        public static void UpdateListView()
+        public static void UpdateUIObjectControls()
         {
             MainEdittor.SingleInstance?.ResetListView();
+            ElementWindow.SingleInstance?.ResetAdditionalComboBox();
+            ElementWindow.SingleInstance?.ResetObjComboBox();
         }
         /// <summary>
         /// ウィンドウのサイズを変更する

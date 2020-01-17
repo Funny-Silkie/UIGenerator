@@ -462,6 +462,12 @@ namespace UIGenerator
         void IList.Insert(int index, object value) => throw new NotSupportedException();
         void INumericDoubleKeyDictionary<int, string, T>.Insert(int index, int key1, string key2, T value) => throw new NotSupportedException();
         /// <summary>
+        /// 指定したインデックスがコレクションの管理インデックスかどうかを返す
+        /// </summary>
+        /// <param name="index">検証するインデックス</param>
+        /// <returns><paramref name="index"/>が管理インデックスであったらtrue，それ以外でfalse</returns>
+        public bool IsCompatibleIndex(int index) => index >= 0 && index < Count;
+        /// <summary>
         /// 要素が追加されたときに実行
         /// </summary>
         /// <param name="element">追加された要素</param>

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Threading;
 using asd;
 using fslib;
 using fslib.Collections;
@@ -54,6 +52,27 @@ namespace UIGenerator
         /// <param name="t2">同一性を判定するもう一つの<値</param>
         /// <returns><paramref name="t1"/>と<paramref name="t2"/>が同じならばtrue，それ以外でfalse</returns>
         protected override bool Equals(DrawingAdditionaryInfoBase t1, DrawingAdditionaryInfoBase t2) => t1 == t2;
+        /// <summary>
+        /// コレクションの文字列情報の配列を取得する
+        /// </summary>
+        /// <returns>コレクションの文字列情報の配列</returns>
+        public string[] GetNames()
+        {
+            var array = new string[Count];
+            for (int i = 0; i < Count; i++) array[i] = $"{InnerArray[i].Key2}(Mode{InnerArray[i].Key1})[{InnerArray[i].Value.DrawingAdditionalMode}]";
+            return array;
+        }
+        /// <summary>
+        /// 要素が削除されたときに実行
+        /// </summary>
+        /// <param name="element">削除された要素</param>
+        /// <param name="index"><paramref name="element"/>に割り当てられていたインデックス</param>
+        protected override void OnRemoved(in DoubleKeyValuePair<int, string, DrawingAdditionaryInfoBase> element, int index)
+        {
+            var info = element.Value;
+            info.HandleForm?.Close();
+            info.HandleForm = null;
+        }
         /// <summary>
         /// 全ての描画を実行する
         /// </summary>

@@ -28,6 +28,8 @@ namespace UIGenerator
             mainEdittor = main ?? throw new ArgumentNullException();
             SingleInstance = this;
             InitializeComponent();
+            ResetObjComboBox();
+            ResetAdditionalComboBox();
             ComboBox_Obj_Type.DataSource = Enum.GetNames(typeof(UITypes));
             ComboBox_Add_Type.DataSource = Enum.GetNames(typeof(DrawingAdditionalMode));
         }
@@ -54,6 +56,7 @@ namespace UIGenerator
                 item.SubItems.Add(name);
                 item.SubItems.Add(mode.ToString());
                 Reset_Obj();
+                ResetObjComboBox();
             }
         }
         /// <summary>
@@ -79,6 +82,7 @@ namespace UIGenerator
                 item.SubItems.Add(name);
                 item.SubItems.Add(mode.ToString());
                 Reset_Add();
+                ResetAdditionalComboBox();
             }
         }
         /// <summary>
@@ -104,6 +108,44 @@ namespace UIGenerator
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// <see cref="ComboBox_Add_Remove"/>の内容を更新する
+        /// </summary>
+        public void ResetAdditionalComboBox() => ComboBox_Add_Remove.DataSource = DataBase.DrawingCollection.GetNames();
+        /// <summary>
+        /// <see cref="ComboBox_Obj_Remove"/>の内容を更新する
+        /// </summary>
+        public void ResetObjComboBox() => ComboBox_Obj_Remove.DataSource = DataBase.UIInfos.GetNames();
+        /// <summary>
+        /// UIオブジェクトを削除
+        /// </summary>
+        private void Button_Obj_Remove_Click(object sender, EventArgs e)
+        {
+            var index = ComboBox_Obj_Remove.SelectedIndex;
+            if (!DataBase.UIInfos.IsCompatibleIndex(index))
+            {
+                Console.WriteLine("指定したオブジェクトを削除できませんでした");
+                return;
+            }
+            DataBase.RemoveObject(DataBase.UIInfos[index]);
+            DataBase.UpdateUIObjectControls();
+            Console.WriteLine("指定したオブジェクトを削除できました");
+        }
+        /// <summary>
+        /// 追加描画オブジェクトを削除
+        /// </summary>
+        private void Button_Add_Remove_Click(object sender, EventArgs e)
+        {
+            var index = ComboBox_Add_Remove.SelectedIndex;
+            if (!DataBase.DrawingCollection.IsCompatibleIndex(index))
+            {
+                Console.WriteLine("指定した要素を削除できませんでした");
+                return;
+            }
+            DataBase.DrawingCollection.RemoveAt(index);
+            DataBase.UpdateUIObjectControls();
+            Console.WriteLine("指定したオブジェクトを削除できました");
         }
     }
 }
