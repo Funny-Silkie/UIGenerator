@@ -14,7 +14,10 @@ namespace UIGenerator
         #region SerializeName
         private const string S_Path = "S_Path";
         #endregion
-        private string path;
+        /// <summary>
+        /// パスを取得する
+        /// </summary>
+        public string Path { get; private set; }
         /// <summary>
         /// 使用できるフォントを取得または設定する
         /// </summary>
@@ -30,7 +33,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="path"/>がnull</exception>
         protected UIGeneratorFontBase(string path)
         {
-            this.path = path ?? throw new ArgumentNullException();
+            this.Path = path ?? throw new ArgumentNullException();
         }
         /// <summary>
         /// シリアライズするデータを用いてインスタンスを初期化する
@@ -56,7 +59,7 @@ namespace UIGenerator
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null) throw new ArgumentNullException();
-            info.AddValue(S_Path, path);
+            info.AddValue(S_Path, Path);
         }
         /// <summary>
         /// デシリアライズ時に実行
@@ -65,15 +68,15 @@ namespace UIGenerator
         public virtual void OnDeserialization(object sender)
         {
             if (SeInfo == null) return;
-            path = SeInfo.GetString(S_Path);
-            Font = GetFont(path) ?? throw new SerializationException();
+            Path = SeInfo.GetString(S_Path);
+            Font = GetFont(Path) ?? throw new SerializationException();
             SeInfo = null;
         }
         /// <summary>
         /// byte配列で保存するフォントに変換する
         /// </summary>
         /// <exception cref="IOException">ファイルの読み込みに失敗した</exception>
-        public PackagedFont ToPackageFont() => CreatePackageFont(path);
+        public PackagedFont ToPackageFont() => CreatePackageFont(Path);
         /// <summary>
         /// パッケージ化する
         /// </summary>

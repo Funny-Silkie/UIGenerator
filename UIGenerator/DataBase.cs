@@ -225,12 +225,12 @@ namespace UIGenerator
     /// バイナリでデータを保存するためにまとめるクラス
     /// </summary>
     [Serializable]
-    public class DataCarrier
+    public sealed class DataCarrier
     {
         /// <summary>
         /// このファイルのバージョンを取得する
         /// </summary>
-        public string Version => "Beta";
+        public string Version { get; }
         /// <summary>
         /// <see cref="DataBase.UIInfos"/>のインスタンス
         /// </summary>
@@ -266,6 +266,7 @@ namespace UIGenerator
             DrawingAdditionaryInfoCollection = DataBase.DrawingCollection;
             ProjectName = DataBase.ProjectName;
             WindowSize = DataBase.WindowSize;
+            Version = "Beta";
         }
     }
 }

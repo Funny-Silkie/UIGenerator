@@ -20,12 +20,15 @@ namespace UIGenerator
         /// テクスチャを取得する
         /// </summary>
         public UIGeneratorTexture2D Texture { get; }
-        private readonly string path;
+        /// <summary>
+        /// パスを取得する
+        /// </summary>
+        public string Path { get; }
         private TextureInfo(UIGeneratorTexture2D texture, string name, string path)
         {
             Texture= texture;
             Name = name;
-            this.path = path;
+            this.Path = path;
         }
         /// <summary>
         /// 指定したパスから<see cref="TextureInfo"/>のインスタンスを生成する
@@ -39,7 +42,7 @@ namespace UIGenerator
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
-            var name = Path.GetFileName(path);
+            var name = System.IO.Path.GetFileName(path);
             return new TextureInfo(new UIGeneratorTexture2D(path), name, path);
         }
         /// <summary>
@@ -47,7 +50,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="other">確認するもう一つの<see cref="TextureInfo"/></param>
         /// <returns>同値だったらtrue，それ以外でfalse</returns>
-        public bool Equals(TextureInfo other) => path == other.path;
+        public bool Equals(TextureInfo other) => Path == other.Path;
         /// <summary>
         /// パッケージからインスタンス生成する
         /// </summary>
@@ -67,6 +70,6 @@ namespace UIGenerator
         /// 現在のオブジェクトを表す文字列を返す
         /// </summary>
         /// <returns>現在のオブジェクトを表す文字列</returns>
-        public override string ToString() => $"{Name} ({path})";
+        public override string ToString() => $"{Name} ({Path})";
     }
 }
