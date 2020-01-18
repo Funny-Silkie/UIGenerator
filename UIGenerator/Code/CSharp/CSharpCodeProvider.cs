@@ -189,7 +189,7 @@ namespace UIGenerator
             code[3] = "}\n";
             code[4] = $"static {layerName}()\n";
             code[5] = "{\n";
-            code[6] = $"    Engine.File.AddRootPackageWithPassword({FromString("DefaultResource.pack")}, {FromString("")});\n";
+            code[6] = $"    Engine.File.AddRootPackage({FromString("DefaultResource.pack")});\n";
             code[7] = "}\n";
             return code;
         }
