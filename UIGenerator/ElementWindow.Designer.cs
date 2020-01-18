@@ -47,8 +47,8 @@
             this.TabControl_Obj = new System.Windows.Forms.TabControl();
             this.TabPage_Obj_Add = new System.Windows.Forms.TabPage();
             this.TabPage_Obj_Remove = new System.Windows.Forms.TabPage();
-            this.Button_Obj_Remove = new System.Windows.Forms.Button();
             this.ComboBox_Obj_Remove = new System.Windows.Forms.ComboBox();
+            this.Button_Obj_Remove = new System.Windows.Forms.Button();
             this.TabControl_Add = new System.Windows.Forms.TabControl();
             this.TabPage_Add_Add = new System.Windows.Forms.TabPage();
             this.TabPage_Add_Remove = new System.Windows.Forms.TabPage();
@@ -261,6 +261,15 @@
             this.TabPage_Obj_Remove.Text = "Remove";
             this.TabPage_Obj_Remove.UseVisualStyleBackColor = true;
             // 
+            // ComboBox_Obj_Remove
+            // 
+            this.ComboBox_Obj_Remove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_Obj_Remove.FormattingEnabled = true;
+            this.ComboBox_Obj_Remove.Location = new System.Drawing.Point(23, 50);
+            this.ComboBox_Obj_Remove.Name = "ComboBox_Obj_Remove";
+            this.ComboBox_Obj_Remove.Size = new System.Drawing.Size(436, 23);
+            this.ComboBox_Obj_Remove.TabIndex = 1;
+            // 
             // Button_Obj_Remove
             // 
             this.Button_Obj_Remove.AutoSize = true;
@@ -271,15 +280,6 @@
             this.Button_Obj_Remove.Text = "Remove";
             this.Button_Obj_Remove.UseVisualStyleBackColor = true;
             this.Button_Obj_Remove.Click += new System.EventHandler(this.Button_Obj_Remove_Click);
-            // 
-            // ComboBox_Obj_Remove
-            // 
-            this.ComboBox_Obj_Remove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_Obj_Remove.FormattingEnabled = true;
-            this.ComboBox_Obj_Remove.Location = new System.Drawing.Point(23, 50);
-            this.ComboBox_Obj_Remove.Name = "ComboBox_Obj_Remove";
-            this.ComboBox_Obj_Remove.Size = new System.Drawing.Size(436, 23);
-            this.ComboBox_Obj_Remove.TabIndex = 1;
             // 
             // TabControl_Add
             // 
@@ -350,7 +350,7 @@
             this.Controls.Add(this.Label_Object);
             this.Controls.Add(this.TabControl_Obj);
             this.Name = "ElementWindow";
-            this.Text = "AddWindow";
+            this.Text = "要素の追加/削除";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddWindow_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Obj_Mode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Add_Mode)).EndInit();

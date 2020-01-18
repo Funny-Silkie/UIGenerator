@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainEdittor));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.プロジェクトを開く = new System.Windows.Forms.ToolStripMenuItem();
             this.上書き保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.名前を付けて保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@
             this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_Additional = new System.Windows.Forms.Label();
-            this.ToolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -84,6 +84,12 @@
             this.リソースの管理ToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             resources.ApplyResources(this.ファイルToolStripMenuItem, "ファイルToolStripMenuItem");
+            // 
+            // ToolStripMenuItem_Clear
+            // 
+            this.ToolStripMenuItem_Clear.Name = "ToolStripMenuItem_Clear";
+            resources.ApplyResources(this.ToolStripMenuItem_Clear, "ToolStripMenuItem_Clear");
+            this.ToolStripMenuItem_Clear.Click += new System.EventHandler(this.ToolStripMenuItem_Clear_Click);
             // 
             // プロジェクトを開く
             // 
@@ -264,12 +270,6 @@
             // 
             resources.ApplyResources(this.Label_Additional, "Label_Additional");
             this.Label_Additional.Name = "Label_Additional";
-            // 
-            // ToolStripMenuItem_Clear
-            // 
-            this.ToolStripMenuItem_Clear.Name = "ToolStripMenuItem_Clear";
-            resources.ApplyResources(this.ToolStripMenuItem_Clear, "ToolStripMenuItem_Clear");
-            this.ToolStripMenuItem_Clear.Click += new System.EventHandler(this.ToolStripMenuItem_Clear_Click);
             // 
             // MainEdittor
             // 

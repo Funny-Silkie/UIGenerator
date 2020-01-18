@@ -472,12 +472,18 @@
     <value>800, 808</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>MainEdittor</value>
+    <value>UIGenerator</value>
   </data>
   <data name="&gt;&gt;ファイルToolStripMenuItem.Name" xml:space="preserve">
     <value>ファイルToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ファイルToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem_Clear.Name" xml:space="preserve">
+    <value>ToolStripMenuItem_Clear</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem_Clear.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;プロジェクトを開く.Name" xml:space="preserve">
@@ -605,12 +611,6 @@
   </data>
   <data name="&gt;&gt;ColumnHeader_Mode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ToolStripMenuItem_Clear.Name" xml:space="preserve">
-    <value>ToolStripMenuItem_Clear</value>
-  </data>
-  <data name="&gt;&gt;ToolStripMenuItem_Clear.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainEdittor</value>
