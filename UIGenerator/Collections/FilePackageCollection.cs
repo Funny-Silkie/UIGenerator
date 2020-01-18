@@ -266,6 +266,7 @@ namespace UIGenerator
             Count = 0;
             version++;
             Engine.File.ClearRootDirectories();
+            Engine.File.AddRootPackage("DefaultResource.pack");
         }
         /// <summary>
         /// 指定したファイルパスを持つパスワード無しの要素が存在するかどうかを返す
@@ -513,6 +514,7 @@ namespace UIGenerator
         private void RemoveEvent()
         {
             Engine.File.ClearRootDirectories();
+            Engine.File.AddRootPackage("DefaultResource.pack");
             for (int i = 0; i < Count; i++) AddEvent(_array[i]);
         }
         private void ReSize(int min)

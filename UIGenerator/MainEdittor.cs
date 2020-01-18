@@ -10,7 +10,10 @@ namespace UIGenerator
     /// </summary>
     public partial class MainEdittor : Form
     {
-        private string usePath = "";
+        /// <summary>
+        /// プロジェクトファイルのパスを取得または設定する
+        /// </summary>
+        public string UsePath { get; set; } = "";
         /// <summary>
         /// 唯一のインスタンスを取得する
         /// </summary>
@@ -97,14 +100,14 @@ namespace UIGenerator
             {
                 var state = dialog.ShowDialog();
                 if (state != DialogResult.OK) return;
-                usePath = dialog.FileName;
+                UsePath = dialog.FileName;
             }
-            if (!Directory.Exists(Path.GetDirectoryName(usePath)))
+            if (!Directory.Exists(Path.GetDirectoryName(UsePath)))
             {
                 Console.WriteLine("ディレクトリが存在しません");
                 goto Point;
             }
-            DataBase.SaveProject(usePath);
+            DataBase.SaveProject(UsePath);
             Console.WriteLine("プロジェクトの保存に成功しました");
         }
         /// <summary>
@@ -112,8 +115,12 @@ namespace UIGenerator
         /// </summary>
         private void 上書き保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!File.Exists(usePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
-            else DataBase.SaveProject(usePath);
+            if (!File.Exists(UsePath)) 名前を付けて保存ToolStripMenuItem_Click(sender, e);
+            else
+            {
+                DataBase.SaveProject(UsePath);
+                Console.WriteLine("プロジェクトの保存に成功しました");
+            }
         }
         /// <summary>
         /// <see cref="ファイルToolStripMenuItem"/>クリック時の挙動
@@ -213,14 +220,14 @@ namespace UIGenerator
             {
                 var state = dialog.ShowDialog();
                 if (state != DialogResult.OK) return;
-                usePath = dialog.FileName;
+                UsePath = dialog.FileName;
             }
-            if (!File.Exists(usePath))
+            if (!File.Exists(UsePath))
             {
                 Console.WriteLine("ディレクトリが存在しません");
                 return;
             }
-            DataBase.LoadProject(usePath);
+            DataBase.LoadProject(UsePath);
             Console.WriteLine("プロジェクトの読み込みが完了しました");
         }
         /// <summary>
@@ -299,5 +306,9 @@ namespace UIGenerator
         {
             using (var form = new ExportCodeForm()) form.ShowDialog();
         }
+        /// <summary>
+        /// リセットする
+        /// </summary>
+        private void ToolStripMenuItem_Clear_Click(object sender, EventArgs e) => DataBase.ClearNew();
     }
 }

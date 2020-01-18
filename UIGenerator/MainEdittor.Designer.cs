@@ -58,6 +58,7 @@
             this.ColumnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader_Mode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label_Additional = new System.Windows.Forms.Label();
+            this.ToolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_ShowMode)).BeginInit();
             this.SuspendLayout();
@@ -75,6 +76,7 @@
             // ファイルToolStripMenuItem
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Clear,
             this.プロジェクトを開く,
             this.上書き保存ToolStripMenuItem,
             this.名前を付けて保存ToolStripMenuItem,
@@ -263,6 +265,12 @@
             resources.ApplyResources(this.Label_Additional, "Label_Additional");
             this.Label_Additional.Name = "Label_Additional";
             // 
+            // ToolStripMenuItem_Clear
+            // 
+            this.ToolStripMenuItem_Clear.Name = "ToolStripMenuItem_Clear";
+            resources.ApplyResources(this.ToolStripMenuItem_Clear, "ToolStripMenuItem_Clear");
+            this.ToolStripMenuItem_Clear.Click += new System.EventHandler(this.ToolStripMenuItem_Clear_Click);
+            // 
             // MainEdittor
             // 
             resources.ApplyResources(this, "$this");
@@ -316,5 +324,6 @@
         private System.Windows.Forms.ToolStripMenuItem リソースの管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem リソース情報を保存するToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem リソース情報を読み込むToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Clear;
     }
 }

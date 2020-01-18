@@ -14,6 +14,7 @@ namespace UIGenerator
         static void Main(string[] args)
         {
             Engine.Initialize("NewProject", 640, 480, new EngineOption());
+            Engine.File.AddRootPackage("DefaultResource.pack");
             DataBase.Initialize(640, 480, "NewProject");
             var form = new MainEdittor();
             form.Show();

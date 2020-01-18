@@ -129,6 +129,24 @@ namespace UIGenerator
             Forms.Clear();
         }
         /// <summary>
+        /// 初期化する
+        /// </summary>
+        public static void ClearNew()
+        {
+            CloseAllWindow();
+            foreach (var ob in UIInfos) ob.Value.__UIObj.Dispose();
+            UIInfos.Clear();
+            DrawingCollection.Clear();
+            Fonts.Clear();
+            Textures.Clear();
+            FllePackages.Clear();
+            WindowSize = new SerializableVector2DI(640, 480);
+            ProjectName = "NewProject";
+            ShowMode = 0;
+            UpdateUIObjectControls();
+            MainEdittor.SingleInstance.UsePath = "";
+        }
+        /// <summary>
         /// C#のコードを出力する
         /// </summary>
         /// <param name="path">ファイル名</param>

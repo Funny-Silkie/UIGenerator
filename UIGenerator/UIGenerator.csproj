@@ -223,7 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Resources.pack">
+    <None Include="DefaultResource.pack">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resource\NotoSerifCJKjp-Medium.otf">
