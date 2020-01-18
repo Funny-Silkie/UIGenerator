@@ -61,6 +61,12 @@ namespace UIGenerator
             }
         }
         /// <summary>
+        /// <see cref="RectF"/>の値からその文字列を取得する
+        /// </summary>
+        /// <param name="rect">文字列化したい<see cref="RectF"/>の値</param>
+        /// <returns><paramref name="rect"/>に相当する文字列</returns>
+        public static string FromRectF(RectF rect) => $"new RectF({rect.X}, {rect.Y}, {rect.Width}, {rect.Height})";
+        /// <summary>
         /// <see cref="TextureInfo"/>の値からその文字列を取得する
         /// </summary>
         /// <param name="texture">文字列化したい<see cref="TextureInfo"/>の値</param>
