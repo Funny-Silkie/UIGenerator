@@ -183,12 +183,6 @@
     <Compile Include="Serialization\UIGeneratorFontBase.cs" />
     <Compile Include="Serialization\UIGeneratorStaticFont.cs" />
     <Compile Include="Serialization\UIGeneratorTexture2D.cs" />
-    <Compile Include="StartForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StartForm.Designer.cs">
-      <DependentUpon>StartForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UIGeneratorSynchronizationContext.cs" />
     <Compile Include="UIObjects\Info\TextObjInfo.cs" />
     <Compile Include="UIObjects\Info\TextureObjInfo.cs" />
@@ -297,9 +291,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\OptionForm.resx">
       <DependentUpon>OptionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StartForm.resx">
-      <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIObjects\Forms\TextEdittor.resx">
       <DependentUpon>TextEdittor.cs</DependentUpon>
