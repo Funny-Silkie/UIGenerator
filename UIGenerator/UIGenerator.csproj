@@ -53,10 +53,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIGeneratorObjects">
+      <HintPath>..\ForUserDll\UIGeneratorObjects\UIGeneratorObjects\bin\Release\UIGeneratorObjects.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesibilityType.cs" />
     <Compile Include="Code\CSharp\UIObjectInfo.cs" />
+    <Compile Include="Code\ExportCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\ExportCodeForm.Designer.cs">
+      <DependentUpon>ExportCodeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collections\UICollectionBase.cs" />
     <Compile Include="ElementWindow.cs">
       <SubType>Form</SubType>
@@ -244,6 +253,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Code\ExportCodeForm.resx">
+      <DependentUpon>ExportCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ElementWindow.resx">
       <DependentUpon>ElementWindow.cs</DependentUpon>
     </EmbeddedResource>

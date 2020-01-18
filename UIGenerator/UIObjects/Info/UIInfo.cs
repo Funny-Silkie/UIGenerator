@@ -96,15 +96,10 @@ namespace UIGenerator
             }
         }
         /// <summary>
-        /// 最初のフィールド宣言を行う
-        /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public abstract string ToCSharp_Define();
-        /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public abstract string ToCSharp_Set();
+        public abstract string ToCSharp();
     }
     /// <summary>
     /// UIオブジェクトを管理する基底クラス

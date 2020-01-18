@@ -292,5 +292,12 @@ namespace UIGenerator
                 item.SubItems.Add(add.Key1.ToString());
             }
         }
+        /// <summary>
+        /// エクスポートウィンドウを開く
+        /// </summary>
+        private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new ExportCodeForm()) form.ShowDialog();
+        }
     }
 }

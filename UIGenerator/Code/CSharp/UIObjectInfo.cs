@@ -5,16 +5,11 @@ namespace UIGenerator
     public sealed partial class TextObjInfo
     {
         /// <summary>
-        /// 最初のフィールド宣言を行う
-        /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIText text_{Mode}_{Name};";
-        /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() =>
-            $"text_{Mode}_{Name} = new UIText({Mode}, {Name})\n" +
+        public override string ToCSharp() =>
+            $"new UIText({(Mode)}, {CSharpCodeProvider.FromString(Name)})\n" +
              "{\n" +
             $"    IsClickable = {CSharpCodeProvider.FromBoolean(IsClickable)},\n" +
             $"    Color = {CSharpCodeProvider.FromColor(Color)},\n" +
@@ -23,23 +18,18 @@ namespace UIGenerator
             $"    Scale = {CSharpCodeProvider.FromVector2DF(UIObject.Scale)},\n" +
             $"    DrawingPriority = {DrawingPriority},\n" +
             $"    WritingDirection = WritingDirection.{WritingDirection.ToString()},\n" +
-            $"    Text = {Text},\n" +
+            $"    Text = {CSharpCodeProvider.FromString(Text)},\n" +
             $"    Font = {CSharpCodeProvider.FromFont(FontInfo)}\n" +
              "}";
     }
     public sealed partial class TextureObjInfo
     {
         /// <summary>
-        /// 最初のフィールド宣言を行う
-        /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UITexture texture_{Mode}_{Name};";
-        /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() =>
-            $"text_{Mode}_{Name} = new UITexture({Mode}, {Name})\n" +
+        public override string ToCSharp() =>
+            $"new UITexture({Mode}, {CSharpCodeProvider.FromString(Name)})\n" +
              "{\n" +
             $"    IsClickable = {CSharpCodeProvider.FromBoolean(IsClickable)},\n" +
             $"    Color = {CSharpCodeProvider.FromColor(Color)},\n" +
@@ -53,16 +43,11 @@ namespace UIGenerator
     public sealed partial class WindowInfo
     {
         /// <summary>
-        /// 最初のフィールド宣言を行う
-        /// </summary>
-        /// <returns>C#による最初のフィールド宣言</returns>
-        public override string ToCSharp_Define() => $"{CSharpCodeProvider.FromAccesibility(Accesibility)} UIWindow window_{Mode}_{Name};";
-        /// <summary>
         /// 各要素の設定を行う
         /// </summary>
         /// <returns>C#による各要素の設定</returns>
-        public override string ToCSharp_Set() =>
-            $"window_{Mode}_{Name} = new UIWindow({Mode}, {Name})\n" +
+        public override string ToCSharp() =>
+            $"new UIWindow({Mode}, {CSharpCodeProvider.FromString(Name)})\n" +
              "{\n" +
             $"    IsClickable = {CSharpCodeProvider.FromBoolean(IsClickable)},\n" +
             $"    Color = {CSharpCodeProvider.FromColor(Color)},\n" +

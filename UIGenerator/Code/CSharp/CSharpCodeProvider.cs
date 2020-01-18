@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using asd;
 
 namespace UIGenerator
@@ -55,7 +57,7 @@ namespace UIGenerator
             if (font == null) throw new ArgumentNullException();
             switch (font)
             {
-                case DynamicFontInfo f: return $"Engine.Graphics.CreateDynamicFont({f.Font.Path}, {f.Size}, {FromColor(f.Color)}, {f.OutLineSize}, {FromColor(f.OutLineColor)})";
+                case DynamicFontInfo f: return $"Engine.Graphics.CreateDynamicFont({FromString(f.Font.Path)}, {f.Size}, {FromColor(f.Color)}, {f.OutLineSize}, {FromColor(f.OutLineColor)})";
                 case StaticFontInfo f: return $"Engine.Graphics.CreateFont({f.Font.Path})";
                 default: throw new NotSupportedException();
             }
@@ -67,6 +69,12 @@ namespace UIGenerator
         /// <returns><paramref name="rect"/>に相当する文字列</returns>
         public static string FromRectF(RectF rect) => $"new RectF({rect.X}, {rect.Y}, {rect.Width}, {rect.Height})";
         /// <summary>
+        /// <see cref="string"/>の値からその文字列を取得する
+        /// </summary>
+        /// <param name="text">文字列化したい<see cref="string"/>の値</param>
+        /// <returns><paramref name="text"/>に相当する文字列</returns>
+        public static string FromString(string text) => '"' + text + '"';
+        /// <summary>
         /// <see cref="TextureInfo"/>の値からその文字列を取得する
         /// </summary>
         /// <param name="texture">文字列化したい<see cref="TextureInfo"/>の値</param>
@@ -75,7 +83,7 @@ namespace UIGenerator
         public static string FromTexture(TextureInfo texture)
         {
             if (texture == null) throw new ArgumentNullException();
-            return $"Engine.Graphics.CreateTexture2D({texture.Path})";
+            return $"Engine.Graphics.CreateTexture2D({FromString(texture.Path)}";
         }
         /// <summary>
         /// <see cref="Vector2DF"/>の値からその文字列を取得する
@@ -99,12 +107,136 @@ namespace UIGenerator
         /// </summary>
         /// <returns>usingステートメントを表す文字列</returns>
         public static string GetUsingStatement() =>
-            "using System\n;" +
+            "using System;\n" +
             "using System.Collections.Generic;\n" +
             "using System.Linq;\n" +
             "using asd;\n" +
             "using fslib;\n" +
-            "using fslib.Serializable;\n" +
             "using UIGeneratorObjects;";
+        /// <summary>
+        /// 全ての文字列の先頭に<see cref="GetSpaces(byte)"/>の空白を追加する
+        /// </summary>
+        /// <param name="code">空白を先頭に追加したいコード</param>
+        /// <param name="amount">追加する空白の量</param>
+        /// <exception cref="ArgumentNullException"><paramref name="code"/>がnull</exception>
+        /// <returns><paramref name="code"/>の各行の先頭に空白が足されたコレクション</returns>
+        public static IEnumerable<string> InsertSpaces(IEnumerable<string> code, byte amount)
+        {
+            if (code == null) throw new ArgumentNullException();
+            var list = new List<string>(code.Count());
+            var space = GetSpaces(amount);
+            foreach (var c in code) list.Add(space + c);
+            return list;
+        }
+        /// <summary>
+        /// C#のコードを取得する
+        /// </summary>
+        /// <param name="nameSpace">名前空間</param>
+        /// <param name="layerName">レイヤーの名前</param>
+        /// <exception cref="ArgumentException"><paramref name="nameSpace"/>または<paramref name="layerName"/>がnullまたは空白文字からなっている</exception>
+        /// <returns>.csに出力するC#のコード</returns>
+        public static IEnumerable<string> ProvideCode(string nameSpace, string layerName)
+        {
+            if (string.IsNullOrWhiteSpace(nameSpace)) throw new ArgumentException();
+            nameSpace = nameSpace.Trim();
+            var code = new List<string>(30)
+            {
+                GetUsingStatement() + Indention,
+                Indention,
+                "namespace " + nameSpace + Indention,
+                "{\n"
+            };
+            var layer = ProvideCode_Layer(layerName);
+            code.AddRange(InsertSpaces(layer, 1));
+            code.Add("}\n");
+            return code;
+        }
+        /// <summary>
+        /// レイヤーのC#コードを取得する
+        /// </summary>
+        /// <param name="layerName">レイヤーの型名</param>
+        /// <exception cref="ArgumentException"><paramref name="layerName"/>がnullまたは空白文字からなっている</exception>
+        /// <returns>レイヤーを定義するC#のコード</returns>
+        private static IEnumerable<string> ProvideCode_Layer(string layerName)
+        {
+            if (string.IsNullOrWhiteSpace(layerName)) throw new ArgumentException();
+            layerName = layerName.Trim();
+            var code = new List<string>(20)
+            {
+                $"public class {layerName} : UIGeneratorObjects.UILayer\n",
+                "{\n"
+            };
+            code.AddRange(InsertSpaces(ProvideCode_Layer_Constructor(layerName), 1));
+            code.AddRange(InsertSpaces(ProvideCode_Layer_InitObj(), 1));
+            code.AddRange(InsertSpaces(ProvideCode_Layer_OnDrawAdditional(), 1));
+            code.Add("}\n");
+            return code;
+        }
+        /// <summary>
+        /// レイヤーのコンストラクタのC#コードを取得する
+        /// </summary>
+        /// <param name="layerName">レイヤーの型名</param>
+        /// <exception cref="ArgumentException"><paramref name="layerName"/>がnullまたは空白文字からなっている</exception>
+        /// <returns>レイヤーのコンストラクタを定義するC#のコード</returns>
+        private static IEnumerable<string> ProvideCode_Layer_Constructor(string layerName)
+        {
+            if (string.IsNullOrWhiteSpace(layerName)) throw new ArgumentException();
+            var code = new string[4];
+            code[0] = $"public {layerName}()\n";
+            code[1] = "{\n";
+            code[2] = "    InitObjects();\n";
+            code[3] = "}\n";
+            return code;
+        }
+        /// <summary>
+        /// オブジェクトの設定を行う
+        /// </summary>
+        /// <returns>オブジェクトの設定を行うC#のコード</returns>
+        private static IEnumerable<string> ProvideCode_Layer_InitObj()
+        {
+            var code = new List<string>(4);
+            code.Add("private void InitObjects()\n");
+            code.Add("{\n");
+            foreach (var obj in DataBase.UIInfos)
+            {
+                var c = obj.Value.ToCSharp().Split('\n');
+                c[0] = $"AddUIObject({c[0]}";
+                c[c.Length - 1] += ");";
+                for (int i = 0; i < c.Length; i++) c[i] += "\n";
+                code.AddRange(c);
+            }
+            code.Add("}\n");
+            for (int i = 2; i < code.Count - 1; i++) code[i] = "    " + code[i];
+            return code;
+        }
+        /// <summary>
+        /// 追加描画の設定を行う
+        /// </summary>
+        /// <returns>追加描画の設定を行うC#のコード</returns>
+        private static IEnumerable<string> ProvideCode_Layer_OnDrawAdditional()
+        {
+            var code = new List<string>(4)
+            {
+                "protected override void OnDrawAdditionally()\n",
+                "{\n"
+            };
+            var adds = DataBase.DrawingCollection;
+            var modes = adds.Modes.ToHashSet();
+            if (modes.Count > 0)
+            {
+                code.Add("switch (Mode)\n");
+                code.Add("{\n");
+                foreach (var m in modes)
+                {
+                    code.Add($"    case {m}:\n");
+                    foreach (var d in adds.SearchFromMode(m)) code.Add($"        {d.ToCSharp()}\n");
+                    code.Add("    break;\n");
+                }
+                code.Add("}\n");
+            }
+            code.Add("}\n");
+            for (int i = 2; i < code.Count - 1; i++) code[i] = "    " + code[i];
+            return code;
+        }
     }
 }

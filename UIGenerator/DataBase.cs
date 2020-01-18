@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using asd;
 using fslib;
 using fslib.Collections.BasicModel;
@@ -13,6 +14,10 @@ namespace UIGenerator
     /// </summary>
     public static class DataBase
     {
+        /// <summary>
+        /// 出力できるコードのタイプ一覧を取得する
+        /// </summary>
+        public static string[] CodeType => new string[] { "C#" };
         /// <summary>
         /// 現在表示しているオブジェクトのモードを取得または設定する
         /// </summary>
@@ -122,6 +127,24 @@ namespace UIGenerator
                 if (array[i] != null && !array[i].IsDisposed)
                     array[i].Close();
             Forms.Clear();
+        }
+        /// <summary>
+        /// C#のコードを出力する
+        /// </summary>
+        /// <param name="path">ファイル名</param>
+        /// <param name="nameSpace">名前空間</param>
+        /// <param name="layerName">レイヤー名</param>
+        /// <exception cref="ArgumentException"><paramref name="nameSpace"/>または<paramref name="layerName"/>が空文字からなっている</exception>
+        /// <exception cref="ArgumentNullException">引数のいずれかがnull</exception>
+        /// <param name="encoding">エンコード方法</param>
+        public static void ExportCode_CSharp(string path, string nameSpace, string layerName, Encoding encoding)
+        {
+            if (encoding == null) throw new ArgumentNullException();
+            using (var stream = new StreamWriter(path, false, encoding))
+            {
+                var code = CSharpCodeProvider.ProvideCode(nameSpace, layerName);
+                foreach (var c in code) stream.Write(c);
+            }
         }
         /// <summary>
         /// ウィンドウサイズ，タイトルを初期化する

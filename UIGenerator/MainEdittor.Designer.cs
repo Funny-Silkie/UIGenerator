@@ -105,6 +105,7 @@
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
             resources.ApplyResources(this.エクスポートToolStripMenuItem, "エクスポートToolStripMenuItem");
+            this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
             // リソースの管理ToolStripMenuItem
             // 
