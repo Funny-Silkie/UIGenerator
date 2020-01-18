@@ -182,11 +182,15 @@ namespace UIGenerator
         private static IEnumerable<string> ProvideCode_Layer_Constructor(string layerName)
         {
             if (string.IsNullOrWhiteSpace(layerName)) throw new ArgumentException();
-            var code = new string[4];
+            var code = new string[8];
             code[0] = $"public {layerName}()\n";
             code[1] = "{\n";
             code[2] = "    InitObjects();\n";
             code[3] = "}\n";
+            code[4] = $"static {layerName}()\n";
+            code[5] = "{\n";
+            code[6] = $"    Engine.File.AddRootPackageWithPassword({FromString("DefaultResource.pack")}, {FromString("")});\n";
+            code[7] = "}\n";
             return code;
         }
         /// <summary>
