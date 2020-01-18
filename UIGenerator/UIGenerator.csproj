@@ -53,9 +53,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIGeneratorObjects">
-      <HintPath>..\ForUserDll\UIGeneratorObjects\UIGeneratorObjects\bin\Release\UIGeneratorObjects.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesibilityType.cs" />

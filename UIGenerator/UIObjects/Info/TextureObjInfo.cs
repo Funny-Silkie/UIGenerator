@@ -71,7 +71,7 @@ namespace UIGenerator
                 UIObject.Texture = value.Texture;
             }
         }
-        private TextureInfo _textureInfo;
+        private TextureInfo _textureInfo = DataBase.DefaultTexture;
         /// <summary>
         /// 描画優先度を取得または設定する
         /// </summary>

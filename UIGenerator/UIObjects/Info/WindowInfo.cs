@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using asd;
 
 namespace UIGenerator
@@ -8,7 +9,7 @@ namespace UIGenerator
     /// 継承不可
     /// </summary>
     [Serializable]
-    public sealed partial class WindowInfo : UIInfo<UIWindow>
+    public sealed partial class WindowInfo : UIInfo<UIWindow>, ISerializable, IDeserializationCallback
     {
         /// <summary>
         /// オブジェクトのタイプを取得する
@@ -89,5 +90,11 @@ namespace UIGenerator
         {
 
         }
+        /// <summary>
+        /// シリアライズされたデータを用いてインスタンスを初期化する
+        /// </summary>
+        /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
+        /// <param name="context">送信元の情報</param>
+        private WindowInfo(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

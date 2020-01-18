@@ -73,7 +73,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="text">文字列化したい<see cref="string"/>の値</param>
         /// <returns><paramref name="text"/>に相当する文字列</returns>
-        public static string FromString(string text) => '"' + text + '"';
+        public static string FromString(string text) => '"' + text.Replace("\n", "\\n") + '"';
         /// <summary>
         /// <see cref="TextureInfo"/>の値からその文字列を取得する
         /// </summary>
@@ -83,7 +83,7 @@ namespace UIGenerator
         public static string FromTexture(TextureInfo texture)
         {
             if (texture == null) throw new ArgumentNullException();
-            return $"Engine.Graphics.CreateTexture2D({FromString(texture.Path)}";
+            return $"Engine.Graphics.CreateTexture2D({FromString(texture.Path)})";
         }
         /// <summary>
         /// <see cref="Vector2DF"/>の値からその文字列を取得する
@@ -110,8 +110,9 @@ namespace UIGenerator
             "using System;\n" +
             "using System.Collections.Generic;\n" +
             "using System.Linq;\n" +
+            "using System.Text;\n" +
+            "using System.Threading.Tasks;\n" +
             "using asd;\n" +
-            "using fslib;\n" +
             "using UIGeneratorObjects;";
         /// <summary>
         /// 全ての文字列の先頭に<see cref="GetSpaces(byte)"/>の空白を追加する
@@ -163,7 +164,7 @@ namespace UIGenerator
             layerName = layerName.Trim();
             var code = new List<string>(20)
             {
-                $"public class {layerName} : UIGeneratorObjects.UILayer\n",
+                $"public class {layerName} : {(layerName == "UILayer" ? "UIGeneratorObjects." : "")}UILayer\n",
                 "{\n"
             };
             code.AddRange(InsertSpaces(ProvideCode_Layer_Constructor(layerName), 1));

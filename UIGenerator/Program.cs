@@ -13,9 +13,8 @@ namespace UIGenerator
         [STAThread]
         static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartForm());
+            Engine.Initialize("NewProject", 640, 480, new EngineOption());
+            DataBase.Initialize(640, 480, "NewProject");
             var form = new MainEdittor();
             form.Show();
             Engine.ChangeScene(new MainScene());
