@@ -8,7 +8,7 @@ namespace UIGeneratorObjects
     /// テキストを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIText : ClickableText, IUIElements
+    public class UIText : ClickableText, IUIElements
     {
         /// <summary>
         /// 表示モードを取得する

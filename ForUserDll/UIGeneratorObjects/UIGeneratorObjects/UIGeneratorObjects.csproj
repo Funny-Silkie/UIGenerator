@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\UIGeneratorObjects.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Altseed, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
@@ -57,17 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UITexture.cs" />
     <Compile Include="UIWindow.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Altseed.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Altseed_core.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="fslib.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

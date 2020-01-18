@@ -355,9 +355,6 @@ MigrationBackup /
 UIGenerator/bin/*
 UIGenerator/obj/*
 UIGenerator/Resource/*
+ReleasePackage/*
 ForUserDll/UIGeneratorObjects/UIGeneratorObjects/bin/*
 ForUserDll/UIGeneratorObjects/UIGeneratorObjects/obj/*
-*.dll
-*.dylib
-*.xml
-*.pack

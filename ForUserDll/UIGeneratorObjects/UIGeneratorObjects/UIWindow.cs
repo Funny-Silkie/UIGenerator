@@ -8,7 +8,7 @@ namespace UIGeneratorObjects
     /// ウィンドウを表すクラス
     /// 継承不可
     /// </summary>
-    public sealed class UIWindow : Window, IUIElements
+    public class UIWindow : Window, IUIElements
     {
         /// <summary>
         /// 表示モードを取得する
