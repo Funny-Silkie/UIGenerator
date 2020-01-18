@@ -229,9 +229,7 @@
     <None Include="libAltseed_core.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resource\NotoSerifCJKjp-Medium.otf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resource\NotoSerifCJKjp-Medium.otf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Altseed.dll">
@@ -242,9 +240,7 @@
     </Content>
     <Content Include="License\Altseed.txt" />
     <Content Include="License\DefaultFont.txt" />
-    <Content Include="Resource\DefaultPicture.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resource\DefaultPicture.png" />
     <Content Include="fslib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

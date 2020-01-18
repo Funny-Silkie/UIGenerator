@@ -66,12 +66,12 @@ namespace UIGenerator
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>
-        public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("Resource/NotoSerifCJKjp-Medium.otf", 30, new ColorPlus(ColorSet.White), 1, new ColorPlus(ColorSet.Black)));
+        public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("NotoSerifCJKjp-Medium.otf", 30, new ColorPlus(ColorSet.White), 1, new ColorPlus(ColorSet.Black)));
         private static DynamicFontInfo _defaultFont;
         /// <summary>
         /// 既定の画像を取得する
         /// </summary>
-        public static TextureInfo DefaultTexture => _defaultTexture ?? (_defaultTexture = TextureInfo.GetInstance("Resource/DefaultPicture.png"));
+        public static TextureInfo DefaultTexture => _defaultTexture ?? (_defaultTexture = TextureInfo.GetInstance("DefaultPicture.png"));
         private static TextureInfo _defaultTexture;
         /// <summary>
         /// 管理されているフォントを取得する
