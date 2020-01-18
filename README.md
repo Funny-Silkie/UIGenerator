@@ -1,5 +1,7 @@
 **UIGenerator** はFunny_Silkieによって開発されたAltseed1対応のUI制作補助ツールです
 
+[ダウンロードはこちらから](https://drive.google.com/drive/folders/1xd2uPFpxAVmuKH_G-gvwP8y4MBraGvNa?usp=sharing)  
+
 # UIGeneratorの目的
 ゲームでUIを作る時，文字やウィンドウの位置関係や色などは微調整する必要があります。  
 しかし，C#等の言語では確認するためにはコンパイルしなおさなくてはなりません。  
@@ -102,6 +104,8 @@ Altseed.dll，fslib.dll，UIGeneratorObjects.dllをプロジェクトの参照�
 Altseed2がそろそろできると思うんであんま使うことないと思いますがよろしければどうぞ。  
 作者を偽らなければ配布などご自由に行って結構です。  
 但し配布の場合は無料に限ります。  
+このソフトウェアによってもたらされたあらゆる不利益に関して製作者は一切の責任を負いませんので，ご了承ください。  
+バグや要望などは必ずではありませんが，対応はしていくつもりです。
 
 ## 作者Link
 - [Twitter](https://twitter.com/Funny_Silkie)
@@ -110,3 +114,4 @@ Altseed2がそろそろできると思うんであんま使うことないと思
 ## その他Link
 - [Altseed](https://altseed.github.io/)
 - [AmusementCreators](https://www.amusement-creators.info/)
+- [ダウンロードはこちらから](https://drive.google.com/drive/folders/1xd2uPFpxAVmuKH_G-gvwP8y4MBraGvNa?usp=sharing)  
