@@ -307,7 +307,7 @@ namespace UIGenerator
             DrawingAdditionaryInfoCollection = DataBase.DrawingCollection;
             ProjectName = DataBase.ProjectName;
             WindowSize = DataBase.WindowSize;
-            Version = "1.0";
+            Version = "1.1";
         }
     }
 }

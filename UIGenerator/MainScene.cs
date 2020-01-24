@@ -13,13 +13,13 @@ namespace UIGenerator
         /// <summary>
         /// UIオブジェクトを表示するレイヤーを取得する
         /// </summary>
-        public Layer2D MainLayer => Engine.CurrentScene.Layers.OfType<Layer2D>().First();
+        public Layer2D MainLayer { get; }
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public MainScene()
         {
-            AddLayer(new Layer2D());
+            AddLayer(MainLayer = new Layer2D());
         }
         /// <summary>
         /// 表示するアイテムを変更する

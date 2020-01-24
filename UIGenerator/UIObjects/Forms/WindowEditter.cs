@@ -51,8 +51,6 @@ namespace UIGenerator
             TextBox_Name.Text = info.Name;
             CheckBox_IsClickable.Checked = info.IsClickable;
             CheckBox_Flame.Checked = info.GeneratingFlame;
-            ComboBox_Access.DataSource = Enum.GetValues(typeof(AccesibilityType));
-            ComboBox_Access.SelectedIndexChanged += new EventHandler(ComboBox_Access_SelectedIndexChanged);
         }
         /// <summary>
         /// モード変更
@@ -202,9 +200,5 @@ namespace UIGenerator
             var c = info.LineColor;
             info.LineColor = new Color(c.R, c.G, c.B, (int)NumericUpDown_F_A.Value);
         }
-        /// <summary>
-        /// アクセシビリティ変更
-        /// </summary>
-        private void ComboBox_Access_SelectedIndexChanged(object sender, EventArgs e) => info.Accesibility = EnumHelper.FromString<AccesibilityType>(ComboBox_Access.Text);
     }
 }

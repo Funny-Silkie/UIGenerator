@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesibilityType.cs" />
     <Compile Include="Code\CSharp\UIObjectInfo.cs" />
     <Compile Include="Code\ExportCodeForm.cs">
       <SubType>Form</SubType>
@@ -183,7 +182,6 @@
     <Compile Include="Serialization\UIGeneratorFontBase.cs" />
     <Compile Include="Serialization\UIGeneratorStaticFont.cs" />
     <Compile Include="Serialization\UIGeneratorTexture2D.cs" />
-    <Compile Include="UIGeneratorSynchronizationContext.cs" />
     <Compile Include="UIObjects\Info\TextObjInfo.cs" />
     <Compile Include="UIObjects\Info\TextureObjInfo.cs" />
     <Compile Include="UIObjects\Info\WindowInfo.cs" />

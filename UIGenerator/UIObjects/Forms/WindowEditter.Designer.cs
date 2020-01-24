@@ -70,8 +70,6 @@
             this.Label_F_Color = new System.Windows.Forms.Label();
             this.Label_F_R = new System.Windows.Forms.Label();
             this.Button_NameSet = new System.Windows.Forms.Button();
-            this.ComboBox_Access = new System.Windows.Forms.ComboBox();
-            this.Label_Access = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Mode)).BeginInit();
             this.Panel_Color.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_A)).BeginInit();
@@ -95,7 +93,7 @@
             // Label_Mode
             // 
             this.Label_Mode.AutoSize = true;
-            this.Label_Mode.Location = new System.Drawing.Point(29, 74);
+            this.Label_Mode.Location = new System.Drawing.Point(30, 36);
             this.Label_Mode.Name = "Label_Mode";
             this.Label_Mode.Size = new System.Drawing.Size(41, 15);
             this.Label_Mode.TabIndex = 0;
@@ -103,14 +101,14 @@
             // 
             // TextBox_Name
             // 
-            this.TextBox_Name.Location = new System.Drawing.Point(283, 71);
+            this.TextBox_Name.Location = new System.Drawing.Point(284, 33);
             this.TextBox_Name.Name = "TextBox_Name";
             this.TextBox_Name.Size = new System.Drawing.Size(175, 22);
             this.TextBox_Name.TabIndex = 1;
             // 
             // NumericUpDown_Mode
             // 
-            this.NumericUpDown_Mode.Location = new System.Drawing.Point(93, 72);
+            this.NumericUpDown_Mode.Location = new System.Drawing.Point(94, 34);
             this.NumericUpDown_Mode.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -124,7 +122,7 @@
             // Label_Name
             // 
             this.Label_Name.AutoSize = true;
-            this.Label_Name.Location = new System.Drawing.Point(213, 74);
+            this.Label_Name.Location = new System.Drawing.Point(214, 36);
             this.Label_Name.Name = "Label_Name";
             this.Label_Name.Size = new System.Drawing.Size(43, 15);
             this.Label_Name.TabIndex = 0;
@@ -134,7 +132,7 @@
             // 
             this.CheckBox_IsClickable.AutoSize = true;
             this.CheckBox_IsClickable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CheckBox_IsClickable.Location = new System.Drawing.Point(29, 128);
+            this.CheckBox_IsClickable.Location = new System.Drawing.Point(30, 90);
             this.CheckBox_IsClickable.Name = "CheckBox_IsClickable";
             this.CheckBox_IsClickable.Size = new System.Drawing.Size(96, 19);
             this.CheckBox_IsClickable.TabIndex = 3;
@@ -154,7 +152,7 @@
             this.Panel_Color.Controls.Add(this.Label_Color_B);
             this.Panel_Color.Controls.Add(this.Label_Color);
             this.Panel_Color.Controls.Add(this.Label_Color_R);
-            this.Panel_Color.Location = new System.Drawing.Point(29, 172);
+            this.Panel_Color.Location = new System.Drawing.Point(30, 134);
             this.Panel_Color.Name = "Panel_Color";
             this.Panel_Color.Size = new System.Drawing.Size(566, 88);
             this.Panel_Color.TabIndex = 5;
@@ -279,7 +277,7 @@
             // Label_Priority
             // 
             this.Label_Priority.AutoSize = true;
-            this.Label_Priority.Location = new System.Drawing.Point(165, 129);
+            this.Label_Priority.Location = new System.Drawing.Point(166, 91);
             this.Label_Priority.Name = "Label_Priority";
             this.Label_Priority.Size = new System.Drawing.Size(102, 15);
             this.Label_Priority.TabIndex = 6;
@@ -287,7 +285,7 @@
             // 
             // NumericUpDown_Priority
             // 
-            this.NumericUpDown_Priority.Location = new System.Drawing.Point(324, 129);
+            this.NumericUpDown_Priority.Location = new System.Drawing.Point(325, 91);
             this.NumericUpDown_Priority.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -316,7 +314,7 @@
             this.Panel_Positions.Controls.Add(this.Label_Size);
             this.Panel_Positions.Controls.Add(this.Label_Pos_X);
             this.Panel_Positions.Controls.Add(this.Label_Position);
-            this.Panel_Positions.Location = new System.Drawing.Point(32, 291);
+            this.Panel_Positions.Location = new System.Drawing.Point(33, 253);
             this.Panel_Positions.Name = "Panel_Positions";
             this.Panel_Positions.Size = new System.Drawing.Size(563, 105);
             this.Panel_Positions.TabIndex = 8;
@@ -462,7 +460,7 @@
             this.Panel_Flame.Controls.Add(this.Label_F_B);
             this.Panel_Flame.Controls.Add(this.Label_F_Color);
             this.Panel_Flame.Controls.Add(this.Label_F_R);
-            this.Panel_Flame.Location = new System.Drawing.Point(32, 425);
+            this.Panel_Flame.Location = new System.Drawing.Point(33, 387);
             this.Panel_Flame.Name = "Panel_Flame";
             this.Panel_Flame.Size = new System.Drawing.Size(563, 180);
             this.Panel_Flame.TabIndex = 5;
@@ -633,7 +631,7 @@
             // Button_NameSet
             // 
             this.Button_NameSet.AutoSize = true;
-            this.Button_NameSet.Location = new System.Drawing.Point(491, 70);
+            this.Button_NameSet.Location = new System.Drawing.Point(492, 32);
             this.Button_NameSet.Name = "Button_NameSet";
             this.Button_NameSet.Size = new System.Drawing.Size(75, 25);
             this.Button_NameSet.TabIndex = 2;
@@ -641,31 +639,11 @@
             this.Button_NameSet.UseVisualStyleBackColor = true;
             this.Button_NameSet.Click += new System.EventHandler(this.Button_NameSet_Click);
             // 
-            // ComboBox_Access
-            // 
-            this.ComboBox_Access.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_Access.FormattingEnabled = true;
-            this.ComboBox_Access.Location = new System.Drawing.Point(165, 23);
-            this.ComboBox_Access.Name = "ComboBox_Access";
-            this.ComboBox_Access.Size = new System.Drawing.Size(169, 23);
-            this.ComboBox_Access.TabIndex = 28;
-            // 
-            // Label_Access
-            // 
-            this.Label_Access.AutoSize = true;
-            this.Label_Access.Location = new System.Drawing.Point(29, 26);
-            this.Label_Access.Name = "Label_Access";
-            this.Label_Access.Size = new System.Drawing.Size(78, 15);
-            this.Label_Access.TabIndex = 27;
-            this.Label_Access.Text = "Accesibility";
-            // 
             // WindowEditter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 662);
-            this.Controls.Add(this.ComboBox_Access);
-            this.Controls.Add(this.Label_Access);
+            this.ClientSize = new System.Drawing.Size(647, 608);
             this.Controls.Add(this.Button_NameSet);
             this.Controls.Add(this.Panel_Positions);
             this.Controls.Add(this.NumericUpDown_Priority);
@@ -750,7 +728,5 @@
         private System.Windows.Forms.NumericUpDown NumericUpDown_Thickness;
         private System.Windows.Forms.CheckBox CheckBox_Flame;
         private System.Windows.Forms.Button Button_NameSet;
-        private System.Windows.Forms.ComboBox ComboBox_Access;
-        private System.Windows.Forms.Label Label_Access;
     }
 }

@@ -19,7 +19,7 @@ namespace UIGenerator
             using (var form = new MainEdittor())
             {
                 form.Show();
-                Engine.ChangeScene(new MainScene());
+                Engine.ChangeScene(DataBase.MainScene);
                 while (ContinueUpdating & Engine.DoEvents())
                 {
                     Application.DoEvents();

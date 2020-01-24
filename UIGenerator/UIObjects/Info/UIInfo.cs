@@ -12,13 +12,6 @@ namespace UIGenerator
     [Serializable]
     public abstract class UIInfoBase : IUIGeneratorInfo, ISerializable, IDeserializationCallback
     {
-        #region SerializeName
-        private const string S_Accesibility = "S_Accesibility";
-        #endregion
-        /// <summary>
-        /// 使用するアクセシビリティを取得または設定する
-        /// </summary>
-        public AccesibilityType Accesibility { get; set; } = AccesibilityType.Private;
         /// <summary>
         /// このインスタンスを管理するフォームを取得または設定する
         /// </summary>
@@ -65,7 +58,6 @@ namespace UIGenerator
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
-            info.AddValue(S_Accesibility, Accesibility);
         }
         /// <summary>
         /// デシリアライズ時に実行
@@ -74,7 +66,6 @@ namespace UIGenerator
         public virtual void OnDeserialization(object sender)
         {
             if (SeInfo == null) return;
-            Accesibility = SeInfo.GetValue<AccesibilityType>(S_Accesibility);
             SeInfo = null;
         }
         /// <summary>

@@ -53,11 +53,8 @@ namespace UIGenerator
             ComboBox_Font.DataSource = DataBase.Fonts.GetNames();
             var fontIndex = DataBase.Fonts.IndexOf(info.FontInfo);
             ComboBox_Font.SelectedIndex = fontIndex == -1 ? 0 : fontIndex;
-            ComboBox_Access.DataSource = Enum.GetValues(typeof(AccesibilityType));
-            ComboBox_Access.SelectedIndex = (int)info.Accesibility;
             ComboBox_Font.SelectedIndexChanged += new EventHandler(ComboBox_Font_SelectedIndexChanged);
             ComboBox_Direction.SelectedIndexChanged += new EventHandler(ComboBox_Direction_SelectedIndexChanged);
-            ComboBox_Access.SelectedIndexChanged += new EventHandler(ComboBox_Access_SelectedIndexChanged);
         }
         /// <summary>
         /// フォームが閉じられたときの挙動
@@ -203,9 +200,5 @@ namespace UIGenerator
             info.FontInfo = DataBase.Fonts[ComboBox_Font.SelectedIndex];
             ReSize();
         }
-        /// <summary>
-        /// アクセシビリティ変更
-        /// </summary>
-        private void ComboBox_Access_SelectedIndexChanged(object sender, EventArgs e) => info.Accesibility = EnumHelper.FromString<AccesibilityType>(ComboBox_Access.Text);
     }
 }

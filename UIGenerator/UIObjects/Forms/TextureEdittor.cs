@@ -50,10 +50,7 @@ namespace UIGenerator
             ComboBox_Texture.DataSource = DataBase.Textures.GetNames();
             var textureIndex = DataBase.Textures.IndexOf(info.TextureInfo);
             ComboBox_Texture.SelectedIndex = textureIndex == -1 ? 0 : textureIndex;
-            ComboBox_Access.DataSource = Enum.GetValues(typeof(AccesibilityType));
-            ComboBox_Access.SelectedIndex = (int)info.Accesibility;
             ComboBox_Texture.SelectedIndexChanged += new EventHandler(ComboBox_Texture_SelectedIndexChanged);
-            ComboBox_Access.SelectedIndexChanged += new EventHandler(ComboBox_Access_SelectedIndexChanged);
         }
         /// <summary>
         /// フォームが閉じられたときの挙動
@@ -183,9 +180,5 @@ namespace UIGenerator
             NumericUpDown_Size_Y.Value = float.IsNaN(size.Y) ? 0 : (decimal)size.Y;
             info.UIObject.Scale = scale;
         }
-        /// <summary>
-        /// アクセシビリティ変更
-        /// </summary>
-        private void ComboBox_Access_SelectedIndexChanged(object sender, EventArgs e) => info.Accesibility = EnumHelper.FromString<AccesibilityType>(ComboBox_Access.Text);
     }
 }
