@@ -34,7 +34,7 @@ namespace UIGenerator
         /// </summary>
         private void Init()
         {
-            ComboBox_AlphaBlend.DataSource = Enum.GetNames(typeof(AlphaBlendMode));
+            ComboBox_AlphaBlend.DataSource = EnumHelper.GetNames<AlphaBlendMode>();
             ComboBox_AlphaBlend.SelectedIndex = (int)info.AlphaBlend;
             NumericUpDown_Mode.Value = info.Mode;
             TextBox_Name.Text = info.Name;

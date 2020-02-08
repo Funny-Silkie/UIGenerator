@@ -35,7 +35,7 @@ namespace UIGenerator
         /// </summary>
         private void Init()
         {
-            ComboBox_AlphaBlend.DataSource = Enum.GetNames(typeof(AlphaBlendMode));
+            ComboBox_AlphaBlend.DataSource = EnumHelper.GetNames<AlphaBlendMode>();
             ComboBox_AlphaBlend.SelectedIndex = (int)info.AlphaBlend;
             ComboBox_texture.DataSource = DataBase.Textures.GetNames();
             var textureIndex = DataBase.Textures.IndexOf(info.Texture);

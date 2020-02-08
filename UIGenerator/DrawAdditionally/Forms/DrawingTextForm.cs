@@ -34,7 +34,7 @@ namespace UIGenerator
         /// </summary>
         private void Init()
         {
-            ComboBox_AlphaBlend.DataSource = Enum.GetNames(typeof(AlphaBlendMode));
+            ComboBox_AlphaBlend.DataSource = EnumHelper.GetNames<AlphaBlendMode>();
             ComboBox_font.DataSource = DataBase.Fonts.GetNames();
             var fontIndex = DataBase.Fonts.IndexOf(info.FontInfo);
             ComboBox_font.SelectedIndex = fontIndex == -1 ? 0 : fontIndex;
@@ -49,7 +49,7 @@ namespace UIGenerator
             NumericUpDown_B.Value = info.Color.B;
             NumericUpDown_A.Value = info.Color.A;
             RichTextBox_Text.Text = info.Text;
-            ComboBox_Direction.DataSource = Enum.GetNames(typeof(WritingDirection));
+            ComboBox_Direction.DataSource = EnumHelper.GetNames<WritingDirection>();
             ComboBox_Direction.SelectedIndex = (int)info.WritingDirection;
             ComboBox_AlphaBlend.SelectedIndexChanged += new EventHandler(ComboBox_AlphaBlend_SelectedIndexChanged);
             ComboBox_font.SelectedIndexChanged += new EventHandler(ComboBox_Font_SelectedIndexChanged);

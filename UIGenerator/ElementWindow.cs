@@ -30,8 +30,8 @@ namespace UIGenerator
             InitializeComponent();
             ResetObjComboBox();
             ResetAdditionalComboBox();
-            ComboBox_Obj_Type.DataSource = Enum.GetNames(typeof(UITypes));
-            ComboBox_Add_Type.DataSource = Enum.GetNames(typeof(DrawingAdditionalMode));
+            ComboBox_Obj_Type.DataSource = EnumHelper.GetNames<UITypes>();
+            ComboBox_Add_Type.DataSource = EnumHelper.GetNames<DrawingAdditionalMode>();
         }
         /// <summary>
         /// フォームが閉じられたときの挙動
