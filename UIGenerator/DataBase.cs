@@ -66,22 +66,22 @@ namespace UIGenerator
         /// <summary>
         /// 既定のフォントを取得する
         /// </summary>
-        public static DynamicFontInfo DefaultFont => _defaultFont ?? (_defaultFont = DynamicFontInfo.GetInstance("NotoSerifCJKjp-Medium.otf", 30, new ColorPlus(ColorSet.White), 1, new ColorPlus(ColorSet.Black)));
+        public static DynamicFontInfo DefaultFont => _defaultFont ??= DynamicFontInfo.GetInstance("NotoSerifCJKjp-Medium.otf", 30, new ColorPlus(ColorSet.White), 1, new ColorPlus(ColorSet.Black));
         private static DynamicFontInfo _defaultFont;
         /// <summary>
         /// 既定の画像を取得する
         /// </summary>
-        public static TextureInfo DefaultTexture => _defaultTexture ?? (_defaultTexture = TextureInfo.GetInstance("DefaultPicture.png"));
+        public static TextureInfo DefaultTexture => _defaultTexture ??= TextureInfo.GetInstance("DefaultPicture.png");
         private static TextureInfo _defaultTexture;
         /// <summary>
         /// 管理されているフォントを取得する
         /// </summary>
-        public static FontCollection Fonts => _fonts ?? (_fonts = new FontCollection());
+        public static FontCollection Fonts => _fonts ??= new FontCollection();
         private static FontCollection _fonts;
         /// <summary>
         /// 管理されているテクスチャを取得する
         /// </summary>
-        public static TextureCollection Textures => _textures ?? (_textures = new TextureCollection());
+        public static TextureCollection Textures => _textures ??= new TextureCollection();
         private static TextureCollection _textures;
         /// <summary>
         /// サブフォームを格納しておくコレクションを取得する

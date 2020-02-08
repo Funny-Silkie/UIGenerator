@@ -95,7 +95,6 @@ namespace UIGenerator
         /// <returns>usingステートメントを表す文字列</returns>
         public static string GetUsingStatement() =>
             "using System;\n" +
-            "using System.Threading.Tasks;\n" +
             "using asd;\n" +
             "using UIGeneratorObjects;";
         /// <summary>
