@@ -152,6 +152,8 @@
     <Compile Include="FilePackageLoader.Designer.cs">
       <DependentUpon>FilePackageLoader.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilePathHelper.cs" />
+    <Compile Include="IOHelper.cs" />
     <Compile Include="ResourcesHandler\DynamicFontInfo.cs" />
     <Compile Include="ResourcesHandler\FontIOForm.cs">
       <SubType>Form</SubType>
@@ -234,6 +236,7 @@
     <Compile Include="UIObjects\Forms\WindowEditter.Designer.cs">
       <DependentUpon>WindowEditter.cs</DependentUpon>
     </Compile>
+    <Compile Include="WriteTextMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
