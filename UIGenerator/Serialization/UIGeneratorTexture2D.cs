@@ -49,7 +49,7 @@ namespace UIGenerator
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
         /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
             info.AddValue(S_Path, path);
@@ -58,7 +58,7 @@ namespace UIGenerator
         /// デシリアライズ時に実行
         /// </summary>
         /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public void OnDeserialization(object sender)
+        void IDeserializationCallback.OnDeserialization(object sender)
         {
             if (seInfo == null) return;
             path = seInfo.GetString(S_Path);

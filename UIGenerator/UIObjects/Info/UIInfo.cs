@@ -53,12 +53,18 @@ namespace UIGenerator
         /// シリアライズするデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected virtual void GetObjectData(SerializationInfo info)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
         }
+        /// <summary>
+        /// シリアライズするデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) => GetObjectData(info);
         /// <summary>
         /// デシリアライズ時に実行
         /// </summary>        
@@ -157,11 +163,10 @@ namespace UIGenerator
         /// シリアライズするデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected override void GetObjectData(SerializationInfo info)
         {
-            base.GetObjectData(info, context);
+            base.GetObjectData(info);
             info.AddValue(S_Mode, Mode);
             info.AddValue(S_Name, Name);
             info.AddValue(S_Object, UIObject, typeof(T));

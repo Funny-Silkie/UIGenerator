@@ -105,11 +105,10 @@ namespace UIGenerator
         /// シリアル化するデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected override void GetObjectData(SerializationInfo info)
         {
-            base.GetObjectData(info, context);
+            base.GetObjectData(info);
             info.AddValue(S_Color, Color);
             info.AddValue(S_Size, Size);
             info.AddValue(S_OutLineColor, OutLineColor);
@@ -118,15 +117,14 @@ namespace UIGenerator
         /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public override void OnDeserialization(object sender)
+        protected override void OnDeserialization()
         {
             if (SeInfo == null) return;
             Color = SeInfo.GetValue<ColorPlus>(S_Color);
             Size = SeInfo.GetInt32(S_Size);
             OutLineColor = SeInfo.GetValue<ColorPlus>(S_OutLineColor);
             OutLineSize = SeInfo.GetInt32(S_OutLineSize);
-            base.OnDeserialization(sender);
+            base.OnDeserialization();
         }
     }
 }

@@ -111,7 +111,7 @@ namespace UIGenerator
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
         /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, info);
             info.AddValue(S_CenterPosition, (SerializableVector2DF)CenterPosition);
@@ -127,7 +127,7 @@ namespace UIGenerator
         /// デシリアライズ時に実行
         /// </summary>
         /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public void OnDeserialization(object sender)
+        void IDeserializationCallback.OnDeserialization(object sender)
         {
             if (seInfo == null) return;
             CenterPosition = seInfo.GetValue<SerializableVector2DF>(S_CenterPosition);

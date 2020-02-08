@@ -79,9 +79,9 @@ namespace UIGenerator
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
         /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected override void GetObjectData(SerializationInfo info)
         {
-            base.GetObjectData(info, context);
+            base.GetObjectData(info);
             info.AddValue(S_Angle, Angle);
             info.AddValue(S_Center, Center);
             info.AddValue(S_Color, Color);
@@ -98,7 +98,7 @@ namespace UIGenerator
         /// デシリアライズ時に実行
         /// </summary>
         /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public override void OnDeserialization(object sender)
+        protected override void OnDeserialization()
         {
             if (SeInfo == null) return;
             Texture = DataBase.Textures[SeInfo.GetInt32(S_TextureIndex)];
@@ -110,7 +110,7 @@ namespace UIGenerator
             OuterDiameter = SeInfo.GetSingle(S_OuterD);
             StartingVerticalAngle = SeInfo.GetInt32(S_StartingV);
             EndingVerticalAngle = SeInfo.GetInt32(S_EndingV);
-            base.OnDeserialization(sender);
+            base.OnDeserialization();
         }
     }
 }

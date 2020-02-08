@@ -54,24 +54,34 @@ namespace UIGenerator
         /// シリアル化するデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected virtual void GetObjectData(SerializationInfo info)
         {
             if (info == null) throw new ArgumentNullException();
             info.AddValue(S_Path, Path);
         }
         /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) => GetObjectData(info);
+        /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public virtual void OnDeserialization(object sender)
+        protected virtual void OnDeserialization()
         {
             if (SeInfo == null) return;
             Path = SeInfo.GetString(S_Path);
             Font = GetFont(Path) ?? throw new SerializationException();
             SeInfo = null;
         }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        void IDeserializationCallback.OnDeserialization(object sender) => OnDeserialization();
         /// <summary>
         /// byte配列で保存するフォントに変換する
         /// </summary>

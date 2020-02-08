@@ -151,10 +151,9 @@ namespace UIGenerator
         /// シリアライズするデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         /// <exception cref="ObjectDisposedException">このインスタンスが破棄されている</exception>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected virtual void GetObjectData(SerializationInfo info)
         {
             if (info == null) throw new ArgumentNullException();
             ThrowIfDisposed();
@@ -162,16 +161,28 @@ namespace UIGenerator
             info.AddValue(S_Buffer, Buffer ?? throw new SerializationException());
         }
         /// <summary>
+        /// シリアライズするデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        /// <exception cref="ObjectDisposedException">このインスタンスが破棄されている</exception>
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) => GetObjectData(info);
+        /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public virtual void OnDeserialization(object sender)
+        protected virtual void OnDeserialization()
         {
             if (SeInfo == null) return;
             Path = SeInfo.GetString(S_Path);
             Buffer = SeInfo.GetValue<byte[]>(S_Buffer);
             SeInfo = null;
         }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        void IDeserializationCallback.OnDeserialization(object sender) => OnDeserialization();
         /// <summary>
         /// このインスタンスを破棄する
         /// </summary>
@@ -213,7 +224,8 @@ namespace UIGenerator
         public void Save(string path)
         {
             ThrowIfDisposed();
-            using (var stream = new FileStream(path, FileMode.Create)) stream.Write(Buffer, 0, Buffer.Length);
+            using var stream = new FileStream(path, FileMode.Create);
+            stream.Write(Buffer, 0, Buffer.Length);
         }
         /// <summary>
         /// このインスタンスが破棄されているときに<see cref="ObjectDisposedException"/>をスローする

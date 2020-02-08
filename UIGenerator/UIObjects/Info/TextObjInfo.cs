@@ -121,11 +121,10 @@ namespace UIGenerator
         /// シリアライズするデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected override void GetObjectData(SerializationInfo info)
         {
-            base.GetObjectData(info, context);
+            base.GetObjectData(info);
             var fontIndex = DataBase.Fonts.IndexOf(FontInfo);
             if (fontIndex == -1) fontIndex = 0;
             info.AddValue(S_FontIndex, fontIndex);

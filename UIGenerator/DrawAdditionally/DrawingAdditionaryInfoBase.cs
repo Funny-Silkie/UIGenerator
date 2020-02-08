@@ -80,21 +80,18 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
         /// <exception cref="InvalidEnumArgumentException"><paramref name="drawingAdditionalMode"/>の値が不正</exception>
         /// <returns></returns>
-        public static DrawingAdditionaryInfoBase GetInstance(DrawingAdditionalMode drawingAdditionalMode, int mode, string name)
+        public static DrawingAdditionaryInfoBase GetInstance(DrawingAdditionalMode drawingAdditionalMode, int mode, string name) => drawingAdditionalMode switch
         {
-            switch (drawingAdditionalMode)
-            {
-                case DrawingAdditionalMode.Arc: return new DrawingArcInfo(mode, name);
-                case DrawingAdditionalMode.Circle: return new DrawingCircleInfo(mode, name);
-                case DrawingAdditionalMode.Line: return new DrawingLineInfo(mode, name);
-                case DrawingAdditionalMode.Rectangle: return new DrawingRectangleInfo(mode, name);
-                case DrawingAdditionalMode.RotatedRectangle: return new DrawingRotatedRectangleInfo(mode, name);
-                case DrawingAdditionalMode.Sprite: return new DrawingSpriteInfo(mode, name);
-                case DrawingAdditionalMode.Text: return new DrawingTextInfo(mode, name);
-                case DrawingAdditionalMode.Triangle: return new DrawingTriangleInfo(mode, name);
-                default: throw new InvalidEnumArgumentException();
-            }
-        }
+            DrawingAdditionalMode.Arc => new DrawingArcInfo(mode, name),
+            DrawingAdditionalMode.Circle => new DrawingCircleInfo(mode, name),
+            DrawingAdditionalMode.Line => new DrawingLineInfo(mode, name),
+            DrawingAdditionalMode.Rectangle => new DrawingRectangleInfo(mode, name),
+            DrawingAdditionalMode.RotatedRectangle => new DrawingRotatedRectangleInfo(mode, name),
+            DrawingAdditionalMode.Sprite => new DrawingSpriteInfo(mode, name),
+            DrawingAdditionalMode.Text => new DrawingTextInfo(mode, name),
+            DrawingAdditionalMode.Triangle => new DrawingTriangleInfo(mode, name),
+            _ => throw new InvalidEnumArgumentException(),
+        };
         /// <summary>
         /// シリアライズするデータを用いてインスタンスを初期化する
         /// </summary>
@@ -108,9 +105,8 @@ namespace UIGenerator
         /// シリアル化するデータを設定する
         /// </summary>
         /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
-        /// <param name="context">送信先の情報</param>
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        protected virtual void GetObjectData(SerializationInfo info)
         {
             if (info == null) throw new ArgumentNullException();
             info.AddValue(S_Mode, Mode);
@@ -119,10 +115,16 @@ namespace UIGenerator
             info.AddValue(S_AlphaBlend, (int)AlphaBlend);
         }
         /// <summary>
+        /// シリアル化するデータを設定する
+        /// </summary>
+        /// <param name="info">シリアライズするデータを格納するオブジェクト</param>
+        /// <param name="context">送信先の情報</param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) => GetObjectData(info);
+        /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public virtual void OnDeserialization(object sender)
+        protected virtual void OnDeserialization()
         {
             if (SeInfo == null) return;
             Mode = SeInfo.GetInt32(S_Mode);
@@ -131,6 +133,11 @@ namespace UIGenerator
             AlphaBlend = EnumHelper.FromNumber<AlphaBlendMode>(SeInfo.GetInt32(S_AlphaBlend));
             SeInfo = null;
         }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        void IDeserializationCallback.OnDeserialization(object sender) => OnDeserialization();
         /// <summary>
         /// 描画処理を実行する
         /// </summary>
