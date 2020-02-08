@@ -158,11 +158,9 @@ namespace UIGenerator
         public static void ExportCode_CSharp(string path, string nameSpace, string layerName, Encoding encoding)
         {
             if (encoding == null) throw new ArgumentNullException();
-            using (var stream = new StreamWriter(path, false, encoding))
-            {
-                var code = CSharpCodeProvider.ProvideCode(nameSpace, layerName);
-                foreach (var c in code) stream.Write(c);
-            }
+            using var stream = new StreamWriter(path, false, encoding);
+            var code = CSharpCodeProvider.ProvideCode(nameSpace, layerName);
+            foreach (var c in code) stream.Write(c);
         }
         /// <summary>
         /// ウィンドウサイズ，タイトルを初期化する

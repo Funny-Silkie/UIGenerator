@@ -113,12 +113,11 @@ namespace UIGenerator
         /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public override void OnDeserialization(object sender)
+        protected override void OnDeserialization()
         {
             if (SeInfo == null) return;
             var index = SeInfo.GetInt32(S_TextureIndex);
-            base.OnDeserialization(sender);
+            base.OnDeserialization();
             TextureInfo = DataBase.Textures[index];
         }
     }

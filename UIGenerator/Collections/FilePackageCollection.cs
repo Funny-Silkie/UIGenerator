@@ -133,9 +133,9 @@ namespace UIGenerator
             else
             {
                 _array = emptyArray;
-                using (var e = collection.GetEnumerator())
-                    while (e.MoveNext())
-                        Add(e.Current);
+                using var e = collection.GetEnumerator();
+                while (e.MoveNext())
+                    Add(e.Current);
             }
         }
         /// <summary>
@@ -242,16 +242,13 @@ namespace UIGenerator
         }
         private bool Add(FilePackageEntry entry) => entry.IsLocked ? Add(entry.FilePath, entry.PassWord) : Add(entry.FilePath);
         void ICollection<FilePackageEntry>.Add(FilePackageEntry item) => Add(item);
-        int IList.Add(object value)
+        int IList.Add(object value) => value switch
         {
-            switch (value)
-            {
-                case null: throw new ArgumentNullException();
-                case string path: return Add(path) ? Count - 1 : -1;
-                case FilePackageEntry f: return Add(f) ? Count - 1 : -1;
-                default: throw new ArgumentException();
-            }
-        }
+            null => throw new ArgumentNullException(),
+            string path => Add(path) ? Count - 1 : -1,
+            FilePackageEntry f => Add(f) ? Count - 1 : -1,
+            _ => throw new ArgumentException(),
+        };
         private void AddEvent(FilePackageEntry entry)
         {
             if (entry.IsLocked) Engine.File.AddRootPackageWithPassword(entry.FilePath, entry.PassWord);
@@ -285,16 +282,13 @@ namespace UIGenerator
         public bool Contains(string path, string passWord) => IndexOf(path, passWord) != -1;
         private bool Contains(FilePackageEntry entry) => entry.IsLocked ? Contains(entry.FilePath, entry.PassWord) : Contains(entry.FilePath);
         bool ICollection<FilePackageEntry>.Contains(FilePackageEntry item) => Contains(item);
-        bool IList.Contains(object value)
+        bool IList.Contains(object value) => value switch
         {
-            switch (value)
-            {
-                case null: throw new ArgumentNullException();
-                case string path: return Contains(path);
-                case FilePackageEntry f: return Contains(f);
-                default: throw new ArgumentException();
-            }
-        }
+            null => throw new ArgumentNullException(),
+            string path => Contains(path),
+            FilePackageEntry f => Contains(f),
+            _ => throw new ArgumentException(),
+        };
         private void CopyTo(FilePackageEntry[] array, int arrayIndex)
         {
             Central.ThrowHelper.ThrowArgumentNullException(null, array);
@@ -378,16 +372,13 @@ namespace UIGenerator
                     return i;
             return -1;
         }
-        int IList.IndexOf(object value)
+        int IList.IndexOf(object value) => value switch
         {
-            switch (value)
-            {
-                case null: throw new ArgumentNullException();
-                case string path: return IndexOf(path);
-                case FilePackageEntry f: return IndexOf(f);
-                default: throw new ArgumentException();
-            }
-        }
+            null => throw new ArgumentNullException(),
+            string path => IndexOf(path),
+            FilePackageEntry f => IndexOf(f),
+            _ => throw new ArgumentException(),
+        };
         int IList<FilePackageEntry>.IndexOf(FilePackageEntry item) => IndexOf(item);
         /// <summary>
         /// 指定した位置にパスワード無しの要素を挿入する

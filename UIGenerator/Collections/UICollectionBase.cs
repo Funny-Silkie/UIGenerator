@@ -31,7 +31,7 @@ namespace UIGenerator
         /// <summary>
         /// UI情報を格納するコレクションを取得する
         /// </summary>
-        public InfoCollection Infos => _infos ?? (_infos = new InfoCollection(this));
+        public InfoCollection Infos => _infos ??= new InfoCollection(this);
         private InfoCollection _infos;
         /// <summary>
         /// 内部配列を取得する
@@ -52,19 +52,23 @@ namespace UIGenerator
                 return Array.AsReadOnly(array);
             }
         }
-        IEnumerable<int> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.KeyCollection1 => Modes;
-        IEnumerable<string> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.KeyCollection2 => Names;
-        IList<int> INumericDoubleKeyDictionary<int, string, T>.KeysCollection1 => Modes;
-        IList<string> INumericDoubleKeyDictionary<int, string, T>.KeysCollection2 => Names;
+        ICollection<int> IDoubleKeyDictionary<int, string, T>.Key1Collection => Modes;
+        IList<int> INumericDoubleKeyDictionary<int, string, T>.Key1Collection => Modes;
+        IEnumerable<int> IReadOnlyDoubleKeyDictionary<int, string, T>.Key1Collection => Modes;
+        IReadOnlyList<int> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.Key1Collection => Modes;
+        ICollection<string> IDoubleKeyDictionary<int, string, T>.Key2Collection => Names;
+        IList<string> INumericDoubleKeyDictionary<int, string, T>.Key2Collection => Names;
+        IEnumerable<string> IReadOnlyDoubleKeyDictionary<int, string, T>.Key2Collection => Names;
+        IReadOnlyList<string> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.Key2Collection => Names;
         /// <summary>
         /// 表示モードを格納するコレクションを取得する
         /// </summary>
-        public ModeCollection Modes => _modes ?? (_modes = new ModeCollection(this));
+        public ModeCollection Modes => _modes ??= new ModeCollection(this);
         private ModeCollection _modes;
         /// <summary>
         /// 名前を格納するコレクションを取得する
         /// </summary>
-        public NameCollection Names => _names ?? (_names = new NameCollection(this));
+        public NameCollection Names => _names ??= new NameCollection(this);
         private NameCollection _names;
         object ICollection.SyncRoot
         {
@@ -76,8 +80,10 @@ namespace UIGenerator
         }
         private object _syncRoot;
         ICollection IDictionary.Values => Infos;
+        ICollection<T> IDoubleKeyDictionary<int, string, T>.Values => Infos;
         IList<T> INumericDoubleKeyDictionary<int, string, T>.Values => Infos;
-        IEnumerable<T> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.Values => Infos;
+        IEnumerable<T> IReadOnlyDoubleKeyDictionary<int, string, T>.Values => Infos;
+        IReadOnlyList<T> IReadOnlyNumericDoubleKeyDictionary<int, string, T>.Values => Infos;
         /// <summary>
         /// 既定の容量を備えた空の<see cref="UICollectionBase{T}"/>の新しいインスタンスを生成する
         /// </summary>
@@ -96,9 +102,9 @@ namespace UIGenerator
         {
             if (collection == null) throw new ArgumentNullException();
             InnerArray = collection is ICollection<DoubleKeyValuePair<int, string, T>> c && c.Count != 0 ? new DoubleKeyValuePair<int, string, T>[c.Count] : emptyArray;
-            using (var en = collection.GetEnumerator())
-                while (en.MoveNext())
-                    Add(en.Current);
+            using var en = collection.GetEnumerator();
+            while (en.MoveNext())
+                Add(en.Current);
         }
         /// <summary>
         /// 指定したコレクションのコピーを格納する<see cref="UICollectionBase{T}"/>の新しいインスタンスを生成する
@@ -108,9 +114,9 @@ namespace UIGenerator
         protected UICollectionBase(IEnumerable<T> collection)
         {
             if (collection == null) throw new ArgumentNullException();
-            using (var en = collection.GetEnumerator())
-                while (en.MoveNext())
-                    Add(en.Current);
+            using var en = collection.GetEnumerator();
+            while (en.MoveNext())
+                Add(en.Current);
         }
         /// <summary>
         /// シリアライズするデータを用いてインスタンスを初期化する
@@ -157,15 +163,12 @@ namespace UIGenerator
         }
         object IDictionary.this[object key]
         {
-            get
-            {
-                switch (key)
+            get => key switch
                 {
-                    case null: throw new ArgumentNullException();
-                    case DoubleKey<int, string> p: return this[p.Key1, p.Key2];
-                    default: throw new ArgumentException();
-                }
-            }
+                    null => throw new ArgumentNullException(),
+                    DoubleKey<int, string> p => this[p.Key1, p.Key2],
+                    _ => throw new ArgumentException(),
+                };
             set => throw new NotSupportedException();
         }
         object IList.this[int index]
@@ -173,16 +176,29 @@ namespace UIGenerator
             get => this[index];
             set => throw new NotSupportedException();
         }
-        T INumericDoubleKeyDictionary<int, string, T>.this[int index]
+        DoubleKeyValuePair<int, string, T> IList<DoubleKeyValuePair<int, string, T>>.this[int index]
         {
-            get => this[index];
+            get
+            {
+                if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
+                return InnerArray[index];
+            }
             set => throw new NotSupportedException();
         }
-        T INumericDoubleKeyDictionary<int, string, T>.this[int key1, string key2]
+        DoubleKeyValuePair<int, string, T> IReadOnlyList<DoubleKeyValuePair<int, string, T>>.this[int index]
+        {
+            get
+            {
+                if (index < 0 || Count - 1 < index) throw new ArgumentOutOfRangeException();
+                return InnerArray[index];
+            }
+        }
+        T IDoubleKeyDictionary<int, string, T>.this[int key1, string key2]
         {
             get => this[key1, key2];
             set => throw new NotSupportedException();
         }
+        T IReadOnlyDoubleKeyDictionary<int, string, T>.this[int key1, string key2] => this[key1, key2];
         /// <summary>
         /// 指定したUI情報を末尾に追加する
         /// </summary>
@@ -227,7 +243,7 @@ namespace UIGenerator
                 default: throw new ArgumentException();
             }
         }
-        void INumericDoubleKeyDictionary<int, string, T>.Add(int key1, string key2, T value) => Add(key1, key2, value);
+        void IDoubleKeyDictionary<int, string, T>.Add(int key1, string key2, T value) => Add(key1, key2, value);
         /// <summary>
         /// 要素の名前を変更する
         /// </summary>
@@ -337,27 +353,21 @@ namespace UIGenerator
         void ICollection<DoubleKeyValuePair<int, string, T>>.CopyTo(DoubleKeyValuePair<int, string, T>[] array, int arrayIndex) => CopyTo(array, arrayIndex);
         private bool Contains(DoubleKeyValuePair<int, string, T> item) => IndexOf(item) != -1;
         bool ICollection<DoubleKeyValuePair<int, string, T>>.Contains(DoubleKeyValuePair<int, string, T> item) => Contains(item);
-        bool IDictionary.Contains(object key)
+        bool IDictionary.Contains(object key) => key switch
         {
-            switch (key)
-            {
-                case int mode: return ContainsMode(mode);
-                case string name: return ContainsName(name);
-                case DoubleKey<int, string> pair: return Contains(pair.Key1, pair.Key2);
-                case null: throw new ArgumentNullException();
-                default: throw new ArgumentException();
-            }
-        }
-        bool IList.Contains(object value)
+            int mode => ContainsMode(mode),
+            string name => ContainsName(name),
+            DoubleKey<int, string> pair => Contains(pair.Key1, pair.Key2),
+            null => throw new ArgumentNullException(),
+            _ => throw new ArgumentException(),
+        };
+        bool IList.Contains(object value) => value switch
         {
-            switch (value)
-            {
-                case T t: return Contains(t);
-                case DoubleKeyValuePair<int, string, T> pair: return Contains(pair);
-                case null: return false;
-                default: throw new ArgumentException();
-            }
-        }
+            T t => Contains(t),
+            DoubleKeyValuePair<int, string, T> pair => Contains(pair),
+            null => false,
+            _ => throw new ArgumentException(),
+        };
         /// <summary>
         /// 指定した表示モードと名前の組み合わせが存在するかどうかを検索する
         /// </summary>
@@ -371,8 +381,8 @@ namespace UIGenerator
         /// <param name="value">検索するUI情報</param>
         /// <returns><paramref name="value"/>が格納されていたらtrue，それ以外でfalse</returns>
         public bool Contains(T value) => IndexOf(value) != -1;
-        bool INumericDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
-        bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool IDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
+        bool IReadOnlyDoubleKeyDictionary<int, string, T>.ContainsKeyPair(int key1, string key2) => Contains(key1, key2);
         bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
         bool IReadOnlyNumericDoubleKeyDictionary<int, string, T>.ContainsKey1(int key) => ContainsMode(key);
         bool INumericDoubleKeyDictionary<int, string, T>.ContainsKey2(string key) => ContainsName(key);
@@ -436,17 +446,15 @@ namespace UIGenerator
             if (index == -1) return -1;
             return Equals(item.Value, InnerArray[index].Value) ? index : -1;
         }
-        int IList.IndexOf(object value)
+        int IList.IndexOf(object value) => value switch
         {
-            switch (value)
-            {
-                case DoubleKeyValuePair<int, string, T> pair: return IndexOf(pair);
-                case T t: return IndexOf(t);
-                case DoubleKey<int, string> keys: return IndexOf(keys.Key1, keys.Key2);
-                case null: return -1;
-                default: throw new ArgumentException();
-            }
-        }
+            DoubleKeyValuePair<int, string, T> pair => IndexOf(pair),
+            T t => IndexOf(t),
+            DoubleKey<int, string> keys => IndexOf(keys.Key1, keys.Key2),
+            null => -1,
+            _ => throw new ArgumentException(),
+        };
+        int IList<DoubleKeyValuePair<int, string, T>>.IndexOf(DoubleKeyValuePair<int, string, T> item) => IndexOf(item);
         private int IndexOfMode(int mode)
         {
             if (mode < 0) return -1;
@@ -464,6 +472,7 @@ namespace UIGenerator
             return -1;
         }
         void IList.Insert(int index, object value) => throw new NotSupportedException();
+        void IList<DoubleKeyValuePair<int, string, T>>.Insert(int index, DoubleKeyValuePair<int, string, T> item) => throw new NotSupportedException();
         void INumericDoubleKeyDictionary<int, string, T>.Insert(int index, int key1, string key2, T value) => throw new NotSupportedException();
         /// <summary>
         /// 指定したインデックスがコレクションの管理インデックスかどうかを返す
@@ -602,6 +611,40 @@ namespace UIGenerator
                     collection.Add(InnerArray[i].Value);
             return collection;
         }
+        /// <summary>
+        /// 指定し表示モードを持つ要素のコレクションを取得する
+        /// </summary>
+        /// <param name="mode">検索する表示モード</par
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
+        /// <returns><paramref name="mode"/>を持つ値のコレクション</returns>
+        private Dictionary<string, KeyValuePair<int, T>> SelectFromMode(int mode)
+        {
+            if (mode < 0) throw new ArgumentOutOfRangeException();
+            var dictionary = new Dictionary<string, KeyValuePair<int, T>>(Count);
+            for (int i = 0; i < Count; i++)
+                if (InnerArray[i].Key1 == mode)
+                    dictionary.Add(InnerArray[i].Key2, new KeyValuePair<int, T>(InnerArray[i].Key1, InnerArray[i].Value));
+            return dictionary;
+        }
+        IDictionary<string, KeyValuePair<int, T>> IDoubleKeyDictionary<int, string, T>.SelectFromKey1(int key) => SelectFromMode(key);
+        IDictionary<string, KeyValuePair<int, T>> IReadOnlyDoubleKeyDictionary<int, string, T>.SelectFromKey1(int key) => SelectFromMode(key);
+        /// <summary>
+        /// 指定し名前を持つ要素のコレクションを取得する
+        /// </summary>
+        /// <param name="name">検索する名前</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
+        /// <returns><paramref name="name"/>を持つ値のコレクション</returns>
+        private Dictionary<int, KeyValuePair<string, T>> SelectFromName(string name)
+        {
+            if (name == null) throw new ArgumentNullException();
+            var dictionary = new Dictionary<int, KeyValuePair<string, T>>(Count);
+            for (int i = 0; i < Count; i++)
+                if (name == InnerArray[i].Key2)
+                    dictionary.Add(InnerArray[i].Key1, new KeyValuePair<string, T>(InnerArray[i].Key2, InnerArray[i].Value));
+            return dictionary;
+        }
+        IDictionary<int, KeyValuePair<string, T>> IDoubleKeyDictionary<int, string, T>.SelectFromKey2(string key) => SelectFromName(key);
+        IDictionary<int, KeyValuePair<string, T>> IReadOnlyDoubleKeyDictionary<int, string, T>.SelectFromKey2(string key) => SelectFromName(key);
         /// <summary>
         /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
         /// </summary>

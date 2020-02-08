@@ -44,17 +44,23 @@ namespace UIGenerator
             }
         }
         /// <summary>
+        /// パスからその文字列を取得する
+        /// </summary>
+        /// <param name="text">使用するパス</param>
+        /// <returns><paramref name="text"/>に相当する文字列</returns>
+        public static string FromPath(string text) => $"{'"'}{ReplacingString(text)}{'"'}";
+        /// <summary>
         /// <see cref="RectF"/>の値からその文字列を取得する
         /// </summary>
         /// <param name="rect">文字列化したい<see cref="RectF"/>の値</param>
         /// <returns><paramref name="rect"/>に相当する文字列</returns>
-        public static string FromRectF(RectF rect) => $"new RectF({rect.X}, {rect.Y}, {rect.Width}, {rect.Height})";
+        public static string FromRectF(RectF rect) => $"new RectF({rect.X}f, {rect.Y}f, {rect.Width}f, {rect.Height}f)";
         /// <summary>
         /// <see cref="string"/>の値からその文字列を取得する
         /// </summary>
         /// <param name="text">文字列化したい<see cref="string"/>の値</param>
         /// <returns><paramref name="text"/>に相当する文字列</returns>
-        public static string FromString(string text) => '"' + text.Replace("\n", "\\n") + '"';
+        public static string FromString(string text) => '"' + ReplacingString(text) + '"';
         /// <summary>
         /// <see cref="TextureInfo"/>の値からその文字列を取得する
         /// </summary>
@@ -71,7 +77,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="vector">文字列化したい<see cref="Vector2DF"/>の値</param>
         /// <returns><paramref name="vector"/>に相当する文字列</returns>
-        public static string FromVector2DF(Vector2DF vector) => $"new Vector2DF({vector.X}, {vector.Y})";
+        public static string FromVector2DF(Vector2DF vector) => $"new Vector2DF({vector.X}f, {vector.Y}f)";
         /// <summary>
         /// 指定した回数空白を4つ返す
         /// </summary>
@@ -89,9 +95,6 @@ namespace UIGenerator
         /// <returns>usingステートメントを表す文字列</returns>
         public static string GetUsingStatement() =>
             "using System;\n" +
-            "using System.Collections.Generic;\n" +
-            "using System.Linq;\n" +
-            "using System.Text;\n" +
             "using System.Threading.Tasks;\n" +
             "using asd;\n" +
             "using UIGeneratorObjects;";
@@ -224,5 +227,11 @@ namespace UIGenerator
             for (int i = 2; i < code.Count - 1; i++) code[i] = "    " + code[i];
             return code;
         }
+        /// <summary>
+        /// 特定の文字列を出力用に置き換える
+        /// </summary>
+        /// <param name="text">置き換えたい文字列</param>
+        /// <returns>置き換え尾の文字列</returns>
+        private static string ReplacingString(string text) => text.Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t").Replace("\f", "\\f").Replace("\v", "\\v").Replace("\b", "\\b").Replace("\\", "\\\\");
     }
 }

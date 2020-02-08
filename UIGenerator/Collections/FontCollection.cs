@@ -56,9 +56,9 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, collection);
             _array = new FontInfoBase[collection.Count() + 1];
             Add(DataBase.DefaultFont);
-            using (var e = collection.GetEnumerator())
-                while (e.MoveNext())
-                    Add(e.Current);
+            using var e = collection.GetEnumerator();
+            while (e.MoveNext())
+                Add(e.Current);
         }
         /// <summary>
         /// 指定したインデックスに対応する要素を取得または設定する

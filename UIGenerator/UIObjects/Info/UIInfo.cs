@@ -61,13 +61,17 @@ namespace UIGenerator
         }
         /// <summary>
         /// デシリアライズ時に実行
-        /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public virtual void OnDeserialization(object sender)
+        /// </summary>        
+        protected virtual void OnDeserialization()
         {
             if (SeInfo == null) return;
             SeInfo = null;
         }
+        /// <summary>
+        /// デシリアライズ時に実行
+        /// </summary>
+        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
+        void IDeserializationCallback.OnDeserialization(object sender) => OnDeserialization();
         /// <summary>
         /// インスタンスを取得する
         /// </summary>
@@ -76,16 +80,13 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="InvalidEnumArgumentException"><paramref name="type"/>が無効な値</exception>
         /// <returns><see cref="UIInfoBase"/>から派生したインスタンス</returns>
-        public static UIInfoBase GetInstance(UITypes type, int mode, string name)
+        public static UIInfoBase GetInstance(UITypes type, int mode, string name) => type switch
         {
-            switch (type)
-            {
-                case UITypes.Text: return new TextObjInfo(mode, name);
-                case UITypes.Texture: return new TextureObjInfo(mode, name);
-                case UITypes.Window: return new WindowInfo(mode, name);
-                default: throw new InvalidEnumArgumentException();
-            }
-        }
+            UITypes.Text => new TextObjInfo(mode, name),
+            UITypes.Texture => new TextureObjInfo(mode, name),
+            UITypes.Window => new WindowInfo(mode, name),
+            _ => throw new InvalidEnumArgumentException(),
+        };
         /// <summary>
         /// 各要素の設定を行う
         /// </summary>
@@ -168,27 +169,23 @@ namespace UIGenerator
         /// <summary>
         /// デシリアライズ時に実行
         /// </summary>
-        /// <param name="sender">現在はサポートされていない 常にnullを返す</param>
-        public override void OnDeserialization(object sender)
+        protected override void OnDeserialization()
         {
             if (SeInfo == null) return;
             UIObject = SeInfo.GetValue<T>(S_Object);
             Mode = SeInfo.GetInt32(S_Mode);
             Name = SeInfo.GetString(S_Name);
-            base.OnDeserialization(sender);
+            base.OnDeserialization();
         }
         /// <summary>
         /// 指定したタイプの<see cref="IUIElements"/>を返す
         /// </summary>
-        private IUIElements GetUIElement(UITypes type, int mode, string name)
+        private IUIElements GetUIElement(UITypes type, int mode, string name) => type switch
         {
-            switch (type)
-            {
-                case UITypes.Window: return new UIWindow(mode, name);
-                case UITypes.Text: return new UIText(mode, name);
-                case UITypes.Texture: return new UITexture(mode, name);
-                default: throw new InvalidEnumArgumentException();
-            }
-        }
+            UITypes.Window => new UIWindow(mode, name),
+            UITypes.Text => new UIText(mode, name),
+            UITypes.Texture => new UITexture(mode, name),
+            _ => throw new InvalidEnumArgumentException(),
+        };
     }
 }

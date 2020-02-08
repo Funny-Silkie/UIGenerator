@@ -56,9 +56,9 @@ namespace UIGenerator
             Central.ThrowHelper.ThrowArgumentNullException(null, collection);
             _array = new TextureInfo[collection.Count() + 1];
             Add(DataBase.DefaultTexture);
-            using (var e = collection.GetEnumerator())
-                while (e.MoveNext())
-                    Add(e.Current);
+            using var e = collection.GetEnumerator();
+            while (e.MoveNext())
+                Add(e.Current);
         }
         /// <summary>
         /// 指定したインデックスに対応した要素を取得または設定する

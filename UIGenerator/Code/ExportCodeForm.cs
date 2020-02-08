@@ -15,6 +15,8 @@ namespace UIGenerator
         {
             InitializeComponent();
             ComboBox_Lang.DataSource = DataBase.CodeType;
+            ComboBox_Encoding.DataSource = EnumHelper.GetNames<EncodingType>();
+            ComboBox_Encoding.Text = EncodingType.UTF8.ToString();
         }
         /// <summary>
         /// 出力先選択
@@ -22,16 +24,14 @@ namespace UIGenerator
         private void Button_Ref_Click(object sender, EventArgs e)
         {
             var layerName = TextBox_LayerName.Text.Trim();
-            using (var dialog = new SaveFileDialog()
+            using var dialog = new SaveFileDialog()
             {
                 Filter = GetFilter(),
                 FileName = layerName,
                 DefaultExt = GetExt()
-            })
-            {
-                var state = dialog.ShowDialog();
-                if (state == DialogResult.OK) TextBox_Path.Text = dialog.FileName;
-            }
+            };
+            var state = dialog.ShowDialog();
+            if (state == DialogResult.OK) TextBox_Path.Text = dialog.FileName;
         }
         /// <summary>
         /// <see cref="SaveFileDialog"/>のフィルターを返す
@@ -39,11 +39,11 @@ namespace UIGenerator
         private string GetFilter()
         {
             var lang = ComboBox_Lang.Text;
-            switch (lang)
+            return lang switch
             {
-                case "C#": return FilePathHelper.GetFilter("CSharp Code File", ".cs");
-                default: throw new NotSupportedException();
-            }
+                "C#" => FilePathHelper.GetFilter("CSharp Code File", ".cs"),
+                _ => throw new NotSupportedException(),
+            };
         }
         /// <summary>
         /// 拡張子を返す
@@ -51,11 +51,11 @@ namespace UIGenerator
         private string GetExt()
         {
             var lang = ComboBox_Lang.Text;
-            switch (lang)
+            return lang switch
             {
-                case "C#": return ".cs";
-                default: throw new NotSupportedException();
-            }
+                "C#" => ".cs",
+                _ => throw new NotSupportedException(),
+            };
         }
         /// <summary>
         /// エクスポート実行
@@ -75,7 +75,7 @@ namespace UIGenerator
                 Console.WriteLine("ディレクトリが存在しません");
                 return;
             }
-            DataBase.ExportCode_CSharp(path, nameSpace, layerName, new EncodeOption(EncodingType.UTF8).Encoding);
+            DataBase.ExportCode_CSharp(path, nameSpace, layerName, new EncodeOption(EnumHelper.FromString<EncodingType>(ComboBox_Encoding.Text)).Encoding);
             Console.WriteLine("エクスポートが終了しました");
             Close();
         }
