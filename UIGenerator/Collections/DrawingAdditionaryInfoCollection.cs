@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using asd;
 using fslib;
-using fslib.Collections;
-using fslib.Exception;
 
 namespace UIGenerator
 {

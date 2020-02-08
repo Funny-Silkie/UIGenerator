@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using asd;
-using fslib;
-using fslib.Serialization;
 
 namespace UIGenerator
 {

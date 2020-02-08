@@ -64,7 +64,16 @@
     <Compile Include="Code\ExportCodeForm.Designer.cs">
       <DependentUpon>ExportCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collections\DoubleKey.cs" />
+    <Compile Include="Collections\DoubleKeyValuePair.cs" />
+    <Compile Include="Collections\IDoubleKeyDictionary.cs" />
+    <Compile Include="Collections\INumericDoubleKeyDictionary.cs" />
+    <Compile Include="Collections\IReadOnlyDoubleKeyDictionary.cs" />
+    <Compile Include="Collections\IReadOnlyNumericDoubleKeyDictionary.cs" />
+    <Compile Include="Collections\KeyDuplicateException.cs" />
     <Compile Include="Collections\UICollectionBase.cs" />
+    <Compile Include="ColorPlus.cs" />
+    <Compile Include="ColorSet.cs" />
     <Compile Include="ElementWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +143,9 @@
     <Compile Include="DrawAdditionally\Forms\DrawingTriangleForm.Designer.cs">
       <DependentUpon>DrawingTriangleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EncodingOption.cs" />
+    <Compile Include="EncodingType.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="FilePackageLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +167,8 @@
     <Compile Include="Serialization\PackagedFont.cs" />
     <Compile Include="Serialization\PackagedStaticFont.cs" />
     <Compile Include="Serialization\ResourcePackage.cs" />
+    <Compile Include="Serialization\SerializableRect.cs" />
+    <Compile Include="Serialization\SerializableVectors.cs" />
     <Compile Include="Tools\FileSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>

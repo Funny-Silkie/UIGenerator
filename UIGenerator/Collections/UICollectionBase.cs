@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading;
 using fslib;
-using fslib.Collections;
-using fslib.Exception;
 
 namespace UIGenerator
 {
@@ -645,16 +643,6 @@ namespace UIGenerator
         }
         IDictionary<int, KeyValuePair<string, T>> IDoubleKeyDictionary<int, string, T>.SelectFromKey2(string key) => SelectFromName(key);
         IDictionary<int, KeyValuePair<string, T>> IReadOnlyDoubleKeyDictionary<int, string, T>.SelectFromKey2(string key) => SelectFromName(key);
-        /// <summary>
-        /// このインスタンスの要素を格納する<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンスを返す
-        /// </summary>
-        /// <returns>要素がコピーされた<see cref="DoubleKeyDictionary{TKey1, TKey2, TValue}"/>のインスタンス</returns>
-        public DoubleKeyDictionary<int, string, T> ToDoubleKeyDictionary()
-        {
-            var dic = new DoubleKeyDictionary<int, string, T>(Count);
-            for (int i = 0; i < Count; i++) dic.Add(InnerArray[i].Key1, InnerArray[i].Key2, InnerArray[i].Value);
-            return dic;
-        }
         /// <summary>
         /// 指定したキーを持つUI情報を取得する
         /// </summary>

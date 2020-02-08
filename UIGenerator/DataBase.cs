@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using asd;
 using fslib;
-using fslib.Collections.BasicModel;
 using fslib.IO;
-using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -86,7 +86,7 @@ namespace UIGenerator
         /// <summary>
         /// サブフォームを格納しておくコレクションを取得する
         /// </summary>
-        public static BasicCollection<System.Windows.Forms.Form> Forms { get; } = new BasicCollection<System.Windows.Forms.Form>();
+        public static HashSet<System.Windows.Forms.Form> Forms { get; } = new HashSet<System.Windows.Forms.Form>();
         /// <summary>
         /// 使用されるファイルパッケージのコレクションを取得する
         /// </summary>

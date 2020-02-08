@@ -1,5 +1,4 @@
-﻿using fslib.Serialization;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace UIGenerator

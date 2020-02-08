@@ -2,7 +2,6 @@
 using System.Runtime.Serialization;
 using asd;
 using fslib;
-using fslib.Serialization;
 
 namespace UIGenerator
 {
@@ -44,7 +43,7 @@ namespace UIGenerator
         /// <param name="name">名前</param>
         /// <exception cref="ArgumentNullException"><paramref name="name"/>がnull</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
-        public UIWindow(int mode, string name) : base(new Vector2DF(100, 100), -1, new Vector2DI(100, 100), ColorSet.WindowDefault, true, false)
+        public UIWindow(int mode, string name) : base(new Vector2DF(100, 100), -1, new Vector2DI(100, 100), new ColorPlus(ColorSet.WindowDefault), true, false)
         {
             Mode = mode < 0 ? throw new ArgumentOutOfRangeException() : mode;
             Name = name ?? throw new ArgumentNullException();
@@ -54,7 +53,7 @@ namespace UIGenerator
         /// </summary>
         /// <param name="info">シリアライズされたデータを格納するオブジェクト</param>
         /// <param name="context">送信元の情報</param>
-        private UIWindow(SerializationInfo info, StreamingContext context) : base(default, 0, ColorSet.WindowDefault, false, false)
+        private UIWindow(SerializationInfo info, StreamingContext context) : base(default, 0, new ColorPlus(ColorSet.WindowDefault), false, false)
         {
             seInfo = info;
         }
