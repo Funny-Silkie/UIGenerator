@@ -198,10 +198,6 @@ namespace UIGeneratorObjects
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="mode"/>が0未満</exception>
         /// <returns><paramref name="mode"/>と<paramref name="name"/>を持つ要素が格納されていたらtrue，それ以外でfalse</returns>
         public bool ContainsKeyPair(int mode, string name) => IndexOfKeyPair(mode, name) != -1;
-        bool IDoubleKeyDictionary<int, string, IUIElements>.ContainsKey1(int key1) => IndexOfMode(key1) != -1;
-        bool IReadOnlyDoubleKeyDictionary<int, string, IUIElements>.ContainsKey1(int key1) => IndexOfMode(key1) != -1;
-        bool IDoubleKeyDictionary<int, string, IUIElements>.ContainsKey2(string key2) => IndexOfName(key2) != -1;
-        bool IReadOnlyDoubleKeyDictionary<int, string, IUIElements>.ContainsKey2(string key2) => IndexOfName(key2) != -1;
         /// <summary>
         /// 指定した配列に要素をコピーする
         /// </summary>
@@ -396,6 +392,10 @@ namespace UIGeneratorObjects
             for (int i = 0; i < Count; i++) array[i] = _array[i];
             _array = array;
         }
+        IDictionary<string, KeyValuePair<int, IUIElements>> IDoubleKeyDictionary<int, string, IUIElements>.SelectFromKey1(int key) => throw new NotSupportedException();
+        IDictionary<int, KeyValuePair<string, IUIElements>> IDoubleKeyDictionary<int, string, IUIElements>.SelectFromKey2(string key) => throw new NotSupportedException();
+        IDictionary<string, KeyValuePair<int, IUIElements>> IReadOnlyDoubleKeyDictionary<int, string, IUIElements>.SelectFromKey1(int key) => throw new NotSupportedException();
+        IDictionary<int, KeyValuePair<string, IUIElements>> IReadOnlyDoubleKeyDictionary<int, string, IUIElements>.SelectFromKey2(string key) => throw new NotSupportedException();
         /// <summary>
         /// 指定した表示モードと名前を持つ値を検索する
         /// </summary>

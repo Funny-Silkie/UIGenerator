@@ -33,13 +33,11 @@
     <DocumentationFile>bin\Release\UIGeneratorObjects.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Altseed, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Altseed.dll</HintPath>
+    <Reference Include="Altseed">
+      <HintPath>..\..\..\UIGenerator\Altseed.dll</HintPath>
     </Reference>
-    <Reference Include="fslib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\fslib.dll</HintPath>
+    <Reference Include="fslib">
+      <HintPath>..\..\..\UIGenerator\fslib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
