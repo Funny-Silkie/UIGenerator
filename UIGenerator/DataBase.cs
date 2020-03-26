@@ -101,7 +101,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void AddObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(info);
             UIInfos.Add(info);
             if (ShowMode == info.Mode) MainScene.AddObject(info);
         }
@@ -112,7 +112,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public static void RemoveObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(null, info);
             UIInfos.Remove(info.Mode, info.Name);
             if (ShowMode == info.Mode) MainScene.RemoveObject(info);
         }
@@ -171,8 +171,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="sizeX"/>または<paramref name="sizeY"/>が0以下</exception>
         public static void Initialize(int sizeX, int sizeY, string title)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(sizeX, 1, int.MaxValue, null);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(sizeY, 1, int.MaxValue, null);
+            Central.ThrowHelper.ThrowIfLower(sizeX, 1);
+            Central.ThrowHelper.ThrowIfLower(sizeY, 1);
             _windowSize = new SerializableVector2DI(sizeX, sizeY);
             _projectName = title ?? throw new ArgumentNullException();
         }

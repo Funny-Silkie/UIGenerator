@@ -42,7 +42,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
         public TextureCollection(int capacity)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowIfLower(capacity, 0);
             _array = capacity == 0 ? emptyArray : new TextureInfo[capacity];
             Add(DataBase.DefaultTexture);
         }
@@ -53,7 +53,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
         public TextureCollection(IEnumerable<TextureInfo> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            Central.ThrowHelper.ThrowIfNull(collection);
             _array = new TextureInfo[collection.Count() + 1];
             Add(DataBase.DefaultTexture);
             using var e = collection.GetEnumerator();
@@ -71,12 +71,14 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+                Central.ThrowHelper.ThrowIfLower(index, 0);
+                Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
                 return _array[index];
             }
             set
             {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+                Central.ThrowHelper.ThrowIfLower(index, 0);
+                Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
                 _array[index] = value ?? throw new ArgumentNullException();
             }
         }
@@ -88,8 +90,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="item"/>がnull</exception>
         public void Add(TextureInfo item)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, item);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), Contains(item), null);
+            Central.ThrowHelper.ThrowIfNull(item);
+            Central.ThrowHelper.Throw(new ArgumentException(), Contains(item));
             if (_array.Length < Count + 1) ReSize();
             _array[Count++] = item;
             version++;
@@ -154,17 +156,17 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         public void CopyTo(TextureInfo[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(arrayIndex, 0);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < arrayIndex + Count);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0);
+            Central.ThrowHelper.Throw(new RankException(), array.Rank != 1);
             if (array is TextureInfo[] t) CopyTo(t, index);
             else if (array is object[] o)
             {
@@ -212,7 +214,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
         public void RemoveAt(int index)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
             if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
             _array[Count - 1] = default;
             Count--;
@@ -262,7 +265,7 @@ namespace UIGenerator
             {
                 get
                 {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null); ;
+                    Central.ThrowHelper.ThrowIfInvalidOperation(index < 0 || collection.Count < index, null); ;
                     return Current;
                 }
             }
@@ -284,7 +287,7 @@ namespace UIGenerator
             /// <returns>次の要素に進めたらtrue，それ以外でfalse</returns>
             public bool MoveNext()
             {
-                Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
+                Central.ThrowHelper.ThrowIfInvalidOperation(version != collection.version, null);
                 if (index < collection.Count)
                 {
                     Current = collection._array[index++];
@@ -296,7 +299,7 @@ namespace UIGenerator
             }
             void IEnumerator.Reset()
             {
-                Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
+                Central.ThrowHelper.ThrowIfInvalidOperation(version != collection.version, null);
                 Current = default;
                 index = 0;
             }

@@ -123,7 +123,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
         public FilePackageCollection(IEnumerable<FilePackageEntry> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            Central.ThrowHelper.ThrowIfNull(collection);
             if (collection is ICollection<FilePackageEntry> c)
             {
                 Count = c.Count;
@@ -148,7 +148,8 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
+                Central.ThrowHelper.ThrowIfLower(index, 0);
+                Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
                 return _array[index];
             }
         }
@@ -201,7 +202,7 @@ namespace UIGenerator
         /// <returns>追加に成功したらtrue，それ以外でfalse</returns>
         public bool Add(string path)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             if (!Engine.File.Exists(path) || Contains(path)) return false;
             try
             {
@@ -225,7 +226,7 @@ namespace UIGenerator
         /// <returns>追加に成功したらtrue，それ以外でfalse</returns>
         public bool Add(string path, string passWord)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, path, passWord);
+            Central.ThrowHelper.ThrowIfNull(path, passWord);
             if (!Engine.File.Exists(path) || Contains(path, passWord)) return false;
             try
             {
@@ -291,17 +292,17 @@ namespace UIGenerator
         };
         private void CopyTo(FilePackageEntry[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowArgumentException(array.Length < Count + arrayIndex, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(arrayIndex, 0);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < Count + arrayIndex);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
-            Central.ThrowHelper.ThrowArgumentException(array.Length < Count + index || array.GetLowerBound(0) != 0, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.Throw(new RankException(), array.Rank != 1);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < Count + index || array.GetLowerBound(0) != 0);
             switch (array)
             {
                 case FilePackageEntry[] f: CopyTo(f, index); break;
@@ -344,7 +345,7 @@ namespace UIGenerator
         /// <returns>見つかったらそのインデックス，それ以外で-1</returns>
         public int IndexOf(string path)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             for (int i = 0; i < Count; i++)
                 if (!_array[i].IsLocked && _array[i].FilePath == path)
                     return i;
@@ -359,7 +360,7 @@ namespace UIGenerator
         /// <returns>インデックスがあったらその値，それ以外で-1</returns>
         public int IndexOf(string path, string passWord)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, path, passWord);
+            Central.ThrowHelper.ThrowIfNull(path, passWord);
             for (int i = 0; i < Count; i++)
                 if (_array[i].IsLocked && _array[i].FilePath == path && _array[i].PassWord == passWord)
                     return i;
@@ -390,8 +391,9 @@ namespace UIGenerator
         /// <returns>挿入出来たらtrue，それ以外でfalse</returns>
         public bool Insert(int index, string path)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.ThrowIfBigger(index, Count);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             if (!Engine.File.Exists(path) || Contains(path)) return false;
             try
             {
@@ -419,8 +421,9 @@ namespace UIGenerator
         /// <returns>挿入出来たらtrue，それ以外でfalse</returns>
         public bool Insert(int index, string path, string passWord)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count, null);
-            Central.ThrowHelper.ThrowArgumentNullException(null, path, passWord);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.ThrowIfBigger(index, Count);
+            Central.ThrowHelper.ThrowIfNull(path, passWord);
             if (!Engine.File.Exists(path) || Contains(path, passWord)) return false;
             try
             {
@@ -495,7 +498,8 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="Count"/>以上</exception>
         public void RemoveAt(int index)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
             if (index < Count - 1) Array.Copy(_array, index + 1, _array, index, Count - index - 1);
             _array[Count - 1] = default;
             Count--;

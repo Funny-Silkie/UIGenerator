@@ -58,7 +58,7 @@ namespace UIGenerator
         /// <returns>パッケージされたフォントのコレクション</returns>
         private static BasicCollection<PackagedFont> PackageFonts(FontCollection fonts)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, fonts);
+            Central.ThrowHelper.ThrowIfNull(fonts);
             var array = fonts.ToFontArray();
             var collection = new BasicCollection<PackagedFont>(array.Length);
             for (int i = 1; i < array.Length; i++) collection.Add(array[i].ToPackageFont());
@@ -73,7 +73,7 @@ namespace UIGenerator
         /// <returns>パッケージされたテクスチャのコレクション</returns>
         private static BasicCollection<PackagedTexture2D> PackageTextures(TextureCollection textures)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, textures);
+            Central.ThrowHelper.ThrowIfNull(textures);
             var array = textures.ToTextureArray();
             var collection = new BasicCollection<PackagedTexture2D>(array.Length);
             for (int i = 1; i < array.Length; i++) collection.Add(array[i].ToPackageTexture());

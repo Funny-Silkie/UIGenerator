@@ -48,7 +48,7 @@ namespace UIGenerator
         /// <returns>フォントの情報</returns>
         public static FontInfoBase FromPackage(PackagedFont package)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, package);
+            Central.ThrowHelper.ThrowIfNull(package);
             var e = File.Exists(package.Path);
             if(!e) package.Save();
             var result = FromPackagePrivate(package);

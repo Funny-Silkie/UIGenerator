@@ -40,7 +40,7 @@ namespace UIGenerator
         /// <returns>指定したテクスチャを格納した<see cref="TextureInfo"/>のインスタンス</returns>
         public static TextureInfo GetInstance(string path)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = System.IO.Path.GetFileName(path);
             return new TextureInfo(new UIGeneratorTexture2D(path), name, path);
@@ -59,7 +59,7 @@ namespace UIGenerator
         /// <returns>テクスチャ</returns>
         public static TextureInfo FromPackage(PackagedTexture2D package)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, package);
+            Central.ThrowHelper.ThrowIfNull(package);
             var e = System.IO.File.Exists(package.Path);
             if(!e) package.Save();
             var result = GetInstance(package.Path);

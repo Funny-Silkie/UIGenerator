@@ -50,7 +50,7 @@ namespace UIGenerator
         /// <returns>生成された動的フォントを格納した<see cref="DynamicFontInfo"/>の新しいインスタンスを返す</returns>
         public static DynamicFontInfo GetInstance(string path, int size, Color color, int outlinesize, Color outlinecolor)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             if (size <= 0 || outlinesize <= 0) throw new ArgumentOutOfRangeException();
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = Path.GetFileNameWithoutExtension(path);

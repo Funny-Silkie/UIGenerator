@@ -42,7 +42,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
         public FontCollection(int capacity)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowIfLower(capacity, 0);
             _array = capacity == 0 ? emptyArray : new FontInfoBase[capacity];
             Add(DataBase.DefaultFont);
         }
@@ -53,7 +53,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="collection"/>がnull</exception>
         public FontCollection(IEnumerable<FontInfoBase> collection)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, collection);
+            Central.ThrowHelper.ThrowIfNull(collection);
             _array = new FontInfoBase[collection.Count() + 1];
             Add(DataBase.DefaultFont);
             using var e = collection.GetEnumerator();
@@ -69,12 +69,14 @@ namespace UIGenerator
         {
             get
             {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
+                Central.ThrowHelper.ThrowIfLower(index, 0);
+                Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
                 return _array[index];
             }
             set
             {
-                Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, Count - 1, null);
+                Central.ThrowHelper.ThrowIfLower(index, 0);
+                Central.ThrowHelper.ThrowIfBiggerOrEqual(index, Count);
                 _array[index] = value ?? throw new ArgumentNullException(nameof(value));
                 version++;
             }
@@ -212,9 +214,9 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
         public void CopyTo(FontInfoBase[] array, int arrayIndex)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(arrayIndex, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < arrayIndex + Count, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(arrayIndex, 0);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < arrayIndex + Count);
             for (int i = 0; i < Count; i++) array[arrayIndex++] = _array[i];
         }
         /// <summary>
@@ -250,11 +252,11 @@ namespace UIGenerator
         }
         void ICollection.CopyTo(Array array, int index)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, array);
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(index, 0, int.MaxValue, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.Length < index + Count, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new RankException(), array.Rank != 1, null);
-            Central.ThrowHelper.ThrowExceptionWithMessage(new ArgumentException(), array.GetLowerBound(0) != 0, null);
+            Central.ThrowHelper.ThrowIfNull(array);
+            Central.ThrowHelper.ThrowIfLower(index, 0);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.Length < index + Count);
+            Central.ThrowHelper.Throw(new RankException(), array.Rank != 1);
+            Central.ThrowHelper.Throw(new ArgumentException(), array.GetLowerBound(0) != 0);
             if (array is FontInfoBase[] f) CopyTo(f, index);
             else if (array is object[] o)
             {
@@ -292,7 +294,7 @@ namespace UIGenerator
             {
                 get
                 {
-                    Central.ThrowHelper.ThrowInvalidOperationException(index < 0 || collection.Count < index, null);
+                    Central.ThrowHelper.ThrowIfInvalidOperation(index < 0 || collection.Count < index, null);
                     return Current;
                 }
             }
@@ -310,7 +312,7 @@ namespace UIGenerator
             /// <returns>列挙出来たらtrue，出来なかったらfalse</returns>
             public bool MoveNext()
             {
-                Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
+                Central.ThrowHelper.ThrowIfInvalidOperation(version != collection.version, null);
                 if (index < collection.Count)
                 {
                     Current = collection._array[index];
@@ -327,7 +329,7 @@ namespace UIGenerator
             public void Dispose() { }
             void IEnumerator.Reset()
             {
-                Central.ThrowHelper.ThrowInvalidOperationException(version != collection.version, null);
+                Central.ThrowHelper.ThrowIfInvalidOperation(version != collection.version, null);
                 index = 0;
                 Current = default;
             }

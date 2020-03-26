@@ -2952,7 +2952,7 @@
         </member>
         <member name="M:fslib.Collections.IDoubleKeyDictionary`3.SelectFromKey1(`0)">
             <summary>
-            指定しキー1を持つ要素のコレクションを取得する
+            指定したキー1を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
@@ -2960,7 +2960,7 @@
         </member>
         <member name="M:fslib.Collections.IDoubleKeyDictionary`3.SelectFromKey2(`1)">
             <summary>
-            指定しキー2を持つ要素のコレクションを取得する
+            指定したキー2を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
@@ -3283,7 +3283,7 @@
         </member>
         <member name="M:fslib.Collections.IReadOnlyDoubleKeyDictionary`3.SelectFromKey1(`0)">
             <summary>
-            指定しキー1を持つ要素のコレクションを取得する
+            指定したキー1を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
@@ -3291,7 +3291,7 @@
         </member>
         <member name="M:fslib.Collections.IReadOnlyDoubleKeyDictionary`3.SelectFromKey2(`1)">
             <summary>
-            指定しキー2を持つ要素のコレクションを取得する
+            指定したキー2を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
@@ -3376,6 +3376,96 @@
             </summary>
             <param name="value">検索するキー</param>
             <returns>キーが存在していたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="T:fslib.Collections.IReversibleDictionary`2">
+            <summary>
+            双方向検索の可能なディクショナリを表す
+            </summary>
+            <typeparam name="T1">使用する型1</typeparam>
+            <typeparam name="T2">使用する型2</typeparam>
+        </member>
+        <member name="P:fslib.Collections.IReversibleDictionary`2.Values1">
+            <summary>
+            <typeparamref name="T1"/>型の値のコレクションを取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.IReversibleDictionary`2.Values2">
+            <summary>
+            <typeparamref name="T2"/>型の値のコレクションを取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.IReversibleDictionary`2.Item(`0)">
+            <summary>
+            <typeparamref name="T1"/>型の値から<typeparamref name="T2"/>型の値を検索する
+            </summary>
+            <param name="value1">検索に使用する値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value1"/>がnull</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="value1"/>が見つからなかった</exception>
+            <returns><paramref name="value1"/>に該当する<typeparamref name="T2"/>型の値</returns>
+        </member>
+        <member name="P:fslib.Collections.IReversibleDictionary`2.Item(`1)">
+            <summary>
+            <typeparamref name="T2"/>型の値から<typeparamref name="T1"/>型の値を検索する
+            </summary>
+            <param name="value2">検索に使用する値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value2"/>がnull</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="value2"/>が見つからなかった</exception>
+            <returns><paramref name="value2"/>に該当する<typeparamref name="T1"/>型の値</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.Add(`0,`1)">
+            <summary>
+            値のペアを追加する
+            </summary>
+            <param name="value1">追加する<typeparamref name="T1"/>型の値</param>
+            <param name="value2">追加する<typeparamref name="T2"/>型の値</param>
+            <exception cref="T:System.ArgumentException"><typeparamref name="T1"/>または<typeparamref name="T2"/>が重複している</exception>
+            <exception cref="T:System.ArgumentNullException"><typeparamref name="T1"/>または<typeparamref name="T2"/>がnull</exception>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.ContainsValue1(`0)">
+            <summary>
+            指定した<typeparamref name="T1"/>型の値が格納されているかどうかを返す
+            </summary>
+            <param name="value1">検索する<typeparamref name="T1"/>型の値</param>
+            <returns><paramref name="value1"/>が格納されていたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.ContainsValue2(`1)">
+            <summary>
+            指定した<typeparamref name="T2"/>型の値が格納されているかどうかを返す
+            </summary>
+            <param name="value2">検索する<typeparamref name="T2"/>型の値</param>
+            <returns><paramref name="value2"/>が格納されていたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.Remove(`0)">
+            <summary>
+            指定した<typeparamref name="T1"/>型の値を持つペアを削除する
+            </summary>
+            <param name="value1">削除するペアの<typeparamref name="T1"/>型の値</param>
+            <returns><paramref name="value1"/>を持つペアを削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.Remove(`1)">
+            <summary>
+            指定した<typeparamref name="T2"/>型の値を持つペアを削除する
+            </summary>
+            <param name="value2">削除するペアの<typeparamref name="T2"/>型の値</param>
+            <returns><paramref name="value2"/>を持つペアを削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            <typeparamref name="T1"/>型の値から<typeparamref name="T2"/>型の値を検索する
+            </summary>
+            <param name="value1">検索に使用する値</param>
+            <param name="value2"><paramref name="value1"/>に該当する<typeparamref name="T2"/>型の値 見つからなかったら既定値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value1"/>がnull</exception>
+            <returns><paramref name="value2"/>が見つかったらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.IReversibleDictionary`2.TryGetValue(`1,`0@)">
+            <summary>
+            <typeparamref name="T2"/>型の値から<typeparamref name="T1"/>型の値を検索する
+            </summary>
+            <param name="value2">検索に使用する値</param>
+            <param name="value1"><paramref name="value2"/>に該当する<typeparamref name="T1"/>型の値 見つからなかったら既定値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value2"/>がnull</exception>
+            <returns><paramref name="value1"/>が見つかったらtrue，それ以外でfalse</returns>
         </member>
         <member name="P:fslib.Collections.NodeCollection`1.Count">
             <summary>
@@ -4415,6 +4505,307 @@
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
             <returns>次に進められたらtrue，それ以外でfalse</returns>
         </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2">
+            <summary>
+            双方から検索が可能なディクショナリ
+            </summary>
+            <typeparam name="T1">使用する型1</typeparam>
+            <typeparam name="T2">使用する型2</typeparam>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Comparer1">
+            <summary>
+            <typeparamref name="T1"/>型の値の比較子を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Comparer2">
+            <summary>
+            <typeparamref name="T2"/>型の値の比較子を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Count">
+            <summary>
+            格納されている要素数を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Values1">
+            <summary>
+            <typeparamref name="T1"/>型の値のコレクションを取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Values2">
+            <summary>
+            <typeparamref name="T2"/>型の値のコレクションを取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.#ctor">
+            <summary>
+            既定の容量と比較子を持った<see cref="T:fslib.Collections.ReversibleDictionary`2"/>の新しいインスタンスを生成する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.#ctor(System.Int32)">
+            <summary>
+            指定した容量と既定の比較子を持った<see cref="T:fslib.Collections.ReversibleDictionary`2"/>の新しいインスタンスを生成する
+            </summary>
+            <param name="capacity">設定する容量</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`1})">
+            <summary>
+            既定の容量と指定した比較子を持った<see cref="T:fslib.Collections.ReversibleDictionary`2"/>の新しいインスタンスを生成する
+            </summary>
+            <param name="comparer1">使用する<typeparamref name="T1"/>型の比較子</param>
+            <param name="comparer2">使用する<typeparamref name="T2"/>型の比較子</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer1"/>または<paramref name="comparer2"/>がnull</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`1})">
+            <summary>
+            指定した容量と比較子を持った<see cref="T:fslib.Collections.ReversibleDictionary`2"/>の新しいインスタンスを生成する
+            </summary>
+            <param name="capacity">設定する容量</param>
+            <param name="comparer1">使用する<typeparamref name="T1"/>型の比較子</param>
+            <param name="comparer2">使用する<typeparamref name="T2"/>型の比較子</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer1"/>または<paramref name="comparer2"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Item(`0)">
+            <summary>
+            <typeparamref name="T1"/>型の値から<typeparamref name="T2"/>型の値を検索する
+            </summary>
+            <param name="value1">検索に使用する値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value1"/>がnull</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="value1"/>が見つからなかった</exception>
+            <returns><paramref name="value1"/>に該当する<typeparamref name="T2"/>型の値</returns>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Item(`1)">
+            <summary>
+            <typeparamref name="T2"/>型の値から<typeparamref name="T1"/>型の値を検索する
+            </summary>
+            <param name="value2">検索に使用する値</param>
+            <returns><paramref name="value2"/>に該当する<typeparamref name="T1"/>型の値</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value2"/>がnull</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="value2"/>が見つからなかった</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Add(`0,`1)">
+            <summary>
+            値のペアを追加する
+            </summary>
+            <param name="value1">追加する<typeparamref name="T1"/>型の値</param>
+            <param name="value2">追加する<typeparamref name="T2"/>型の値</param>
+            <exception cref="T:System.ArgumentException"><typeparamref name="T1"/>または<typeparamref name="T2"/>が重複している</exception>
+            <exception cref="T:System.ArgumentNullException"><typeparamref name="T1"/>または<typeparamref name="T2"/>がnull</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Clear">
+            <summary>
+            コレクションの要素をすべて削除する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.ContainsValue1(`0)">
+            <summary>
+            指定した<typeparamref name="T1"/>型の値が格納されているかどうかを返す
+            </summary>
+            <param name="value1">検索する<typeparamref name="T1"/>型の値</param>
+            <returns><paramref name="value1"/>が格納されていたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.ContainsValue2(`1)">
+            <summary>
+            指定した<typeparamref name="T2"/>型の値が格納されているかどうかを返す
+            </summary>
+            <param name="value2">検索する<typeparamref name="T2"/>型の値</param>
+            <returns><paramref name="value2"/>が格納されていたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.GetEnumerator">
+            <summary>
+            列挙をサポートする構造体を返す
+            </summary>
+            <returns><see cref="T:fslib.Collections.ReversibleDictionary`2.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Remove(`0)">
+            <summary>
+            指定した<typeparamref name="T1"/>型の値を持つペアを削除する
+            </summary>
+            <param name="value1">削除するペアの<typeparamref name="T1"/>型の値</param>
+            <returns><paramref name="value1"/>を持つペアを削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Remove(`1)">
+            <summary>
+            指定した<typeparamref name="T2"/>型の値を持つペアを削除する
+            </summary>
+            <param name="value2">削除するペアの<typeparamref name="T2"/>型の値</param>
+            <returns><paramref name="value2"/>を持つペアを削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.TryAdd(`0,`1)">
+            <summary>
+            値のペアを追加する
+            </summary>
+            <param name="value1">追加する<typeparamref name="T1"/>型の値</param>
+            <param name="value2">追加する<typeparamref name="T2"/>型の値</param>
+            <exception cref="T:System.ArgumentNullException"><typeparamref name="T1"/>または<typeparamref name="T2"/>がnull</exception>
+            <returns><paramref name="value1"/>または<paramref name="value2"/>に重複があった場合false，それ以外でtrue</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            <typeparamref name="T1"/>型の値から<typeparamref name="T2"/>型の値を検索する
+            </summary>
+            <param name="value1">検索に使用する値</param>
+            <param name="value2"><paramref name="value1"/>に該当する<typeparamref name="T2"/>型の値 見つからなかったら既定値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value1"/>がnull</exception>
+            <returns><paramref name="value2"/>が見つかったらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.TryGetValue(`1,`0@)">
+            <summary>
+            <typeparamref name="T2"/>型の値から<typeparamref name="T1"/>型の値を検索する
+            </summary>
+            <param name="value2">検索に使用する値</param>
+            <param name="value1"><paramref name="value2"/>に該当する<typeparamref name="T1"/>型の値 見つからなかったら既定値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value2"/>がnull</exception>
+            <returns><paramref name="value1"/>が見つかったらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2.Enumerator">
+            <summary>
+            列挙をサポートする構造体
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Enumerator.Current">
+            <summary>
+            現在列挙されている要素を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Enumerator.Dispose">
+            <summary>
+            このインスタンスを破棄する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Enumerator.MoveNext">
+            <summary>
+            列挙を次に進める
+            </summary>
+            <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2.Value1Collection">
+            <summary>
+            <typeparamref name="T1"/>型の値のコレクション
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Value1Collection.Count">
+            <summary>
+            格納されている要素数を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.CopyTo(`0[])">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.CopyTo(`0[],System.Int32)">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.GetEnumerator">
+            <summary>
+            列挙をサポートする構造体を返す
+            </summary>
+            <returns><see cref="T:fslib.Collections.ReversibleDictionary`2.Value1Collection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.ToArray">
+            <summary>
+            配列に変換する
+            </summary>
+            <returns>このインスタンスのコピーを持つ配列</returns>
+        </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2.Value1Collection.Enumerator">
+            <summary>
+            列挙をサポートする構造体
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Value1Collection.Enumerator.Current">
+            <summary>
+            現在列挙されている要素を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.Enumerator.Dispose">
+            <summary>
+            このインスタンスを破棄する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value1Collection.Enumerator.MoveNext">
+            <summary>
+            列挙を次に進める
+            </summary>
+            <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2.Value2Collection">
+            <summary>
+            <typeparamref name="T2"/>型の値のコレクション
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Value2Collection.Count">
+            <summary>
+            格納されている要素数を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.CopyTo(`1[])">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.CopyTo(`1[],System.Int32)">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.GetEnumerator">
+            <summary>
+            列挙をサポートする構造体を返す
+            </summary>
+            <returns><see cref="T:fslib.Collections.ReversibleDictionary`2.Value2Collection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.ToArray">
+            <summary>
+            配列に変換する
+            </summary>
+            <returns>このインスタンスのコピーを持つ配列</returns>
+        </member>
+        <member name="T:fslib.Collections.ReversibleDictionary`2.Value2Collection.Enumerator">
+            <summary>
+            列挙をサポートする構造体
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleDictionary`2.Value2Collection.Enumerator.Current">
+            <summary>
+            現在列挙されている要素を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.Enumerator.Dispose">
+            <summary>
+            このインスタンスを破棄する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleDictionary`2.Value2Collection.Enumerator.MoveNext">
+            <summary>
+            列挙を次に進める
+            </summary>
+            <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
+        </member>
         <member name="T:fslib.Collections.TreeNode`1">
             <summary>
             木構造のノードのクラス
@@ -4525,6 +4916,63 @@
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
             <returns>次に進められたらtrue，それ以外でfalse</returns>
         </member>
+        <member name="T:fslib.Collections.ReversibleValuePair`2">
+            <summary>
+            反転可能な2種類の値を格納する構造体
+            </summary>
+            <typeparam name="T1">使用する型1</typeparam>
+            <typeparam name="T2">使用する型2</typeparam>
+        </member>
+        <member name="P:fslib.Collections.ReversibleValuePair`2.Value1">
+            <summary>
+            <typeparamref name="T1"/>型の値を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Collections.ReversibleValuePair`2.Value2">
+            <summary>
+            <typeparamref name="T2"/>型の値を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.#ctor(`0,`1)">
+            <summary>
+            新しいインスタンスを生成する
+            </summary>
+            <param name="value1"><typeparamref name="T1"/>型の値</param>
+            <param name="value2"><typeparamref name="T2"/>型の値</param>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.Equals(fslib.Collections.ReversibleValuePair{`0,`1})">
+            <summary>
+            もう一つの<see cref="T:fslib.Collections.ReversibleValuePair`2"/>との等価性を判定する
+            </summary>
+            <param name="other">等価性を判定する<see cref="T:fslib.Collections.ReversibleValuePair`2"/>のインスタンス</param>
+            <returns><paramref name="other"/>との等価性が認められたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.Equals(fslib.Collections.ReversibleValuePair{`1,`0})">
+            <summary>
+            要素が逆な<see cref="T:fslib.Collections.ReversibleValuePair`2"/>との等価性を判定する
+            </summary>
+            <param name="reversal">等価性を判定する<see cref="T:fslib.Collections.ReversibleValuePair`2"/>のインスタンス</param>
+            <returns><paramref name="reversal"/>との等価性が認められたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.Equals(System.Object)">
+            <summary>
+            あるオブジェクトとの等価性を判定する
+            </summary>
+            <param name="obj">等価性を判定するオブジェクト</param>
+            <returns><paramref name="obj"/>との等価性が確認されたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.GetHashCode">
+            <summary>
+            ハッシュコードを取得する
+            </summary>
+            <returns>このインスタンスのハッシュコード</returns>
+        </member>
+        <member name="M:fslib.Collections.ReversibleValuePair`2.Reverse">
+            <summary>
+            要素が逆な<see cref="T:fslib.Collections.ReversibleValuePair`2"/>の新しいインスタンスを生成する
+            </summary>
+            <returns>要素が逆な<see cref="T:fslib.Collections.ReversibleValuePair`2"/>の新しいインスタンス</returns>
+        </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3">
             <summary>
             2種類のキーと値のコレクションを表す。
@@ -4535,12 +4983,12 @@
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Comparer1">
             <summary>
-            <typeparamref name="TKey1"/>の等価性を判定する比較子を取得する
+            <typeparamref name="TKey1"/>の比較子を取得する
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Comparer2">
             <summary>
-            <typeparamref name="TKey2"/>の等価性を判定する比較子を取得する
+            <typeparamref name="TKey2"/>の比較子を取得する
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Count">
@@ -4550,66 +4998,46 @@
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Keys1">
             <summary>
-            <typeparamref name="TKey1"/>を格納するコレクションを取得する
+            <typeparamref name="TKey1"/>型の値を格納するコレクションを取得する
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Keys2">
             <summary>
-            <typeparamref name="TKey2"/>を格納するコレクションを取得する
+            <typeparamref name="TKey2"/>型の値を格納するコレクションを取得する
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Values">
             <summary>
-            <typeparamref name="TValue"/>を格納するコレクションを取得する
+            <typeparamref name="TValue"/>型の値を格納するコレクションを取得する
             </summary>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor">
             <summary>
-            既定の容量と比較子を備えた空の<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
+            既定の容量と比較子を備えた<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
             </summary>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Int32)">
             <summary>
-            指定した容量と既定の比較子を備えた空の<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
+            指定した容量と既定の比較子を備えた<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
             </summary>
             <param name="capacity">設定する容量</param>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`1})">
             <summary>
-            既定の容量と指定した比較子を備えた空の<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
+            既定の容量と指定した比較子を備えた<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
             </summary>
-            <param name="comparer1"><typeparamref name="TKey1"/>の等価性を判定する比較子</param>
-            <param name="comparer2"><typeparamref name="TKey2"/>の等価性を判定する比較子</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="comparer1"/>または<paramref name="comparer2"/>がnull</exception>
+            <param name="comparer1">比較子1</param>
+            <param name="comparer2">比較子2</param>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`1})">
             <summary>
-            指定した容量と比較子を備えた空の<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
+            指定した容量と比較子を備えた<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
             </summary>
             <param name="capacity">設定する容量</param>
-            <param name="comparer1"><typeparamref name="TKey1"/>の等価性を判定する比較子</param>
-            <param name="comparer2"><typeparamref name="TKey2"/>の等価性を判定する比較子</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="comparer1"/>または<paramref name="comparer2"/>がnull</exception>
+            <param name="comparer1">比較子1</param>
+            <param name="comparer2">比較子2</param>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/>が0未満</exception>
-        </member>
-        <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Collections.Generic.IEnumerable{fslib.Collections.DoubleKeyValuePair{`0,`1,`2}})">
-            <summary>
-            既定の比較子を備えコレクションのコピーを格納した<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
-            </summary>
-            <param name="collection">要素をコピーするコレクション</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>がnull</exception>
-            <exception cref="T:fslib.Exception.KeyDuplicateException"><paramref name="collection"/>内のキーの組み合わせが重複している</exception>
-        </member>
-        <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Collections.Generic.IEnumerable{fslib.Collections.DoubleKeyValuePair{`0,`1,`2}},System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`1})">
-            <summary>
-            指定した比較子を備えコレクションのコピーを格納した<see cref="T:fslib.Collections.DoubleKeyDictionary`3"/>の新しいインスタンスを生成する
-            </summary>
-            <param name="collection">要素をコピーするコレクション</param>
-            <param name="comparer1"><typeparamref name="TKey1"/>の等価性を判定する比較子</param>
-            <param name="comparer2"><typeparamref name="TKey2"/>の等価性を判定する比較子</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>または<paramref name="comparer1"/>，<paramref name="comparer2"/>がnull</exception>
-            <exception cref="T:fslib.Exception.KeyDuplicateException"><paramref name="collection"/>内のキーの組み合わせが重複している</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -4620,20 +5048,20 @@
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Item(`0,`1)">
             <summary>
-            指定したキーの組み合わせを持つ要素の値を取得または設定する
+            指定した組み合わせのキーを持つ値を取得または設定する
             </summary>
-            <param name="key1">検索する値のキー1</param>
-            <param name="key2">検索する値のキー2</param>
+            <param name="key1">検索するキー1</param>
+            <param name="key2">検索するキー2</param>
+            <returns><paramref name="key1"/>と<paramref name="key2"/>に割り当てられた値</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
-            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="key1"/>と<paramref name="key2"/>の組み合わせが存在しない</exception>
-            <returns><paramref name="key1"/>と<paramref name="key2"/>を持つ値</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"><paramref name="key1"/>と<paramref name="key2"/>の組み合わせが見つからなかった</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.Add(`0,`1,`2)">
             <summary>
             指定したキーと値の組み合わせを追加する
             </summary>
-            <param name="key1">追加する値のキー1</param>
-            <param name="key2">追加する値のキー2</param>
+            <param name="key1">追加するキー1</param>
+            <param name="key2">追加するキー2</param>
             <param name="value">追加する値</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
             <exception cref="T:fslib.Exception.KeyDuplicateException"><paramref name="key1"/>と<paramref name="key2"/>の組み合わせが既に存在している</exception>
@@ -4645,28 +5073,28 @@
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.ContainsKeyPair(`0,`1)">
             <summary>
-            指定したキーのペアが格納されているかどうかを返す
+            指定したキーの組み合わせが格納されているかどうかを返す
             </summary>
             <param name="key1">検索するキー1</param>
             <param name="key2">検索するキー2</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
-            <returns><paramref name="key1"/>と<paramref name="key2"/>のペアが格納されていたらtrue，それ以外でfalse</returns>
+            <returns><paramref name="key1"/>と<paramref name="key2"/>が格納されていたらtrue，それ以外でfalse</returns>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.ContainsKey1(`0)">
             <summary>
-            指定したキー1が格納されているかどうかを返す
+            指定したキーが格納されているかどうかを返す
             </summary>
-            <param name="key1">検索するキー1</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>がnull</exception>
-            <returns><paramref name="key1"/>が格納されていたらtrue，それ以外でfalse</returns>
+            <param name="key">検索するキー</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
+            <returns><paramref name="key"/>が格納されていたらtrue，それ以外でfalse</returns>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.ContainsKey2(`1)">
             <summary>
-            指定したキー2が格納されているかどうかを返す
+            指定したキーが格納されているかどうかを返す
             </summary>
-            <param name="key2">検索するキー2</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="key2"/>がnull</exception>
-            <returns><paramref name="key2"/>が格納されていたらtrue，それ以外でfalse</returns>
+            <param name="key">検索するキー</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
+            <returns><paramref name="key"/>が格納されていたらtrue，それ以外でfalse</returns>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.ContainsValue(`2)">
             <summary>
@@ -4689,24 +5117,23 @@
             <param name="context">送信先の情報</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="info"/>がnull</exception>
         </member>
-        <member name="M:fslib.Collections.DoubleKeyDictionary`3.OnDeserialization(System.Object)">
-            <summary>
-            デシリアライズ時に実行
-            </summary>
-            <param name="sender">現在このオブジェクトはサポートされていない</param>
-        </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.Remove(`0,`1)">
             <summary>
             指定したキーの組み合わせを持つ要素を削除する
             </summary>
             <param name="key1">削除する要素のキー1</param>
             <param name="key2">削除する要素のキー2</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
             <returns>要素を削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.OnDeserialization(System.Object)">
+            <summary>
+            デシリアライズ時に実行
+            </summary>
+            <param name="sender">現段階ではサポートされていない</param>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.SelectFromKey1(`0)">
             <summary>
-            指定しキー1を持つ要素のコレクションを取得する
+            指定したキー1を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
@@ -4714,20 +5141,30 @@
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.SelectFromKey2(`1)">
             <summary>
-            指定しキー2を持つ要素のコレクションを取得する
+            指定したキー2を持つ要素のコレクションを取得する
             </summary>
             <param name="key">検索するキー</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="key"/>がnull</exception>
             <returns><paramref name="key"/>を持つ値のコレクション</returns>
         </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.TryAdd(`0,`1,`2)">
+            <summary>
+            指定したキーと値の組み合わせを追加する
+            </summary>
+            <param name="key1">追加するキー1</param>
+            <param name="key2">追加するキー2</param>
+            <param name="value">追加する値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
+            <exception cref="T:fslib.Exception.KeyDuplicateException"><paramref name="key1"/>と<paramref name="key2"/>の組み合わせが既に存在している</exception>
+            <returns>追加出来たらtrue，それ以外でfalse</returns>
+        </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.TryGetValue(`0,`1,`2@)">
             <summary>
-            指定したキーの組み合わせを持つ値を検索する
+            指定したキーの組み合わせを持つ値を取得する
             </summary>
-            <param name="key1">検索する値のキー1</param>
-            <param name="key2">検索する値のキー2</param>
+            <param name="key1">検索するキー1</param>
+            <param name="key2">検索するキー2</param>
             <param name="value"><paramref name="key1"/>と<paramref name="key2"/>を持つ値 無かったら既定値</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="key1"/>または<paramref name="key2"/>がnull</exception>
             <returns><paramref name="value"/>が見つかったらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.Enumerator">
@@ -4750,17 +5187,25 @@
             列挙を次に進める
             </summary>
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
-            <returns>次に進められたらtrue，それ以外でfalse</returns>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.Key1Collection">
             <summary>
-            <typeparamref name="TKey1"/>を格納するコレクション
+            <typeparamref name="TKey1"/>型の要素を格納するコレクション
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.Count">
             <summary>
             格納されている要素数を取得する
             </summary>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.CopyTo(`0[])">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.CopyTo(`0[],System.Int32)">
             <summary>
@@ -4776,7 +5221,13 @@
             <summary>
             列挙をサポートする構造体を返す
             </summary>
-            <returns></returns>
+            <returns><see cref="T:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.ToArray">
+            <summary>
+            配列に変換する
+            </summary>
+            <returns>このインスタンスの要素のコピーを格納した配列</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.Key1Collection.Enumerator">
             <summary>
@@ -4798,17 +5249,25 @@
             列挙を次に進める
             </summary>
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
-            <returns>次に進められたらtrue，それ以外でfalse</returns>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.Key2Collection">
             <summary>
-            <typeparamref name="TKey2"/>を格納するコレクション
+            <typeparamref name="TKey2"/>型の要素を格納するコレクション
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.Count">
             <summary>
             格納されている要素数を取得する
             </summary>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.CopyTo(`1[])">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.CopyTo(`1[],System.Int32)">
             <summary>
@@ -4824,7 +5283,13 @@
             <summary>
             列挙をサポートする構造体を返す
             </summary>
-            <returns></returns>
+            <returns><see cref="T:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.ToArray">
+            <summary>
+            配列に変換する
+            </summary>
+            <returns>このインスタンスの要素のコピーを格納した配列</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.Key2Collection.Enumerator">
             <summary>
@@ -4846,17 +5311,25 @@
             列挙を次に進める
             </summary>
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
-            <returns>次に進められたらtrue，それ以外でfalse</returns>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.ValueCollection">
             <summary>
-            <typeparamref name="TValue"/>を格納するコレクション
+            <typeparamref name="TValue"/>型の要素を格納するコレクション
             </summary>
         </member>
         <member name="P:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.Count">
             <summary>
             格納されている要素数を取得する
             </summary>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.CopyTo(`2[])">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
         </member>
         <member name="M:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.CopyTo(`2[],System.Int32)">
             <summary>
@@ -4872,7 +5345,13 @@
             <summary>
             列挙をサポートする構造体を返す
             </summary>
-            <returns></returns>
+            <returns><see cref="T:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.ToArray">
+            <summary>
+            配列に変換する
+            </summary>
+            <returns>このインスタンスの要素のコピーを格納した配列</returns>
         </member>
         <member name="T:fslib.Collections.DoubleKeyDictionary`3.ValueCollection.Enumerator">
             <summary>
@@ -4894,7 +5373,7 @@
             列挙を次に進める
             </summary>
             <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
-            <returns>次に進められたらtrue，それ以外でfalse</returns>
+            <returns>列挙を次に進められたらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.ColorPlus">
             <summary>
@@ -5168,6 +5647,16 @@
             <typeparam name="T">検証する型</typeparam>
             <param name="value"><typeparamref name="T"/>として適切か検証する値</param>
             <param name="result"><typeparamref name="T"/>としてのキャスト結果 <paramref name="value"/>が<typeparamref name="T"/>として適切ならキャストされた値，それ以外で既定値</param>
+            <returns><paramref name="value"/>が<typeparamref name="T"/>として適切な値であったらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.CompareHelper.IsCompatibleUsableValue``1(System.Object,``0@)">
+            <summary>
+            指定したオブジェクトが特定のジェネリック型に適合するかどうかを検証する
+            </summary>
+            <typeparam name="T">検証する型</typeparam>
+            <param name="value"><typeparamref name="T"/>として適切かどうか検証する値</param>
+            <param name="result"><typeparamref name="T"/>としてのキャスト結果 <paramref name="value"/>が<typeparamref name="T"/>として適切ならキャストされた値，それ以外で既定値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/>がnull</exception>
             <returns><paramref name="value"/>が<typeparamref name="T"/>として適切な値であったらtrue，それ以外でfalse</returns>
         </member>
         <member name="T:fslib.Components.CoroutineInfo`2">
@@ -7921,399 +8410,159 @@
             fslibの中心となるクラス
             </summary>
         </member>
-        <member name="P:fslib.Central.OutPutHelper">
+        <member name="P:fslib.Central.Logger">
             <summary>
-            指定したところにアウトプットを行うクラス
-            </summary>
-        </member>
-        <member name="P:fslib.Central.SByteHelper">
-            <summary>
-            <see cref="T:System.SByte"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.ByteHelper">
-            <summary>
-            <see cref="T:System.Byte"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.ShortHelper">
-            <summary>
-            <see cref="T:System.Int16"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.UShortHelper">
-            <summary>
-            <see cref="T:System.UInt16"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.IntHelper">
-            <summary>
-            <see cref="T:System.Int32"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.UIntHelper">
-            <summary>
-            <see cref="T:System.UInt32"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.LongHelper">
-            <summary>
-            <see cref="T:System.Int64"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.ULongHelper">
-            <summary>
-            <see cref="T:System.UInt64"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.FloatHelper">
-            <summary>
-            <see cref="T:System.Single"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.DoubleHelper">
-            <summary>
-            <see cref="T:System.Double"/>の処理を補助するクラスを取得する
-            </summary>
-        </member>
-        <member name="P:fslib.Central.DecimalHelper">
-            <summary>
-            <see cref="T:System.Decimal"/>の処理を補助するクラスを取得する
+            ロガーを取得する
             </summary>
         </member>
         <member name="P:fslib.Central.ThrowHelper">
             <summary>
-            例外スローを補助するクラス
+            例外を投げるヘルパーを取得する
             </summary>
-        </member>
-        <member name="T:fslib.OutPutType">
-            <summary>
-            <see cref="T:fslib.OutPutHelper"/>における出力先
-            </summary>
-        </member>
-        <member name="F:fslib.OutPutType.Console">
-            <summary>
-            コンソールウィンドウに出力
-            </summary>
-        </member>
-        <member name="F:fslib.OutPutType.Debug">
-            <summary>
-            <see cref="P:System.Diagnostics.Debug.Listeners"/>に出力
-            </summary>
-        </member>
-        <member name="F:fslib.OutPutType.Trace">
-            <summary>
-            <see cref="P:System.Diagnostics.Trace.Listeners"/>に出力
-            </summary>
-        </member>
-        <member name="F:fslib.OutPutType.None">
-            <summary>
-            単体で設定すると出力が行われない。
-            他と組み合わせた場合は何も影響を及ぼさない。
-            </summary>
-        </member>
-        <member name="T:fslib.OutPutHelper">
-            <summary>
-            特定のアウトプット先にアウトプットするのを補助するクラス
-            </summary>
-        </member>
-        <member name="P:fslib.OutPutHelper.OutPutType">
-            <summary>
-            アウトプットのタイプを設定または取得する
-            設定するときはOR記号で複数選択可能(その場合はNoneは何も効果を示さない。)
-            </summary>
-        </member>
-        <member name="M:fslib.OutPutHelper.Write(System.String)">
-            <summary>
-            指定文字列を出力する
-            </summary>
-            <param name="message">出力する文字列</param>
-        </member>
-        <member name="M:fslib.OutPutHelper.Write(System.Object)">
-            <summary>
-            指定オブジェクトを出力する
-            </summary>
-            <param name="value">出力するオブジェクト</param>
-        </member>
-        <member name="M:fslib.OutPutHelper.WriteLine(System.String)">
-            <summary>
-            指定文字列を出力し最後に改行を入れる
-            </summary>
-            <param name="message">出力する文字列</param>
-        </member>
-        <member name="M:fslib.OutPutHelper.WriteLine(System.Object)">
-            <summary>
-            指定オブジェクトを出力し最後に改行を入れる
-            </summary>
-            <param name="value">出力するオブジェクト</param>
         </member>
         <member name="T:fslib.ThrowHelper">
             <summary>
             例外を投げる補助をする
             </summary>
         </member>
-        <member name="P:fslib.ThrowHelper.OutPutType">
+        <member name="M:fslib.ThrowHelper.Throw(System.Exception,System.Boolean)">
             <summary>
-            例外メッセージの出力先を取得または設定する
+            指定した条件が成立する場合例外をスローする
             </summary>
+            <param name="exception">スローする例外 nullの場合は何もスローされない</param>
+            <param name="condition">trueの場合<paramref name="exception"/>がスローされる</param>
         </member>
-        <member name="M:fslib.ThrowHelper.ThrowExceptionWithMessage``1(``0,System.Boolean,System.String)">
+        <member name="M:fslib.ThrowHelper.ThrowIfNull(System.Object[])">
             <summary>
-            条件が成立した場合例外を投げメッセージを出力する
+            引数のいずれかがnullだった場合に例外をスローする
             </summary>
-            <param name="exception">投げる例外</param>
-            <param name="condition">例外を投げる条件</param>
-            <param name="message">出力するメッセージ</param>
-            <typeparam name="T">スローする例外</typeparam>
-            <remarks>メッセージの出力は<see cref="M:fslib.OutPutHelper.WriteLine(System.String)"/>として実行される</remarks>
-            <exception cref="T:System.ArgumentNullException"><paramref name="exception"/>がnull</exception>
+            <param name="values">検証する値</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="values"/>のいずれかがnull</exception>
         </member>
-        <member name="M:fslib.ThrowHelper.ThrowExceptionWithMessage``1(``0,System.Boolean,System.Object)">
+        <member name="M:fslib.ThrowHelper.ThrowIfBigger``1(``0,``0,System.String)">
             <summary>
-            条件が成立した場合例外を投げメッセージを出力する
+            指定した値が比較する値より大きい場合に例外をスローする
             </summary>
-            <param name="exception">投げる例外</param>
-            <param name="condition">例外を投げる条件</param>
-            <param name="value">メッセージとして出力する値</param>
-            <typeparam name="T">スローする例外</typeparam>
-            <remarks>メッセージの出力は<see cref="M:fslib.OutPutHelper.WriteLine(System.Object)"/>として実行される</remarks>
-            <exception cref="T:System.ArgumentNullException"><paramref name="exception"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentException(System.Boolean,System.String)">
-            <summary>
-            条件が成立した場合<see cref="T:System.ArgumentException"/>を投げエラーメッセージを出力する
-            </summary>
-            <param name="condition">例外を投げる条件</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentNullException(System.Object,System.String)">
-            <summary>
-            指定した値がnullの場合<see cref="T:System.ArgumentNullException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">null判定をするオブジェクト</param>
-            <param name="message">出力するメッセージ</param>
-            <remarks>メッセージの出力は<see cref="M:fslib.OutPutHelper.WriteLine(System.String)"/>として実行される</remarks>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentNullException(System.String,System.Object[])">
-            <summary>
-            指定した複数の値のうち何れかがnullの場合<see cref="T:System.ArgumentNullException"/>を投げメッセージを出力する
-            </summary>
-            <param name="message">出力するメッセージ</param>
-            <param name="values">nullチェックを行う値</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentNullException``1(``0,System.String)">
-            <summary>
-            指定した値がnullの場合<see cref="T:System.ArgumentNullException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">null判定をするオブジェクト</param>
-            <param name="message">出力するメッセージ</param>
-            <remarks>メッセージの出力は<see cref="M:fslib.OutPutHelper.WriteLine(System.String)"/>として実行される</remarks>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentNullException``1(System.Nullable{``0},System.String)">
-            <summary>
-            指定した値がnullの場合<see cref="T:System.ArgumentNullException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">null判定をするオブジェクト</param>
-            <param name="message">出力するメッセージ</param>
-            <remarks>メッセージの出力は<see cref="M:fslib.OutPutHelper.WriteLine(System.String)"/>として実行される</remarks>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Byte,System.Byte,System.Byte,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.SByte,System.SByte,System.SByte,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Int16,System.Int16,System.Int16,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.UInt16,System.UInt16,System.UInt16,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Int32,System.Int32,System.Int32,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.UInt32,System.UInt32,System.UInt32,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Int64,System.Int64,System.Int64,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.UInt64,System.UInt64,System.UInt64,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Single,System.Single,System.Single,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Double,System.Double,System.Double,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowArgumentOutOfRangeException(System.Decimal,System.Decimal,System.Decimal,System.String)">
-            <summary>
-            指定した値に応じて<see cref="T:System.ArgumentOutOfRangeException"/>を投げメッセージを出力する
-            </summary>
-            <param name="value">値を判定する変数</param>
-            <param name="minValue">最小値</param>
-            <param name="maxvalue">最大値</param>
-            <param name="message">出力するメッセージ</param>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowNotSupportedException``1(System.Collections.Generic.ICollection{``0},System.String)">
-            <summary>
-            指定したコレクションが読み取り専用だった場合に例外をスローする
-            </summary>
-            <param name="collection">読み取り専用の可能性があるコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowNotSupportedException(System.Collections.IList,System.String)">
-            <summary>
-            指定したコレクションが読み取り専用だった場合に例外をスローする
-            </summary>
-            <param name="list">読み取り専用の可能性があるコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="list"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowNotSupportedException(System.Collections.IDictionary,System.String)">
-            <summary>
-            指定したコレクションが読み取り専用だった場合に例外をスローする
-            </summary>
-            <param name="dictionary">読み取り専用の可能性があるコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowIndexOutOfRangeException(System.Collections.ICollection,System.Int32,System.String)">
-            <summary>
-            指定したインデックスがコレクションの範囲外だったときに例外をスローする
-            </summary>
-            <param name="collection">インデックスを判定するコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowIndexOutOfRangeException``1(System.Collections.Generic.ICollection{``0},System.Int32,System.String)">
-            <summary>
-            指定したインデックスがコレクションの範囲外だったときに例外をスローする
-            </summary>
-            <param name="collection">インデックスを判定するコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowIndexOutOfRangeException``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Int32,System.String)">
-            <summary>
-            指定したインデックスがコレクションの範囲外だったときに例外をスローする
-            </summary>
-            <param name="collection">インデックスを判定するコレクション</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="collection"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowKenNotFoundException(System.Collections.IDictionary,System.Object,System.String)">
-            <summary>
-            指定したキーがディクショナリに含まれていなかったときに例外をスローする
-            </summary>
-            <param name="dictionary">調査するディクショナリ</param>
-            <param name="key">検索するキー</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/>又は<paramref name="key"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowKenNotFoundException``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.String)">
-            <summary>
-            指定したキーがディクショナリに含まれていなかったときに例外をスローする
-            </summary>
-            <param name="dictionary">調査するディクショナリ</param>
-            <param name="key">検索するキー</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/>又は<paramref name="key"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowKenNotFoundException``2(System.Collections.Generic.IReadOnlyDictionary{``0,``1},``0,System.String)">
-            <summary>
-            指定したキーがディクショナリに含まれていなかったときに例外をスローする
-            </summary>
-            <param name="dictionary">調査するディクショナリ</param>
-            <param name="key">検索するキー</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/>又は<paramref name="key"/>がnull</exception>
-        </member>
-        <member name="M:fslib.ThrowHelper.ThrowSerializationException``1(``0,System.String)">
-            <summary>
-            指定した値がnullだったときに例外をスローする
-            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
             <param name="value">比較する値</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentException"><paramref name="value"/>が<see cref="T:System.SerializableAttribute"/>を持っていない</exception>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>より大きい</exception>
         </member>
-        <member name="M:fslib.ThrowHelper.ThrowInvalidCastException``1(System.Object,System.String)">
+        <member name="M:fslib.ThrowHelper.ThrowIfBiggerOrEqual``1(``0,``0,System.String)">
             <summary>
-            指定した型にキャストできなかったら例外をスローする
+            指定した値が比較する値以上の場合に例外をスローする
             </summary>
-            <typeparam name="T">キャスト先の型</typeparam>
-            <param name="value">キャストしたい値</param>
-            <param name="message">出力するメッセージ</param>
-            <exception cref="T:System.ArgumentNullException"><typeparamref name="T"/>がnull非許容かつ<paramref name="value"/>がnull</exception>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>以上</exception>
         </member>
-        <member name="M:fslib.ThrowHelper.ThrowInvalidOperationException(System.Boolean,System.String)">
+        <member name="M:fslib.ThrowHelper.ThrowIfEqual_C``1(``0,``0,System.String)">
             <summary>
-            指定した条件が成立したときに例外をスローする
+            指定した値の順番が等しい場合に例外をスローする
             </summary>
-            <param name="condition">例外をスローする条件</param>
-            <param name="message">出力するメッセージ</param>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>と順番的に等しい</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfNotEqual_C``1(``0,``0,System.String)">
+            <summary>
+            指定した値の順番が等しくない場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>と順番的に等しくない</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfLower``1(``0,``0,System.String)">
+            <summary>
+            指定した値が比較する値より小さい場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>より小さい</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfLowerOrEqual``1(``0,``0,System.String)">
+            <summary>
+            指定した値が比較する値以下の場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/>が<paramref name="comparison"/>以下</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfEqual_E``1(``0,``0,System.String)">
+            <summary>
+            指定した値が等しい場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value"/>が<paramref name="comparison"/>が等しい</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfNotEqual_E``1(``0,``0,System.String)">
+            <summary>
+            指定した値が等しくない場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value"/>が<paramref name="comparison"/>が等しくない</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfSame``1(``0,``0,System.String)">
+            <summary>
+            指定した値が同一の場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value"/>が<paramref name="comparison"/>が同一</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfNotSame``1(``0,``0,System.String)">
+            <summary>
+            指定した値が同一でない場合に例外をスローする
+            </summary>
+            <typeparam name="T">比較する値の型</typeparam>
+            <param name="value">比較する値</param>
+            <param name="comparison"><paramref name="value"/>の比較対象</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value"/>が<paramref name="comparison"/>が同一でない</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfInvalidOperation(System.Boolean,System.String)">
+            <summary>
+            指定した条件を満たす場合例外をスローする
+            </summary>
+            <param name="condition">trueの時に例外スロー</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.InvalidOperationException"><paramref name="condition"/>がtrueの時にスロー</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfNotSupported(System.Boolean,System.String)">
+            <summary>
+            指定した条件を満たす場合例外をスローする
+            </summary>
+            <param name="condition">trueの時に例外スロー</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.NotSupportedException"><paramref name="condition"/>がtrueの時にスロー</exception>
+        </member>
+        <member name="M:fslib.ThrowHelper.ThrowIfNotDefined``1(``0,System.String)">
+            <summary>
+            指定した列挙型の値が定義されていない場合例外をスローする
+            </summary>
+            <typeparam name="TEnum">検証する列挙型の型</typeparam>
+            <param name="value">定義されているか検証する値</param>
+            <param name="message">例外スロー時に使用するメッセージ</param>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException"><paramref name="value"/>が定義されていない時にスロー</exception>
         </member>
         <member name="T:fslib.ColorSet">
             <summary>
@@ -8507,6 +8756,18 @@
             <param name="info">シリアル化したデータを持つ<see cref="T:System.Runtime.Serialization.SerializationInfo"/>のインスタンス</param>
             <param name="context">シリアル化先の情報を持つ<see cref="T:System.Runtime.Serialization.StreamingContext"/>のインスタンス</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="info"/>がnull</exception>
+        </member>
+        <member name="T:fslib.ICloneable`1">
+            <summary>
+            複製可能なオブジェクトを表す
+            </summary>
+            <typeparam name="T">複製できるオブジェクトの型</typeparam>
+        </member>
+        <member name="M:fslib.ICloneable`1.Clone">
+            <summary>
+            自身の複製を作成する
+            </summary>
+            <returns>自身の複製</returns>
         </member>
         <member name="T:fslib.IO.FilePathHelper">
             <summary>
@@ -9143,6 +9404,657 @@
             <summary>
             ホイールを下に動かしたときに実行されるメソッド
             </summary>
+        </member>
+        <member name="T:fslib.ListenerCollection">
+            <summary>
+            <see cref="T:System.Diagnostics.TraceListener"/>のコレクション
+            </summary>
+        </member>
+        <member name="P:fslib.ListenerCollection.Capacity">
+            <summary>
+            格納できる要素数を取得または設定する
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">設定しようとした値が<see cref="P:fslib.ListenerCollection.Count"/>未満</exception>
+        </member>
+        <member name="P:fslib.ListenerCollection.Count">
+            <summary>
+            格納されている要素数を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.ListenerCollection.Item(System.Int32)">
+            <summary>
+            指定したインデックスの要素を取得または設定する
+            </summary>
+            <param name="index">検索する要素のインデックス</param>
+            <exception cref="T:System.ArgumentException">設定しようとした値が既に格納されている</exception>
+            <exception cref="T:System.ArgumentNullException">設定しようとした値がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="P:fslib.ListenerCollection.Count"/>以上</exception>
+            <returns><paramref name="index"/>に該当する要素</returns>
+        </member>
+        <member name="P:fslib.ListenerCollection.Item(System.String)">
+            <summary>
+            指定した名前を持つ要素のうち最初の物の要素を取得する
+            </summary>
+            <param name="name">検索するリスナーの名前</param>
+            <returns><paramref name="name"/>を持つリスナーのうち最初のもの 無かったらnull</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.Add(System.Diagnostics.TraceListener)">
+            <summary>
+            指定したリスナーを追加する
+            </summary>
+            <param name="listener">追加するリスナー</param>
+            <exception cref="T:System.ArgumentException"><paramref name="listener"/>が既に格納されている</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="listener"/>がnull</exception>
+        </member>
+        <member name="M:fslib.ListenerCollection.Clear">
+            <summary>
+            格納されている要素をすべて削除する
+            </summary>
+        </member>
+        <member name="M:fslib.ListenerCollection.Contains(System.Diagnostics.TraceListener)">
+            <summary>
+            指定したリスナーが含まれているかどうかを返す
+            </summary>
+            <param name="listener">検索するリスナー</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="listener"/>がnull</exception>
+            <returns><paramref name="listener"/>が格納されていたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.CopyTo(System.Diagnostics.TraceListener[],System.Int32)">
+            <summary>
+            指定した配列に要素をコピーする
+            </summary>
+            <param name="array">コピー先の配列</param>
+            <param name="arrayIndex"><paramref name="array"/>におけるコピー開始地点</param>
+            <exception cref="T:System.ArgumentException"><paramref name="array"/>のサイズ不足</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/>が0未満</exception>
+        </member>
+        <member name="M:fslib.ListenerCollection.GetEnumerator">
+            <summary>
+            列挙をサポートする構造体の新しいインスタンスを生成する
+            </summary>
+            <returns><see cref="T:fslib.ListenerCollection.Enumerator"/>の新しいインスタンス</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.IndexOf(System.Diagnostics.TraceListener)">
+            <summary>
+            指定したリスナーのインデックスを検索する
+            </summary>
+            <param name="listener">検索するリスナー</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="listener"/>がnull</exception>
+            <returns><paramref name="listener"/>に該当するインデックス</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.Insert(System.Int32,System.Diagnostics.TraceListener)">
+            <summary>
+            指定したインデックスにリスナーを挿入する
+            </summary>
+            <param name="index">挿入するインデックス</param>
+            <param name="listener">挿入するリスナー</param>
+            <exception cref="T:System.ArgumentException"><paramref name="listener"/>が既に格納されている</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="listener"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="P:fslib.ListenerCollection.Count"/>より大きい</exception>
+        </member>
+        <member name="M:fslib.ListenerCollection.Remove(System.Diagnostics.TraceListener)">
+            <summary>
+            指定したリスナーを削除する
+            </summary>
+            <param name="listener">削除するリスナー</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="listener"/>がnull</exception>
+            <returns><paramref name="listener"/>を削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.Remove(System.String)">
+            <summary>
+            指定した名前を持つリスナーのうち最初のものを削除する
+            </summary>
+            <param name="name">削除するリスナーの名前</param>
+            <returns><paramref name="name"/>を持つ要素を削除出来たらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="M:fslib.ListenerCollection.RemoveAt(System.Int32)">
+            <summary>
+            指定したインデックスの要素を削除する
+            </summary>
+            <param name="index">削除する要素のインデックス</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/>が0未満または<see cref="P:fslib.ListenerCollection.Count"/>以上</exception>
+        </member>
+        <member name="T:fslib.ListenerCollection.Enumerator">
+            <summary>
+            列挙をサポートする構造体
+            </summary>
+        </member>
+        <member name="P:fslib.ListenerCollection.Enumerator.Current">
+            <summary>
+            現在列挙されている要素を取得する
+            </summary>
+        </member>
+        <member name="M:fslib.ListenerCollection.Enumerator.Dispose">
+            <summary>
+            このインスタンスを破棄する
+            </summary>
+        </member>
+        <member name="M:fslib.ListenerCollection.Enumerator.MoveNext">
+            <summary>
+            列挙を次の要素に進める
+            </summary>
+            <exception cref="T:System.InvalidOperationException">列挙中にコレクションが変更された</exception>
+            <returns>次の要素に進められたらtrue，それ以外でfalse</returns>
+        </member>
+        <member name="T:fslib.Logger">
+            <summary>
+            ロガーのクラス
+            </summary>
+        </member>
+        <member name="P:fslib.Logger.Buffer">
+            <summary>
+            現在バッファーに溜められている文字列を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Logger.Listeners">
+            <summary>
+            リスナーのコレクション
+            </summary>
+        </member>
+        <member name="P:fslib.Logger.LogFileName">
+            <summary>
+            出力先のファイル名を取得または設定する
+            </summary>
+        </member>
+        <member name="P:fslib.Logger.Out">
+            <summary>
+            出力先を取得する
+            </summary>
+        </member>
+        <member name="P:fslib.Logger.OutPutToFile">
+            <summary>
+            <see cref="P:fslib.Logger.LogFileName"/>のファイルへ出力するかどうかを取得または設定する
+            </summary>
+        </member>
+        <member name="M:fslib.Logger.Flush">
+            <summary>
+            バッファーに溜められた文字列を全て出力する
+            </summary>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Char)">
+            <summary>
+            指定した文字を出力する
+            </summary>
+            <param name="value">出力する文字</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Int32)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.UInt32)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Int64)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.UInt64)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Single)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Double)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Decimal)">
+            <summary>
+            指定した値を出力する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Boolean)">
+            <summary>
+            指定した真偽値を出力する
+            </summary>
+            <param name="value">出力する真偽値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Object)">
+            <summary>
+            指定したオブジェクトの値を出力する
+            </summary>
+            <param name="value">出力するオブジェクトの値</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Char[])">
+            <summary>
+            指定した文字列を出力する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            指定した文字列の一部分を出力する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+            <param name="index"><paramref name="buffer"/>における出力開始文字のインデックス</param>
+            <param name="count">出力する文字数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/>または<paramref name="index"/>の値が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.Write(System.String)">
+            <summary>
+            指定した文字列を出力する
+            </summary>
+            <param name="value">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.Write(System.String,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.Write(System.String,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.Write(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <param name="arg2">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.Write(System.String,System.Object[])">
+            <summary>
+            指定したフォーマットで文字列を出力する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="args">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>または<paramref name="args"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Char)">
+            <summary>
+            指定した文字をバッファーに追加する
+            </summary>
+            <param name="value">出力する文字</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Int32)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.UInt32)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Int64)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.UInt64)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Single)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Double)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Decimal)">
+            <summary>
+            指定した値をバッファーに追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Boolean)">
+            <summary>
+            指定した真偽値をバッファーに追加する
+            </summary>
+            <param name="value">出力する真偽値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Object)">
+            <summary>
+            指定したオブジェクトの値をバッファーに追加する
+            </summary>
+            <param name="value">出力するオブジェクトの値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Char[])">
+            <summary>
+            指定した文字列をバッファーに追加する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            指定した文字列の一部分をバッファーに追加する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+            <param name="index"><paramref name="buffer"/>における出力開始文字のインデックス</param>
+            <param name="count">出力する文字数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/>または<paramref name="index"/>の値が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.String)">
+            <summary>
+            指定した文字列をバッファーに追加する
+            </summary>
+            <param name="value">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.String,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.String,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <param name="arg2">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteBuffer(System.String,System.Object[])">
+            <summary>
+            指定したフォーマットで文字列をバッファーに追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="args">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>または<paramref name="args"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Char)">
+            <summary>
+            指定した文字を出力し改行する
+            </summary>
+            <param name="value">出力する文字</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Int32)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.UInt32)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Int64)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.UInt64)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Single)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Double)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Decimal)">
+            <summary>
+            指定した値を出力し改行する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Boolean)">
+            <summary>
+            指定した真偽値を出力し改行する
+            </summary>
+            <param name="value">出力する真偽値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Object)">
+            <summary>
+            指定したオブジェクトの値を出力し改行する
+            </summary>
+            <param name="value">出力するオブジェクトの値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Char[])">
+            <summary>
+            指定した文字列を出力し改行する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            指定した文字列の一部分を出力し改行する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+            <param name="index"><paramref name="buffer"/>における出力開始文字のインデックス</param>
+            <param name="count">出力する文字数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/>または<paramref name="index"/>の値が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.String)">
+            <summary>
+            指定した文字列を出力し改行する
+            </summary>
+            <param name="value">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.String,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力し改行する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.String,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力し改行する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列を出力し改行する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <param name="arg2">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLine(System.String,System.Object[])">
+            <summary>
+            指定したフォーマットで文字列を出力し改行する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="args">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>または<paramref name="args"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Char)">
+            <summary>
+            指定した文字をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する文字</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Int32)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.UInt32)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Int64)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.UInt64)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Single)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Double)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Decimal)">
+            <summary>
+            指定した値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Boolean)">
+            <summary>
+            指定した真偽値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力する真偽値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Object)">
+            <summary>
+            指定したオブジェクトの値をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力するオブジェクトの値</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Char[])">
+            <summary>
+            指定した文字列をバッファーに改行して追加する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            指定した文字列の一部分をバッファーに改行して追加する
+            </summary>
+            <param name="buffer">出力列する文字列</param>
+            <param name="index"><paramref name="buffer"/>における出力開始文字のインデックス</param>
+            <param name="count">出力する文字数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/>がnull</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/>または<paramref name="index"/>の値が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.String)">
+            <summary>
+            指定した文字列をバッファーに改行して追加する
+            </summary>
+            <param name="value">出力列する文字列</param>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.String,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに改行して追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.String,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに改行して追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            指定したフォーマットで文字列をバッファーに改行して追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="arg0">フォーマットに使用する引数</param>
+            <param name="arg1">フォーマットに使用する引数</param>
+            <param name="arg2">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
+        </member>
+        <member name="M:fslib.Logger.WriteLineBuffer(System.String,System.Object[])">
+            <summary>
+            指定したフォーマットで文字列をバッファーに改行して追加する
+            </summary>
+            <param name="format">出力列する文字列</param>
+            <param name="args">フォーマットに使用する引数</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="format"/>または<paramref name="args"/>がnull</exception>
+            <exception cref="T:System.FormatException">入力形式が不正</exception>
         </member>
         <member name="T:fslib.Resource">
             <summary>
@@ -12413,124 +13325,6 @@
             <summary>
             このオブジェクトを破棄する
             </summary>
-        </member>
-        <member name="T:fslib.NumberHelper`1.NumberCode">
-            <summary>
-            数値型を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.SByte">
-            <summary>
-            8ビット符号あり整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Byte">
-            <summary>
-            8ビット符号なし整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Short">
-            <summary>
-            16ビット符号あり整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.UShort">
-            <summary>
-            16ビット符号なし整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Int">
-            <summary>
-            32ビット符号あり整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.UInt">
-            <summary>
-            32ビット符号なし整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Long">
-            <summary>
-            64ビット符号あり整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.ULong">
-            <summary>
-            64ビット符号なし整数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Float">
-            <summary>
-            単精度浮動小数点数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Double">
-            <summary>
-            倍精度浮動小数点数を表す
-            </summary>
-        </member>
-        <member name="F:fslib.NumberHelper`1.NumberCode.Decimal">
-            <summary>
-            10進数を表す
-            </summary>
-        </member>
-        <member name="P:fslib.NumberHelper`1.MaxValue">
-            <summary>
-            最大値を取得する
-            </summary>
-        </member>
-        <member name="P:fslib.NumberHelper`1.MinValue">
-            <summary>
-            最小値を取得する
-            </summary>
-        </member>
-        <member name="M:fslib.NumberHelper`1.NotOverFlowAssigner``1(`0@,``0)">
-            <summary>
-            指定した値を代入する
-            代入する値が最小値未満または最大値より大きい場合はその値に丸める
-            </summary>
-            <param name="value">代入される値</param>
-            <param name="newValue">代入する値</param>
-            <typeparam name="TNew">数値型</typeparam>
-            <exception cref="T:System.ArgumentException"><typeparamref name="TNew"/>が数値型ではない</exception>
-        </member>
-        <member name="M:fslib.NumberHelper`1.NotOverFlowAssigner``1(`0@,`0,`0,``0)">
-            <summary>
-            指定した値を代入する
-            代入する値が最小値未満または最大値より大きい場合はその値に丸める
-            </summary>
-            <param name="value">代入される値</param>
-            <param name="min">最小値</param>
-            <param name="max">最大値</param>
-            <param name="newValue">代入する値</param>
-            <typeparam name="TNew">数値型</typeparam>
-            <exception cref="T:System.ArgumentException"><typeparamref name="TNew"/>が数値型ではない</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="max"/>と<paramref name="min"/>が等しいまたは値の上下関係が逆</exception>
-        </member>
-        <member name="M:fslib.NumberHelper`1.ToEnum``1(`0)">
-            <summary>
-            指定した値を列挙体の値に変換する
-            </summary>
-            <typeparam name="TEnum">変換先の列挙体の型</typeparam>
-            <param name="value">変換する数値</param>
-            <returns>指定した列挙体</returns>
-            <remarks>小数点は切り捨てられた値が使用される</remarks>
-        </member>
-        <member name="M:fslib.NumberHelper`1.Sign(`0)">
-            <summary>
-            指定した値の正負を判定する
-            </summary>
-            <param name="value">正負を判定したい値</param>
-            <returns>正で1，0で0，負で-1</returns>
-        </member>
-        <member name="M:fslib.NumberHelper`1.Convert``1(`0)">
-            <summary>
-            指定した数値型にキャストする
-            </summary>
-            <typeparam name="TNew">キャスト先の数値型</typeparam>
-            <param name="value">キャストしたい値</param>
-            <exception cref="T:System.ArgumentException"><typeparamref name="TNew"/>が数値型ではない</exception>
-            <returns>キャストされた値 オーバーフローしそうなときはキャスト先の最大値又は最小値に丸められる</returns>
         </member>
         <member name="T:fslib.ShapeProvider">
             <summary>

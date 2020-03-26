@@ -65,7 +65,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public void OperateAll(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             for (int i = 0; i < Count; i++)
                 if (InnerArray[i].Key1 == DataBase.ShowMode)
                     InnerArray[i].Value.Operate(layer);

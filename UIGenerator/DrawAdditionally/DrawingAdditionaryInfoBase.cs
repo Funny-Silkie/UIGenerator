@@ -159,7 +159,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawArcAdditionally(Center, OuterDiameter, InnerDiameter, Color, VertNum, StartingVerticalAngle, EndingVerticalAngle, Angle, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }
@@ -172,7 +172,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawCircleAdditionally(Center, OuterDiameter, InnerDiameter, Color, VertNum, Angle, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }
@@ -185,7 +185,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawLineAdditionally(Point1, Point2, Thickness, Color, AlphaBlend, DrawingPriority);
         }
     }
@@ -198,7 +198,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawRectangleAdditionally(DrawingArea, Color, UV, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }
@@ -211,7 +211,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawRotatedRectangleAdditionally(DrawingArea, Color, RotationCenter, Angle, UV, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }
@@ -224,7 +224,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawSpriteAdditionally(UpperLeftPos, UpperRightPos, LowerLeftPos, LowerRightPos, UpperLeftColor, UpperRightColor, LowerLeftColor, LowerRightColor, UpperLeftUV, UpperRightUV, LowerLeftUV, LowerRightUV, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }
@@ -237,7 +237,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawTextAdditionally(Position, Color, FontInfo.Font.Font, Text, WritingDirection, AlphaBlend, DrawingPriority);
         }
     }
@@ -250,7 +250,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="layer"/>がnull</exception>
         public override void Operate(Layer2D layer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, layer);
+            Central.ThrowHelper.ThrowIfNull(layer);
             layer.DrawTriangleAdditionally(Position1, Position2, Position3, Color, UV1, UV2, UV3, Texture.Texture, AlphaBlend, DrawingPriority);
         }
     }

@@ -115,7 +115,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(info);
             info.AddValue(S_CenterPosition, (SerializableVector2DF)CenterPosition);
             info.AddValue(S_Color, (ColorPlus)Color);
             info.AddValue(S_DrawingPriority, DrawingPriority);

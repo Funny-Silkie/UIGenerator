@@ -56,7 +56,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         protected virtual void GetObjectData(SerializationInfo info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(info);
         }
         /// <summary>
         /// シリアライズするデータを設定する

@@ -93,7 +93,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/>がnull</exception>
         protected UICollectionBase(int capacity)
         {
-            Central.ThrowHelper.ThrowArgumentOutOfRangeException(capacity, 0, int.MaxValue, null);
+            Central.ThrowHelper.ThrowIfLower(capacity, 0);
             InnerArray = capacity == 0 ? emptyArray : new DoubleKeyValuePair<int, string, T>[capacity];
         }
         protected UICollectionBase(IEnumerable<DoubleKeyValuePair<int, string, T>> collection)

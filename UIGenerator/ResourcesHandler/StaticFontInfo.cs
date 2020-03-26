@@ -23,7 +23,7 @@ namespace UIGenerator
         /// <returns>生成された動的フォントを格納した<see cref="StaticFontInfo"/>の新しいインスタンスを返す</returns>
         public static StaticFontInfo GetInstance(string path)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, values: path);
+            Central.ThrowHelper.ThrowIfNull(values: path);
             if (!Engine.File.Exists(path)) throw new FileNotFoundException();
             var name = Path.GetFileNameWithoutExtension(path);
             return new StaticFontInfo(new UIGeneratorStaticFont(path), name);

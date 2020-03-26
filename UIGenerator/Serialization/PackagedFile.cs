@@ -81,7 +81,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="path"/>または<paramref name="buffer"/>がnull</exception>
         public PackagedFile(string path, byte[] buffer)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, path, buffer);
+            Central.ThrowHelper.ThrowIfNull(path, buffer);
             Path = path;
             Buffer = buffer;
         }
@@ -93,7 +93,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="file"/>がnull</exception>
         public PackagedFile(StaticFile file)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, file);
+            Central.ThrowHelper.ThrowIfNull(file);
             Path = file.FullPath ?? throw new ArgumentException();
             Buffer = file.Buffer ?? throw new ArgumentException();
         }

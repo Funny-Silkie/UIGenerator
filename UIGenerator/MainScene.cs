@@ -40,7 +40,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public void AddObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(info);
             if (info.__UIObj.Layer == null) MainLayer.AddObject(info.__UIObj);
         }
         /// <summary>
@@ -50,7 +50,7 @@ namespace UIGenerator
         /// <exception cref="ArgumentNullException"><paramref name="info"/>がnull</exception>
         public void RemoveObject(UIInfoBase info)
         {
-            Central.ThrowHelper.ThrowArgumentNullException(null, info);
+            Central.ThrowHelper.ThrowIfNull(info);
             if (info.__UIObj.Layer != null) MainLayer.RemoveObject(info.__UIObj);
         }
         protected override void OnUpdated()
