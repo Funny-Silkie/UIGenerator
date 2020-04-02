@@ -255,7 +255,6 @@
     <Content Include="Altseed_core.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="fslib_Standard.dll" />
     <Content Include="License\Altseed.txt" />
     <Content Include="License\DefaultFont.txt" />
     <Content Include="Resource\DefaultPicture.png" />
